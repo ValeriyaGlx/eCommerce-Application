@@ -80,7 +80,9 @@ npx prettier --write .
 
 ### Authors
 * Valeriya Galahova
+
 * Mariya Stroich
+
 * Aleksandra Suvorova
 
 ### Acknowledgments
