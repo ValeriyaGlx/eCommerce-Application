@@ -16,53 +16,60 @@ Explore, learn, and excel with our revolutionary eCommerce-Application dedicated
 educational growth. The future of IT education awaits, and we are thrilled to be your gateway
 to success.
 
-# Installation
+### Installation
 Follow these steps to get the project up and running on your local machine.
 
-# Step 1: Clone the repository
+### Step 1: Clone the repository
 Clone this repository to your local machine using the following command:
-`
-git clone https://github.com/ValeriyaGlx/eCommerce-Application.git
-`
 
-# Step 2: Navigate to the project directory
+```
+git clone [Link to the eCommerce-Application Repository](https://github.com/ValeriyaGlx/eCommerce-Application.git)
+```
+
+### Step 2: Navigate to the project directory
 Change your current working directory to the project folder:
-`
+
+```
 cd your-repo
-`
+```
 
-# Step 3: Install project dependencies
+### Step 3: Install project dependencies
 Use npm to install the required dependencies:
-`
+
+```
 npm install
-`
+```
 
-# Step 4: Run the project
+### Step 4: Run the project
 You are all set! Now you can run the project using the following command:
-`
-npm run
-`
 
-# Running tests (JEST)
+```
+npm run
+```
+
+### Running tests (JEST)
 How to run the automated tests for this system
 To run tests using Jest, run the following command:
-`
+
+```
 npx jest or npm test
-`
+```
 
-# Running ESLint
+### Running ESLint
 To run ESLint and lint your JavaScript or TypeScript files, execute the following command in your terminal:
-`
+
+```
 npx eslint .
-`
+```
 
-# Running Prettier
+### Running Prettier
 Similar to ESLint, you need to install Prettier as a development dependency. Run the following command in your terminal:
-`
-npx prettier --write .
-`
 
-# Built With
+```
+npx prettier --write .
+```
+
+### Built With
 1. React App - JavaScript library for building user interfaces.
 2. Webpack - module bundler.
 3. Typescript - strongly typed programming language that builds on JavaScript.
@@ -71,11 +78,11 @@ npx prettier --write .
 6. Prettier - opinionated code formatter.
 7. Husky - tool that helps developers work with Git hooks more efficiently and run all the scripts that need to work at various stages.
 
-# Authors
-* Valeriya Galahova,
-* Mariya Stroich,
-* Aleksandra Suvorova.
+### Authors
+* Valeriya Galahova
+* Mariya Stroich
+* Aleksandra Suvorova
 
-# Acknowledgments
-* RS School and all it's activists.
-* Andrej Podlubnyj - our best mentor. 
+### Acknowledgments
+* RS School and all it's activists
+* Andrej Podlubnyj - our best mentor
