@@ -23,7 +23,7 @@ Follow these steps to get the project up and running on your local machine.
 Clone this repository to your local machine using the following command:
 
 ```
-git clone [Link to the eCommerce-Application Repository](https://github.com/ValeriyaGlx/eCommerce-Application.git)
+git clone https://github.com/ValeriyaGlx/eCommerce-Application.git
 ```
 
 ### Step 2: Navigate to the project directory
