@@ -80,9 +80,19 @@ npx prettier --write .
 
 ### Authors
 * Valeriya Galahova
+  - <a href='https://valeriyaglx.github.io/rsschool-cv/'>CV</a>
+  - galakhova.valeriya@gmail.com
+
 * Mariya Stroich
+  - <a href='https://stroich.github.io/cv/index.html'>CV</a>
+  - stroichmwork@gmail.com
+
 * Aleksandra Suvorova
+  - <a href='https://alexandra376.github.io/My-CV/'>CV</a>
+  - suvorovaalexandra344@gmail.com
 
 ### Acknowledgments
 * RS School and all it's activists
+  - <a href='https://rs.school/'>School's link</a>
 * Andrej Podlubnyj - our best mentor
+  - andron13@gmail.com
