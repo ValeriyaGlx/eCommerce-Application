@@ -1,9 +1,16 @@
 import React from 'react';
 
+import SignUpSection from '../../widgets/SignUpSection/SignUpSection';
+import WelcomeBackSection from '../../widgets/WelcomeBackSection/WelcomeBackSection';
+import './SignUp.css';
+
 export function SignUp() {
   return (
-    <div className='wrapper'>
-      <h1>Bue</h1>
+    <div className={'section-container'}>
+      <SignUpSection />
+      <WelcomeBackSection />
     </div>
   );
 }
+
+export default SignUp;
