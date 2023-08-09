@@ -1,7 +1,7 @@
 import React from 'react';
 
 import iconCart from '../../assets/icons/icon-cart.svg';
-import './Header.css';
+import './Header.scss';
 import { CartButton } from '../../entities/CartButton/CartButton';
 import ButtonWithRoute from '../../entities/ButtonWithRoute/ButtonWithRoute';
 import Logo from '../../shared/Logo/Logo';
