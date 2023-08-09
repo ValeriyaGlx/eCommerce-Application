@@ -1,0 +1,23 @@
+.header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.wrapper-button{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 25px;
+}
+
+.header-logo{
+  display: flex;
+}
+
+.logo-img{
+  margin-right: 10px;
+}
+
+
+
