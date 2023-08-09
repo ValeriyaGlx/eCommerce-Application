@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { HeaderMain } from '../../widgets/Header/HeaderMain';
+import { Header } from '../../widgets/Header/Header';
 import './HomePage.css';
 
 export function HomePage() {
   return (
     <div className='wrapper'>
-      <HeaderMain />
+      <Header />
     </div>
   );
 }

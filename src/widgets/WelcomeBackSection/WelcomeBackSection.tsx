@@ -1,3 +1,5 @@
+import ButtonWithRoute from '../../entities/ButtonWithRoute/ButtonWithRoute';
+
 const WelcomeBackSection = () => {
   return (
     <section>
@@ -7,6 +9,11 @@ const WelcomeBackSection = () => {
         <br />
         log in with your personal info
       </p>
+      <ButtonWithRoute
+        className={'button-signIn'}
+        path={'/signIn'}
+        data={'Sign in'}
+      />
     </section>
   );
 };

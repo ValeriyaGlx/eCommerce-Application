@@ -7,10 +7,12 @@ import {
 import SelectTag from '../../entities/SelectTag/SelectTag';
 import InputSubmit from '../../entities/InputSubmit/InputSubmit';
 import InputCheckbox from '../../entities/InputCheckbox/InputCheckbox';
+import Logo from '../../shared/Logo/Logo';
 
 const SignUpSection = () => {
   return (
     <section>
+      <Logo />
       <h2>Create Account</h2>
       <div>
         {signUpArray.map(({ type, placeholder, logo }) => (
