@@ -13,7 +13,7 @@ import blueLogo from '../../assets/icons/logo-blue.svg';
 const SignUpSection = () => {
   return (
     <section className={'section-signUp'}>
-      <Logo logo={blueLogo} />
+      <Logo className={'logo-title'} logo={blueLogo} />
       <h2 className={'section-signUp_inner'}>Create Account</h2>
       <div>
         {signUpArray.map(({ type, placeholder, logo }) => (

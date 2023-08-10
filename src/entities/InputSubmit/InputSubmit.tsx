@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import './InputSubmit.scss';
 
 interface InputSubmitProps {
   className: string;
