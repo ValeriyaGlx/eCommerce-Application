@@ -8,12 +8,13 @@ import SelectTag from '../../entities/SelectTag/SelectTag';
 import InputSubmit from '../../entities/InputSubmit/InputSubmit';
 import InputCheckbox from '../../entities/InputCheckbox/InputCheckbox';
 import Logo from '../../shared/Logo/Logo';
+import blueLogo from '../../assets/icons/logo-blue.svg';
 
 const SignUpSection = () => {
   return (
-    <section>
-      <Logo />
-      <h2>Create Account</h2>
+    <section className={'section-signUp'}>
+      <Logo logo={blueLogo} />
+      <h2 className={'section-signUp_inner'}>Create Account</h2>
       <div>
         {signUpArray.map(({ type, placeholder, logo }) => (
           <InputValidation type={type} placeholder={placeholder} logo={logo} />

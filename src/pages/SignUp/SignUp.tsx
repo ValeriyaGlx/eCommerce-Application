@@ -2,7 +2,7 @@ import React from 'react';
 
 import SignUpSection from '../../widgets/SignUpSection/SignUpSection';
 import WelcomeBackSection from '../../widgets/WelcomeBackSection/WelcomeBackSection';
-import './SignUp.css';
+import './_SignUp.scss';
 
 export function SignUp() {
   return (

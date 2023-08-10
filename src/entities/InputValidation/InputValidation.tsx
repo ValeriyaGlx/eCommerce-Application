@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
 import logoVisible from '../../assets/icons/visible.png';
-import './InputValidation.css';
+import './InputValidation.scss';
 
 interface InputValidationProps {
   type: string;

@@ -1,10 +1,11 @@
 import React from 'react';
-import './CartButton.css';
+import './CartButton.scss';
 
 interface CartButtonProps {
   src: string;
   alt: string;
 }
+
 export function CartButton(props: CartButtonProps) {
   return (
     <button className='button-cart'>

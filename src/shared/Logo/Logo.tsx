@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
 import logoMain from '../../assets/icons/logo-main.svg';
-import './Logo.css';
+import './Logo.scss';
 
 interface LogoProps {
   logo?: typeof logoMain;

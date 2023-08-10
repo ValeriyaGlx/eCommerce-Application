@@ -5,6 +5,7 @@ import { HomePage } from '../pages/HomePage/HomePage';
 import { Cart } from '../pages/Cart/Cart';
 import { SignIn } from '../pages/SignIn/SignIn';
 import { SignUp } from '../pages/SignUp/SignUp';
+import './App.scss';
 
 function App() {
   return (

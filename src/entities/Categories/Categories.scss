@@ -1,8 +1,8 @@
-.button-categories {
+.button-categories{
   width: 270px;
   height: 50px;
   color: white;
-  background: linear-gradient(to bottom left, #083FED, #FC8901);
+  background: linear-gradient(to bottom left, #083FED,  #FC8901);
   font-size: 20px;
   border: none;
   line-height: 30px;
@@ -10,7 +10,7 @@
   position: relative;
 }
 
-.button-categories::before {
+.button-categories::before{
   content: "";
   position: absolute;
   left: 10px;
@@ -18,11 +18,11 @@
   width: 24px;
   height: 24px;
   line-height: 50px;
-  background-image: url("../../assets/icons/icon-categories.svg");
+  background-image: url('../../assets/icons/icon-categories.svg');
   background-size: cover;
 }
 
-.button-categories::after {
+.button-categories::after{
   border-style: solid;
   border-width: 9px 7px;
   border-color: transparent;
@@ -33,5 +33,3 @@
   right: 20px;
   cursor: pointer;
 }
-
-/*# sourceMappingURL=Categories.css.map */

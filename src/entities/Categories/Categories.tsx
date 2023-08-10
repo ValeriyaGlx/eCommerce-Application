@@ -1,5 +1,5 @@
 import React from 'react';
-import './Categories.css';
+import './Categories.scss';
 
 export function Categories() {
   return <button className='button-categories'>Categories</button>;

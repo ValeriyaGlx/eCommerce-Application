@@ -1,0 +1,15 @@
+@import "src/constants/scss/extentds";
+
+.button-signUp {
+  width: 140px;
+  height: 50px;
+
+  %buttonSignUp;
+
+  a {
+    color: white;
+    text-decoration: none;
+  }
+}
+
+
