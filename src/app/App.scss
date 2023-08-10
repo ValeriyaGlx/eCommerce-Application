@@ -1,0 +1,16 @@
+@import "../constants/scss/variables";
+@import "../constants/scss/extentds";
+
+*, *::after, *::before{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+@import "src/pages/SignUp/SignUp";
+

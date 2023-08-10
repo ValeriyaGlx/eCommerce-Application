@@ -1,0 +1,26 @@
+@import "src/constants/scss/variables";
+
+body {
+  background: $color-gradient-blue-orange no-repeat;
+  background-size: 100% 100%;
+}
+
+.section-container {
+  display: flex;
+  justify-content: space-between;
+
+  & section {
+    width: 50%;
+    min-height: 100vh
+  }
+
+  & section:last-child {
+    background: #fff;
+  }
+}
+
+section {
+  padding: 20px;
+}
+
+@import "src/widgets/SignUpSection/SignUpSection";
