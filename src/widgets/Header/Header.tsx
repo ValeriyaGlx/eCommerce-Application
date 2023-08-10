@@ -11,7 +11,7 @@ import { SELECT_CATEGORIES_DATA as categoriesArray } from '../../constants/heade
 export function Header() {
   return (
     <header className='header'>
-      <Logo />
+      <Logo className={'logo-title-black'} />
       <SelectTag defaultData={'Categories'} selectArray={categoriesArray} />
       <div className='wrapper-button'>
         <CartButton src={iconCart} alt='cartButton' />

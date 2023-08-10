@@ -5,13 +5,14 @@ import './Logo.scss';
 
 interface LogoProps {
   logo?: typeof logoMain;
+  className: string;
 }
 
-const Logo: FC<LogoProps> = ({ logo }) => {
+const Logo: FC<LogoProps> = ({ logo, className }) => {
   return (
     <div className='header-logo'>
       <img src={logo ? logo : logoMain} className='logo-img' alt='logo' />
-      <h4 className='logo-title'>DigiSet</h4>
+      <h4 className={className}>DigiSet</h4>
     </div>
   );
 };
