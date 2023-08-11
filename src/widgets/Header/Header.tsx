@@ -7,12 +7,18 @@ import ButtonWithRoute from '../../entities/ButtonWithRoute/ButtonWithRoute';
 import Logo from '../../shared/Logo/Logo';
 import SelectTag from '../../entities/SelectTag/SelectTag';
 import { SELECT_CATEGORIES_DATA as categoriesArray } from '../../constants/headerConstants/headerConstants';
+import { openDropdown } from '../../features/formCommon/openDropdown';
 
 export function Header() {
   return (
     <header className='header'>
       <Logo className={'logo-title-black'} />
-      <SelectTag defaultData={'Categories'} selectArray={categoriesArray} />
+      <SelectTag
+        defaultData={'Categories'}
+        selectArray={categoriesArray}
+        className={'header-select'}
+        openDropDown={openDropdown}
+      />
       <div className='wrapper-button'>
         <CartButton src={iconCart} alt='cartButton' />
         <ButtonWithRoute

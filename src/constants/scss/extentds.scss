@@ -1,6 +1,6 @@
 @import "./variables";
 
-%buttonSignUp{
+%buttonSignUp {
   cursor: pointer;
   text-align: center;
   line-height: 50px;
@@ -9,4 +9,17 @@
   font-size: 20px;
   border: none;
   border-radius: 10px;
+}
+
+%innerForForms {
+  font-size: 39px;
+  font-family: Josefin Sans, serif;
+  line-height: 59px;
+}
+
+%textColorForSignUp {
+  background: linear-gradient(103.86deg, #00C6FF -22.01%, #0183E7 117.6%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
 }

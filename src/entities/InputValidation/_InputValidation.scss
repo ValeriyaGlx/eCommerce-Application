@@ -1,0 +1,77 @@
+input {
+  height: 22px;
+}
+
+.input-logo {
+  width: 25px;
+  height: 25px;
+  line-height: 26px;
+  text-align: center;
+  margin-right: -46px;
+  position: relative;
+  z-index: 1;
+  float: left;
+}
+
+.input-area {
+  width: 500px;
+  display: flex;
+  align-items: center;
+
+  & input {
+    width: 100%;
+    height: 60px;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 40px;
+    margin: 10px;
+    box-shadow: 0 0 2pt 0.5pt #ababab;
+    transition: .5s;
+
+    &:hover {
+      box-shadow: 0 0 5pt 0.5pt #ababab;
+    }
+
+    &:focus {
+      box-shadow: 0 0 5pt 2pt #D3D3D3;
+      outline-width: 0px;
+    }
+  }
+}
+
+.show-password {
+  border: none;
+  background-color: inherit;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  right: 20px;
+  margin-left: -20px;
+  position: relative;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.show-password + input {
+  padding-right: -26px;
+}
+
+.password-visible {
+  cursor: pointer;
+  width: 15px;
+  height: 15px;
+}
+
+.hide-password {
+  position: relative;
+}
+
+.hide-password::after {
+  content: '/';
+  font-size: 16px;
+  position: absolute;
+  top: -1%;
+  right: 40%;
+  z-index: -1;
+}

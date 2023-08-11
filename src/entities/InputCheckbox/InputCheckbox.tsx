@@ -1,15 +1,21 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 
 interface InputCheckboxProps {
   id: string;
-  isChecked: boolean;
   data: string;
+  className: string;
+  onChange: () => void;
 }
 
-const InputCheckbox: FC<InputCheckboxProps> = ({ id, isChecked, data }) => {
+const InputCheckbox: FC<InputCheckboxProps> = ({
+  id,
+  data,
+  className,
+  onChange,
+}) => {
   return (
-    <div>
-      <input type='checkbox' id={id} name={id} checked />
+    <div className={className}>
+      <input type='checkbox' id={id} name={id} onChange={onChange} />
       <label htmlFor={id}>{data}</label>
     </div>
   );

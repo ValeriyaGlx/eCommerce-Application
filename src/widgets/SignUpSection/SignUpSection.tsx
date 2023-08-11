@@ -8,44 +8,63 @@ import SelectTag from '../../entities/SelectTag/SelectTag';
 import InputSubmit from '../../entities/InputSubmit/InputSubmit';
 import InputCheckbox from '../../entities/InputCheckbox/InputCheckbox';
 import Logo from '../../shared/Logo/Logo';
-import blueLogo from '../../assets/icons/logo-blue.svg';
+import { openDropdown } from '../../features/formCommon/openDropdown';
+import { showPassword } from '../../features/formCommon/showPassword';
+import { addDefaulAdress } from '../../features/formCommon/addDefaulAdress';
 
 const SignUpSection = () => {
   return (
     <section className={'section-signUp'}>
-      <Logo className={'logo-title'} logo={blueLogo} />
+      <div className={'container-logo'}>
+        <Logo className={'logo-title-black'} />
+      </div>
       <h2 className={'section-signUp_inner'}>Create Account</h2>
       <div>
-        {signUpArray.map(({ type, placeholder, logo }) => (
-          <InputValidation type={type} placeholder={placeholder} logo={logo} />
+        {signUpArray.map(({ type, placeholder, logo, id }) => (
+          <InputValidation
+            key={id}
+            type={type}
+            placeholder={placeholder}
+            logo={logo}
+            showPassword={showPassword}
+          />
         ))}
       </div>
       <h4>Address Information</h4>
       <div>
-        <h5>Shipping Address</h5>
+        <h5 className={'address-inner'}>Shipping Address</h5>
         <SelectTag
           selectArray={selectArray}
-          defaultData={'-- Choose a country --'}
+          defaultData={'Choose a country'}
+          className={'singUp-select'}
+          openDropDown={openDropdown}
         />
-        {addressArray.map(({ type, placeholder }) => (
-          <InputValidation type={type} placeholder={placeholder} />
+        {addressArray.map(({ type, placeholder, id }) => (
+          <InputValidation key={id} type={type} placeholder={placeholder} />
         ))}
         <InputCheckbox
           id={'default-address'}
-          isChecked={true}
-          data={'Make default'}
+          data={'Make this address default'}
+          className={'default-address'}
+          onChange={addDefaulAdress}
         />
       </div>
-
-      <h5>Billing Address</h5>
-      <SelectTag
-        selectArray={selectArray}
-        defaultData={'-- Choose a country --'}
+      <div className={'billing-address_section'}>
+        <h5 className={'address-inner'}>Billing Address</h5>
+        <SelectTag
+          selectArray={selectArray}
+          defaultData={'Choose a country'}
+          className={'singUp-select'}
+          openDropDown={openDropdown}
+        />
+        {addressArray.map(({ type, placeholder, id }) => (
+          <InputValidation key={id} type={type} placeholder={placeholder} />
+        ))}
+      </div>
+      <InputSubmit
+        className={'button-signUp signup_submit-button'}
+        value={'SIGN UP'}
       />
-      {addressArray.map(({ type, placeholder }) => (
-        <InputValidation type={type} placeholder={placeholder} />
-      ))}
-      <InputSubmit className={'signup_submit-button'} value={'SIGN UP'} />
     </section>
   );
 };
