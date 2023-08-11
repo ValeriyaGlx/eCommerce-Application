@@ -4,11 +4,7 @@
     "browser": true,
     "es2021": true
   },
-  "ignorePatterns": [
-    "node_modules",
-    "dist",
-    "build"
-  ],
+  "ignorePatterns": ["node_modules", "dist", "build"],
   "extends": [
     "airbnb-typescript/base",
     "plugin:@typescript-eslint/recommended",
@@ -37,9 +33,7 @@
       2,
       {
         "SwitchCase": 1,
-        "ignoredNodes": [
-          "ConditionalExpression"
-        ]
+        "ignoredNodes": ["ConditionalExpression"]
       }
     ],
     "max-len": [
@@ -48,26 +42,11 @@
         "code": 120
       }
     ],
-    "linebreak-style": [
-      0,
-      "unix"
-    ],
-    "quotes": [
-      "error",
-      "single"
-    ],
-    "jsx-quotes": [
-      2,
-      "prefer-single"
-    ],
-    "semi": [
-      "error",
-      "always"
-    ],
-    "eol-last": [
-      "error",
-      "always"
-    ],
+    "linebreak-style": [0, "unix"],
+    "quotes": ["error", "single"],
+    "jsx-quotes": [2, "prefer-single"],
+    "semi": ["error", "always"],
+    "eol-last": ["error", "always"],
     "react/react-in-jsx-scope": "off",
     "react/prop-types": 0,
     "import/no-unresolved": [
@@ -79,10 +58,7 @@
     "react/jsx-filename-extension": [
       1,
       {
-        "extensions": [
-          ".ts",
-          ".tsx"
-        ]
+        "extensions": [".ts", ".tsx"]
       }
     ],
     "jsx-a11y/label-has-associated-control": 0,
@@ -112,17 +88,8 @@
     "version": "detect",
     "import/resolver": {
       "node": {
-        "extensions": [
-          ".js",
-          ".jsx",
-          ".ts",
-          ".tsx",
-          "png"
-        ],
-        "moduleDirectory": [
-          "node_modules",
-          "src/"
-        ]
+        "extensions": [".js", ".jsx", ".ts", ".tsx", "png"],
+        "moduleDirectory": ["node_modules", "src/"]
       }
     }
   }

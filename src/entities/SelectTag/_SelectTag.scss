@@ -1,10 +1,10 @@
-@import "src/constants/scss/extentds";
+@import 'src/constants/scss/extentds';
 
 .dropdown {
   width: 500px;
   display: flex;
   flex-direction: column;
-  transition: all .5s ease;
+  transition: all 0.5s ease;
   position: relative;
   color: #474747;
   text-align: left;
@@ -17,7 +17,7 @@
   border-radius: 10px;
   align-items: center;
   cursor: pointer;
-  transition: .5s;
+  transition: 0.5s;
   box-shadow: 0 0 2pt 0.5pt #ababab;
   font: 14px sans-serif;
   color: #828089;
@@ -32,11 +32,11 @@
   img {
     width: 10px;
     height: 10px;
-    transition: .5s;
+    transition: 0.5s;
   }
 
   &:focus {
-    box-shadow: 0 0 5pt 2pt #D3D3D3;
+    box-shadow: 0 0 5pt 2pt #d3d3d3;
   }
 }
 
@@ -49,7 +49,7 @@
   box-shadow: 0 1px 2px rgb(204, 204, 204);
   border-radius: 0 1px 2px 2px;
   overflow: hidden;
-  transition: .3s all;
+  transition: 0.3s all;
   max-height: 0%;
   overflow-y: auto;
   opacity: 0;
@@ -60,7 +60,7 @@
 .dropdown-menu li {
   position: relative;
   padding: 5px;
-  transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
   cursor: pointer;
 
   &:hover {
@@ -75,5 +75,5 @@
 }
 
 .dropdown.active .select > img {
-  transform: rotate(-180deg)
+  transform: rotate(-180deg);
 }

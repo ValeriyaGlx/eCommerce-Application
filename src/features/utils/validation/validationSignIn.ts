@@ -22,8 +22,7 @@ export const validatePassword = (password: string) => {
   const lowercasePassword: boolean = /[a-z]/.test(password);
   const digitPassword: boolean = /\d/.test(password);
   const specialSymbolPassword: boolean = /[!@#$%^&*]/.test(password);
-  const noWhitespacePassword: boolean =
-    !password.startsWith(' ') && !password.endsWith(' ');
+  const noWhitespacePassword: boolean = !password.startsWith(' ') && !password.endsWith(' ');
 
   switch (true) {
     case !noWhitespacePassword:

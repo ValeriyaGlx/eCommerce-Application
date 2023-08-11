@@ -1,4 +1,4 @@
-@import "src/constants/scss/variables";
+@import 'src/constants/scss/variables';
 
 .section-container {
   display: flex;
@@ -15,6 +15,5 @@
   }
 }
 
-
-@import "src/widgets/SignUpSection/SignUpSection";
-@import "src/widgets/WelcomeBackSection/WelcomeBackSection";
+@import 'src/widgets/SignUpSection/SignUpSection';
+@import 'src/widgets/WelcomeBackSection/WelcomeBackSection';

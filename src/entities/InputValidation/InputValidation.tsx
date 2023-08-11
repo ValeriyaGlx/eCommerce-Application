@@ -1,18 +1,26 @@
 import React, { FC } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 
 import logoVisible from '../../assets/icons/visible.png';
 import './_InputValidation.scss';
+import { setInputValueWithValidation } from '../../app/store/validationActions/signupActions';
+import { store } from '../../app/store/store';
 
 interface InputValidationProps {
   type: string;
   placeholder: string;
+  inputName: string;
   logo?: typeof logoVisible;
   showPassword?: (e: React.MouseEvent) => void;
   handleInputChange?: (event: React.FormEvent<HTMLInputElement>) => void;
   value?: string;
   errorMessage?: string;
   onBlur?: (event: React.FormEvent<HTMLInputElement>) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
+
+type RootState = ReturnType<typeof store.getState>;
 
 const InputValidation: FC<InputValidationProps> = ({
   type,
@@ -20,10 +28,22 @@ const InputValidation: FC<InputValidationProps> = ({
   logo,
   showPassword,
   handleInputChange,
-  value,
   onBlur,
   errorMessage,
+  value,
+  inputName,
 }) => {
+  const dispatch: ThunkDispatch<RootState, unknown, AnyAction> = useDispatch();
+
+  const inputState = useSelector(
+    (state: RootState) => state.inputs.signup[inputName],
+  );
+
+  const handleInputChangeTest = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = e.target.value.trimStart();
+    dispatch(setInputValueWithValidation(inputName, newValue));
+  };
+
   return (
     <React.Fragment>
       <div className={'input-area'}>
@@ -31,9 +51,11 @@ const InputValidation: FC<InputValidationProps> = ({
         <input
           type={type}
           placeholder={placeholder}
-          onInput={handleInputChange}
-          value={value}
+          value={inputName === 'sign-in' ? value : inputState.value}
           onBlur={onBlur}
+          onChange={
+            inputName === 'sign-in' ? handleInputChange : handleInputChangeTest
+          }
         />
         {type === 'password' && (
           <button className={'show-password'} onClick={showPassword}>
@@ -41,7 +63,9 @@ const InputValidation: FC<InputValidationProps> = ({
           </button>
         )}
       </div>
-      <div className={'error-message'}>{errorMessage}</div>
+      <div className={'error-message'}>
+        {inputName === 'sign-in' ? errorMessage : inputState.validationError}
+      </div>
     </React.Fragment>
   );
 };

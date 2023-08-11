@@ -1,3 +1,5 @@
+import React from 'react';
+
 import InputValidation from '../../entities/InputValidation/InputValidation';
 import {
   INPUTS_SIGNUP_DATA as signUpArray,
@@ -20,13 +22,14 @@ const SignUpSection = () => {
       </div>
       <h2 className={'section-signUp_inner'}>Create Account</h2>
       <div>
-        {signUpArray.map(({ type, placeholder, logo, id }) => (
+        {signUpArray.map(({ id, type, placeholder, logo, name }) => (
           <InputValidation
             key={id}
             type={type}
             placeholder={placeholder}
             logo={logo}
             showPassword={showPassword}
+            inputName={name}
           />
         ))}
       </div>
@@ -39,8 +42,13 @@ const SignUpSection = () => {
           className={'singUp-select'}
           openDropDown={openDropdown}
         />
-        {addressArray.map(({ type, placeholder, id }) => (
-          <InputValidation key={id} type={type} placeholder={placeholder} />
+        {addressArray.map(({ type, placeholder, id, name }) => (
+          <InputValidation
+            key={id}
+            type={type}
+            placeholder={placeholder}
+            inputName={'shipping_' + name}
+          />
         ))}
         <InputCheckbox
           id={'default-address'}
@@ -57,8 +65,13 @@ const SignUpSection = () => {
           className={'singUp-select'}
           openDropDown={openDropdown}
         />
-        {addressArray.map(({ type, placeholder, id }) => (
-          <InputValidation key={id} type={type} placeholder={placeholder} />
+        {addressArray.map(({ type, placeholder, id, name }) => (
+          <InputValidation
+            key={id}
+            type={type}
+            placeholder={placeholder}
+            inputName={'billing_' + name}
+          />
         ))}
       </div>
       <InputSubmit
