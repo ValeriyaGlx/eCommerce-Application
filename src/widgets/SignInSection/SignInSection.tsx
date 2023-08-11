@@ -3,7 +3,7 @@ import React from 'react';
 import Logo from '../../shared/Logo/Logo';
 import InputValidation from '../../entities/InputValidation/InputValidation';
 import InputSubmit from '../../entities/InputSubmit/InputSubmit';
-import './SignInSection.scss';
+import './_SignInSection.scss';
 import blueLogo from '../../assets/icons/logo-blue.svg';
 import { showPassword } from '../../features/formCommon/showPassword';
 

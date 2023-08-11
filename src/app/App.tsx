@@ -6,6 +6,7 @@ import { Cart } from '../pages/Cart/Cart';
 import { SignIn } from '../pages/SignIn/SignIn';
 import { SignUp } from '../pages/SignUp/SignUp';
 import './App.scss';
+import PageNotFound from '../pages/PageNotFound/PageNotFound';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Route path='/singUp' element={<SignUp />} />
       <Route path='/cart' element={<Cart />} />
       <Route path='/signup' element={<SignUp />} />
+      <Route path='*' element={<PageNotFound />} />
     </Routes>
   );
 }
