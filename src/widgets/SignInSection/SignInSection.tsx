@@ -5,6 +5,7 @@ import InputValidation from '../../entities/InputValidation/InputValidation';
 import InputSubmit from '../../entities/InputSubmit/InputSubmit';
 import './SignInSection.scss';
 import blueLogo from '../../assets/icons/logo-blue.svg';
+import { showPassword } from '../../features/formCommon/showPassword';
 
 const SignInSection = () => {
   return (
@@ -15,7 +16,11 @@ const SignInSection = () => {
       <h2 className={'signInSection-text'}>Login to Your Account</h2>
       <div className={'container-input'}>
         <InputValidation type={'text'} placeholder={'Email'} />
-        <InputValidation type={'password'} placeholder={'Password'} />
+        <InputValidation
+          type={'password'}
+          placeholder={'Password'}
+          showPassword={showPassword}
+        />
       </div>
       <InputSubmit className={'signIn_submit-button'} value={'SIGN IN'} />
     </section>

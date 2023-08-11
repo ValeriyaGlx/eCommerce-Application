@@ -3,10 +3,11 @@
 .button-signUp {
   width: 140px;
   height: 50px;
-
-  %buttonSignUp;
+  @extend %buttonSignUp;
 
   a {
+    width: 100%;
+    height: 100%;
     color: white;
     text-decoration: none;
   }

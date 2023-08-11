@@ -1,17 +1,16 @@
-/* Error: Can't find stylesheet to import.
- *    ,
- * 15 | @import "src/pages/SignUp/SignUp";
- *    |         ^^^^^^^^^^^^^^^^^^^^^^^^^
- *    '
- *   App.scss 15:9  root stylesheet */
-
-body::before {
-  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
-      "Droid Sans Mono", monospace, monospace;
-  white-space: pre;
-  display: block;
-  padding: 1em;
-  margin-bottom: 1em;
-  border-bottom: 2px solid black;
-  content: "Error: Can't find stylesheet to import.\a    \2577 \a 15 \2502  @import \"src/pages/SignUp/SignUp\";\a    \2502          ^^^^^^^^^^^^^^^^^^^^^^^^^\a    \2575 \a   App.scss 15:9  root stylesheet";
+*, *::after, *::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
+
+html, body {
+  width: 100%;
+  height: 100%;
+  font-family: Josefin Sans, serif;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 30px;
+}
+
+/*# sourceMappingURL=App.css.map */

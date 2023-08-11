@@ -6,13 +6,15 @@
 
   & section {
     width: 50%;
-    min-height: 100vh
+    min-height: 100vh;
+    padding-top: 30vh;
   }
 
   & section:last-child {
-    background: #fff;
+    color: white;
   }
 }
 
 
 @import "src/widgets/SignUpSection/SignUpSection";
+@import "src/widgets/WelcomeBackSection/WelcomeBackSection";

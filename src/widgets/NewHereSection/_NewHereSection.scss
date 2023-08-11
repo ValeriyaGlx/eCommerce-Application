@@ -1,10 +1,12 @@
+@import "src/constants/scss/extentds";
+
 .newHereSection {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  gap: 50px;
   height: 100vh;
-  padding: 0;
+  padding-top: 250px;
   width: 50%;
 }
 
@@ -12,15 +14,13 @@
   background: linear-gradient(103.86deg, #00C6FF -22.01%, #0183E7 117.6%);
   background-clip: text;
   -webkit-background-clip: text;
-  color: transparent;
-  font-size: 39px;
-  font-family: Josefin Sans, serif;
-  line-height: 58px;
   text-align: center;
+  color: transparent;
+
+  @extend %innerForForms;
 }
 
 .newHereSection-text {
-  padding: 10%;
   color: #828089;
   line-height: 30px;
   text-align: center;

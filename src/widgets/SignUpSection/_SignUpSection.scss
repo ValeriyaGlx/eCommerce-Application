@@ -1,5 +1,57 @@
 @import "src/constants/scss/variables";
+@import "src/constants/scss/extentds";
+
+.section-signUp {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  h4 {
+    margin-top: 10px;
+    font-size: 24px;
+    font-family: Josefin Sans, serif;
+    line-height: 59px;
+  }
+}
 
 .section-signUp_inner {
-  color: $color-gradient-white-blue;
+  @extend %textColorForSignUp;
+  @extend %innerForForms;
+  text-align: center;
+}
+
+.signup_submit-button {
+  display: block;
+  margin: 10px auto 20px;
+}
+
+.default-address {
+  font: 16px sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  margin-left: 20px;
+
+  input {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.billing-address_section {
+  max-height: 100%;
+  opacity: 1;
+  transition: .2s;
+}
+
+.billing-address_section-hide {
+  max-height: 0%;
+  opacity: 0;
+}
+
+.address-inner {
+  margin-top: 5px;
+  margin-left: 10px;
+  font-size: 20px;
 }

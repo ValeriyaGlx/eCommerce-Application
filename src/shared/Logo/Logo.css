@@ -7,4 +7,13 @@
   margin-right: 4px;
 }
 
+.logo-title, .logo-title-black {
+  color: white;
+  font-size: 30px;
+}
+
+.logo-title-black {
+  color: black;
+}
+
 /*# sourceMappingURL=Logo.css.map */
