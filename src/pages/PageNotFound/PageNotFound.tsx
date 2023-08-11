@@ -1,7 +1,7 @@
 import React from 'react';
 
 import robot from '../../assets/icons/robot.png';
-import './PageNotFound.scss';
+import './_PageNotFound.scss';
 import ButtonWithRoute from '../../entities/ButtonWithRoute/ButtonWithRoute';
 
 const PageNotFound = () => {
