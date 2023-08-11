@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
-import './ButtonWithRoute.scss';
+import './_ButtonWithRoute.scss';
 
 interface ButtonProps {
   className: string;
@@ -10,9 +10,9 @@ interface ButtonProps {
 
 const ButtonWithRoute: FC<ButtonProps> = ({ className, path, data }) => {
   return (
-    <div className={className}>
-      <Link to={path}>{data}</Link>
-    </div>
+    <Link className={className} to={path}>
+      {data}
+    </Link>
   );
 };
 
