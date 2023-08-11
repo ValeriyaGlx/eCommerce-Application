@@ -3,8 +3,13 @@
 
 .pagenotfound {
   display: flex;
-  max-width: 1280px;
+  max-width: 1800px;
   justify-content: center;
+}
+
+.pagenotfound a {
+  text-decoration: none;
+  color: $color-white;
 }
 
 .pagenotfound-text {

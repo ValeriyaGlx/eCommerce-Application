@@ -2,6 +2,7 @@ import React from 'react';
 
 import robot from '../../assets/icons/robot.png';
 import './PageNotFound.scss';
+import ButtonWithRoute from '../../entities/ButtonWithRoute/ButtonWithRoute';
 
 const PageNotFound = () => {
   return (
@@ -10,9 +11,11 @@ const PageNotFound = () => {
         <div className={'pagenotfound-text'}>
           <h1>404 page</h1>
           <h3>Ops... Page not found</h3>
-          <form>
-            <button className={'pagenotfound__button'}>Go Back</button>
-          </form>
+          <ButtonWithRoute
+            className={'pagenotfound__button'}
+            path={'/'}
+            data={'Go Back'}
+          />
         </div>
         <div className={'pagenotfound__picture'}>
           <img
