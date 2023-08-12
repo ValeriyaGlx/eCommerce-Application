@@ -5,6 +5,7 @@ import {
   dateValidationSchema,
   emailValidationSchema,
   emptyFieldValidationSchema,
+  getPostalCodeValidationSchema,
   passwordValidationSchema,
 } from '../../../features/utils/validation/validationSignUp';
 
@@ -31,6 +32,14 @@ export const setInputValueWithValidation =
         break;
       case 'date':
         validationSchema = dateValidationSchema;
+        break;
+      case 'shipping_code':
+        const countryShip = store.getState().inputs.countries.shipping.toLowerCase();
+        validationSchema = getPostalCodeValidationSchema(countryShip);
+        break;
+      case 'billing_code':
+        const countryBill = store.getState().inputs.countries.billing.toLowerCase();
+        validationSchema = getPostalCodeValidationSchema(countryBill);
         break;
       default:
         validationSchema = emptyFieldValidationSchema;

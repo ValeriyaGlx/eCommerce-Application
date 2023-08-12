@@ -50,6 +50,12 @@ export const INPUTS_SIGNUP_DATA: {
 export const INPUTS_SIGNUP_ADDRESS = [
   {
     type: 'text',
+    placeholder: 'Postal Code',
+    id: Math.random(),
+    name: 'code',
+  },
+  {
+    type: 'text',
     placeholder: 'City',
     id: Math.random(),
     name: 'city',
@@ -59,12 +65,6 @@ export const INPUTS_SIGNUP_ADDRESS = [
     placeholder: 'Street',
     id: Math.random(),
     name: 'street',
-  },
-  {
-    type: 'text',
-    placeholder: 'Postal Code',
-    id: Math.random(),
-    name: 'code',
   },
 ];
 

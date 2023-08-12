@@ -21,6 +21,7 @@ const SignUpSection = () => {
   const checkboxOnChange = () => {
     setCheckbox(!checkbox);
   };
+
   return (
     <section className={'section-signUp'}>
       <div className={'container-logo'}>
@@ -48,6 +49,7 @@ const SignUpSection = () => {
             defaultData={'Choose a country'}
             className={'singUp-select'}
             openDropDown={openDropdown}
+            inputName={'shipping'}
           />
           {addressArray.map(({ type, placeholder, id, name }) => (
             <InputValidation
@@ -74,6 +76,7 @@ const SignUpSection = () => {
                   defaultData={'Choose a country'}
                   className={'singUp-select'}
                   openDropDown={openDropdown}
+                  inputName={'billing'}
                 />
                 {addressArray.map(({ type, placeholder, id, name }) => (
                   <InputValidation

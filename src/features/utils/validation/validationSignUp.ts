@@ -1,10 +1,23 @@
 import * as yup from 'yup';
 
-export const emailValidationSchema: yup.StringSchema = yup
+export const emailValidationSchema = yup
   .string()
+  .trim()
   .required('Email is required')
-  .matches(/^\S*$/, 'This field must not contain spaces')
-  .email('Invalid email format');
+  .test('email-tld', 'Email must be valid (example@mail.com)', (value) => {
+    if (!value) {
+      return false;
+    }
+    const parts = value.split('@');
+    if (parts.length !== 2) {
+      return false;
+    }
+
+    const domain = parts[1].trim();
+    const domainParts = domain.split('.');
+
+    return domainParts.length >= 2 && domainParts.every((part) => part.trim() !== '');
+  });
 
 export const passwordValidationSchema: yup.StringSchema = yup
   .string()
@@ -52,3 +65,34 @@ export const dateValidationSchema = yup
 
     return age >= ageLimit;
   });
+
+export function getPostalCodeValidationSchema(country?: string): yup.StringSchema<string> {
+  const countryFormats: Record<string, RegExp> = {
+    russia: /^\d{6}$/,
+    'united states': /^\d{5}(-\d{4})?$/,
+    georgia: /^\d{4}$/,
+    belarus: /^\d{6}$/,
+  };
+
+  if (country) {
+    const formatRegex = countryFormats[country.toLowerCase()];
+    if (formatRegex) {
+      return yup
+        .string()
+        .trim()
+        .matches(
+          formatRegex,
+          `Invalid postal code format for ${country[0].toUpperCase() + country.slice(1)}`,
+        ) as yup.StringSchema<string>;
+    }
+  }
+
+  return yup
+    .string()
+    .trim()
+    .test({
+      name: 'country-validation',
+      message: 'Please select a country first',
+      test: (value) => !value || value.trim() === '',
+    }) as yup.StringSchema<string>;
+}

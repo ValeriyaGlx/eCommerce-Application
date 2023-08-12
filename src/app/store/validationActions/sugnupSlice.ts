@@ -5,8 +5,16 @@ interface InputState {
   validationError: string | null;
 }
 
+interface CountryState {
+  shipping: string;
+  billing: string;
+
+  [key: string]: string;
+}
+
 interface FormState {
   signup: Record<string, InputState>;
+  countries: CountryState;
 }
 
 const initialState: FormState = {
@@ -56,18 +64,28 @@ const initialState: FormState = {
       validationError: '',
     },
   },
+
+  countries: {
+    shipping: 'Choose a country',
+    billing: 'Choose a country',
+  },
 };
 
 const signupSlice = createSlice({
   name: 'form',
   initialState,
   reducers: {
+    setSelectValue: (state, action: PayloadAction<{ inputName: string; newValue: string }>) => {
+      const { inputName, newValue } = action.payload;
+      state.countries[inputName] = newValue;
+    },
     setInputValue: (state, action: PayloadAction<{ inputName: string; inputValue: string }>) => {
       const { inputName, inputValue } = action.payload;
       state.signup[inputName].value = inputValue;
     },
     setInputValidationError: (state, action: PayloadAction<{ inputName: string; validationError: string }>) => {
       const { inputName, validationError } = action.payload;
+
       state.signup[inputName].validationError = validationError;
     },
     clearInputValidationError: (state, action: PayloadAction<{ inputName: string }>) => {
@@ -77,5 +95,6 @@ const signupSlice = createSlice({
   },
 });
 
-export const { setInputValue, setInputValidationError, clearInputValidationError } = signupSlice.actions;
+export const { setSelectValue, setInputValue, setInputValidationError, clearInputValidationError } =
+  signupSlice.actions;
 export default signupSlice.reducer;
