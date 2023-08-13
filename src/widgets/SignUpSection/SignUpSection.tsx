@@ -8,12 +8,17 @@ import {
   INPUTS_SIGNUP_ADDRESS as addressArray,
   SELECT_SIGNUP_DATA as selectArray,
 } from '../../constants/signupConstants/signupConstants';
-import SelectTag from '../../entities/SelectTag/SelectTag';
 import InputSubmit from '../../entities/InputSubmit/InputSubmit';
 import InputCheckbox from '../../entities/InputCheckbox/InputCheckbox';
 import Logo from '../../shared/Logo/Logo';
-import { openDropdown } from '../../features/formCommon/openDropdown';
 import { showPassword } from '../../features/formCommon/showPassword';
+import SignUpSelectTag from '../../features/SignUpSelectTag/SignUpSelectTag';
+import { useDispatch, useSelector } from 'react-redux';
+import { setInputValueWithValidation } from '../../app/store/validationActions/signupActions';
+import { store } from '../../app/store/store';
+import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
+
+type RootState = ReturnType<typeof store.getState>;
 
 const SignUpSection = () => {
   const [checkbox, setCheckbox] = useState(false);
@@ -22,13 +27,24 @@ const SignUpSection = () => {
     setCheckbox(!checkbox);
   };
 
+  const dispatch: ThunkDispatch<RootState, unknown, AnyAction> = useDispatch();
+  const inputsState = useSelector((state: RootState) => state.inputs.signup);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    Object.entries(inputsState).forEach((inputName) => {
+      dispatch(setInputValueWithValidation(inputName[0], inputName[1].value));
+    });
+  };
+
   return (
     <section className={'section-signUp'}>
       <div className={'container-logo'}>
         <Logo className={'logo-title-black'} />
       </div>
       <h2 className={'section-signUp_inner'}>Create Account</h2>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div>
           {signUpArray.map(({ id, type, placeholder, logo, name }) => (
             <InputValidation
@@ -44,11 +60,9 @@ const SignUpSection = () => {
         <h4>Address Information</h4>
         <div>
           <h5 className={'address-inner'}>Shipping Address</h5>
-          <SelectTag
+          <SignUpSelectTag
             selectArray={selectArray}
-            defaultData={'Choose a country'}
             className={'singUp-select'}
-            openDropDown={openDropdown}
             inputName={'shipping'}
           />
           {addressArray.map(({ type, placeholder, id, name }) => (
@@ -71,11 +85,9 @@ const SignUpSection = () => {
             <CSSTransition classNames='dropdown' timeout={300}>
               <div>
                 <h5 className={'address-inner'}>Billing Address</h5>
-                <SelectTag
+                <SignUpSelectTag
                   selectArray={selectArray}
-                  defaultData={'Choose a country'}
                   className={'singUp-select'}
-                  openDropDown={openDropdown}
                   inputName={'billing'}
                 />
                 {addressArray.map(({ type, placeholder, id, name }) => (

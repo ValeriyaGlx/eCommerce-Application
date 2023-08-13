@@ -89,6 +89,7 @@ export function getPostalCodeValidationSchema(country?: string): yup.StringSchem
 
   return yup
     .string()
+    .required('Please select a country first')
     .trim()
     .test({
       name: 'country-validation',

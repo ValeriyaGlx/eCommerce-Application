@@ -8,9 +8,9 @@ import {
   getPostalCodeValidationSchema,
   passwordValidationSchema,
 } from '../../../features/utils/validation/validationSignUp';
+import { store } from '../store';
 
 import { clearInputValidationError, setInputValidationError, setInputValue } from './sugnupSlice';
-import { store } from '../store';
 
 type RootState = ReturnType<typeof store.getState>;
 
