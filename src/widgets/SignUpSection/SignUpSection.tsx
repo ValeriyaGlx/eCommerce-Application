@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import './_SignUpAnimation.scss';
+import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 
+import './_SignUpAnimation.scss';
 import InputValidation from '../../entities/InputValidation/InputValidation';
 import {
   INPUTS_SIGNUP_DATA as signUpArray,
@@ -13,10 +15,8 @@ import InputCheckbox from '../../entities/InputCheckbox/InputCheckbox';
 import Logo from '../../shared/Logo/Logo';
 import { showPassword } from '../../features/formCommon/showPassword';
 import SignUpSelectTag from '../../features/SignUpSelectTag/SignUpSelectTag';
-import { useDispatch, useSelector } from 'react-redux';
 import { setInputValueWithValidation } from '../../app/store/validationActions/signupActions';
 import { store } from '../../app/store/store';
-import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 
 type RootState = ReturnType<typeof store.getState>;
 

@@ -16,9 +16,8 @@ type RootState = ReturnType<typeof store.getState>;
 
 type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, Action<string>>;
 
-export const setInputValueWithValidation =
-  (inputName: string, inputValue: string): AppThunk =>
-  (dispatch) => {
+export const setInputValueWithValidation = (inputName: string, inputValue: string): AppThunk => {
+  return (dispatch) => {
     dispatch(setInputValue({ inputName, inputValue }));
 
     let validationSchema: yup.StringSchema | yup.DateSchema;
@@ -54,3 +53,4 @@ export const setInputValueWithValidation =
       }
     }
   };
+};
