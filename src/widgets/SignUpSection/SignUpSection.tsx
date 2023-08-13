@@ -82,7 +82,7 @@ const SignUpSection = () => {
         </div>
         <TransitionGroup>
           {!checkbox && (
-            <CSSTransition classNames='dropdown' timeout={300}>
+            <CSSTransition classNames='dropdown' timeout={300} unmountOnExit>
               <div>
                 <h5 className={'address-inner'}>Billing Address</h5>
                 <SignUpSelectTag
@@ -102,12 +102,13 @@ const SignUpSection = () => {
             </CSSTransition>
           )}
         </TransitionGroup>
-        <InputSubmit
-          className={`button-signUp signup_submit-button ${
-            !checkbox ? 'moved' : ''
-          }`}
-          value={'SIGN UP'}
-        />
+
+        <CSSTransition in={checkbox} classNames={'submit'} timeout={300}>
+          <InputSubmit
+            className={'button-signUp signup_submit-button'}
+            value={'SIGN UP'}
+          />
+        </CSSTransition>
       </form>
     </section>
   );

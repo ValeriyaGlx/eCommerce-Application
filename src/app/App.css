@@ -20,4 +20,14 @@ a {
   text-decoration: none;
 }
 
+*::-webkit-scrollbar {
+  width: 10px;
+  background-color: #eeebeb;
+  opacity: 0.5;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #fc8901;
+}
+
 /*# sourceMappingURL=App.css.map */

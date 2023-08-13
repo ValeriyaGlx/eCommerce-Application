@@ -1,12 +1,14 @@
 .dropdown-enter {
     opacity: 0;
     transform: translateY(-10px);
+
 }
 
 .dropdown-enter-active {
     opacity: 1;
     transform: translateY(0);
     transition: opacity 300ms, transform 300ms;
+
 }
 
 .dropdown-exit {
@@ -15,12 +17,18 @@
 
 .dropdown-exit-active {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(-30px);
     transition: opacity 300ms, transform 300ms;
 }
 
-.signup_submit-button.moved {
-    transform: translateY(10px);
-    transition: transform 300ms;
+.submit-enter {
+    transform: translateY(0);
 }
+
+.submit-enter-active {
+    transform: translateY(-100px); /* Adjust the value as needed */
+    transition: transform 500ms;
+}
+
+
 
