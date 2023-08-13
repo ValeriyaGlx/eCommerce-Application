@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import SelectTag from '../../entities/SelectTag/SelectTag';
 import { setSelectValue } from '../../app/store/validationActions/sugnupSlice';
 import { store } from '../../app/store/store';
+import arrow from '../../assets/icons/down-arrow-black.png';
 
 interface SignUpSelectTagProps {
   selectArray: { value: string; data: string; id: number }[];
@@ -36,6 +37,7 @@ const SignUpSelectTag: FC<SignUpSelectTagProps> = ({
       inputName={inputName}
       value={inputState}
       onClick={chooseCountry}
+      arrow={arrow}
     />
   );
 };

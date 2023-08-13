@@ -29,6 +29,12 @@
     box-shadow: 0 0 5pt 0.5pt #ababab;
   }
 
+    .select-logo {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+    }
+
   img {
     width: 10px;
     height: 10px;

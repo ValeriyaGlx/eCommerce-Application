@@ -18,3 +18,9 @@
     transform: translateY(-10px);
     transition: opacity 300ms, transform 300ms;
 }
+
+.signup_submit-button.moved {
+    transform: translateY(10px);
+    transition: transform 300ms;
+}
+

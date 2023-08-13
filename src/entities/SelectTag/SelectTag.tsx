@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
 import './_SelectTag.scss';
-import arrow from '../../assets/icons/down-arrow-black.png';
+import arrowLogo from '../../assets/icons/down-arrow-black.png';
 import { openDropdown } from '../../features/formCommon/openDropdown';
 
 interface SelectTagProps {
@@ -10,6 +10,8 @@ interface SelectTagProps {
   value: string;
   inputName: string;
   onClick: (e: React.MouseEvent) => void;
+  logo?: typeof arrowLogo;
+  arrow: typeof arrowLogo;
 }
 
 const SelectTag: FC<SelectTagProps> = ({
@@ -18,11 +20,16 @@ const SelectTag: FC<SelectTagProps> = ({
   inputName,
   value,
   onClick,
+  logo,
+  arrow,
 }) => {
   return (
     <div className={['dropdown', className].join(' ')} onClick={openDropdown}>
       <div className={'select'}>
-        <span>{value}</span>
+        <div className={'select-logo'}>
+          {logo && <img src={logo} alt={'arrow'} />}
+          <span>{value}</span>
+        </div>
         <img src={arrow} alt={'arrow'} />
       </div>
       <input type='hidden' value={value} name={inputName} />

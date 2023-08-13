@@ -103,7 +103,9 @@ const SignUpSection = () => {
           )}
         </TransitionGroup>
         <InputSubmit
-          className={'button-signUp signup_submit-button'}
+          className={`button-signUp signup_submit-button ${
+            !checkbox ? 'moved' : ''
+          }`}
           value={'SIGN UP'}
         />
       </form>
