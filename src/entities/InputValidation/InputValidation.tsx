@@ -18,6 +18,7 @@ interface InputValidationProps {
   errorMessage?: string;
   onBlur?: (event: React.FormEvent<HTMLInputElement>) => void;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  min?: string;
 }
 
 type RootState = ReturnType<typeof store.getState>;
@@ -32,6 +33,7 @@ const InputValidation: FC<InputValidationProps> = ({
   errorMessage,
   value,
   inputName,
+  min,
 }) => {
   const dispatch: ThunkDispatch<RootState, unknown, AnyAction> = useDispatch();
 
@@ -56,6 +58,7 @@ const InputValidation: FC<InputValidationProps> = ({
           onChange={
             inputName === 'sign-in' ? handleInputChange : handleInputChangeTest
           }
+          min={min}
         />
         {type === 'password' && (
           <button className={'show-password'} onClick={showPassword}>

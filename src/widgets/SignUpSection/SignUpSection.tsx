@@ -46,7 +46,7 @@ const SignUpSection = () => {
       <h2 className={'section-signUp_inner'}>Create Account</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          {signUpArray.map(({ id, type, placeholder, logo, name }) => (
+          {signUpArray.map(({ id, type, placeholder, logo, name, min }) => (
             <InputValidation
               key={id}
               type={type}
@@ -54,6 +54,7 @@ const SignUpSection = () => {
               logo={logo}
               showPassword={showPassword}
               inputName={name}
+              min={min}
             />
           ))}
         </div>

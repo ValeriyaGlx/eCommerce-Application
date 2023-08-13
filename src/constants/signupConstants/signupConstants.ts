@@ -9,6 +9,7 @@ export const INPUTS_SIGNUP_DATA: {
   placeholder: string;
   name: string;
   logo: typeof mailLogo;
+  min?: string;
 }[] = [
   {
     id: Math.random(),
@@ -44,6 +45,7 @@ export const INPUTS_SIGNUP_DATA: {
     placeholder: 'Birth date',
     name: 'date',
     logo: dateLogo,
+    min: '1900-01-02',
   },
 ];
 
