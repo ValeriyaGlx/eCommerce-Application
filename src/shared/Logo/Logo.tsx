@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
+import { Link } from 'react-router-dom';
 
 import logoMain from '../../assets/icons/logo-main.svg';
 import './Logo.scss';
-import { Link } from 'react-router-dom';
 
 interface LogoProps {
   logo?: typeof logoMain;

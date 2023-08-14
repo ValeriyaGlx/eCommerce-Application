@@ -4,19 +4,20 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 
 import './_SignUpAnimation.scss';
-import InputValidation from '../../entities/InputValidation/InputValidation';
+
 import {
   INPUTS_SIGNUP_DATA as signUpArray,
   INPUTS_SIGNUP_ADDRESS as addressArray,
   SELECT_SIGNUP_DATA as selectArray,
 } from '../../constants/signupConstants/signupConstants';
-import InputSubmit from '../../entities/InputSubmit/InputSubmit';
-import InputCheckbox from '../../entities/InputCheckbox/InputCheckbox';
+import InputSubmit from '../../shared/components/InputSubmit/InputSubmit';
+import InputCheckbox from '../../shared/components/InputCheckbox/InputCheckbox';
 import Logo from '../../shared/Logo/Logo';
 import { showPassword } from '../../features/formCommon/showPassword';
-import SignUpSelectTag from '../../features/SignUpSelectTag/SignUpSelectTag';
+import SignUpSelectTag from '../../entities/SignUpSelectTag/SignUpSelectTag';
 import { setInputValueWithValidation } from '../../app/store/validationActions/signupActions';
 import { store } from '../../app/store/store';
+import InputValidationSignUp from '../../entities/InputValidationSignUp/view/InputValidationSignUp';
 
 type RootState = ReturnType<typeof store.getState>;
 
@@ -47,7 +48,7 @@ const SignUpSection = () => {
       <form onSubmit={handleSubmit}>
         <div>
           {signUpArray.map(({ id, type, placeholder, logo, name, min }) => (
-            <InputValidation
+            <InputValidationSignUp
               key={id}
               type={type}
               placeholder={placeholder}
@@ -67,7 +68,7 @@ const SignUpSection = () => {
             inputName={'shipping'}
           />
           {addressArray.map(({ type, placeholder, id, name }) => (
-            <InputValidation
+            <InputValidationSignUp
               key={id}
               type={type}
               placeholder={placeholder}
@@ -92,7 +93,7 @@ const SignUpSection = () => {
                   inputName={'billing'}
                 />
                 {addressArray.map(({ type, placeholder, id, name }) => (
-                  <InputValidation
+                  <InputValidationSignUp
                     key={id}
                     type={type}
                     placeholder={placeholder}
