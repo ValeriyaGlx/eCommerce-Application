@@ -2,10 +2,10 @@ import React from 'react';
 
 import iconCart from '../../assets/icons/icon-cart.svg';
 import './_Header.scss';
-import { CartButton } from '../../entities/CartButton/CartButton';
-import ButtonWithRoute from '../../entities/ButtonWithRoute/ButtonWithRoute';
+import { CartButton } from '../../shared/components/CartButton/CartButton';
+import ButtonWithRoute from '../../shared/components/ButtonWithRoute/ButtonWithRoute';
 import Logo from '../../shared/Logo/Logo';
-import SelectTag from '../../entities/SelectTag/SelectTag';
+import SelectTag from '../../shared/components/SelectTag/SelectTag';
 import { SELECT_CATEGORIES_DATA as categoriesArray } from '../../constants/headerConstants/headerConstants';
 import arrow from '../../assets/icons/arrow-down-caategories.png';
 import logo from '../../assets/icons/categories-logo.png';

@@ -7,7 +7,7 @@ import {
   emptyFieldValidationSchema,
   getPostalCodeValidationSchema,
   passwordValidationSchema,
-} from '../../../features/utils/validation/validationSignUp';
+} from '../../../entities/InputValidationSignUp/usage/utils/validationSignUp';
 import { store } from '../store';
 
 import { clearInputValidationError, setInputValidationError, setInputValue } from './sugnupSlice';

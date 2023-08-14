@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ButtonWithRoute from '../../entities/ButtonWithRoute/ButtonWithRoute';
+import ButtonWithRoute from '../../shared/components/ButtonWithRoute/ButtonWithRoute';
 import './_NewHereSection.scss';
 
 const NewHereSection = () => {
