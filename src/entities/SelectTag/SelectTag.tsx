@@ -1,32 +1,41 @@
 import React, { FC } from 'react';
 
 import './_SelectTag.scss';
-
-import arrow from '../../assets/icons/down-arrow-black.png';
+import arrowLogo from '../../assets/icons/down-arrow-black.png';
+import { openDropdown } from '../../features/formCommon/openDropdown';
 
 interface SelectTagProps {
-  defaultData: string;
   selectArray: { value: string; data: string; id: number }[];
   className: string;
-  openDropDown: (e: React.MouseEvent) => void;
+  value: string;
+  inputName: string;
+  onClick: (e: React.MouseEvent) => void;
+  logo?: typeof arrowLogo;
+  arrow: typeof arrowLogo;
 }
 
 const SelectTag: FC<SelectTagProps> = ({
   selectArray,
-  defaultData,
   className,
-  openDropDown,
+  inputName,
+  value,
+  onClick,
+  logo,
+  arrow,
 }) => {
   return (
-    <div className={['dropdown', className].join(' ')} onClick={openDropDown}>
+    <div className={['dropdown', className].join(' ')} onClick={openDropdown}>
       <div className={'select'}>
-        <span>{defaultData}</span>
+        <div className={'select-logo'}>
+          {logo && <img src={logo} alt={'arrow'} />}
+          <span>{value}</span>
+        </div>
         <img src={arrow} alt={'arrow'} />
       </div>
-      <input type='hidden' />
+      <input type='hidden' value={value} name={inputName} />
       <ul className={'dropdown-menu'}>
-        {selectArray.map(({ value, data, id }) => (
-          <li key={id} value={value}>
+        {selectArray.map(({ data, id }) => (
+          <li key={id} onClick={onClick}>
             {data}
           </li>
         ))}

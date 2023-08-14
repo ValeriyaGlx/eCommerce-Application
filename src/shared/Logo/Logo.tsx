@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 
 import logoMain from '../../assets/icons/logo-main.svg';
 import './Logo.scss';
+import { Link } from 'react-router-dom';
 
 interface LogoProps {
   logo?: typeof logoMain;
@@ -10,10 +11,10 @@ interface LogoProps {
 
 const Logo: FC<LogoProps> = ({ logo, className }) => {
   return (
-    <div className='header-logo'>
+    <Link className='header-logo' to={'/'}>
       <img src={logo ? logo : logoMain} className='logo-img' alt='logo' />
       <h4 className={className}>DigiSet</h4>
-    </div>
+    </Link>
   );
 };
 

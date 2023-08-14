@@ -1,5 +1,5 @@
-@import "src/constants/scss/variables";
-@import "src/constants/scss/extentds";
+@import 'src/constants/scss/variables';
+@import 'src/constants/scss/extentds';
 
 .section-signUp {
   display: flex;
@@ -9,7 +9,9 @@
   h4 {
     margin-top: 10px;
     font-size: 24px;
-    font-family: Josefin Sans, serif;
+    font-family:
+      Josefin Sans,
+      serif;
     line-height: 59px;
   }
 }
@@ -42,7 +44,7 @@
 .billing-address_section {
   max-height: 100%;
   opacity: 1;
-  transition: .2s;
+  transition: 0.2s;
 }
 
 .billing-address_section-hide {
@@ -55,3 +57,4 @@
   margin-left: 10px;
   font-size: 20px;
 }
+

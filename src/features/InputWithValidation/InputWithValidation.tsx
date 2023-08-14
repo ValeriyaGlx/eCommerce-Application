@@ -42,6 +42,7 @@ const InputWithValidation: FC<InputValidationProps> = ({
         handleInputChange={handleValueChange}
         errorMessage={errorMessage}
         onBlur={onBlur}
+        inputName={'sign-in'}
       />
     </div>
   );

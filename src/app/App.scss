@@ -1,21 +1,35 @@
-@import "../constants/scss/variables";
-@import "../constants/scss/extentds";
+@import '../constants/scss/variables';
+@import '../constants/scss/extentds';
 
-*, *::after, *::before {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-html, body {
-  width: 100%;
-  height: 100%;
-  font-family: Josefin Sans, serif;
-  font-size: 20px;
-  font-weight: 600;
-  line-height: 30px;
+html,
+body {
+    width: 100%;
+    height: 100%;
+    font-family: Josefin Sans,
+    serif;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 30px;
 }
+
 a {
-text-decoration: none;
+    text-decoration: none;
 }
 
+*::-webkit-scrollbar {
+    width: 10px;
+    background-color: $color-white;
+    opacity: 0.5;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: $color-orange
+}

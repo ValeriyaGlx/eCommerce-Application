@@ -3,54 +3,70 @@ import passwordLogo from '../../assets/icons/password.png';
 import userLogo from '../../assets/icons/user.png';
 import dateLogo from '../../assets/icons/date.png';
 
-export const INPUTS_SIGNUP_DATA: { type: string; placeholder: string; id: number; logo: typeof mailLogo }[] = [
+export const INPUTS_SIGNUP_DATA: {
+  id: number;
+  type: string;
+  placeholder: string;
+  name: string;
+  logo: typeof mailLogo;
+  min?: string;
+}[] = [
   {
+    id: Math.random(),
     type: 'text',
     placeholder: 'Email',
-    id: Math.random(),
+    name: 'email',
     logo: mailLogo,
   },
   {
+    id: Math.random(),
     type: 'password',
     placeholder: 'Password',
-    id: Math.random(),
+    name: 'password',
     logo: passwordLogo,
   },
   {
+    id: Math.random(),
     type: 'text',
     placeholder: 'Name',
-    id: Math.random(),
+    name: 'name',
     logo: userLogo,
   },
   {
+    id: Math.random(),
     type: 'text',
     placeholder: 'Surname',
-    id: Math.random(),
+    name: 'surname',
     logo: userLogo,
   },
   {
+    id: Math.random(),
     type: 'date',
     placeholder: 'Birth date',
-    id: Math.random(),
+    name: 'date',
     logo: dateLogo,
+    min: '1900-01-02',
   },
 ];
 
 export const INPUTS_SIGNUP_ADDRESS = [
   {
     type: 'text',
+    placeholder: 'Postal Code',
+    id: Math.random(),
+    name: 'code',
+  },
+  {
+    type: 'text',
     placeholder: 'City',
     id: Math.random(),
+    name: 'city',
   },
   {
     type: 'text',
     placeholder: 'Street',
     id: Math.random(),
-  },
-  {
-    type: 'text',
-    placeholder: 'Postal Code',
-    id: Math.random(),
+    name: 'street',
   },
 ];
 

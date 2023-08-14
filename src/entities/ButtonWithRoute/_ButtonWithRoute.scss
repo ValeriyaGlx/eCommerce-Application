@@ -1,4 +1,4 @@
-@import "src/constants/scss/variables";
+@import 'src/constants/scss/variables';
 
 .button-signIn {
   box-sizing: border-box;
@@ -21,7 +21,7 @@
 }
 
 .button-signIn::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 10px;
   top: 13px;
@@ -39,7 +39,7 @@
   height: 50px;
   line-height: 50px;
   color: white;
-  background: linear-gradient(103.86deg, #00C6FF -22.01%, #0183E7 117.6%);
+  background: linear-gradient(103.86deg, #00c6ff -22.01%, #0183e7 117.6%);
   font-size: 20px;
   border: none;
   border-radius: 10px;

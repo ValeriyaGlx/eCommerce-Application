@@ -1,0 +1,29 @@
+@import 'src/constants/scss/variables';
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.wrapper-button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 25px;
+}
+
+.header-select {
+
+    .select {
+        background: $color-gradient-blue-orange;
+        color: #fff;
+
+        img {
+            height: 20px;
+            width: 20px;
+        }
+    }
+
+
+}

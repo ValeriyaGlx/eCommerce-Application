@@ -9,12 +9,14 @@
 }
 
 .newHereSection-title {
-  background: linear-gradient(103.86deg, #00C6FF -22.01%, #0183E7 117.6%);
+  background: linear-gradient(103.86deg, #00c6ff -22.01%, #0183e7 117.6%);
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
   font-size: 39px;
-  font-family: Josefin Sans, serif;
+  font-family:
+    Josefin Sans,
+    serif;
   line-height: 58px;
   text-align: center;
 }

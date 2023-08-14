@@ -1,23 +1,29 @@
 import React from 'react';
 
 import iconCart from '../../assets/icons/icon-cart.svg';
-import './Header.scss';
+import './_Header.scss';
 import { CartButton } from '../../entities/CartButton/CartButton';
 import ButtonWithRoute from '../../entities/ButtonWithRoute/ButtonWithRoute';
 import Logo from '../../shared/Logo/Logo';
 import SelectTag from '../../entities/SelectTag/SelectTag';
 import { SELECT_CATEGORIES_DATA as categoriesArray } from '../../constants/headerConstants/headerConstants';
-import { openDropdown } from '../../features/formCommon/openDropdown';
+import arrow from '../../assets/icons/arrow-down-caategories.png';
+import logo from '../../assets/icons/categories-logo.png';
 
 export function Header() {
   return (
     <header className='header'>
       <Logo className={'logo-title-black'} />
       <SelectTag
-        defaultData={'Categories'}
         selectArray={categoriesArray}
         className={'header-select'}
-        openDropDown={openDropdown}
+        value={'Categories'}
+        inputName={'header-select-tag'}
+        onClick={() => {
+          console.log('here will be implement redux save logic');
+        }}
+        arrow={arrow}
+        logo={logo}
       />
       <div className='wrapper-button'>
         <CartButton src={iconCart} alt='cartButton' />
