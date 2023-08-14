@@ -3,7 +3,7 @@ import React from 'react';
 import Logo from '../../shared/Logo/Logo';
 import './_SignInSection.scss';
 import blueLogo from '../../assets/icons/logo-blue.svg';
-import FormSubmitSignIn from '../../features/formSubmitSignIn/FormSubmitSignIn';
+import FormSubmitSignIn from '../../features/formSubmitSignIn/view/FormSubmitSignIn';
 
 const SignInSection = () => {
   return (
