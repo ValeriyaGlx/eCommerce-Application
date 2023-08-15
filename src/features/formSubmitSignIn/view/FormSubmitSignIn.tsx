@@ -13,6 +13,8 @@ import {
 import { showPassword } from '../../formCommon/showPassword';
 import { store } from '../../../app/store/store';
 import { setSingInInputValidationError } from '../../../app/store/signinAction/signinSlice';
+import ModalFailed from '../../ModalFailed/ModalFailed';
+import { openModal } from '../../../app/store/modalSliceAction/modalSlice';
 
 type RootState = ReturnType<typeof store.getState>;
 
@@ -24,6 +26,7 @@ const FormSubmitSignIn = () => {
   const passwordState = useSelector(
     (state: RootState) => state.signin.password,
   );
+  const modalState = useSelector((state: RootState) => state.modal.isOpen);
 
   const handleFormSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -49,29 +52,37 @@ const FormSubmitSignIn = () => {
     ) {
       const email = store.getState().signin.email.value;
       const password = store.getState().signin.password.value;
-      await authorize(email, password);
+      const isAuthorization = await authorize(email, password);
+      if (typeof isAuthorization === 'number') {
+        dispatch(openModal());
+      } else {
+        console.log(isAuthorization);
+      }
     }
   };
 
   return (
-    <form onSubmit={handleFormSubmit}>
-      <InputValidationSignIn
-        type={'text'}
-        placeholder={'Email'}
-        valid={validateEmail}
-        inputName={'email'}
-      />
-      <InputValidationSignIn
-        type={'password'}
-        placeholder={'Password'}
-        showPassword={showPassword}
-        valid={validatePassword}
-        inputName={'password'}
-      />
-      <div className={'container-submit'}>
-        <InputSubmit className={'signIn_submit-button'} value={'SIGN IN'} />
-      </div>
-    </form>
+    <div className={'wrapper-form'}>
+      <form onSubmit={handleFormSubmit}>
+        <InputValidationSignIn
+          type={'text'}
+          placeholder={'Email'}
+          valid={validateEmail}
+          inputName={'email'}
+        />
+        <InputValidationSignIn
+          type={'password'}
+          placeholder={'Password'}
+          showPassword={showPassword}
+          valid={validatePassword}
+          inputName={'password'}
+        />
+        <div className={'container-submit'}>
+          <InputSubmit className={'signIn_submit-button'} value={'SIGN IN'} />
+        </div>
+      </form>
+      {modalState && <ModalFailed />}
+    </div>
   );
 };
 

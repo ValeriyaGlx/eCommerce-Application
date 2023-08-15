@@ -19,10 +19,12 @@ export async function authorize(email: string, password: string) {
       },
       body: body,
     });
-    const data = await response.json();
-    console.log(data);
+    if (!response.ok) {
+      return response.status;
+    } else {
+      return await response.json();
+    }
   } catch (error) {
-    console.error('Ошибка авторизации:', error);
     throw error;
   }
 }
