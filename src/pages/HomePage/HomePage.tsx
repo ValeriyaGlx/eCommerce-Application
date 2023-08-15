@@ -6,7 +6,9 @@ import './HomePage.scss';
 export function HomePage() {
   return (
     <div className='wrapper'>
-      <Header />
+      <div className={'container'}>
+        <Header />
+      </div>
     </div>
   );
 }
