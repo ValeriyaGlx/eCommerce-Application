@@ -5,11 +5,13 @@
     border: none;
     border-radius: 10px;
     text-align: start;
+    cursor: pointer;
 }
 
 .img-cart {
     position: relative;
     top: -7px;
+    left: 5px;
 }
 
 .span-cart {
@@ -21,7 +23,7 @@
     color: #fff;
     width: 20px;
     height: 20px;
-    left: 15px;
+    left: 25px;
     bottom: -3px;
     background: linear-gradient(to bottom left, #083fed, #fc8901);
     border: 1px solid white;

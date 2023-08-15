@@ -9,8 +9,11 @@ import SelectTag from '../../shared/components/SelectTag/SelectTag';
 import { SELECT_CATEGORIES_DATA as categoriesArray } from '../../constants/headerConstants/headerConstants';
 import arrow from '../../assets/icons/arrow-down-caategories.png';
 import logo from '../../assets/icons/categories-logo.png';
+import { store } from '../../app/store/store';
+import Button from '../../shared/components/Button/Button';
 
 export function Header() {
+  const isAuthorization = store.getState().authorization.isAuthorization;
   return (
     <header className='header'>
       <Logo className={'logo-title-black'} />
@@ -27,16 +30,25 @@ export function Header() {
       />
       <div className='wrapper-button'>
         <CartButton src={iconCart} alt='cartButton' />
-        <ButtonWithRoute
-          className={'button-signIn'}
-          path={'/signIn'}
-          data={'Sign in'}
-        />
-        <ButtonWithRoute
-          className={'button-signUp'}
-          path={'/singUp'}
-          data={'Sign up'}
-        />
+        {isAuthorization == false && (
+          <>
+            <ButtonWithRoute
+              className={'button-signIn'}
+              path={'/signIn'}
+              data={'Sign in'}
+            />
+            <ButtonWithRoute
+              className={'button-signUp'}
+              path={'/singUp'}
+              data={'Sign up'}
+            />
+          </>
+        )}
+        {isAuthorization && (
+          <>
+            <Button className={'button-logOut'} data={'Log out'} />
+          </>
+        )}
       </div>
     </header>
   );
