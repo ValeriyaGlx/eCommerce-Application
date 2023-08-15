@@ -1,8 +1,9 @@
 import React from 'react';
 import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 import { useDispatch, useSelector } from 'react-redux';
-
 import './_formSubmutSignIn.scss';
+import { useNavigate } from 'react-router-dom';
+
 import { authorize } from '../usage/ApiAuthorization';
 import InputSubmit from '../../../shared/components/InputSubmit/InputSubmit';
 import InputValidationSignIn from '../../../entities/InputValidationSignIn/view/InputValidationSignIn';
@@ -20,10 +21,11 @@ import { loginSuccess } from '../../../app/store/authorizationAction/authorizati
 type RootState = ReturnType<typeof store.getState>;
 
 const FormSubmitSignIn = () => {
+  const navigate = useNavigate();
+
   const dispatch: ThunkDispatch<RootState, unknown, AnyAction> = useDispatch();
 
   const emailState = useSelector((state: RootState) => state.signin.email);
-
   const passwordState = useSelector(
     (state: RootState) => state.signin.password,
   );
@@ -58,6 +60,7 @@ const FormSubmitSignIn = () => {
         dispatch(openModal());
       } else {
         dispatch(loginSuccess());
+        navigate('/');
       }
     }
   };
