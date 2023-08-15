@@ -57,10 +57,7 @@ const FormSubmitSignIn = () => {
       if (typeof isAuthorization === 'number') {
         dispatch(openModal());
       } else {
-        const token = isAuthorization.access_token;
-        console.log(store.getState().authorization.isAuthorization);
-        dispatch(loginSuccess({ token }));
-        console.log(store.getState().authorization.isAuthorization);
+        dispatch(loginSuccess());
       }
     }
   };

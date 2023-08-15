@@ -1,20 +1,16 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 const authorizationSlice = createSlice({
   name: 'authorization',
   initialState: {
     isAuthorization: false,
-    token: '',
   },
   reducers: {
-    loginSuccess: (state, action: PayloadAction<{ token: string }>) => {
+    loginSuccess: (state) => {
       state.isAuthorization = true;
-      const { token } = action.payload;
-      state.token = token;
     },
     logOut: (state) => {
       state.isAuthorization = false;
-      state.token = '';
     },
   },
 });
