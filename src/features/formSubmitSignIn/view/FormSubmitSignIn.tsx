@@ -15,6 +15,7 @@ import { store } from '../../../app/store/store';
 import { setSingInInputValidationError } from '../../../app/store/signinAction/signinSlice';
 import ModalFailed from '../../ModalFailed/ModalFailed';
 import { openModal } from '../../../app/store/modalSliceAction/modalSlice';
+import { loginSuccess } from '../../../app/store/authorizationAction/authorizationSlice';
 
 type RootState = ReturnType<typeof store.getState>;
 
@@ -56,7 +57,10 @@ const FormSubmitSignIn = () => {
       if (typeof isAuthorization === 'number') {
         dispatch(openModal());
       } else {
-        console.log(isAuthorization);
+        const token = isAuthorization.access_token;
+        console.log(store.getState().authorization.isAuthorization);
+        dispatch(loginSuccess({ token }));
+        console.log(store.getState().authorization.isAuthorization);
       }
     }
   };
