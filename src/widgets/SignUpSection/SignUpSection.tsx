@@ -82,35 +82,36 @@ const SignUpSection = () => {
             onChange={checkboxOnChange}
           />
         </div>
-        <TransitionGroup>
-          {!checkbox && (
-            <CSSTransition classNames='dropdown' timeout={300} unmountOnExit>
-              <div>
-                <h5 className={'address-inner'}>Billing Address</h5>
-                <SignUpSelectTag
-                  selectArray={selectArray}
-                  className={'singUp-select'}
-                  inputName={'billing'}
-                />
-                {addressArray.map(({ type, placeholder, id, name }) => (
-                  <InputValidationSignUp
-                    key={id}
-                    type={type}
-                    placeholder={placeholder}
-                    inputName={'billing_' + name}
-                  />
-                ))}
-              </div>
-            </CSSTransition>
-          )}
-        </TransitionGroup>
 
-        <CSSTransition in={checkbox} classNames={'submit'} timeout={300}>
-          <InputSubmit
-            className={'button-signUp signup_submit-button'}
-            value={'SIGN UP'}
-          />
+        <CSSTransition
+          in={!checkbox}
+          classNames='component-above'
+          timeout={300}
+          unmountOnExit
+        >
+          <div>
+            <h5 className={'address-inner'}>Billing Address</h5>
+            <SignUpSelectTag
+              selectArray={selectArray}
+              className={'singUp-select'}
+              inputName={'billing'}
+            />
+            {addressArray.map(({ type, placeholder, id, name }) => (
+              <InputValidationSignUp
+                key={id}
+                type={type}
+                placeholder={placeholder}
+                inputName={'billing_' + name}
+              />
+            ))}
+          </div>
         </CSSTransition>
+        <InputSubmit
+          className={`button-signUp signup_submit-button button-move-up ${
+            !checkbox ? 'moved' : ''
+          }`}
+          value={'SIGN UP'}
+        />
       </form>
     </section>
   );

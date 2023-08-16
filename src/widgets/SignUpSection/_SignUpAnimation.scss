@@ -1,34 +1,30 @@
-.dropdown-enter {
+.component-above-enter {
+    transform: translateY(-50px);
     opacity: 0;
-    transform: translateY(-10px);
-
 }
 
-.dropdown-enter-active {
-    opacity: 1;
+.component-above-enter-active {
     transform: translateY(0);
-    transition: opacity 300ms, transform 300ms;
-
+    opacity: 1;
+    transition: transform 500ms, opacity 500ms;
 }
 
-.dropdown-exit {
+.component-above-exit {
+    transform: translateY(0);
     opacity: 1;
 }
 
-.dropdown-exit-active {
-    opacity: 0;
+.component-above-exit-active {
     transform: translateY(-30px);
-    transition: opacity 300ms, transform 300ms;
+    opacity: 0;
+    transition: transform 500ms, opacity 500ms;
 }
 
-.submit-enter {
-    transform: translateY(0);
-}
-
-.submit-enter-active {
-    transform: translateY(-30px); /* Adjust the value as needed */
+.button-move-up {
+    transform: translateY(10px);
     transition: transform 400ms;
 }
 
-
-
+.moved {
+    transform: translateY(0px);
+}
