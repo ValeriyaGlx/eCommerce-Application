@@ -80,6 +80,7 @@ export function getPostalCodeValidationSchema(country?: string): yup.StringSchem
     if (formatRegex) {
       return yup
         .string()
+        .required('This field is required')
         .trim()
         .matches(
           formatRegex,
