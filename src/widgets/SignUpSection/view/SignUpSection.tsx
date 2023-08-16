@@ -1,23 +1,24 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import { CSSTransition } from 'react-transition-group';
 import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 
 import './_SignUpAnimation.scss';
+import './_SignUpSection.scss';
 
 import {
   INPUTS_SIGNUP_DATA as signUpArray,
   INPUTS_SIGNUP_ADDRESS as addressArray,
   SELECT_SIGNUP_DATA as selectArray,
-} from '../../constants/signupConstants/signupConstants';
-import InputSubmit from '../../shared/components/InputSubmit/InputSubmit';
-import InputCheckbox from '../../shared/components/InputCheckbox/InputCheckbox';
-import Logo from '../../shared/Logo/Logo';
-import { showPassword } from '../../features/formCommon/showPassword';
-import SignUpSelectTag from '../../entities/SignUpSelectTag/SignUpSelectTag';
-import { setInputValueWithValidation } from '../../app/store/validationActions/signupActions';
-import { store } from '../../app/store/store';
-import InputValidationSignUp from '../../entities/InputValidationSignUp/view/InputValidationSignUp';
+} from '../../../constants/signupConstants/signupConstants';
+import InputSubmit from '../../../shared/components/InputSubmit/InputSubmit';
+import InputCheckbox from '../../../shared/components/InputCheckbox/InputCheckbox';
+import Logo from '../../../shared/Logo/Logo';
+import { showPassword } from '../../../features/formCommon/showPassword';
+import SignUpSelectTag from '../../../entities/SignUpSelectTag/SignUpSelectTag';
+import { setInputValueWithValidation } from '../../../app/store/validationActions/signupActions';
+import { store } from '../../../app/store/store';
+import InputValidationSignUp from '../../../entities/InputValidationSignUp/view/InputValidationSignUp';
 
 type RootState = ReturnType<typeof store.getState>;
 
@@ -33,7 +34,6 @@ const SignUpSection = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
     Object.entries(inputsState).forEach((inputName) => {
       dispatch(setInputValueWithValidation(inputName[0], inputName[1].value));
     });
