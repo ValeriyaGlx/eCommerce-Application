@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import './_formSubmutSignIn.scss';
 import { useNavigate } from 'react-router-dom';
 
-import { authorize } from '../usage/ApiAuthorization';
+import { tokenRequest, logInRequest } from '../usage/ApiAuthorization';
 import InputSubmit from '../../../shared/components/InputSubmit/InputSubmit';
 import InputValidationSignIn from '../../../entities/InputValidationSignIn/view/InputValidationSignIn';
 import {
@@ -29,7 +29,6 @@ const FormSubmitSignIn = () => {
   const passwordState = useSelector(
     (state: RootState) => state.signin.password,
   );
-  const modalState = useSelector((state: RootState) => state.modal.isOpen);
 
   const handleFormSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -55,10 +54,12 @@ const FormSubmitSignIn = () => {
     ) {
       const email = store.getState().signin.email.value;
       const password = store.getState().signin.password.value;
-      const isAuthorization = await authorize(email, password);
+      const isAuthorization = await tokenRequest(email, password);
       if (typeof isAuthorization === 'number') {
         dispatch(openModal());
       } else {
+        const token = isAuthorization.access_token;
+        await logInRequest(email, password, token);
         dispatch(loginSuccess());
         navigate('/');
       }
