@@ -85,7 +85,7 @@ const FormSubmitSignIn = () => {
           <InputSubmit className={'signIn_submit-button'} value={'SIGN IN'} />
         </div>
       </form>
-      {modalState && <ModalFailed />}
+      <ModalFailed />
     </div>
   );
 };
