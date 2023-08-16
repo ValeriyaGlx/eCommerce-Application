@@ -1,4 +1,47 @@
-const url = process.env.REACT_APP_AUTH_URL;
+const token = process.env['REACT_APP_ACCESS_TOKEN_BEARER'];
 const project = process.env.REACT_APP_PROJECT_KEY;
-const clientId = process.env.REACT_APP_CLIENT_ID;
-const clientSecret = process.env.REACT_APP_CLIENT_SECRET;
+const host = process.env.REACT_APP_HOST;
+
+interface IAddress {
+  country: string;
+  postalCode: string;
+  city: string;
+  streetName: string;
+}
+
+export interface ISubmitData {
+  email: string;
+  firstName: string;
+  lastName: string;
+  password: string;
+  dateOfBirth: string;
+  addresses: IAddress[];
+  billingAddress: string;
+  shippingAddress: string;
+  defaultShippingAddress?: number;
+  defaultBillingAddress?: number;
+}
+
+async function logUpRequest(submitData: ISubmitData) {
+  const urlRequest = `${host}/${project}/customers`;
+  const authHeader = 'Bearer ' + token;
+  try {
+    const response = await fetch(urlRequest, {
+      method: 'POST',
+      headers: {
+        Authorization: authHeader,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(submitData),
+    });
+    if (!response.ok) {
+      return response.status;
+    } else {
+      return await response.json();
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+
+export default logUpRequest;

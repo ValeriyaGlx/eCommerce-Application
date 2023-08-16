@@ -24,6 +24,8 @@ import {
   CheckboxesState,
 } from '../../../app/store/signupActions/sugnupSlice';
 import { setRegistrationValue } from '../../../app/store/authorizationAction/authorizationSlice';
+import makeSubmitData from '../usage/makeSubmitData';
+import logUpRequest from '../usage/ApiRegistration';
 
 type RootState = ReturnType<typeof store.getState>;
 
@@ -59,6 +61,16 @@ const SignUpSection = () => {
     const isSubmit = values.every((el) => el.validationError === null);
     dispatch(setRegistrationValue({ isSubmit }));
   }, [checkInput]);
+
+  useEffect(() => {
+    const isSubmit = store.getState().authorization.isRegistration;
+
+    if (isSubmit) {
+      const data = makeSubmitData();
+      console.log(JSON.stringify(data));
+      // logUpRequest(data);
+    }
+  }, [handleSubmit]);
 
   return (
     <section className={'section-signUp'}>
