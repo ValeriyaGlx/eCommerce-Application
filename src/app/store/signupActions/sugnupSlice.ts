@@ -12,9 +12,17 @@ interface CountryState {
   [key: string]: string;
 }
 
+export interface CheckboxesState {
+  isSameAddress: boolean;
+  isDefaultBothAddresses: boolean;
+  isBillingDefault: boolean;
+  isShippingDefault: boolean;
+}
+
 interface FormState {
   signup: Record<string, InputState>;
   countries: CountryState;
+  checkboxes: CheckboxesState;
 }
 
 const initialState: FormState = {
@@ -69,6 +77,13 @@ const initialState: FormState = {
     shipping: 'Choose a country',
     billing: 'Choose a country',
   },
+
+  checkboxes: {
+    isSameAddress: true,
+    isDefaultBothAddresses: false,
+    isBillingDefault: false,
+    isShippingDefault: false,
+  },
 };
 
 const signupSlice = createSlice({
@@ -92,9 +107,24 @@ const signupSlice = createSlice({
       const { inputName } = action.payload;
       state.signup[inputName].validationError = null;
     },
+    changeAddressCheckboxData: (
+      state,
+      action: PayloadAction<{
+        checkbox: keyof CheckboxesState;
+        checkboxValue: boolean;
+      }>,
+    ) => {
+      const { checkbox, checkboxValue } = action.payload;
+      state.checkboxes[checkbox] = checkboxValue;
+    },
   },
 });
 
-export const { setSelectValue, setInputValue, setInputValidationError, clearInputValidationError } =
-  signupSlice.actions;
+export const {
+  setSelectValue,
+  setInputValue,
+  setInputValidationError,
+  clearInputValidationError,
+  changeAddressCheckboxData,
+} = signupSlice.actions;
 export default signupSlice.reducer;

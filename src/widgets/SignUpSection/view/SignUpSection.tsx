@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
 import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
@@ -16,28 +16,49 @@ import InputCheckbox from '../../../shared/components/InputCheckbox/InputCheckbo
 import Logo from '../../../shared/Logo/Logo';
 import { showPassword } from '../../../features/formCommon/showPassword';
 import SignUpSelectTag from '../../../entities/SignUpSelectTag/SignUpSelectTag';
-import { setInputValueWithValidation } from '../../../app/store/validationActions/signupActions';
+import { setInputValueWithValidation } from '../../../app/store/signupActions/signupActions';
 import { store } from '../../../app/store/store';
 import InputValidationSignUp from '../../../entities/InputValidationSignUp/view/InputValidationSignUp';
+import {
+  changeAddressCheckboxData,
+  CheckboxesState,
+} from '../../../app/store/signupActions/sugnupSlice';
+import { setRegistrationValue } from '../../../app/store/authorizationAction/authorizationSlice';
 
 type RootState = ReturnType<typeof store.getState>;
 
 const SignUpSection = () => {
-  const [checkbox, setCheckbox] = useState(false);
+  const dispatch: ThunkDispatch<RootState, unknown, AnyAction> = useDispatch();
+  const [checkInput, setCheckInput] = useState(true);
 
-  const checkboxOnChange = () => {
-    setCheckbox(!checkbox);
+  const checkboxState = useSelector(
+    (state: RootState) => state.signup.checkboxes,
+  );
+
+  const checkboxOnChange = (checkbox: keyof CheckboxesState) => {
+    const checkboxValue = !checkboxState[checkbox];
+    dispatch(changeAddressCheckboxData({ checkbox, checkboxValue }));
   };
 
-  const dispatch: ThunkDispatch<RootState, unknown, AnyAction> = useDispatch();
-  const inputsState = useSelector((state: RootState) => state.inputs.signup);
+  const inputsState = useSelector((state: RootState) => state.signup.signup);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     Object.entries(inputsState).forEach((inputName) => {
       dispatch(setInputValueWithValidation(inputName[0], inputName[1].value));
     });
+    setCheckInput(!checkInput);
   };
+
+  useEffect(() => {
+    const values = Object.values(inputsState);
+    const singleAddress = checkboxState.isSameAddress;
+    if (singleAddress) {
+      values.length = 7;
+    }
+    const isSubmit = values.every((el) => el.validationError === null);
+    dispatch(setRegistrationValue({ isSubmit }));
+  }, [checkInput]);
 
   return (
     <section className={'section-signUp'}>
@@ -61,7 +82,11 @@ const SignUpSection = () => {
         </div>
         <h4>Address Information</h4>
         <div>
-          <h5 className={'address-inner'}>Shipping Address</h5>
+          <h5 className={'address-inner'}>
+            {checkboxState.isSameAddress
+              ? 'Billing and Shipping Address'
+              : 'Shipping Address'}
+          </h5>
           <SignUpSelectTag
             selectArray={selectArray}
             className={'singUp-select'}
@@ -75,16 +100,30 @@ const SignUpSection = () => {
               inputName={'shipping_' + name}
             />
           ))}
-          <InputCheckbox
-            id={'default-address'}
-            data={'Make this address default'}
-            className={'default-address'}
-            onChange={checkboxOnChange}
-          />
+          {checkboxState.isSameAddress && (
+            <InputCheckbox
+              id={'default-address'}
+              data={'Make default for billing and shipping'}
+              className={'default-address'}
+              onChange={() => {
+                checkboxOnChange('isDefaultBothAddresses');
+              }}
+              checked={checkboxState.isDefaultBothAddresses}
+            />
+          )}
+          {!checkboxState.isSameAddress && (
+            <InputCheckbox
+              id={'shipping-address'}
+              data={'Make default for shipping '}
+              className={'default-address'}
+              onChange={() => checkboxOnChange('isShippingDefault')}
+              checked={checkboxState.isShippingDefault}
+            />
+          )}
         </div>
 
         <CSSTransition
-          in={!checkbox}
+          in={!checkboxState.isSameAddress}
           classNames='component-above'
           timeout={300}
           unmountOnExit
@@ -104,11 +143,27 @@ const SignUpSection = () => {
                 inputName={'billing_' + name}
               />
             ))}
+            <InputCheckbox
+              id={'billing-address'}
+              data={'Make default for billing'}
+              className={'default-address'}
+              onChange={() => checkboxOnChange('isBillingDefault')}
+              checked={checkboxState.isBillingDefault}
+            />
           </div>
         </CSSTransition>
+        <InputCheckbox
+          id={'same-addresses'}
+          data={'Set the same billing and shipping address'}
+          className={`default-address  ${
+            !checkboxState.isSameAddress ? 'moved' : ''
+          }`}
+          onChange={() => checkboxOnChange(`isSameAddress`)}
+          checked={checkboxState.isSameAddress}
+        />
         <InputSubmit
           className={`button-signUp signup_submit-button button-move-up ${
-            !checkbox ? 'moved' : ''
+            !checkboxState.isSameAddress ? 'moved' : ''
           }`}
           value={'SIGN UP'}
         />

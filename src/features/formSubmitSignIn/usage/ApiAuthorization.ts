@@ -4,14 +4,6 @@ const clientId = process.env.REACT_APP_CLIENT_ID;
 const clientSecret = process.env.REACT_APP_CLIENT_SECRET;
 const host = process.env.REACT_APP_HOST;
 
-// interface AccessToken {
-//   access_token: string;
-//   expires_in: number;
-//   refresh_token: string;
-//   scope: string;
-//   token_type: string;
-// }
-
 export async function tokenRequest(email: string, password: string) {
   const urlRequest = `${url}/oauth/${project}/customers/token`;
   const body = new URLSearchParams();
@@ -38,11 +30,7 @@ export async function tokenRequest(email: string, password: string) {
   }
 }
 
-export async function logInRequest(
-  email: string,
-  password: string,
-  token: string,
-) {
+export async function logInRequest(email: string, password: string, token: string) {
   const urlRequest = `${host}/final-app/login`;
   const authHeader = 'Bearer ' + token;
   try {

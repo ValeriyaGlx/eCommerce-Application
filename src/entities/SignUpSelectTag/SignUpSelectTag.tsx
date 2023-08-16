@@ -3,7 +3,7 @@ import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 import { useDispatch, useSelector } from 'react-redux';
 
 import SelectTag from '../../shared/components/SelectTag/SelectTag';
-import { setSelectValue } from '../../app/store/validationActions/sugnupSlice';
+import { setSelectValue } from '../../app/store/signupActions/sugnupSlice';
 import { store } from '../../app/store/store';
 import arrow from '../../assets/icons/down-arrow-black.png';
 
@@ -22,7 +22,7 @@ const SignUpSelectTag: FC<SignUpSelectTagProps> = ({
 }) => {
   const dispatch: ThunkDispatch<RootState, unknown, AnyAction> = useDispatch();
   const inputState = useSelector(
-    (state: RootState) => state.inputs.countries[inputName],
+    (state: RootState) => state.signup.countries[inputName],
   );
 
   function chooseCountry(e: React.MouseEvent) {
