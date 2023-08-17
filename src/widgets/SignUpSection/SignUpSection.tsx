@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import { CSSTransition } from 'react-transition-group';
 import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 
 import './_SignUpAnimation.scss';
