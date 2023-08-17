@@ -123,7 +123,7 @@ const SignUpSection = () => {
         <Logo className={'logo-title-black'} />
       </div>
       <h2 className={'section-signUp_inner'}>Create Account</h2>
-      <form onSubmit={handleSubmit}>
+      <form className={'wrapper-form'} onSubmit={handleSubmit}>
         <div>
           {signUpArray.map(({ id, type, placeholder, logo, name, min }) => (
             <InputValidationSignUp
