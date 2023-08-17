@@ -1,20 +1,32 @@
 .header-logo {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .logo-img {
-  margin-right: 4px;
+    margin-right: 4px;
 }
 
 .logo-title,
 .logo-title-black {
-  color: white;
-  font-size: 30px;
+    color: white;
+    font-size: 30px;
 }
 
 .logo-title-black {
-  color: black;
+    color: black;
+}
+
+@media (max-width: 960px) {
+    .logo-title-black {
+        display: none;
+    }
+}
+
+@media (max-width: 690px) {
+    .logo-title-black {
+        display: block;
+    }
 }
 
 /*# sourceMappingURL=Logo.css.map */

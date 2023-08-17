@@ -8,6 +8,9 @@
   height: 100vh;
   padding-top: 250px;
   width: 50%;
+    @media (max-width: 685px) {
+        height: 50vh;
+    }
 }
 
 .newHereSection-title {

@@ -11,12 +11,16 @@ input {
   position: relative;
   z-index: 1;
   float: left;
+  top: 26px;
 }
 
 .input-area {
-  width: 500px;
-  display: flex;
-  align-items: center;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    outline: none;
+    justify-content: center;
+    display: flex;
 
   & input {
     width: 100%;
@@ -51,6 +55,7 @@ input {
   position: relative;
   cursor: pointer;
   z-index: 1;
+  top: 33px;
 }
 
 .show-password + input {

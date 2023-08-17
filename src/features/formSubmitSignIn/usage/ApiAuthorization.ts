@@ -11,46 +11,39 @@ export async function tokenRequest(email: string, password: string) {
   body.append('username', email);
   body.append('password', password);
   const authHeader = 'Basic ' + btoa(clientId + ':' + clientSecret);
-  try {
-    const response = await fetch(urlRequest, {
-      method: 'POST',
-      headers: {
-        Authorization: authHeader,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: body,
-    });
-    if (!response.ok) {
-      return response.status;
-    } else {
-      return await response.json();
-    }
-  } catch (error) {
-    throw error;
+  const response = await fetch(urlRequest, {
+    method: 'POST',
+    headers: {
+      Authorization: authHeader,
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: body,
+  });
+  if (!response.ok) {
+    return response.status;
+  } else {
+    return response.json();
   }
 }
 
 export async function logInRequest(email: string, password: string, token: string) {
   const urlRequest = `${host}/final-app/login`;
   const authHeader = 'Bearer ' + token;
-  try {
-    const response = await fetch(urlRequest, {
-      method: 'POST',
-      headers: {
-        Authorization: authHeader,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
-    });
-    if (!response.ok) {
-      return response.status;
-    } else {
-      return await response.json();
-    }
-  } catch (error) {
-    throw error;
+
+  const response = await fetch(urlRequest, {
+    method: 'POST',
+    headers: {
+      Authorization: authHeader,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      email: email,
+      password: password,
+    }),
+  });
+  if (!response.ok) {
+    return response.status;
+  } else {
+    return response.json();
   }
 }

@@ -3,11 +3,23 @@
 .section-container {
   display: flex;
   justify-content: space-between;
+    @media (max-width: 685px) {
+        display: block;
+        display: flex;
+        flex-direction: column-reverse;
+        margin-top: 97px;
+    }
 
   & section {
     width: 50%;
     min-height: 100vh;
     padding-top: 30vh;
+      @media (max-width: 685px) {
+          //padding-top: 10vh;
+          padding: 7vh 0;
+          width: 100%;
+          min-height: 0;
+      }
   }
 
   & section:last-child {
