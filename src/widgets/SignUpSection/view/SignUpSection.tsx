@@ -2,13 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
 import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
-
 import { useNavigate } from 'react-router-dom';
+
 import logoSuccess from '../../../assets/icons/modal-logo-success.png';
 import logoFailed from '../../../assets/icons/modal-logo-failed.png';
 import './_SignUpAnimation.scss';
 import './_SignUpSection.scss';
-
 import {
   INPUTS_SIGNUP_DATA as signUpArray,
   INPUTS_SIGNUP_ADDRESS as addressArray,
@@ -231,7 +230,7 @@ const SignUpSection = () => {
         h2={isSignUpSuccessful ? 'Great!' : 'Sign Up Failed!'}
         p={
           isSignUpSuccessful
-            ? "Your account has been creative successfully \n You'll be redirected to the home page automatically"
+            ? 'Your account has been creative successfully \n You will be redirected to the home page automatically'
             : 'Maybe you’re already registered'
         }
         isOpen={isModal}

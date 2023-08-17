@@ -3,10 +3,7 @@ import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 import { useDispatch, useSelector } from 'react-redux';
 
 import SelectTag from '../../shared/components/SelectTag/SelectTag';
-import {
-  setInputValidationError,
-  setSelectValue,
-} from '../../app/store/signupActions/sugnupSlice';
+import { setSelectValue } from '../../app/store/signupActions/sugnupSlice';
 import { store } from '../../app/store/store';
 import arrow from '../../assets/icons/down-arrow-black.png';
 import { setInputValueWithValidation } from '../../app/store/signupActions/signupActions';
