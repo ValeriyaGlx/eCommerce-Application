@@ -10,14 +10,29 @@ import './App.scss';
 import PageNotFound from '../pages/PageNotFound/PageNotFound';
 
 import { store } from './store/store';
+import RequireAuth from './hoc/RequireAuth';
 
 function App() {
   return (
     <Provider store={store}>
       <Routes>
         <Route path='/' element={<HomePage />} />
-        <Route path='/signIn' element={<SignIn />} />
-        <Route path='/singUp' element={<SignUp />} />
+        <Route
+          path='/signIn'
+          element={
+            <RequireAuth>
+              <SignIn />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path='/singUp'
+          element={
+            <RequireAuth>
+              <SignUp />
+            </RequireAuth>
+          }
+        />
         <Route path='/cart' element={<Cart />} />
         <Route path='/signup' element={<SignUp />} />
         <Route path='*' element={<PageNotFound />} />
