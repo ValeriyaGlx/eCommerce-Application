@@ -33,12 +33,12 @@ export function Header() {
         {isAuthorization == false && (
           <>
             <ButtonWithRoute
-              className={'button-signIn'}
+              className={'button-signIn button-signIn__addition'}
               path={'/signIn'}
               data={'Sign in'}
             />
             <ButtonWithRoute
-              className={'button-signUp'}
+              className={'button-signUp button-signUp__addition'}
               path={'/singUp'}
               data={'Sign up'}
             />
