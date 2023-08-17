@@ -1,7 +1,9 @@
 import { store } from '../../../app/store/store';
-import { setSingUpModalValue, setSingUpSuccess } from '../../../app/store/modalSliceAction/modalSlice';
+import { setSingUpSuccess } from '../../../app/store/modalSliceAction/modalSlice';
+import { logInRequest, tokenRequest } from '../../../features/formSubmitSignIn/usage/ApiAuthorization';
+import { loginSuccess } from '../../../app/store/authorizationAction/authorizationSlice';
 
-const token = process.env['REACT_APP_ACCESS_TOKEN_BEARER'];
+const token = process.env.REACT_APP_ACCESS_TOKEN_BEARER;
 const project = process.env.REACT_APP_PROJECT_KEY;
 const host = process.env.REACT_APP_HOST;
 

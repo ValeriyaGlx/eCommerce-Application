@@ -1,15 +1,9 @@
 import './_ModalFailed.scss';
 import React, { FC } from 'react';
-import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
-import { useDispatch } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
 
 import './_ModalFailedAnimation.scss';
 import logoFailed from '../../assets/icons/modal-logo-failed.png';
-import { store } from '../../app/store/store';
-import { closeModal } from '../../app/store/modalSliceAction/modalSlice';
-
-type RootState = ReturnType<typeof store.getState>;
 
 interface ModalSignPageProps {
   logo: typeof logoFailed;
@@ -28,8 +22,6 @@ const ModalSignPage: FC<ModalSignPageProps> = ({
   isOpen,
   onClick,
 }) => {
-  const dispatch: ThunkDispatch<RootState, unknown, AnyAction> = useDispatch();
-
   return (
     <>
       <CSSTransition in={isOpen} classNames='alert' timeout={300} unmountOnExit>

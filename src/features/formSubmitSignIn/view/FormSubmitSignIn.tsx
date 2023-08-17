@@ -14,7 +14,6 @@ import {
 import { showPassword } from '../../formCommon/showPassword';
 import { store } from '../../../app/store/store';
 import { setSingInInputValidationError } from '../../../app/store/signinAction/signinSlice';
-import ModalFailed from '../../ModalFailed/ModalFailed';
 import {
   closeModal,
   openModal,

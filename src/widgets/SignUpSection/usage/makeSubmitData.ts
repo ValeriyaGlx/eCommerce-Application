@@ -1,5 +1,6 @@
-import { ISubmitData } from './ApiRegistration';
 import { store } from '../../../app/store/store';
+
+import { ISubmitData } from './ApiRegistration';
 
 const getCountry = (country: string) => {
   let countryForJSON: string;

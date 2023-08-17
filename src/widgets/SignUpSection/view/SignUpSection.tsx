@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
 import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
+
+import { useNavigate } from 'react-router-dom';
 import logoSuccess from '../../../assets/icons/modal-logo-success.png';
 import logoFailed from '../../../assets/icons/modal-logo-failed.png';
-
 import './_SignUpAnimation.scss';
 import './_SignUpSection.scss';
 
@@ -25,13 +26,17 @@ import {
   changeAddressCheckboxData,
   CheckboxesState,
 } from '../../../app/store/signupActions/sugnupSlice';
-import { setRegistrationValue } from '../../../app/store/authorizationAction/authorizationSlice';
+import {
+  loginSuccess,
+  setRegistrationValue,
+} from '../../../app/store/authorizationAction/authorizationSlice';
 import makeSubmitData from '../usage/makeSubmitData';
 import logUpRequest from '../usage/ApiRegistration';
-import ModalFailed from '../../../features/ModalFailed/ModalFailed';
 import ModalSignPage from '../../../features/ModalFailed/ModalFailed';
-import { setSingUpModalValue } from '../../../app/store/modalSliceAction/modalSlice';
-import { log } from 'util';
+import {
+  logInRequest,
+  tokenRequest,
+} from '../../../features/formSubmitSignIn/usage/ApiAuthorization';
 
 type RootState = ReturnType<typeof store.getState>;
 
@@ -39,6 +44,7 @@ const SignUpSection = () => {
   const [isModal, setIsModal] = useState(false);
   const dispatch: ThunkDispatch<RootState, unknown, AnyAction> = useDispatch();
   const [checkInput, setCheckInput] = useState(true);
+  const navigate = useNavigate();
 
   const checkboxState = useSelector(
     (state: RootState) => state.signup.checkboxes,
@@ -50,6 +56,7 @@ const SignUpSection = () => {
   };
 
   const inputsState = useSelector((state: RootState) => state.signup.signup);
+  const isSignUpSuccessful = store.getState().modal.isSignUpSuccessful;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -83,7 +90,33 @@ const SignUpSection = () => {
     }
   }, [handleSubmit]);
 
-  const isSignUpSuccessful = store.getState().modal.isSignUpSuccessful;
+  useEffect(() => {
+    async function sendSignUp() {
+      const token = await tokenRequest(
+        inputsState.email.value,
+        inputsState.password.value,
+      );
+      const accessToken = token.access_token;
+
+      async function signIn() {
+        await logInRequest(
+          inputsState.email.value,
+          inputsState.password.value,
+          accessToken,
+        );
+        store.dispatch(loginSuccess());
+        setTimeout(() => {
+          navigate('/');
+        }, 1000);
+      }
+
+      await signIn();
+    }
+
+    if (isSignUpSuccessful && isModal) {
+      sendSignUp();
+    }
+  }, [isModal]);
 
   return (
     <section className={'section-signUp'}>
@@ -183,7 +216,7 @@ const SignUpSection = () => {
           className={`default-address  ${
             !checkboxState.isSameAddress ? 'moved' : ''
           }`}
-          onChange={() => checkboxOnChange(`isSameAddress`)}
+          onChange={() => checkboxOnChange('isSameAddress')}
           checked={checkboxState.isSameAddress}
         />
         <InputSubmit
