@@ -4,14 +4,6 @@ const clientId = process.env.REACT_APP_CLIENT_ID;
 const clientSecret = process.env.REACT_APP_CLIENT_SECRET;
 const host = process.env.REACT_APP_HOST;
 
-// interface AccessToken {
-//   access_token: string;
-//   expires_in: number;
-//   refresh_token: string;
-//   scope: string;
-//   token_type: string;
-// }
-
 export async function tokenRequest(email: string, password: string) {
   const urlRequest = `${url}/oauth/${project}/customers/token`;
   const body = new URLSearchParams();
@@ -19,22 +11,18 @@ export async function tokenRequest(email: string, password: string) {
   body.append('username', email);
   body.append('password', password);
   const authHeader = 'Basic ' + btoa(clientId + ':' + clientSecret);
-  try {
-    const response = await fetch(urlRequest, {
-      method: 'POST',
-      headers: {
-        Authorization: authHeader,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: body,
-    });
-    if (!response.ok) {
-      return response.status;
-    } else {
-      return await response.json();
-    }
-  } catch (error) {
-    throw error;
+  const response = await fetch(urlRequest, {
+    method: 'POST',
+    headers: {
+      Authorization: authHeader,
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: body,
+  });
+  if (!response.ok) {
+    return response.status;
+  } else {
+    return response.json();
   }
 }
 
@@ -45,24 +33,21 @@ export async function logInRequest(
 ) {
   const urlRequest = `${host}/final-app/login`;
   const authHeader = 'Bearer ' + token;
-  try {
-    const response = await fetch(urlRequest, {
-      method: 'POST',
-      headers: {
-        Authorization: authHeader,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
-    });
-    if (!response.ok) {
-      return response.status;
-    } else {
-      return await response.json();
-    }
-  } catch (error) {
-    throw error;
+
+  const response = await fetch(urlRequest, {
+    method: 'POST',
+    headers: {
+      Authorization: authHeader,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      email: email,
+      password: password,
+    }),
+  });
+  if (!response.ok) {
+    return response.status;
+  } else {
+    return response.json();
   }
 }
