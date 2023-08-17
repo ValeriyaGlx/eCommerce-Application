@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
 import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
+import logoSuccess from '../../../assets/icons/modal-logo-success.png';
+import logoFailed from '../../../assets/icons/modal-logo-failed.png';
 
 import './_SignUpAnimation.scss';
 import './_SignUpSection.scss';
@@ -26,10 +28,15 @@ import {
 import { setRegistrationValue } from '../../../app/store/authorizationAction/authorizationSlice';
 import makeSubmitData from '../usage/makeSubmitData';
 import logUpRequest from '../usage/ApiRegistration';
+import ModalFailed from '../../../features/ModalFailed/ModalFailed';
+import ModalSignPage from '../../../features/ModalFailed/ModalFailed';
+import { setSingUpModalValue } from '../../../app/store/modalSliceAction/modalSlice';
+import { log } from 'util';
 
 type RootState = ReturnType<typeof store.getState>;
 
 const SignUpSection = () => {
+  const [isModal, setIsModal] = useState(false);
   const dispatch: ThunkDispatch<RootState, unknown, AnyAction> = useDispatch();
   const [checkInput, setCheckInput] = useState(true);
 
@@ -55,6 +62,7 @@ const SignUpSection = () => {
   useEffect(() => {
     const values = Object.values(inputsState);
     const singleAddress = checkboxState.isSameAddress;
+
     if (singleAddress) {
       values.length = 7;
     }
@@ -67,10 +75,15 @@ const SignUpSection = () => {
 
     if (isSubmit) {
       const data = makeSubmitData();
-      console.log(JSON.stringify(data));
-      // logUpRequest(data);
+      const request = async () => {
+        await logUpRequest(data);
+      };
+      request().then(() => setIsModal(true));
+      dispatch(setRegistrationValue({ isSubmit: false }));
     }
   }, [handleSubmit]);
+
+  const isSignUpSuccessful = store.getState().modal.isSignUpSuccessful;
 
   return (
     <section className={'section-signUp'}>
@@ -180,6 +193,18 @@ const SignUpSection = () => {
           value={'SIGN UP'}
         />
       </form>
+      <ModalSignPage
+        logo={isSignUpSuccessful ? logoSuccess : logoFailed}
+        h2={isSignUpSuccessful ? 'Great!' : 'Sign Up Failed!'}
+        p={
+          isSignUpSuccessful
+            ? "Your account has been creative successfully \n You'll be redirected to the home page automatically"
+            : 'Maybe you’re already registered'
+        }
+        isOpen={isModal}
+        buttonValue={isSignUpSuccessful ? 'Go to main' : 'Try again'}
+        onClick={() => setIsModal(false)}
+      />
     </section>
   );
 };

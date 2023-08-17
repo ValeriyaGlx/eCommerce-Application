@@ -1,3 +1,6 @@
+import { store } from '../../../app/store/store';
+import { setSingUpModalValue, setSingUpSuccess } from '../../../app/store/modalSliceAction/modalSlice';
+
 const token = process.env['REACT_APP_ACCESS_TOKEN_BEARER'];
 const project = process.env.REACT_APP_PROJECT_KEY;
 const host = process.env.REACT_APP_HOST;
@@ -35,8 +38,10 @@ async function logUpRequest(submitData: ISubmitData) {
       body: JSON.stringify(submitData),
     });
     if (!response.ok) {
+      await store.dispatch(setSingUpSuccess({ isSuccess: false }));
       return response.status;
     } else {
+      await store.dispatch(setSingUpSuccess({ isSuccess: true }));
       return await response.json();
     }
   } catch (error) {
