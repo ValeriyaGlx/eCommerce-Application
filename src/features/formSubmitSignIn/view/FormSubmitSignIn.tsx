@@ -29,6 +29,7 @@ const FormSubmitSignIn = () => {
   const passwordState = useSelector(
     (state: RootState) => state.signin.password,
   );
+  useSelector((state: RootState) => state.modal.isOpen);
 
   const handleFormSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
