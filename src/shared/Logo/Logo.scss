@@ -15,4 +15,10 @@
 
 .logo-title-black {
   color: black;
+    @media  (max-width: 960px) {
+        display: none;
+    }
+    @media (max-width: 690px) {
+        display: block;
+    }
 }
