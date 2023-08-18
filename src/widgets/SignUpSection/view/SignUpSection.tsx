@@ -36,6 +36,7 @@ import {
   logInRequest,
   tokenRequest,
 } from '../../../features/formSubmitSignIn/usage/ApiAuthorization';
+import arrow from '../../../assets/icons/arrow-blue.svg';
 
 type RootState = ReturnType<typeof store.getState>;
 
@@ -45,6 +46,7 @@ const SignUpSection = () => {
   const [checkInput, setCheckInput] = useState(true);
   const navigate = useNavigate();
 
+  const [hideAddress, setHideAddress] = useState(true);
   const checkboxState = useSelector(
     (state: RootState) => state.signup.checkboxes,
   );
@@ -139,93 +141,114 @@ const SignUpSection = () => {
             />
           ))}
         </div>
-        <h4>Address Information</h4>
-        <div>
-          <h5 className={'address-inner'}>
-            {checkboxState.isSameAddress
-              ? 'Billing and Shipping Address'
-              : 'Shipping Address'}
-          </h5>
-          <SignUpSelectTag
-            selectArray={selectArray}
-            className={'singUp-select'}
-            inputName={'shipping'}
-          />
-          {addressArray.map(({ type, placeholder, id, name }) => (
-            <InputValidationSignUp
-              key={id}
-              type={type}
-              placeholder={placeholder}
-              inputName={'shipping_' + name}
-            />
-          ))}
-          {checkboxState.isSameAddress && (
-            <InputCheckbox
-              id={'default-address'}
-              data={'Make default for billing and shipping'}
-              className={'default-address'}
-              onChange={() => {
-                checkboxOnChange('isDefaultBothAddresses');
-              }}
-              checked={checkboxState.isDefaultBothAddresses}
-            />
-          )}
-          {!checkboxState.isSameAddress && (
-            <InputCheckbox
-              id={'shipping-address'}
-              data={'Make default for shipping '}
-              className={'default-address'}
-              onChange={() => checkboxOnChange('isShippingDefault')}
-              checked={checkboxState.isShippingDefault}
-            />
-          )}
-        </div>
 
         <CSSTransition
-          in={!checkboxState.isSameAddress}
+          in={!hideAddress}
           classNames='component-above'
           timeout={300}
           unmountOnExit
         >
-          <div>
-            <h5 className={'address-inner'}>Billing Address</h5>
-            <SignUpSelectTag
-              selectArray={selectArray}
-              className={'singUp-select'}
-              inputName={'billing'}
-            />
-            {addressArray.map(({ type, placeholder, id, name }) => (
-              <InputValidationSignUp
-                key={id}
-                type={type}
-                placeholder={placeholder}
-                inputName={'billing_' + name}
+          <>
+            <h4 className={'address-title'}>Address Information</h4>
+            <div>
+              <h5 className={'address-inner'}>
+                {checkboxState.isSameAddress
+                  ? 'Billing and Shipping Address'
+                  : 'Shipping Address'}
+              </h5>
+              <SignUpSelectTag
+                selectArray={selectArray}
+                className={'singUp-select'}
+                inputName={'shipping'}
               />
-            ))}
+              {addressArray.map(({ type, placeholder, id, name }) => (
+                <InputValidationSignUp
+                  key={id}
+                  type={type}
+                  placeholder={placeholder}
+                  inputName={'shipping_' + name}
+                />
+              ))}
+              {checkboxState.isSameAddress && (
+                <InputCheckbox
+                  id={'default-address'}
+                  data={'Make default for billing and shipping'}
+                  className={'default-address'}
+                  onChange={() => {
+                    checkboxOnChange('isDefaultBothAddresses');
+                  }}
+                  checked={checkboxState.isDefaultBothAddresses}
+                />
+              )}
+              {!checkboxState.isSameAddress && (
+                <InputCheckbox
+                  id={'shipping-address'}
+                  data={'Make default for shipping '}
+                  className={'default-address'}
+                  onChange={() => checkboxOnChange('isShippingDefault')}
+                  checked={checkboxState.isShippingDefault}
+                />
+              )}
+            </div>
+
+            <CSSTransition
+              in={!checkboxState.isSameAddress}
+              classNames='component-above'
+              timeout={300}
+              unmountOnExit
+            >
+              <div>
+                <h5 className={'address-inner'}>Billing Address</h5>
+                <SignUpSelectTag
+                  selectArray={selectArray}
+                  className={'singUp-select'}
+                  inputName={'billing'}
+                />
+                {addressArray.map(({ type, placeholder, id, name }) => (
+                  <InputValidationSignUp
+                    key={id}
+                    type={type}
+                    placeholder={placeholder}
+                    inputName={'billing_' + name}
+                  />
+                ))}
+                <InputCheckbox
+                  id={'billing-address'}
+                  data={'Make default for billing'}
+                  className={'default-address'}
+                  onChange={() => checkboxOnChange('isBillingDefault')}
+                  checked={checkboxState.isBillingDefault}
+                />
+              </div>
+            </CSSTransition>
             <InputCheckbox
-              id={'billing-address'}
-              data={'Make default for billing'}
-              className={'default-address'}
-              onChange={() => checkboxOnChange('isBillingDefault')}
-              checked={checkboxState.isBillingDefault}
+              id={'same-addresses'}
+              data={'Set the same billing and shipping address'}
+              className={`default-address  ${
+                !checkboxState.isSameAddress ? 'moved' : ''
+              }`}
+              onChange={() => checkboxOnChange('isSameAddress')}
+              checked={checkboxState.isSameAddress}
             />
-          </div>
+            <InputSubmit
+              className={`button-signUp signup_submit-button button-move-up ${
+                !checkboxState.isSameAddress ? 'moved' : ''
+              }`}
+              value={'SIGN UP'}
+            />
+          </>
         </CSSTransition>
-        <InputCheckbox
-          id={'same-addresses'}
-          data={'Set the same billing and shipping address'}
-          className={`default-address  ${
-            !checkboxState.isSameAddress ? 'moved' : ''
-          }`}
-          onChange={() => checkboxOnChange('isSameAddress')}
-          checked={checkboxState.isSameAddress}
-        />
-        <InputSubmit
-          className={`button-signUp signup_submit-button button-move-up ${
-            !checkboxState.isSameAddress ? 'moved' : ''
-          }`}
-          value={'SIGN UP'}
-        />
+        {hideAddress && (
+          <button
+            className={'signup-down'}
+            onClick={(e: React.MouseEvent) => {
+              e.preventDefault();
+              setHideAddress(false);
+            }}
+          >
+            <img src={arrow} alt={'down'} />
+          </button>
+        )}
       </form>
       <ModalSignPage
         logo={isSignUpSuccessful ? logoSuccess : logoFailed}
