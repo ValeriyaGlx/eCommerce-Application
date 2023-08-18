@@ -1,13 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import signupReducer from './validationActions/sugnupSlice';
+import signupReducer from './signupActions/sugnupSlice';
 import signinReducer from './signinAction/signinSlice';
 import modalSliceReducer from './modalSliceAction/modalSlice';
 import authorizationSlice from './authorizationAction/authorizationSlice';
 
 export const store = configureStore({
   reducer: {
-    inputs: signupReducer,
+    signup: signupReducer,
     signin: signinReducer,
     modal: modalSliceReducer,
     authorization: authorizationSlice,

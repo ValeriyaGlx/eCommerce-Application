@@ -2,7 +2,7 @@
 @import 'src/constants/scss/extentds';
 
 .background {
-    position: absolute;
+    position: fixed;
     z-index: 10;
     background-color: rgba(0, 0, 0, 0.01);
     width: 100%;
@@ -16,7 +16,7 @@
         box-shadow: 0 0 2pt 0.5pt #ababab;
         width: 600px;
         height: fit-content;
-        position: absolute;
+        position: fixed;
         top: 0;
         right: 0;
         bottom: 0;

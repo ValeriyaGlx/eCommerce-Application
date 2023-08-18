@@ -32,7 +32,7 @@ export const passwordValidationSchema: yup.StringSchema = yup
 export const emptyFieldValidationSchema: yup.StringSchema = yup
   .string()
   .required('This field is required')
-  .matches(/^[a-zA-Z]*$/, 'This field can only contain letters');
+  .matches(/^[a-zA-Z\s]*$/, 'This field can only contain letters');
 
 const ageLimit = 13;
 
@@ -80,6 +80,7 @@ export function getPostalCodeValidationSchema(country?: string): yup.StringSchem
     if (formatRegex) {
       return yup
         .string()
+        .required('This field is required')
         .trim()
         .matches(
           formatRegex,
