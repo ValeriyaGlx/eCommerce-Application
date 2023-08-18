@@ -37,6 +37,8 @@ import {
   tokenRequest,
 } from '../../../features/formSubmitSignIn/usage/ApiAuthorization';
 import arrow from '../../../assets/icons/arrow-blue.svg';
+import setToken from '../../../shared/cookie/setToken';
+import setDataLocalStorage from '../../../shared/localStorage/setDataLocalStorage';
 
 type RootState = ReturnType<typeof store.getState>;
 
@@ -100,14 +102,16 @@ const SignUpSection = () => {
         inputsState.password.value,
       );
       const accessToken = token.access_token;
+      setToken(accessToken);
 
       async function signIn() {
-        await logInRequest(
+        const logindata = await logInRequest(
           inputsState.email.value,
           inputsState.password.value,
           accessToken,
         );
         store.dispatch(loginSuccess());
+        setDataLocalStorage('firstName', logindata.customer.firstName);
         setTimeout(() => {
           navigate('/');
         }, 1000);
