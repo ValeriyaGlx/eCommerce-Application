@@ -16,5 +16,15 @@
 .logo-title-black {
   color: black;
 }
+@media (max-width: 960px) {
+  .logo-title-black {
+    display: none;
+  }
+}
+@media (max-width: 690px) {
+  .logo-title-black {
+    display: block;
+  }
+}
 
 /*# sourceMappingURL=Logo.css.map */
