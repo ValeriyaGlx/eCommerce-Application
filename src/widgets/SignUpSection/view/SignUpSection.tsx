@@ -30,7 +30,7 @@ import {
   setRegistrationValue,
 } from '../../../app/store/authorizationAction/authorizationSlice';
 import makeSubmitData from '../usage/makeSubmitData';
-import logUpRequest from '../usage/ApiRegistration';
+import logUpRequest, { getAccessToken } from '../usage/ApiRegistration';
 import ModalSignPage from '../../../features/ModalFailed/ModalFailed';
 import {
   logInRequest,
@@ -82,7 +82,9 @@ const SignUpSection = () => {
     if (isSubmit) {
       const data = makeSubmitData();
       const request = async () => {
-        await logUpRequest(data);
+        const token = await getAccessToken();
+        const accessToken = token.access_token;
+        await logUpRequest(data, accessToken);
       };
       request().then(() => setIsModal(true));
       dispatch(setRegistrationValue({ isSubmit: false }));

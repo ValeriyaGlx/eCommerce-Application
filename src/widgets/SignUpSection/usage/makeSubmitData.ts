@@ -76,7 +76,7 @@ const makeSubmitData = () => {
   if (!isSameAddresses && isShippingDefault) {
     data.defaultShippingAddress = 0;
   }
-
+  console.log(JSON.stringify(data));
   return data;
 };
 
