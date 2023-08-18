@@ -14,9 +14,13 @@ import {
 import { showPassword } from '../../formCommon/showPassword';
 import { store } from '../../../app/store/store';
 import { setSingInInputValidationError } from '../../../app/store/signinAction/signinSlice';
-import ModalFailed from '../../ModalFailed/ModalFailed';
-import { openModal } from '../../../app/store/modalSliceAction/modalSlice';
+import {
+  closeModal,
+  openModal,
+} from '../../../app/store/modalSliceAction/modalSlice';
 import { loginSuccess } from '../../../app/store/authorizationAction/authorizationSlice';
+import logoFailed from '../../../assets/icons/modal-logo-failed.png';
+import ModalSignPage from '../../ModalFailed/ModalFailed';
 
 type RootState = ReturnType<typeof store.getState>;
 
@@ -29,6 +33,8 @@ const FormSubmitSignIn = () => {
   const passwordState = useSelector(
     (state: RootState) => state.signin.password,
   );
+  useSelector((state: RootState) => state.modal.isOpen);
+
   useSelector((state: RootState) => state.modal.isOpen);
 
   const handleFormSubmit = async (event: React.FormEvent) => {
@@ -67,6 +73,10 @@ const FormSubmitSignIn = () => {
     }
   };
 
+  const clickButton = () => {
+    dispatch(closeModal());
+  };
+
   return (
     <div className={'wrapper-form'}>
       <form onSubmit={handleFormSubmit}>
@@ -87,7 +97,14 @@ const FormSubmitSignIn = () => {
           <InputSubmit className={'signIn_submit-button'} value={'SIGN IN'} />
         </div>
       </form>
-      <ModalFailed />
+      <ModalSignPage
+        logo={logoFailed}
+        h2={'Login Failed!'}
+        p={'Please, recheck the username and password and try again'}
+        buttonValue={'TRY AGAIN'}
+        isOpen={store.getState().modal.isOpen}
+        onClick={clickButton}
+      />
     </div>
   );
 };

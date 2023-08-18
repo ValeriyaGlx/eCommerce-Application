@@ -26,11 +26,7 @@ export async function tokenRequest(email: string, password: string) {
   }
 }
 
-export async function logInRequest(
-  email: string,
-  password: string,
-  token: string,
-) {
+export async function logInRequest(email: string, password: string, token: string) {
   const urlRequest = `${host}/final-app/login`;
   const authHeader = 'Bearer ' + token;
 
