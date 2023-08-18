@@ -256,10 +256,11 @@ const SignUpSection = () => {
         p={
           isSignUpSuccessful
             ? 'Your account has been creative successfully \n You will be redirected to the home page automatically'
-            : 'Maybe you’re already registered'
+            : 'Maybe you’re already registered \n Please, recheck your data and try again'
         }
         isOpen={isModal}
         buttonValue={isSignUpSuccessful ? 'Go to main' : 'Try again'}
+        isSignUpSuccessful={isSignUpSuccessful}
         onClick={() => setIsModal(false)}
       />
     </section>
