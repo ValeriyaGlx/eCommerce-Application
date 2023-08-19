@@ -2,63 +2,95 @@
 @import 'src/constants/scss/extentds';
 
 .section-signUp {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-  h4 {
-    margin-top: 10px;
-    font-size: 24px;
-    font-family:
-      Josefin Sans,
-      serif;
-    line-height: 59px;
-  }
+    .address-title {
+        margin-top: 10px;
+        font-size: 24px;
+        font-family: Josefin Sans,
+        serif;
+        line-height: 59px;
+    }
 }
 
 .section-signUp_inner {
-  @extend %textColorForSignUp;
-  @extend %innerForForms;
-  text-align: center;
+    @extend %textColorForSignUp;
+    @extend %innerForForms;
+    text-align: center;
+}
+
+.singUp-select {
+    margin-bottom: 10px;
+
+    .select {
+        margin: 5px 0;
+    }
+
+    .dropdown-menu::-webkit-scrollbar {
+        width: 0;
+    }
+
+    .dropdown-menu li {
+        padding-left: 30px;
+        font: 16px sans-serif;
+        color: #828089;
+    }
 }
 
 .signup_submit-button {
-  display: block;
-  margin: 10px auto 20px;
+    display: block;
+    margin: 10px auto 20px;
 }
 
 .default-address {
-  font: 16px sans-serif;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 20px;
-  margin-left: 20px;
+    font: 16px sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    margin-left: 20px;
 
-  input {
-    width: 18px;
-    height: 18px;
-  }
+    input {
+        width: 18px;
+        height: 18px;
+    }
 }
 
 .billing-address_section {
-  max-height: 100%;
-  opacity: 1;
-  transition: 0.2s;
+    max-height: 100%;
+    opacity: 1;
+    transition: 0.2s;
 }
 
 .billing-address_section-hide {
-  max-height: 0%;
-  opacity: 0;
+    max-height: 0%;
+    opacity: 0;
 }
 
 .address-inner {
-  margin-top: 5px;
-  margin-left: 10px;
-  font-size: 20px;
+    margin-top: 5px;
+    font-size: 20px;
 }
 
-.test {
-    display: flex;
+.signup-down {
+    display: block;
+    margin: 0 auto;
+    background: inherit;
+    border: none;
+
+    img {
+        width: 30px;
+        height: 30px;
+        transform: rotate(90deg)
+    }
 }
+
+.signup_submit-button {
+    margin-bottom: 100px;
+}
+
+
+
 

@@ -21,6 +21,8 @@ import {
 import { loginSuccess } from '../../../app/store/authorizationAction/authorizationSlice';
 import logoFailed from '../../../assets/icons/modal-logo-failed.png';
 import ModalSignPage from '../../ModalFailed/ModalFailed';
+import setToken from '../../../shared/cookie/setToken';
+import setDataLocalStorage from '../../../shared/localStorage/setDataLocalStorage';
 
 type RootState = ReturnType<typeof store.getState>;
 
@@ -66,7 +68,10 @@ const FormSubmitSignIn = () => {
         dispatch(openModal());
       } else {
         const token = isAuthorization.access_token;
-        await logInRequest(email, password, token);
+        setToken(token);
+        const logindata = await logInRequest(email, password, token);
+        setDataLocalStorage('firstName', logindata.customer.firstName);
+
         dispatch(loginSuccess());
         navigate('/');
       }
@@ -94,7 +99,7 @@ const FormSubmitSignIn = () => {
           inputName={'password'}
         />
         <div className={'container-submit'}>
-          <InputSubmit className={'signIn_submit-button'} value={'SIGN IN'} />
+          <InputSubmit className={'signIn_submit-button'} value={'Sign in'} />
         </div>
       </form>
       <ModalSignPage

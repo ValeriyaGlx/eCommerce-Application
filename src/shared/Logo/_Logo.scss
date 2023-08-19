@@ -4,17 +4,18 @@
 }
 
 .logo-img {
-  margin-right: 4px;
+    margin-right: 4px;
 }
 
 .logo-title,
 .logo-title-black {
-  color: white;
+color: white;
   font-size: 30px;
 }
 
 .logo-title-black {
-  color: black;
+color: black;
+    font-size: 30px;
     @media  (max-width: 960px) {
         display: none;
     }

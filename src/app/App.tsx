@@ -8,9 +8,12 @@ import { SignIn } from '../pages/SignIn/SignIn';
 import { SignUp } from '../pages/SignUp/SignUp';
 import './App.scss';
 import PageNotFound from '../pages/PageNotFound/PageNotFound';
+import checkIsLogin from '../shared/checkIsLogin/checkIsLogin';
 
 import { store } from './store/store';
 import RequireAuth from './hoc/RequireAuth';
+
+checkIsLogin();
 
 function App() {
   return (

@@ -1,4 +1,5 @@
 @import 'src/constants/scss/variables';
+@import 'src/constants/scss/extentds';
 
 .header {
     display: flex;
@@ -26,8 +27,12 @@
 .header-select {
 
     .select {
+        display: flex;
+        align-items: center;
         background: $color-gradient-blue-orange;
         color: #fff;
+        @extend %fontSettings;
+        font-size: 20px;
 
         img {
             height: 20px;
@@ -38,4 +43,14 @@
 
 .dropdown.header-select {
     width: 300px;
+}
+
+.button-profile {
+    margin-right: 5px;
+    letter-spacing: 1px;
+    position: relative;
+    display: inline-block;
+
+    @extend %mainButtonGradient;
+    max-width: 200px;
 }
