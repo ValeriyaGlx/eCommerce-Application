@@ -1,6 +1,6 @@
 import getCookie from '../cookie/getCookie';
 import { store } from '../../app/store/store';
-import { loginSuccess } from '../../app/store/authorizationAction/authorizationSlice';
+import { loginSuccess } from '../../app/store/actions/authorizationAction/authorizationSlice';
 
 const checkIsLogin = () => {
   const token = getCookie('token');

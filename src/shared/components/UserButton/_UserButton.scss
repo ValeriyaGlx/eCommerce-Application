@@ -1,0 +1,32 @@
+@import 'src/constants/scss/variables';
+@import 'src/constants/scss/extentds';
+
+.button-profile {
+    position: relative;
+
+
+    @extend %mainButtonGradient;
+    width: fit-content;
+    padding: 15px;
+
+}
+
+.img-profile {
+    width: 20px;
+    height: 20px;
+    position: relative;
+    top: -28px;
+    right: 0px;
+}
+
+.span-profile {
+    position: relative;
+    display: block;
+    text-align: center;
+    font-size: 16px;
+    color: #fff;
+    width: fit-content;
+    height: 20px;
+    bottom: -6px;
+    z-index: 10;
+}

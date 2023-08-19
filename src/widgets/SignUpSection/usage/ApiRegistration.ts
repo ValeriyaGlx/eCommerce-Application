@@ -1,5 +1,5 @@
 import { store } from '../../../app/store/store';
-import { setSingUpSuccess } from '../../../app/store/modalSliceAction/modalSlice';
+import { setSingUpSuccess } from '../../../app/store/actions/modalSliceAction/modalSlice';
 
 const project = process.env.REACT_APP_PROJECT_KEY;
 const host = process.env.REACT_APP_HOST;

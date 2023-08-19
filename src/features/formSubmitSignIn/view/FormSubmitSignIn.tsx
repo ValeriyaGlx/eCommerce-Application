@@ -13,12 +13,12 @@ import {
 } from '../../../entities/InputValidationSignIn/usage/utils/validationSignIn';
 import { showPassword } from '../../formCommon/showPassword';
 import { store } from '../../../app/store/store';
-import { setSingInInputValidationError } from '../../../app/store/signinAction/signinSlice';
+import { setSingInInputValidationError } from '../../../app/store/actions/signinAction/signinSlice';
 import {
   closeModal,
   openModal,
-} from '../../../app/store/modalSliceAction/modalSlice';
-import { loginSuccess } from '../../../app/store/authorizationAction/authorizationSlice';
+} from '../../../app/store/actions/modalSliceAction/modalSlice';
+import { loginSuccess } from '../../../app/store/actions/authorizationAction/authorizationSlice';
 import logoFailed from '../../../assets/icons/modal-logo-failed.png';
 import ModalSignPage from '../../ModalFailed/ModalFailed';
 import setToken from '../../../shared/cookie/setToken';
