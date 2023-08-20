@@ -6,7 +6,7 @@ export const validateEmail = (inputEmail: string) => {
   }
 
   if (!emailRegex.test(inputEmail)) {
-    return 'Email address must be properly formatted';
+    return 'Email must be valid (example@mail.com)';
   }
 
   return '';

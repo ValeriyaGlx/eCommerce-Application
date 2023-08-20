@@ -1,0 +1,17 @@
+.footer {
+    height: 50px;
+    background-color: rgba(43, 43, 43, .7);
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    align-items: center;
+
+    .footer_a {
+        font-size: 18px;
+        color: #fff;
+    }
+}
