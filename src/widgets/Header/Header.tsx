@@ -1,4 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 
 import iconCart from '../../assets/icons/icon-cart.svg';
 import iconHeart from '../../assets/icons/icon-heart.svg';
@@ -13,23 +16,25 @@ import { logOut } from '../../app/store/actions/authorizationAction/authorizatio
 import deleteToken from '../../shared/cookie/deleteToken';
 import UserButton from '../../shared/components/UserButton/UserButton';
 
+type RootState = ReturnType<typeof store.getState>;
+
 export function Header() {
-  const isAuthorization = store.getState().authorization.isAuthorization;
+  const dispatch: ThunkDispatch<RootState, unknown, AnyAction> = useDispatch();
+  const navigate = useNavigate();
   const name = localStorage.getItem('firstName');
 
   const [isLogOut, setIsLogOut] = useState(false);
+  const isAuthorization = useSelector(
+    (state: RootState) => state.authorization.isAuthorization,
+  );
 
   function setLogOut() {
     setIsLogOut(true);
     deleteToken('token');
     localStorage.removeItem('firstName');
+    dispatch(logOut());
+    navigate('/');
   }
-
-  useEffect(() => {
-    if (isLogOut) {
-      store.dispatch(logOut());
-    }
-  }, [isLogOut]);
 
   return (
     <header className='header'>
@@ -49,18 +54,20 @@ export function Header() {
             />
           </>
         )}
-        <>
-          <ButtonWithRoute
-            className={'button-signIn button-signIn__addition'}
-            path={'/signIn'}
-            data={'Sign in'}
-          />
-          <ButtonWithRoute
-            className={'button-signUp button-signUp__addition'}
-            path={'/singUp'}
-            data={'Sign up'}
-          />
-        </>
+        {isAuthorization === false && (
+          <>
+            <ButtonWithRoute
+              className={'button-signIn button-signIn__addition'}
+              path={'/signIn'}
+              data={'Sign in'}
+            />
+            <ButtonWithRoute
+              className={'button-signUp button-signUp__addition'}
+              path={'/singUp'}
+              data={'Sign up'}
+            />
+          </>
+        )}
 
         {isAuthorization && !isLogOut && (
           <>
