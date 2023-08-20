@@ -2,11 +2,14 @@ import React from 'react';
 
 import { Header } from '../../widgets/Header/Header';
 
-export function Cart() {
+export function Favorites() {
   return (
     <div className={'container'}>
       <Header />
-      <div>Cart</div>
+
+      <div>Favorites</div>
     </div>
   );
 }
+
+export default Favorites;

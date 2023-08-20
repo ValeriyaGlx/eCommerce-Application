@@ -30,7 +30,7 @@ const ModalSignPage: FC<ModalSignPageProps> = ({
         <div className={'background'}>
           <div className={'modal'}>
             <div className={'modal-content'}>
-              <img src={logo} alt={'logo'} />
+              <img src={logo} alt={'logo'} loading='lazy' />
               <h2>{h2}</h2>
               <p style={{ whiteSpace: 'pre-line' }}>{p}</p>
               {!isSignUpSuccessful && (

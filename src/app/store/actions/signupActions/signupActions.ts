@@ -7,8 +7,9 @@ import {
   emptyFieldValidationSchema,
   getPostalCodeValidationSchema,
   passwordValidationSchema,
-} from '../../../entities/InputValidationSignUp/usage/utils/validationSignUp';
-import { store } from '../store';
+  streetValidationSchema,
+} from '../../../../entities/InputValidationSignUp/usage/utils/validationSignUp';
+import { store } from '../../store';
 
 import { clearInputValidationError, setInputValidationError, setInputValue } from './sugnupSlice';
 
@@ -31,6 +32,10 @@ export const setInputValueWithValidation = (inputName: string, inputValue: strin
         break;
       case 'date':
         validationSchema = dateValidationSchema;
+        break;
+      case 'shipping_street':
+      case 'billing_street':
+        validationSchema = streetValidationSchema;
         break;
       case 'shipping_code':
         const countryShip = store.getState().signup.countries.shipping.toLowerCase();

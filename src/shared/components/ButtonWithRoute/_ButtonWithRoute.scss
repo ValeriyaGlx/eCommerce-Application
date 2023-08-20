@@ -13,7 +13,7 @@
     line-height: 30px;
     border-radius: 10px;
     position: relative;
-    text-align: end;
+    text-align: center;
 }
 
 .button-signIn a {
@@ -21,18 +21,6 @@
     text-decoration: none;
 }
 
-.button-signIn::before {
-    content: '';
-    position: absolute;
-    left: 10px;
-    top: 13px;
-    width: 24px;
-    height: 24px;
-    line-height: 50px;
-    background-image: url('../../../assets/icons/icon-user.svg');
-    background-size: cover;
-    margin-right: 10px;
-}
 
 .button-signUp {
     @extend %buttonSignUp;

@@ -34,6 +34,8 @@ export const emptyFieldValidationSchema: yup.StringSchema = yup
   .required('This field is required')
   .matches(/^[a-zA-Z\s]*$/, 'This field can only contain letters');
 
+export const streetValidationSchema: yup.StringSchema = yup.string().required('Street name is required');
+
 const ageLimit = 13;
 
 export const dateValidationSchema = yup

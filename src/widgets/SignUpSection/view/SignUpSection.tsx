@@ -18,17 +18,17 @@ import InputCheckbox from '../../../shared/components/InputCheckbox/InputCheckbo
 import Logo from '../../../shared/Logo/Logo';
 import { showPassword } from '../../../features/formCommon/showPassword';
 import SignUpSelectTag from '../../../entities/SignUpSelectTag/SignUpSelectTag';
-import { setInputValueWithValidation } from '../../../app/store/signupActions/signupActions';
+import { setInputValueWithValidation } from '../../../app/store/actions/signupActions/signupActions';
 import { store } from '../../../app/store/store';
 import InputValidationSignUp from '../../../entities/InputValidationSignUp/view/InputValidationSignUp';
 import {
   changeAddressCheckboxData,
   CheckboxesState,
-} from '../../../app/store/signupActions/sugnupSlice';
+} from '../../../app/store/actions/signupActions/sugnupSlice';
 import {
   loginSuccess,
   setRegistrationValue,
-} from '../../../app/store/authorizationAction/authorizationSlice';
+} from '../../../app/store/actions/authorizationAction/authorizationSlice';
 import makeSubmitData from '../usage/makeSubmitData';
 import logUpRequest, { getAccessToken } from '../usage/ApiRegistration';
 import ModalSignPage from '../../../features/ModalFailed/ModalFailed';
@@ -83,7 +83,7 @@ const SignUpSection = () => {
   useEffect(() => {
     const isSubmit = store.getState().authorization.isRegistration;
 
-    if (isSubmit) {
+    if (isSubmit && !checkInput) {
       const data = makeSubmitData();
       const request = async () => {
         const token = await getAccessToken();
@@ -114,7 +114,7 @@ const SignUpSection = () => {
         setDataLocalStorage('firstName', logindata.customer.firstName);
         setTimeout(() => {
           navigate('/');
-        }, 1000);
+        }, 2000);
       }
 
       await signIn();

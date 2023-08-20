@@ -2,11 +2,14 @@ import React from 'react';
 
 import { Header } from '../../widgets/Header/Header';
 
-export function Cart() {
+export function Profile() {
   return (
     <div className={'container'}>
       <Header />
-      <div>Cart</div>
+
+      <div>Profile</div>
     </div>
   );
 }
+
+export default Profile;

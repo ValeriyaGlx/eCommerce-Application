@@ -1,5 +1,5 @@
-import { Routes, Route } from 'react-router-dom';
 import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import { HomePage } from '../pages/HomePage/HomePage';
@@ -9,6 +9,8 @@ import { SignUp } from '../pages/SignUp/SignUp';
 import './App.scss';
 import PageNotFound from '../pages/PageNotFound/PageNotFound';
 import checkIsLogin from '../shared/checkIsLogin/checkIsLogin';
+import Profile from '../pages/Profile/Profile';
+import Favorites from '../pages/Favorites/Favorites';
 
 import { store } from './store/store';
 import RequireAuth from './hoc/RequireAuth';
@@ -37,7 +39,8 @@ function App() {
           }
         />
         <Route path='/cart' element={<Cart />} />
-        <Route path='/signup' element={<SignUp />} />
+        <Route path='/profile' element={<Profile />} />
+        <Route path='/favorites' element={<Favorites />} />
         <Route path='*' element={<PageNotFound />} />
       </Routes>
     </Provider>
