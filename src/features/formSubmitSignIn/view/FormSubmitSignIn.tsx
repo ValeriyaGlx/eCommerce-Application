@@ -37,8 +37,6 @@ const FormSubmitSignIn = () => {
   );
   useSelector((state: RootState) => state.modal.isOpen);
 
-  useSelector((state: RootState) => state.modal.isOpen);
-
   const handleFormSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     const validationErrorEmail: string = validateEmail(emailState.value);
