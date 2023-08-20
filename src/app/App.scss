@@ -24,7 +24,7 @@ a {
     text-decoration: none;
 }
 
-a, button {
+a, button, input[type=submit] {
     cursor: pointer;
     font-family: Josefin Sans, serif;
 }

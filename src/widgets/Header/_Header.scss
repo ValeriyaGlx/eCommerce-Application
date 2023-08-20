@@ -45,12 +45,3 @@
     width: 300px;
 }
 
-.button-profile {
-    margin-right: 5px;
-    letter-spacing: 1px;
-    position: relative;
-    display: inline-block;
-
-    @extend %mainButtonGradient;
-    max-width: 200px;
-}

@@ -3,7 +3,7 @@ import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 import { useDispatch, useSelector } from 'react-redux';
 
 import InputValidation from '../../../shared/components/InputValidation/InputValidation';
-import { setInputValueWithValidation } from '../../../app/store/signupActions/signupActions';
+import { setInputValueWithValidation } from '../../../app/store/actions/signupActions/signupActions';
 import { store } from '../../../app/store/store';
 import logoVisible from '../../../assets/icons/visible.png';
 

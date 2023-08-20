@@ -7,7 +7,7 @@ import { store } from '../../../app/store/store';
 import {
   setSingInInputValidationError,
   setSingInInputValue,
-} from '../../../app/store/signinAction/signinSlice';
+} from '../../../app/store/actions/signinAction/signinSlice';
 
 type RootState = ReturnType<typeof store.getState>;
 
