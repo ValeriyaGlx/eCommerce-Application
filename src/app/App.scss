@@ -51,7 +51,11 @@ li {
         padding: 20px 50px;
     }
 
-    @media (max-width: 850px) {
+    @media (max-width: 700px) {
         padding: 10px 10px;
     }
+}
+
+.lock {
+    overflow: hidden;
 }

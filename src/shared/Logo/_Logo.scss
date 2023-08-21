@@ -5,15 +5,28 @@
 
 .logo-img {
     margin-right: 4px;
+
+    @media (max-width: 550px) {
+        width: 30px;
+        height: 30px;
+    }
 }
 
 .logo-title,
 .logo-title-black {
-color: white;
+  color: white;
   font-size: 30px;
+
+    @media (max-width: 550px) {
+        font-size: 20px;
+    }
 }
 
 .logo-title-black {
 color: black;
     font-size: 30px;
+
+    @media (max-width: 550px) {
+        font-size: 20px;
+    }
 }

@@ -14,6 +14,11 @@
     border-radius: 10px;
     position: relative;
     text-align: center;
+
+    @media (max-width: 780px) {
+        padding: 10px;
+        width: 100px;
+    }
 }
 
 .button-signIn a {
@@ -22,38 +27,23 @@
 }
 
 
-.button-signUp {
+.button-signUp,
+.button-logOut {
+    @extend %fontSettings;
     @extend %buttonSignUp;
     width: 140px;
     height: 50px;
+    text-align: center;
+    line-height: 30px;
+
+    @media (max-width: 780px) {
+        padding: 10px;
+        width: 100px;
+    }
 }
 
 .button-signUp a {
     color: white;
 }
 
-.button-signIn.button-signIn__addition {
-    @media (max-width: 960px) {
-        color: transparent;
-        font-size: 13px;
-        width: 50px;
-        height: 50px;
-        padding: 0;
-    }
-}
 
-.button-signIn.button-signIn__addition::before {
-    @media (max-width: 960px) {
-        left: 13px;
-        right: 28px;
-    }
-}
-
-.button-signUp.button-signUp__addition {
-    @media (max-width: 800px) {
-        font-size: 13px;
-        width: 50px;
-        height: 50px;
-        line-height: 45px;
-    }
-}

@@ -15,14 +15,21 @@ import AboutUs from '../pages/AboutUs/AboutUs';
 
 import { store } from './store/store';
 import RequireAuth from './hoc/RequireAuth';
+import { Header } from '../widgets/Header/Header';
+import Layout from '../shared/components/Layout/Layout';
 
 checkIsLogin();
 
 function App() {
+  const currentPath = window.location.pathname;
+  const isAuthPage =
+    currentPath === '/signIn' ||
+    currentPath === '/signUp' ||
+    currentPath === '*';
+
   return (
     <Provider store={store}>
       <Routes>
-        <Route path='/' element={<HomePage />} />
         <Route
           path='/signIn'
           element={
@@ -39,11 +46,14 @@ function App() {
             </RequireAuth>
           }
         />
-        <Route path='/cart' element={<Cart />} />
-        <Route path='/profile' element={<Profile />} />
-        <Route path='/favorites' element={<Favorites />} />
-        <Route path='/about' element={<AboutUs />} />
         <Route path='*' element={<PageNotFound />} />
+        <Route path={'/'} element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route path='cart' element={<Cart />} />
+          <Route path='profile' element={<Profile />} />
+          <Route path='favorites' element={<Favorites />} />
+          <Route path='about' element={<AboutUs />} />
+        </Route>
       </Routes>
     </Provider>
   );

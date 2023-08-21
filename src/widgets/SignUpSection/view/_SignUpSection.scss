@@ -19,6 +19,12 @@
     @extend %textColorForSignUp;
     @extend %innerForForms;
     text-align: center;
+
+    @media (max-width: 790px) {
+        margin-top: 80px;
+            font-size: 29px;
+            line-height: 40px;
+    }
 }
 
 .singUp-select {
@@ -41,7 +47,13 @@
 
 .signup_submit-button {
     display: block;
-    margin: 10px auto 20px;
+    margin: 10px auto 100px;
+    @extend %fontSettings;
+
+    @media (max-width: 790px) {
+        margin: 10px auto;
+    }
+
 }
 
 .default-address {
@@ -87,9 +99,6 @@
     }
 }
 
-.signup_submit-button {
-    margin-bottom: 100px;
-}
 
 
 

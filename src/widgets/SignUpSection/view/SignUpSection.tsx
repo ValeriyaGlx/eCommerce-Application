@@ -241,7 +241,7 @@ const SignUpSection = () => {
               className={`button-signUp signup_submit-button button-move-up ${
                 !checkboxState.isSameAddress ? 'moved' : ''
               }`}
-              value={'SIGN UP'}
+              value={'Sign up'}
             />
           </>
         </CSSTransition>

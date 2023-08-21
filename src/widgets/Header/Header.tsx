@@ -15,6 +15,7 @@ import Button from '../../shared/components/Button/Button';
 import { logOut } from '../../app/store/actions/authorizationAction/authorizationSlice';
 import deleteToken from '../../shared/cookie/deleteToken';
 import UserButton from '../../shared/components/UserButton/UserButton';
+import { openMenu } from '../../shared/burgerMenuUsage/burgerMenuUsage';
 
 type RootState = ReturnType<typeof store.getState>;
 
@@ -40,44 +41,53 @@ export function Header() {
     <header className='header'>
       <Logo className={'logo-title-black'} />
 
-      <nav className='wrapper-button'>
-        <CartButton src={iconCart} alt='cartButton' to={'/cart'} />
-        <CartButton src={iconHeart} alt='favoriets' to={'/favorites'} />
-        {isAuthorization && !isLogOut && (
-          <>
-            <UserButton
-              //
-              src={iconProfile}
-              alt={'profile'}
-              to={'/profile'}
-              name={name ? `${name}` : 'Profile'}
-            />
-          </>
-        )}
-        {isAuthorization === false && (
-          <>
-            <ButtonWithRoute
-              className={'button-signIn button-signIn__addition'}
-              path={'/signIn'}
-              data={'Sign in'}
-            />
-            <ButtonWithRoute
-              className={'button-signUp button-signUp__addition'}
-              path={'/singUp'}
-              data={'Sign up'}
-            />
-          </>
-        )}
+      <div className='menu_icon' onClick={openMenu}>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
 
-        {isAuthorization && !isLogOut && (
-          <>
-            <Button
-              className={'button-logOut'}
-              data={'Log out'}
-              onClick={setLogOut}
-            />
-          </>
-        )}
+      <div className='background-menu'></div>
+
+      <nav className='menu'>
+        <div className={'menu_list wrapper-button'}>
+          <CartButton src={iconCart} alt='cartButton' to={'/cart'} />
+          <CartButton src={iconHeart} alt='favoriets' to={'/favorites'} />
+          {isAuthorization && !isLogOut && (
+            <>
+              <UserButton
+                src={iconProfile}
+                alt={'profile'}
+                to={'/profile'}
+                name={name ? `${name}` : 'Profile'}
+              />
+            </>
+          )}
+          {isAuthorization === false && (
+            <>
+              <ButtonWithRoute
+                className={'button-signIn button-signIn__addition'}
+                path={'/signIn'}
+                data={'Sign in'}
+              />
+              <ButtonWithRoute
+                className={'button-signUp button-signUp__addition'}
+                path={'/singUp'}
+                data={'Sign up'}
+              />
+            </>
+          )}
+
+          {isAuthorization && !isLogOut && (
+            <>
+              <Button
+                className={'button-logOut'}
+                data={'Log out'}
+                onClick={setLogOut}
+              />
+            </>
+          )}
+        </div>
       </nav>
     </header>
   );
