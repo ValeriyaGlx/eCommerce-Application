@@ -9,12 +9,7 @@
     padding: 10px 20px;
     border-radius: 20px;
     box-shadow: 0 0 1px 0.02px #ababab;
-    @media (max-width: 690px) {
-        background: none;
-        box-shadow: none;
-        flex-direction: column;
-        gap: 20px;
-    }
+    position: relative;
 }
 
 .wrapper-button {
@@ -25,7 +20,6 @@
 }
 
 .header-select {
-
     .select {
         display: flex;
         align-items: center;
@@ -45,3 +39,53 @@
     width: 300px;
 }
 
+.menu {
+    @extend %transitionSettings;
+    @media screen and (max-width: 630px) {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 370px;
+        height: 100%;
+        background-color: #d8d8d9;
+        transform: translate(100%, 0px);
+        overflow: auto;
+        z-index: 9;
+
+
+        .wrapper-button {
+            margin-top: 170px;
+            width: 245px;
+            flex-direction: column;
+        }
+    }
+}
+
+.menu_icon {
+    display: none;
+    @extend %transitionSettings;
+
+    &:active {
+        transform: rotate(90deg);
+    }
+
+    div {
+        width: 30px;
+        height: 2px;
+        background-color: $color-violet;
+
+        & + div {
+            margin-top: 9px;
+        }
+    }
+
+    @media screen and (max-width: 630px) {
+        display: block;
+        cursor: pointer;
+        position: absolute;
+        right: 23px;
+        width: 30px;
+        height: 22px;
+        z-index: 12;
+    }
+}

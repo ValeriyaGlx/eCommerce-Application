@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import './_button.scss';
 
 interface ButtonProps {
   className: string;

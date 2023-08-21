@@ -3,20 +3,16 @@
 .section-container {
     display: flex;
     justify-content: space-between;
-    @media (max-width: 685px) {
-        display: block;
-        display: flex;
-        flex-direction: column-reverse;
-        margin-top: 97px;
+    @media (max-width: 790px) {
+        flex-direction: column;
     }
 
     & section {
         width: 50%;
         min-height: 100vh;
         padding-top: 25vh;
-        @media (max-width: 685px) {
-            //padding-top: 10vh;
-            padding: 7vh 0;
+        @media (max-width: 790px) {
+            padding: 3vh 0;
             width: 100%;
             min-height: 0;
         }
