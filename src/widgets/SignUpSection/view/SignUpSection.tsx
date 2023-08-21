@@ -46,6 +46,7 @@ const SignUpSection = () => {
   const [isModal, setIsModal] = useState(false);
   const dispatch: ThunkDispatch<RootState, unknown, AnyAction> = useDispatch();
   const [checkInput, setCheckInput] = useState(true);
+  const [sendRequest, setSendRequest] = useState(false);
   const navigate = useNavigate();
 
   const [hideAddress, setHideAddress] = useState(true);
@@ -67,6 +68,7 @@ const SignUpSection = () => {
       dispatch(setInputValueWithValidation(inputName[0], inputName[1].value));
     });
     setCheckInput(!checkInput);
+    setSendRequest(true);
   };
 
   useEffect(() => {
@@ -83,7 +85,7 @@ const SignUpSection = () => {
   useEffect(() => {
     const isSubmit = store.getState().authorization.isRegistration;
 
-    if (isSubmit && !checkInput) {
+    if (isSubmit && sendRequest) {
       const data = makeSubmitData();
       const request = async () => {
         const token = await getAccessToken();
@@ -92,6 +94,7 @@ const SignUpSection = () => {
       };
       request().then(() => setIsModal(true));
       dispatch(setRegistrationValue({ isSubmit: false }));
+      setSendRequest(false);
     }
   }, [handleSubmit]);
 

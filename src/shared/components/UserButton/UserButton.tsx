@@ -13,8 +13,8 @@ interface UserButtonProps {
 const UserButton: FC<UserButtonProps> = ({ to, src, alt, name }) => {
   return (
     <Link to={to} className={'button-profile'}>
-      <span className='span-profile'>{name}</span>
       <img className='img-profile' src={src} alt={alt} />
+      <div className='span-profile'>{name}</div>
     </Link>
   );
 };

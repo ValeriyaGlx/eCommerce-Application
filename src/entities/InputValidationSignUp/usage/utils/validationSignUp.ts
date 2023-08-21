@@ -42,7 +42,7 @@ export const dateValidationSchema = yup
   .date()
   .transform((value, originalValue) => {
     if (originalValue === '') {
-      return undefined; // Treat empty input as undefined
+      return undefined;
     }
     const parsedDate = new Date(originalValue);
     return isNaN(parsedDate.getTime()) ? undefined : parsedDate;

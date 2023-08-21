@@ -11,6 +11,7 @@ import PageNotFound from '../pages/PageNotFound/PageNotFound';
 import checkIsLogin from '../shared/checkIsLogin/checkIsLogin';
 import Profile from '../pages/Profile/Profile';
 import Favorites from '../pages/Favorites/Favorites';
+import AboutUs from '../pages/AboutUs/AboutUs';
 
 import { store } from './store/store';
 import RequireAuth from './hoc/RequireAuth';
@@ -41,6 +42,7 @@ function App() {
         <Route path='/cart' element={<Cart />} />
         <Route path='/profile' element={<Profile />} />
         <Route path='/favorites' element={<Favorites />} />
+        <Route path='/about' element={<AboutUs />} />
         <Route path='*' element={<PageNotFound />} />
       </Routes>
     </Provider>

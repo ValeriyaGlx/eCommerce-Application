@@ -76,34 +76,8 @@ const makeSubmitData = () => {
   if (!isSameAddresses && isShippingDefault) {
     data.defaultShippingAddress = 0;
   }
-  console.log(JSON.stringify(data));
+
   return data;
 };
 
 export default makeSubmitData;
-
-/*
-      {
-        "email": "galakhova.valeriya@gmail.com",
-        "password": "1!Qwwwwwwww",
-        "firstName": "Lera",
-        "lastName": "Galakhova",
-        "dateOfBirth": "1994-06-07",
-        "addresses": [
-            {
-                "country": "RU",
-                "postalCode": "433077",
-                "city": "Samara",
-                "streetName": "Sovetskaya"
-            },
-            {
-                "country": "RU",
-                "postalCode": "443077",
-                "city": "Kazan",
-                "streetName": "Pavlova"
-            }
-        ],
-        "billingAddress": "[0]",
-        "shippingAddress": "[1]"
-      }
- */

@@ -1,16 +1,16 @@
 import React from 'react';
 
 import { Header } from '../../widgets/Header/Header';
-import './HomePage.scss';
-import MainHome from '../../widgets/mainHome/MainHome';
+import './_HomePage.scss';
+import Footer from '../../widgets/Footer/Footer';
 
 export function HomePage() {
   return (
     <div className='wrapper'>
       <div className={'container'}>
         <Header />
-        <MainHome />
       </div>
+      <Footer />
     </div>
   );
 }

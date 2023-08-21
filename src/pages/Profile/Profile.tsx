@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Header } from '../../widgets/Header/Header';
+import Footer from '../../widgets/Footer/Footer';
 
 export function Profile() {
   return (
@@ -8,6 +9,7 @@ export function Profile() {
       <Header />
 
       <div>Profile</div>
+      <Footer />
     </div>
   );
 }
