@@ -33,7 +33,9 @@ export function openMenu() {
       menuIcon.style.transform = 'rotate(90deg)';
       (document.querySelector('.background-menu') as HTMLElement).style.visibility = 'visible';
 
-      items.forEach((el) => el.addEventListener('click', closeMenu));
+      items.forEach((el) => {
+        el.addEventListener('click', closeMenu);
+      });
       window.addEventListener('click', closeSetWindow);
     }
   }
