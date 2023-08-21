@@ -12,21 +12,14 @@ import checkIsLogin from '../shared/checkIsLogin/checkIsLogin';
 import Profile from '../pages/Profile/Profile';
 import Favorites from '../pages/Favorites/Favorites';
 import AboutUs from '../pages/AboutUs/AboutUs';
+import Layout from '../shared/components/Layout/Layout';
 
 import { store } from './store/store';
 import RequireAuth from './hoc/RequireAuth';
-import { Header } from '../widgets/Header/Header';
-import Layout from '../shared/components/Layout/Layout';
 
 checkIsLogin();
 
 function App() {
-  const currentPath = window.location.pathname;
-  const isAuthPage =
-    currentPath === '/signIn' ||
-    currentPath === '/signUp' ||
-    currentPath === '*';
-
   return (
     <Provider store={store}>
       <Routes>
