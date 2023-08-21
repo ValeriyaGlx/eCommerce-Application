@@ -10,17 +10,17 @@ const PageNotFound = () => {
       <div className='pagenotfound'>
         <div className={'pagenotfound-text'}>
           <h1>404 page</h1>
-          <h3>Ops... Page not found</h3>
+          <h3>Oops... Page not found</h3>
           <ButtonWithRoute
             className={'pagenotfound__button'}
             path={'/'}
             data={'Go Back'}
           />
         </div>
-        <div className={'pagenotfound__picture'}>
+        <div className={'pagenotfound-container'}>
           <img
-            className={'pagenotfound___picture__picture'}
-            style={{ width: '95%', height: '95%' }}
+            className={'pagenotfound-container-img'}
+            style={{ width: '100%', height: '100%' }}
             src={robot}
             alt='robot'
           />
