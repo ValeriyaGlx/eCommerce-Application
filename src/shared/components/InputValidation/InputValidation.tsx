@@ -15,6 +15,7 @@ interface InputValidationProps {
   onBlur?: (event: React.FormEvent<HTMLInputElement>) => void;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   min?: string;
+  color: string;
 }
 
 const InputValidation: FC<InputValidationProps> = ({
@@ -28,6 +29,7 @@ const InputValidation: FC<InputValidationProps> = ({
   value,
   inputName,
   min,
+  color,
 }) => {
   return (
     <React.Fragment>
@@ -48,7 +50,7 @@ const InputValidation: FC<InputValidationProps> = ({
           </button>
         )}
       </div>
-      <div className={'error-message'}>{errorMessage}</div>
+      <div className={`error-message ${color}`}>{errorMessage}</div>
     </React.Fragment>
   );
 };

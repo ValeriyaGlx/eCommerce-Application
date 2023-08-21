@@ -104,7 +104,7 @@ const FormSubmitSignIn = () => {
         logo={logoFailed}
         h2={'Login Failed!'}
         p={'Please, recheck the username and password and try again'}
-        buttonValue={'TRY AGAIN'}
+        buttonValue={'Try Again'}
         isOpen={store.getState().modal.isOpen}
         onClick={clickButton}
       />
