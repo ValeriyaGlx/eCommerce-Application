@@ -42,3 +42,16 @@ li {
 *::-webkit-scrollbar-thumb {
     background-color: $color-orange
 }
+
+.container {
+    padding: 20px 100px;
+    margin: 0 auto;
+
+    @media (max-width: 850px) {
+        padding: 20px 50px;
+    }
+
+    @media (max-width: 850px) {
+        padding: 10px 10px;
+    }
+}

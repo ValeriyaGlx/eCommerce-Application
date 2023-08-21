@@ -9,12 +9,6 @@
     padding: 10px 20px;
     border-radius: 20px;
     box-shadow: 0 0 1px 0.02px #ababab;
-    @media (max-width: 690px) {
-        background: none;
-        box-shadow: none;
-        flex-direction: column;
-        gap: 20px;
-    }
 }
 
 .wrapper-button {
