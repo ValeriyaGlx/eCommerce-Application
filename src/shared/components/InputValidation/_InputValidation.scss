@@ -22,6 +22,10 @@ input[type=date]::-webkit-calendar-picker-indicator {
     top: 22px;
     left: 16px;
     opacity: .8;
+
+    @media (max-width: 550.5px) {
+        display: none;
+    }
 }
 
 .input-area {
@@ -50,6 +54,11 @@ input[type=date]::-webkit-calendar-picker-indicator {
             box-shadow: 0 0 5pt 2pt #d3d3d3;
             outline-width: 0px;
         }
+
+        @media (max-width: 550.5px) {
+            height: 35px;
+            padding: 2px 20px;
+        }
     }
 }
 
@@ -61,12 +70,16 @@ input[type=date]::-webkit-calendar-picker-indicator {
     height: 20px;
     text-align: center;
     right: 20px;
+    top: 24px;
     margin-left: -20px;
     position: relative;
     cursor: pointer;
     z-index: 1;
-    top: 24px;
     opacity: .7;
+
+    @media (max-width: 550px) {
+        top: 14px;
+    }
 }
 
 

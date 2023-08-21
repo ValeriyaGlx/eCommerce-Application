@@ -39,4 +39,23 @@ li {
   background-color: #fc8901;
 }
 
+.container {
+  padding: 20px 100px;
+  margin: 0 auto;
+}
+@media (max-width: 850px) {
+  .container {
+    padding: 20px 50px;
+  }
+}
+@media (max-width: 700px) {
+  .container {
+    padding: 10px 10px;
+  }
+}
+
+.lock {
+  overflow: hidden;
+}
+
 /*# sourceMappingURL=App.css.map */
