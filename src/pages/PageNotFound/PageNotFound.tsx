@@ -20,7 +20,7 @@ const PageNotFound = () => {
         <div className={'pagenotfound__picture'}>
           <img
             className={'pagenotfound___picture__picture'}
-            style={{ width: '100%', height: '61%' }}
+            style={{ width: '95%', height: '95%' }}
             src={robot}
             alt='robot'
           />
