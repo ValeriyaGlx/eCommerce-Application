@@ -51,6 +51,7 @@ const inputValidationSignUp: FC<InputValidationSignUpProps> = ({
       handleInputChange={handleInputChangeTest}
       value={inputState.value}
       errorMessage={inputState.validationError}
+      color={''}
     />
   );
 };
