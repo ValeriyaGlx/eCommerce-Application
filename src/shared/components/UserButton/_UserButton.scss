@@ -3,8 +3,6 @@
 
 .button-profile {
     position: relative;
-
-
     @extend %mainButtonGradient;
     width: fit-content;
     padding: 15px;
