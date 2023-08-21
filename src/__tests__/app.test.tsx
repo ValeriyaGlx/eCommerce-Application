@@ -1,10 +1,15 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 
 import App from '../app/App';
 
 test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/hello test/i);
+  render(
+    <MemoryRouter>
+      <App />
+    </MemoryRouter>,
+  );
+  const linkElement = screen.getByText(/DigiSet/i);
   expect(linkElement).toBeInTheDocument();
 });

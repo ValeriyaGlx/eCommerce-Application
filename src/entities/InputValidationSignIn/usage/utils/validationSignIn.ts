@@ -38,17 +38,3 @@ export const validatePassword = (password: string) => {
       return '';
   }
 };
-
-export const validateSubmit = (email: string, password: string) => {
-  const messageEmail = validateEmail(email);
-  const messagePassword = validatePassword(password);
-  if (messageEmail.length !== 0 && messagePassword.length !== 0) {
-    return 'Incorrect password and Email';
-  } else if (messagePassword.length !== 0) {
-    return 'Incorrect password';
-  } else if (messageEmail.length !== 0) {
-    return 'Incorrect Email';
-  } else {
-    return '';
-  }
-};
