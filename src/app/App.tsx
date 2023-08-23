@@ -32,7 +32,7 @@ function App() {
           }
         />
         <Route
-          path='/singUp'
+          path='/signUp'
           element={
             <RequireAuth>
               <SignUp />

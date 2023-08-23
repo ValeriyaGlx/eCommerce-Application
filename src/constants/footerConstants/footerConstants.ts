@@ -19,7 +19,7 @@ export const FOOTER_LINKS_DATA = [
   },
   {
     value: 'sign up',
-    to: '/singUp',
+    to: '/signUp',
     className: 'footer_a',
     id: Math.random(),
   },

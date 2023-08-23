@@ -2,11 +2,10 @@ export function closeMenu() {
   const menuIcon = document.querySelector('.menu_icon') as HTMLElement;
   const menu = document.querySelector('.menu') as HTMLElement;
   if (menu) {
-    menu.style.transform = 'translate(100%, 0px)';
-    menuIcon.style.transform = 'rotate(0deg)';
+    menu.classList.remove('active');
+    menuIcon.classList.remove('active');
+    document.body.classList.remove('lock');
   }
-
-  document.body.classList.remove('lock');
 }
 
 function closeSetWindow(e: Event) {
@@ -23,20 +22,15 @@ function closeSetWindow(e: Event) {
 export function openMenu() {
   const menuIcon = document.querySelector('.menu_icon') as HTMLElement;
   const menu = document.querySelector('.menu') as HTMLElement;
-  const items = document.querySelectorAll('.menu_list a');
+  const items = document.querySelectorAll('.menu_list > a');
   if (window.screen.width < 630) {
-    if (document.body.classList.contains('lock')) {
-      closeMenu();
-    } else {
-      document.body.classList.add('lock');
-      menu.style.transform = 'translate(0%, 0px)';
-      menuIcon.style.transform = 'rotate(90deg)';
-      (document.querySelector('.background-menu') as HTMLElement).style.visibility = 'visible';
+    menu.classList.toggle('active');
+    menuIcon.classList.toggle('active');
+    document.body.classList.toggle('lock');
 
-      items.forEach((el) => {
-        el.addEventListener('click', closeMenu);
-      });
-      window.addEventListener('click', closeSetWindow);
-    }
+    items.forEach((el) => {
+      el.addEventListener('click', closeMenu);
+    });
+    window.addEventListener('click', closeSetWindow);
   }
 }
