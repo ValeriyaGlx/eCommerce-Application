@@ -1,4 +1,5 @@
 # eCommerce-Application
+
 Welcome to our cutting-edge eCommerce Application, designed to cater specifically to the
 dynamic world of IT education. Delve into a seamless experience of discovering and
 enrolling in top-notch IT courses right at your fingertips.
@@ -17,9 +18,11 @@ educational growth. The future of IT education awaits, and we are thrilled to be
 to success.
 
 ### Installation
+
 Follow these steps to get the project up and running on your local machine.
 
 ### Step 1: Clone the repository
+
 Clone this repository to your local machine using the following command:
 
 ```
@@ -27,6 +30,7 @@ git clone https://github.com/ValeriyaGlx/eCommerce-Application.git
 ```
 
 ### Step 2: Navigate to the project directory
+
 Change your current working directory to the project folder:
 
 ```
@@ -34,6 +38,7 @@ cd your-repo
 ```
 
 ### Step 3: Install project dependencies
+
 Use npm to install the required dependencies:
 
 ```
@@ -41,6 +46,7 @@ npm install
 ```
 
 ### Step 4: Run the project
+
 You are all set! Now you can run the project using the following command:
 
 ```
@@ -48,6 +54,7 @@ npm run
 ```
 
 ### Running tests (JEST)
+
 How to run the automated tests for this system
 To run tests using Jest, run the following command:
 
@@ -56,6 +63,7 @@ npx jest or npm test
 ```
 
 ### Running ESLint
+
 To run ESLint and lint your JavaScript or TypeScript files, execute the following command in your terminal:
 
 ```
@@ -63,6 +71,7 @@ npx eslint .
 ```
 
 ### Running Prettier
+
 Similar to ESLint, you need to install Prettier as a development dependency. Run the following command in your terminal:
 
 ```
@@ -70,6 +79,7 @@ npx prettier --write .
 ```
 
 ### Built With
+
 1. React App - JavaScript library for building user interfaces.
 2. Webpack - module bundler.
 3. Typescript - strongly typed programming language that builds on JavaScript.
@@ -79,20 +89,24 @@ npx prettier --write .
 7. Husky - tool that helps developers work with Git hooks more efficiently and run all the scripts that need to work at various stages.
 
 ### Authors
-* Valeriya Galahova
+
+- Valeriya Galahova
+
   - <a href='https://valeriyaglx.github.io/rsschool-cv/'>CV</a>
   - galakhova.valeriya@gmail.com
 
-* Mariya Stroich
+- Mariya Stroich
+
   - <a href='https://stroich.github.io/cv/index.html'>CV</a>
   - stroichmwork@gmail.com
 
-* Aleksandra Suvorova
+- Aleksandra Suvorova
   - <a href='https://alexandra376.github.io/My-CV/'>CV</a>
   - suvorovaalexandra344@gmail.com
 
 ### Acknowledgments
-* RS School and all it's activists
+
+- RS School and all it's activists
   - <a href='https://rs.school/'>School's link</a>
-* Andrej Podlubnyj - our best mentor
+- Andrej Podlubnyj - our best mentor
   - andron13@gmail.com

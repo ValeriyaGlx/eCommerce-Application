@@ -2,6 +2,7 @@
   "name": "commerce-app",
   "version": "0.1.0",
   "private": true,
+  "homepage": ".",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
     "@testing-library/jest-dom": "^5.17.0",
@@ -21,7 +22,8 @@
     "react-router-dom": "^6.14.2",
     "react-scripts": "5.0.1",
     "typescript": "^5.1.6",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yup": "^1.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -51,6 +53,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-transition-group": "^4.4.6",
     "@typescript-eslint/eslint-plugin": "^6.2.1",
     "@typescript-eslint/parser": "^6.2.1",
     "eslint": "^8.46.0",
@@ -60,6 +63,9 @@
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-react": "^7.33.1",
-    "eslint-plugin-react-hooks": "^4.6.0"
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "react-transition-group": "^4.4.5",
+    "sass": "^1.64.2",
+    "sass-loader": "^13.3.2"
   }
 }

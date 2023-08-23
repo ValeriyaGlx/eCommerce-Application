@@ -1,0 +1,41 @@
+.signInSection {
+    background: linear-gradient(238.66deg, #083fed -18.13%, #fc8901 120.27%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    width: 50%;
+
+    @media (max-width: 790px) {
+        height: fit-content;
+    }
+}
+
+.container-logo {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+}
+
+.signInSection-text {
+    font-size: 39px;
+    font-weight: 700;
+
+    text-align: left;
+    color: white;
+    margin-bottom: 50px;
+
+    @media (max-width: 790px) {
+        margin-top: 80px;
+        margin-bottom: 0px;
+        line-height: 40px;
+        font-size: 29px;
+    }
+}
+
+.container-input {
+    max-width: 500px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 25px;
+}

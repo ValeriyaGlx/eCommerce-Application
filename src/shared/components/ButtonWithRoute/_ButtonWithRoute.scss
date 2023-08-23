@@ -1,0 +1,49 @@
+@import '/src/constants/scss/extentds';
+@import '/src/constants/scss/variables';
+
+
+.button-signIn {
+    padding: 10px 30px;
+    width: 140px;
+    height: 50px;
+    color: white;
+    background: $color-gradient-blue-orange;
+    font-size: 20px;
+    border: none;
+    line-height: 30px;
+    border-radius: 10px;
+    position: relative;
+    text-align: center;
+
+    @media (max-width: 780px) {
+        padding: 10px;
+        width: 100px;
+    }
+}
+
+.button-signIn a {
+    color: white;
+    text-decoration: none;
+}
+
+
+.button-signUp,
+.button-logOut {
+    @extend %fontSettings;
+    @extend %buttonSignUp;
+    width: 140px;
+    height: 50px;
+    text-align: center;
+    line-height: 30px;
+
+    @media (max-width: 780px) {
+        padding: 10px;
+        width: 100px;
+    }
+}
+
+.button-signUp a {
+    color: white;
+}
+
+

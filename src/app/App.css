@@ -1,0 +1,61 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  font-family: Josefin Sans, serif;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 30px;
+}
+
+a {
+  text-decoration: none;
+}
+
+a, button, input[type=submit] {
+  cursor: pointer;
+  font-family: Josefin Sans, serif;
+}
+
+li {
+  list-style-type: none;
+}
+
+*::-webkit-scrollbar {
+  width: 5px;
+  background-color: #eeebeb;
+  opacity: 0.5;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #fc8901;
+}
+
+.container {
+  padding: 20px 100px;
+  margin: 0 auto;
+}
+@media (max-width: 850px) {
+  .container {
+    padding: 20px 50px;
+  }
+}
+@media (max-width: 700px) {
+  .container {
+    padding: 10px 10px;
+  }
+}
+
+.lock {
+  overflow: hidden;
+}
+
+/*# sourceMappingURL=App.css.map */

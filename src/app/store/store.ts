@@ -1,5 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit';
 
+import signupReducer from './actions/signupActions/sugnupSlice';
+import signinReducer from './actions/signinAction/signinSlice';
+import modalSliceReducer from './actions/modalSliceAction/modalSlice';
+import authorizationSlice from './actions/authorizationAction/authorizationSlice';
+
 export const store = configureStore({
-  reducer: {},
+  reducer: {
+    signup: signupReducer,
+    signin: signinReducer,
+    modal: modalSliceReducer,
+    authorization: authorizationSlice,
+  },
 });

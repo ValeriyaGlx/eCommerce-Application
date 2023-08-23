@@ -1,0 +1,34 @@
+.button-cart {
+    background: linear-gradient(to bottom left, #083fed, #fc8901);
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 10px;
+    text-align: start;
+    cursor: pointer;
+}
+
+.img-cart {
+    width: 30px;
+    height: 30px;
+    position: relative;
+    top: -7px;
+    left: 5px;
+}
+
+.span-cart {
+    position: relative;
+    display: block;
+    text-align: center;
+    line-height: 20px;
+    font-size: 12px;
+    color: #fff;
+    width: 20px;
+    height: 20px;
+    left: 25px;
+    bottom: -3px;
+    background: linear-gradient(to bottom left, #083fed, #fc8901);
+    border: 1px solid white;
+    border-radius: 50%;
+    z-index: 10;
+}

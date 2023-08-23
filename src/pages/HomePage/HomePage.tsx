@@ -1,5 +1,7 @@
 import React from 'react';
 
+import './_HomePage.scss';
+
 export function HomePage() {
-  return <div>Home</div>;
+  return <div>Main Page</div>;
 }
