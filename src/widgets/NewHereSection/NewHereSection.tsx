@@ -14,7 +14,7 @@ const NewHereSection = () => {
       </p>
       <ButtonWithRoute
         className={'button-signUp'}
-        path={'/singUp'}
+        path={'/signUp'}
         data={'Sign up'}
       />
     </section>

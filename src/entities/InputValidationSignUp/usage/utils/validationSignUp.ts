@@ -2,8 +2,8 @@ import * as yup from 'yup';
 
 export const emailValidationSchema = yup
   .string()
-  .trim()
   .required('Email is required')
+  .matches(/^\S*$/, 'Email must be valid (example@mail.com)')
   .test('email-tld', 'Email must be valid (example@mail.com)', (value) => {
     if (!value) {
       return false;

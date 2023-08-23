@@ -39,8 +39,11 @@ const inputValidationSignUp: FC<InputValidationSignUpProps> = ({
     const newValue = e.target.value.trimStart();
     dispatch(setInputValueWithValidation(inputName, newValue));
   };
+  const error = store.getState().signup.signup[inputName].validationError;
+
   return (
     <InputValidation
+      errorClass={error === '' || error === null ? '' : 'red'}
       type={type}
       placeholder={placeholder}
       inputName={inputName}

@@ -10,7 +10,7 @@ interface RequireAuthProps {
 const RequireAuth: React.FC<RequireAuthProps> = ({ children }) => {
   const isAuth = store.getState().authorization.isAuthorization;
   if (isAuth) {
-    return <Navigate to={'/'} />;
+    return <Navigate to={'/'} replace />;
   }
   return children;
 };

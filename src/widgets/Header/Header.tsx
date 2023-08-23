@@ -72,7 +72,7 @@ export function Header() {
               />
               <ButtonWithRoute
                 className={'button-signUp button-signUp__addition'}
-                path={'/singUp'}
+                path={'/signUp'}
                 data={'Sign up'}
               />
             </>

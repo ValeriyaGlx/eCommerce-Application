@@ -113,3 +113,11 @@ input[type=date]::-webkit-calendar-picker-indicator {
 .error-message.white {
     color: #fff;
 }
+
+.red input {
+    border: 1px solid #e38888;
+}
+
+.red-singin input {
+    border: 1.2px solid #d54141;
+}

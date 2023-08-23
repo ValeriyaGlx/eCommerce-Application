@@ -40,17 +40,23 @@
 }
 
 .menu {
+    position: static;
+
     @extend %transitionSettings;
     @media screen and (max-width: 630px) {
         position: fixed;
         top: 0;
-        right: 0;
+        right: -100%;
         width: fit-content;
         height: 100%;
         background-color: rgba(216, 216, 217, 0.9);
-        transform: translate(100%, 0px);
+
         overflow: auto;
         z-index: 9;
+
+        &.active {
+            right: 0;
+        }
 
         .wrapper-button {
             margin: 170px 15px 0;
@@ -86,9 +92,6 @@
     display: none;
     @extend %transitionSettings;
 
-    &:active {
-        transform: rotate(90deg);
-    }
 
     div {
         width: 30px;
@@ -107,6 +110,12 @@
         right: 23px;
         width: 30px;
         height: 22px;
+        transform-origin: center;
+        transition: transform 0.3s ease;
         z-index: 12;
     }
+}
+
+ .menu_icon.active {
+    transform: rotate(90deg);
 }

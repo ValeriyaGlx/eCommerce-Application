@@ -41,9 +41,12 @@ const InputValidationSignIn: FC<InputValidationProps> = ({
     dispatch(setSingInInputValue({ inputName, inputValue }));
   };
 
+  const error = store.getState().signin[inputName].validationError;
+
   return (
     <div>
       <InputValidation
+        errorClass={error === '' || error === null ? '' : 'red-singin'}
         type={type}
         placeholder={placeholder}
         showPassword={showPassword}
