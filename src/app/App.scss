@@ -1,5 +1,8 @@
 @import '../constants/scss/variables';
 @import '../constants/scss/extentds';
+@import '../constants/scss/mixins';
+
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;200;300;400;500;600;700&display=swap');
 
 *,
 *::after,
@@ -16,8 +19,13 @@ body {
     font-family: Josefin Sans,
     serif;
     font-size: 20px;
-    font-weight: 600;
     line-height: 30px;
+
+    @media (max-width: 680px) {
+        &::-webkit-scrollbar {
+            width: 0;
+        }
+    }
 }
 
 a {
@@ -26,11 +34,24 @@ a {
 
 a, button, input[type=submit] {
     cursor: pointer;
-    font-family: Josefin Sans, serif;
+    font-weight: 600;
+}
+
+input {
+    font-family: Josefin Sans,
+    serif;
+}
+
+input[type=submit] {
+    @extend %ButtonsHover;
 }
 
 li {
     list-style-type: none;
+}
+
+p {
+    font-weight: 400;
 }
 
 *::-webkit-scrollbar {
@@ -47,11 +68,11 @@ li {
     padding: 20px 100px;
     margin: 0 auto;
 
-    @media (max-width: 850px) {
+    @media (max-width: 940px) {
         padding: 20px 50px;
     }
 
-    @media (max-width: 700px) {
+    @media (max-width: 840px) {
         padding: 10px 10px;
     }
 }

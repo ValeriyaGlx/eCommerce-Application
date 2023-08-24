@@ -1,6 +1,6 @@
 .header-logo {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .logo-img {
@@ -14,8 +14,9 @@
 
 .logo-title,
 .logo-title-black {
-  color: white;
-  font-size: 30px;
+    color: white;
+    font-size: 30px;
+    margin-top: 6px;
 
     @media (max-width: 550px) {
         font-size: 20px;
@@ -23,7 +24,7 @@
 }
 
 .logo-title-black {
-color: black;
+    color: black;
     font-size: 30px;
 
     @media (max-width: 550px) {

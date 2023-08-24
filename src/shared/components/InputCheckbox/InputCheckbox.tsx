@@ -1,5 +1,7 @@
 import React, { FC } from 'react';
 
+import './_InputChackbox.scss';
+
 interface InputCheckboxProps {
   id: string;
   data: string;

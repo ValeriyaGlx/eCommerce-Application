@@ -9,11 +9,6 @@
     border: none;
     color: white;
     border-radius: 10px;
-    cursor: pointer;
     font-size: 20px;
-    @extend %fontSettings;
-
-    @media (max-width: 790px) {
-        width: 100px;
-    }
+    @extend %tabletSizeButtons780px;
 }
