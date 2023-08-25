@@ -6,7 +6,7 @@
     @extend %mainButtonGradient;
     width: fit-content;
     padding: 15px;
-
+    @extend %ButtonsHover;
 }
 
 .img-profile {

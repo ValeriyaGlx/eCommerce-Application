@@ -16,6 +16,10 @@ import { logOut } from '../../app/store/actions/authorizationAction/authorizatio
 import deleteToken from '../../shared/cookie/deleteToken';
 import UserButton from '../../shared/components/UserButton/UserButton';
 import { openMenu } from '../../shared/burgerMenuUsage/burgerMenuUsage';
+import SelectTag from '../../shared/components/SelectTag/SelectTag';
+import { SELECT_CATEGORIES_DATA as categoriesArray } from '../../constants/headerConstants/headerConstants';
+import arrow from '../../assets/icons/arrow-down-caategories.png';
+import logo from '../../assets/icons/categories-logo.png';
 
 type RootState = ReturnType<typeof store.getState>;
 
@@ -40,6 +44,18 @@ export function Header() {
   return (
     <header className='header'>
       <Logo className={'logo-title-black'} />
+
+      <SelectTag
+        selectArray={categoriesArray}
+        className={'header-select'}
+        value={'Categories'}
+        inputName={'header-select-tag'}
+        onClick={() => {
+          console.log('here will be implement redux save logic');
+        }}
+        arrow={arrow}
+        logo={logo}
+      />
 
       <div className='menu_icon' onClick={openMenu}>
         <div></div>

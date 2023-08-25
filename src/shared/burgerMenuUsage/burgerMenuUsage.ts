@@ -23,7 +23,7 @@ export function openMenu() {
   const menuIcon = document.querySelector('.menu_icon') as HTMLElement;
   const menu = document.querySelector('.menu') as HTMLElement;
   const items = document.querySelectorAll('.menu_list > a');
-  if (window.screen.width < 630) {
+  if (window.screen.width < 680) {
     menu.classList.toggle('active');
     menuIcon.classList.toggle('active');
     document.body.classList.toggle('lock');
