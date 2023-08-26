@@ -13,9 +13,10 @@ import Profile from '../pages/Profile/Profile';
 import Favorites from '../pages/Favorites/Favorites';
 import AboutUs from '../pages/AboutUs/AboutUs';
 import Layout from '../shared/components/Layout/Layout';
+import Products from '../pages/Products/Products';
 
-import { store } from './store/store';
 import RequireAuth from './hoc/RequireAuth';
+import { store } from './store/store';
 
 checkIsLogin();
 
@@ -46,6 +47,7 @@ function App() {
           <Route path='profile' element={<Profile />} />
           <Route path='favorites' element={<Favorites />} />
           <Route path='about' element={<AboutUs />} />
+          <Route path='products' element={<Products />} />
         </Route>
       </Routes>
     </Provider>
