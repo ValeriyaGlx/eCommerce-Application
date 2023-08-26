@@ -11,6 +11,7 @@ interface IProducts {
 
 interface IResponse {
   masterData: {
+    published: boolean;
     current: {
       name: {
         'en-US': string;
@@ -102,14 +103,16 @@ export async function AllProductsRequest(token: string) {
   const arr = products.results;
 
   arr.forEach((el: IResponse) => {
-    const obj: IProducts = {
-      id: Math.random(),
-      name: el.masterData.current.name['en-US'],
-      description: el.masterData.current.description['en-US'],
-      image: el.masterData.staged.masterVariant.images[0].url,
-      price: el.masterData.staged.masterVariant.prices[0].value.centAmount,
-    };
-    newArr.push(obj);
+    if (el.masterData.published) {
+      const obj: IProducts = {
+        id: Math.random(),
+        name: el.masterData.current.name['en-US'],
+        description: el.masterData.current.description['en-US'],
+        image: el.masterData.staged.masterVariant.images[0].url,
+        price: el.masterData.staged.masterVariant.prices[0].value.centAmount,
+      };
+      newArr.push(obj);
+    }
   });
   return newArr;
 }

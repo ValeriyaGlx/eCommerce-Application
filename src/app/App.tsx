@@ -15,8 +15,8 @@ import AboutUs from '../pages/AboutUs/AboutUs';
 import Layout from '../shared/components/Layout/Layout';
 import Products from '../pages/Products/Products';
 
-import { store } from './store/store';
 import RequireAuth from './hoc/RequireAuth';
+import { store } from './store/store';
 
 checkIsLogin();
 
