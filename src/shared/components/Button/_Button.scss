@@ -1,0 +1,12 @@
+@import '/src/constants/scss/extentds';
+@import '/src/constants/scss/variables';
+
+.products-nav-item {
+    @extend %buttonNavOfProducts;
+    width: auto;
+}
+
+.products-nav-item_active {
+    @extend %mainButtonGradient;
+    @extend %tabletSizeButtons780px;
+}

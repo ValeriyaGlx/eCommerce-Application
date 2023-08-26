@@ -87,8 +87,8 @@
         button {
             @extend %buttonSignUp;
             padding: 0px 30px;
-            @extend %fontSettings;
             margin-bottom: 10px;
+            background: $color-gradient-white-blue;
 
             @media screen and (max-width: 770px) {
                 padding: 0 10px;

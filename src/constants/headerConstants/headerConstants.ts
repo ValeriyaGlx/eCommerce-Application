@@ -1,27 +1,27 @@
 export const SELECT_CATEGORIES_DATA = [
   {
-    value: 'top',
-    data: 'TOP Courses',
-    id: Math.random(),
-  },
-  {
     value: 'free',
-    data: 'FREE!',
+    data: 'Free!',
     id: Math.random(),
   },
   {
     value: 'web-dis',
-    data: 'Web Design',
+    data: 'Programming',
     id: Math.random(),
   },
   {
     value: 'analytic',
-    data: 'Data Analysis',
+    data: 'Data analysis',
     id: Math.random(),
   },
   {
-    value: 'front',
-    data: 'Frontend Dev',
+    value: 'design',
+    data: 'Design',
+    id: Math.random(),
+  },
+  {
+    value: 'manage',
+    data: 'Management',
     id: Math.random(),
   },
 ];

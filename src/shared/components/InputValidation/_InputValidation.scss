@@ -1,6 +1,8 @@
+@import 'src/constants/scss/extentds';
+@import 'src/constants/scss/variables';
+
 input {
     height: 22px;
-
 }
 
 .input-area {
@@ -42,18 +44,8 @@ input[type=date]::-webkit-calendar-picker-indicator {
         border-radius: 10px;
         padding: 10px 40px;
         margin: 4px 0px 0px;
-        box-shadow: 0 0 2pt 0.5pt #ababab;
-        transition: 0.5s;
 
-
-        &:hover {
-            box-shadow: 0 0 5pt 0.5pt #ababab;
-        }
-
-        &:focus {
-            box-shadow: 0 0 5pt 2pt #d3d3d3;
-            outline-width: 0px;
-        }
+        @extend %InputBoxShadowWithHover;
 
         @media (max-width: 550.5px) {
             height: 35px;
@@ -82,7 +74,6 @@ input[type=date]::-webkit-calendar-picker-indicator {
     }
 }
 
-
 .password-visible {
     cursor: pointer;
     width: 15px;
@@ -95,10 +86,11 @@ input[type=date]::-webkit-calendar-picker-indicator {
 
 .hide-password::after {
     content: '/';
-    font-size: 16px;
+    font-size: 19px;
     position: absolute;
-    top: -1%;
-    right: 40%;
+    transform: rotate(20deg);
+    top: -15%;
+    right: 37%;
     z-index: -1;
 }
 
