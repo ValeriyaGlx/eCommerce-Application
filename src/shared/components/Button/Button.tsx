@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import './_Button.scss';
 
 interface ButtonProps {
   className: string;
@@ -6,7 +7,7 @@ interface ButtonProps {
   onClick: () => void;
 }
 
-const ButtonWithRoute: FC<ButtonProps> = ({ className, data, onClick }) => {
+const Button: FC<ButtonProps> = ({ className, data, onClick }) => {
   return (
     <button className={className} onClick={onClick}>
       {data}
@@ -14,4 +15,4 @@ const ButtonWithRoute: FC<ButtonProps> = ({ className, data, onClick }) => {
   );
 };
 
-export default ButtonWithRoute;
+export default Button;
