@@ -32,6 +32,12 @@
         "@typescript-eslint"
     ],
     "rules": {
+        "import/no-extraneous-dependencies": [
+            "error",
+            {
+                "devDependencies": true
+            }
+        ],
         "indent": [
             "error",
             2,
@@ -40,12 +46,6 @@
                 "ignoredNodes": [
                     "ConditionalExpression"
                 ]
-            }
-        ],
-        "import/no-extraneous-dependencies": [
-            "error",
-            {
-                "devDependencies": true
             }
         ],
         "max-len": [

@@ -10,6 +10,16 @@ interface ProductImageSliderProps {
 const ProductImageSlider: React.FC<ProductImageSliderProps> = ({ items }) => {
   const [mainIndex, setMainIndex] = useState<number>(0);
 
+  if (items.length === 1) {
+    return (
+      <div className='product-slider-container'>
+        <div className='main-slide-container'>
+          <div className='main-image single-image'>{items[0]}</div>
+        </div>
+      </div>
+    );
+  }
+
   const smallThumbs = items.map((item, i) => (
     <div
       className={`thumb ${mainIndex === i ? 'active' : ''}`}

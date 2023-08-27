@@ -1,18 +1,19 @@
+@import 'src/constants/scss/extentds';
+@import 'src/constants/scss/variables';
 
 .product-slider-container {
-    width: 50%;
+    width: 500px;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+    margin: 20px 0;
 }
 
 .main-slide-container {
     display: flex;
-    align-items: center;
+    justify-content: space-around;
     flex-direction: row-reverse;
+    align-items: center;
     width: 100%;
-    background-color: #fff;
+    padding: 20px 0;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
@@ -20,13 +21,19 @@
 
 .main-image {
     position: relative;
-    width: 70%;
+    width: 300px;
 }
 
-.alice-carousel__stage-item img {
-    width: 400px;
+.alice-carousel__stage {
+    display: flex;
+    align-items: center;
+}
+
+.alice-carousel__stage-item img,
+.main-image.single-image img{
+    width: 300px;
+    border-radius: 10px;
     height: auto;
-    display: block;
 }
 
 .small-thumbnails {
@@ -60,14 +67,13 @@
     position: absolute;
     font-size: 24px;
     cursor: pointer;
-    color: #fff;
-    background-color: rgba(0, 0, 0, 0.5);
+    color: $color-orange;
     padding: 8px;
-    border-radius: 50%;
+    border-radius: 10%;
     transition: background-color 0.3s ease;
 
     &:hover {
-        background-color: rgba(0, 0, 0, 0.8);
+        color: #000;
     }
 }
 

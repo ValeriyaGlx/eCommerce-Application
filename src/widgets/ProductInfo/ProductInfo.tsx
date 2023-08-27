@@ -1,7 +1,7 @@
+import React, { FC } from 'react';
+
 import ProductImageSlider from '../../features/ProductImageSlider/ProductImageSlider';
 import ProductDescription from '../../features/ProductDescription/ProductDescription';
-import React, { FC } from 'react';
-import product from '../../pages/Product/Product';
 
 interface ProductInfoProps {
   product: {
@@ -13,12 +13,12 @@ interface ProductInfoProps {
 }
 
 const ProductInfo: FC<ProductInfoProps> = ({ product }) => {
-  console.log(product.images[0].url);
-  const items = [
-    <img className='item' data-value='1' src={product.images[0].url} />,
-    <img className='item' data-value='2' src={product.images[1].url} />,
-    <img className='item' data-value='3' src={product.images[2].url} />,
-  ];
+  const items: React.ReactNode[] = [];
+
+  product.images.forEach((el, i) => {
+    items.push(<img className='item' data-value={i + 1} src={el.url} />);
+  });
+
   return (
     <>
       <ProductImageSlider items={items} />

@@ -17,13 +17,17 @@
     justify-content: space-between;
     align-items: center;
     gap: 25px;
+
+    @media (max-width: 740px) {
+        gap: 15px;
+    }
 }
 
 
 .menu {
     position: static;
-
     @extend %transitionSettings;
+
     @media screen and (max-width: 680px) {
         position: fixed;
         top: 0;
@@ -99,4 +103,21 @@
 
 .menu_icon.active {
     transform: rotate(90deg);
+}
+
+.all-products {
+    @extend %textColorOrangeBlueGradient;
+    @extend %buttonSignUp;
+    border: 1px solid $color-black;
+    @extend %ButtonsHover;
+    //@extend %tabletSizeButtons780px;
+
+    @media (max-width: 970px) {
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    @media (max-width: 740px) {
+
+    }
 }

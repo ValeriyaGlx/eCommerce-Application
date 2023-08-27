@@ -11,7 +11,12 @@ import { getProduct } from './productAPI';
 const Product = () => {
   const [pageFound, setPageFound] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
-  const [productInfo, setProductInfo] = useState({});
+  const [productInfo, setProductInfo] = useState({
+    name: '',
+    description: '',
+    images: [{ url: '' }],
+    prices: '',
+  });
 
   const { productId } = useParams();
   useEffect(() => {
