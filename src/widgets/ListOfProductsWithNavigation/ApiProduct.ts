@@ -3,6 +3,7 @@ const host = process.env.REACT_APP_HOST;
 
 interface IProducts {
   id: number;
+  key: string;
   name: string;
   image: string;
   description: string;
@@ -10,6 +11,7 @@ interface IProducts {
 }
 
 interface IResponse {
+  key: string;
   masterData: {
     published: boolean;
     current: {
@@ -106,6 +108,7 @@ export async function AllProductsRequest(token: string) {
     if (el.masterData.published) {
       const obj: IProducts = {
         id: Math.random(),
+        key: el.key,
         name: el.masterData.current.name['en-US'],
         description: el.masterData.current.description['en-US'],
         image: el.masterData.staged.masterVariant.images[0].url,

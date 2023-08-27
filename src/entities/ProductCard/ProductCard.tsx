@@ -7,6 +7,8 @@ import cart from '../../assets/icons/shopping-cart-fill.svg';
 import ShoppingCartButton from '../../shared/components/ButtonCart/ShoppingCartButton';
 
 interface ProductCardProps {
+  key: number;
+  path: string;
   imageUrl: string;
   productName: string;
   description: string;
@@ -18,6 +20,7 @@ function clickCard() {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
+  path,
   imageUrl,
   productName,
   description,
@@ -29,7 +32,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       <div className='hover-content'>
         <ButtonWithRoute
           className={'button-link'}
-          path={'/product-details'}
+          path={`/products/${path}`}
           data={'More detailed'}
         />
         <ShoppingCartButton

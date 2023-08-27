@@ -6,8 +6,10 @@ import arrow from '../../assets/icons/down-arrow-black.png';
 import SelectTag from '../../shared/components/SelectTag/SelectTag';
 import './_ListOfProductsWithNavigation.scss';
 import ProductCard from '../../entities/ProductCard/ProductCard';
+import { CATEGORIES_OF_PRODUCTS as categories } from '../../constants/productCategories/productCategories';
 import { getAccessToken } from '../SignUpSection/usage/ApiRegistration';
-import { AllProductsRequest } from '../../features/ProductsWithNavigation/ApiProduct';
+
+import { AllProductsRequest } from './ApiProduct';
 
 function clickAllCategories() {
   console.log(1);
@@ -26,6 +28,7 @@ const ListOfProductsWithNavigation = () => {
         const productJSX: JSX.Element[] = listOfProduct.map((product) => (
           <ProductCard
             key={product.id}
+            path={product.key}
             imageUrl={product.image}
             productName={product.name}
             description={product.description}
@@ -51,36 +54,14 @@ const ListOfProductsWithNavigation = () => {
       <>
         <div className={'wrapper-sorting'}>
           <nav className={'products-nav'}>
-            <Button
-              className={'products-nav-item products-nav-item_active'}
-              data={'All Categories'}
-              onClick={clickAllCategories}
-            />
-            <Button
-              className={'products-nav-item'}
-              data={'Free'}
-              onClick={clickAllCategories}
-            />
-            <Button
-              className={'products-nav-item'}
-              data={'Programming'}
-              onClick={clickAllCategories}
-            />
-            <Button
-              className={'products-nav-item'}
-              data={'Data analysis'}
-              onClick={clickAllCategories}
-            />
-            <Button
-              className={'products-nav-item'}
-              data={'Design'}
-              onClick={clickAllCategories}
-            />
-            <Button
-              className={'products-nav-item'}
-              data={'Management'}
-              onClick={clickAllCategories}
-            />
+            {categories.map(({ data, id }) => (
+              <Button
+                key={id}
+                className={'products-nav-item'}
+                data={data}
+                onClick={clickAllCategories}
+              />
+            ))}
           </nav>
           <SelectTag
             selectArray={sortArray}
