@@ -1,0 +1,33 @@
+@import 'src/constants/scss/variables';
+
+.documentation {
+  flex-basis: 270px;
+  flex-grow: 1;
+  &-container {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    height: 100%;
+    &__img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: $color-gradient-blue-orange;
+      color: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    &.documentation-border {
+      border-radius: 10px;
+      padding: 30px 15px 25px 15px;
+      box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.15);
+    }
+  }
+}
+
+h5 {
+  color: $color-grey-paragraph;
+  font-weight: 400;
+  font-size: 17px;
+}
