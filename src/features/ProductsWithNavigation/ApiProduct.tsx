@@ -109,7 +109,9 @@ export async function AllProductsRequest(token: string) {
         name: el.masterData.current.name['en-US'],
         description: el.masterData.current.description['en-US'],
         image: el.masterData.staged.masterVariant.images[0].url,
-        price: el.masterData.staged.masterVariant.prices[0].value.centAmount,
+        price: Math.ceil(
+          el.masterData.staged.masterVariant.prices[0].value.centAmount / 100,
+        ),
       };
       newArr.push(obj);
     }
