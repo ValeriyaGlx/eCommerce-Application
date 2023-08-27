@@ -4,9 +4,11 @@
 .products-nav-item {
     @extend %buttonNavOfProducts;
     width: auto;
-}
+    border-radius: 10px;
+    transition: .5s background-color ease-in-out;
 
-.products-nav-item_active {
-    @extend %mainButtonGradient;
-    @extend %tabletSizeButtons780px;
+    &:hover {
+        background: $color-gradient-blue-orange;
+        color: white;
+    }
 }

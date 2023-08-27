@@ -14,6 +14,7 @@ import Favorites from '../pages/Favorites/Favorites';
 import AboutUs from '../pages/AboutUs/AboutUs';
 import Layout from '../shared/components/Layout/Layout';
 import Products from '../pages/Products/Products';
+import Product from '../pages/Product/Product';
 
 import RequireAuth from './hoc/RequireAuth';
 import { store } from './store/store';
@@ -48,6 +49,7 @@ function App() {
           <Route path='favorites' element={<Favorites />} />
           <Route path='about' element={<AboutUs />} />
           <Route path='products' element={<Products />} />
+          <Route path='/products/:productId' element={<Product />} />
         </Route>
       </Routes>
     </Provider>
