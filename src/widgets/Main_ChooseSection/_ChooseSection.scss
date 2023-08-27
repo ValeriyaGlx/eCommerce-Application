@@ -1,0 +1,21 @@
+.main-wrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  @media (max-width: 980px) {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+.main-choose {
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+
+  &__headline {
+    font-weight: 600;
+  }
+}
