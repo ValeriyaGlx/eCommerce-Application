@@ -12,11 +12,7 @@ const ChooseSection = () => {
       <div className={'main-wrapper'}>
         <div className={'documentation'}>
           <div className={'documentation-container documentation-border'}>
-            <div
-              className={
-                'documentation-container__img documentation-container__gradient'
-              }
-            >
+            <div className={'documentation-container__img'}>
               <img src={documentation} alt={'img'} />
             </div>
             <p className={'documentation-container__name'}>
