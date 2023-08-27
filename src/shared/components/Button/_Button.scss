@@ -12,3 +12,8 @@
         color: white;
     }
 }
+
+.products-nav-item_active {
+    @extend %mainButtonGradient;
+    @extend %tabletSizeButtons780px;
+}
