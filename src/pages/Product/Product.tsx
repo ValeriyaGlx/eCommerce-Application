@@ -2,6 +2,8 @@ import { useParams } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 
 import PageNotFound from '../PageNotFound/PageNotFound';
+import ProductInfo from '../../widgets/ProductInfo/ProductInfo';
+import SameCategory from '../../widgets/SameCategory/SameCategory';
 import { getAccessToken } from '../../widgets/SignUpSection/usage/ApiRegistration';
 
 import { getProduct } from './productAPI';
@@ -9,6 +11,7 @@ import { getProduct } from './productAPI';
 const Product = () => {
   const [pageFound, setPageFound] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
+  const [productInfo, setProductInfo] = useState({});
 
   const { productId } = useParams();
   useEffect(() => {
@@ -19,6 +22,8 @@ const Product = () => {
         const product = await getProduct(productId as string, token);
         if (!product) {
           setPageFound(false);
+        } else {
+          setProductInfo(product);
         }
 
         setIsLoading(false);
@@ -37,7 +42,12 @@ const Product = () => {
     return (
       <>
         {!pageFound && <PageNotFound />}
-        {pageFound && <div>Hi Im Page {productId}</div>}
+        {pageFound && (
+          <div>
+            <ProductInfo product={productInfo} />
+            <SameCategory />
+          </div>
+        )}
       </>
     );
   }
