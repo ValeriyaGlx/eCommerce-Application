@@ -76,7 +76,7 @@ p {
     padding: 20px 50px;
   }
 }
-@media (max-width: 840px) {
+@media (max-width: 890px) {
   .container {
     padding: 10px 10px;
   }

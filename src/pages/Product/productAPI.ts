@@ -17,6 +17,14 @@ export async function getProduct(key: string, token: string) {
   }
 
   const product = await response.json();
+  const res = product.masterData.current;
 
-  return product;
+  const productData = {
+    name: res.name['en-US'],
+    description: res.description['en-US'],
+    prices: '100',
+    images: res.masterVariant.images,
+  };
+
+  return productData;
 }
