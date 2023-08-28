@@ -105,7 +105,7 @@ const SignUpSection = () => {
         inputsState.password.value,
       );
       const accessToken = token.access_token;
-      setToken(accessToken);
+      setToken('authToken', accessToken);
 
       async function signIn() {
         const logindata = await logInRequest(
