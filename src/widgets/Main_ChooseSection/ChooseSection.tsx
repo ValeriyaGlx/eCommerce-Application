@@ -1,4 +1,4 @@
-import ChooseCard from '../../entities/ChooseCard/ChooseCard';
+import ChooseCard from '../../shared/components/ChooseCard/ChooseCard';
 import { CHOOSE_LINKS_DATA as chooseLinks } from '../../constants/chooseConstants/chooseConstants';
 
 import './_ChooseSection.scss';
