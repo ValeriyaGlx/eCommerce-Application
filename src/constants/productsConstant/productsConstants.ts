@@ -1,3 +1,10 @@
+import getCookie from '../../shared/cookie/getCookie';
+import {
+  AllProductsRequest,
+  CategoryProductsRequest,
+  IProducts,
+} from '../../widgets/ListOfProductsWithNavigation/ApiProduct';
+
 export const PRODUCTS_SORT_DATA = [
   {
     value: 'Price',
@@ -11,35 +18,75 @@ export const PRODUCTS_SORT_DATA = [
   },
 ];
 
-export const CATEGORIES_OF_PRODUCTS = [
+interface IButtonNavigation {
+  data: string;
+  id: number;
+  onclick: () => Promise<Array<IProducts>> | undefined;
+}
+
+export const CATEGORIES_OF_PRODUCTS: Array<IButtonNavigation> = [
   {
-    className: 'products-nav-item_active',
     data: 'All Categories',
     id: Math.random(),
+    onclick: () => {
+      const token = getCookie('accessToken');
+      if (token) {
+        return AllProductsRequest(token);
+      }
+    },
   },
-
   {
     data: 'Free',
     id: Math.random(),
+    onclick: () => {
+      const token = getCookie('accessToken');
+      if (token) {
+        return CategoryProductsRequest(token, 'free');
+      }
+    },
   },
 
   {
     data: 'Programming',
     id: Math.random(),
+    onclick: () => {
+      const token = getCookie('accessToken');
+      if (token) {
+        return CategoryProductsRequest(token, 'programming');
+      }
+    },
   },
 
   {
     data: 'Data analysis',
     id: Math.random(),
+    onclick: () => {
+      const token = getCookie('accessToken');
+      if (token) {
+        return CategoryProductsRequest(token, 'dataAnalysis');
+      }
+    },
   },
 
   {
     data: 'Design',
     id: Math.random(),
+    onclick: () => {
+      const token = getCookie('accessToken');
+      if (token) {
+        return CategoryProductsRequest(token, 'design');
+      }
+    },
   },
 
   {
     data: 'Management',
     id: Math.random(),
+    onclick: () => {
+      const token = getCookie('accessToken');
+      if (token) {
+        return CategoryProductsRequest(token, 'management');
+      }
+    },
   },
 ];

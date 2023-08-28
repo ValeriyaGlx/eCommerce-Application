@@ -1,16 +1,16 @@
 const project = process.env.REACT_APP_PROJECT_KEY;
 const host = process.env.REACT_APP_HOST;
 
-interface IProducts {
+export interface IProducts {
   id: number;
   key: string;
   name: string;
   image: string;
   description: string;
-  price: number;
+  price: string;
 }
 
-interface IResponse {
+interface IResponseAll {
   key: string;
   masterData: {
     published: boolean;
@@ -89,6 +89,76 @@ interface IResponse {
   };
 }
 
+interface IResponseCategory {
+  published: boolean;
+  key: string;
+  name: {
+    'en-US': string;
+  };
+  description: {
+    'en-US': string;
+  };
+  masterVariant: {
+    images: [
+      {
+        url: string;
+      },
+    ];
+    prices: [
+      {
+        value: {
+          centAmount: number;
+        };
+        discounted: {
+          value: {
+            centAmount: 22500;
+          };
+        };
+      },
+    ];
+  };
+}
+
+function processDataAllProducts(arr: Array<IResponseAll>) {
+  const newArr: IProducts[] = [];
+
+  arr.forEach((el: IResponseAll) => {
+    if (el.masterData.published) {
+      const obj: IProducts = {
+        id: Math.random(),
+        key: el.key,
+        name: el.masterData.current.name['en-US'],
+        description: el.masterData.current.description['en-US'],
+        image: el.masterData.staged.masterVariant.images[0].url,
+        price: Math.ceil(el.masterData.staged.masterVariant.prices[0].value.centAmount / 100).toFixed(2),
+      };
+
+      newArr.push(obj);
+    }
+  });
+  return newArr;
+}
+
+function processDataCategoryProducts(arr: Array<IResponseCategory>) {
+  const newArr: IProducts[] = [];
+
+  arr.forEach((el: IResponseCategory) => {
+    if (el.published) {
+      const obj: IProducts = {
+        id: Math.random(),
+        key: el.key,
+        name: el.name['en-US'],
+        description: el.description['en-US'],
+        image: el.masterVariant.images[0].url,
+        price: Math.ceil(el.masterVariant.prices[0].value.centAmount / 100).toFixed(2),
+      };
+
+      newArr.push(obj);
+    }
+  });
+  return newArr;
+}
+
 export async function AllProductsRequest(token: string) {
   const urlRequest = `${host}/${project}/products/`;
   const authHeader = 'Bearer ' + token;
@@ -101,21 +171,32 @@ export async function AllProductsRequest(token: string) {
   });
   const products = await response.json();
 
-  const newArr: IProducts[] = [];
   const arr = products.results;
 
-  arr.forEach((el: IResponse) => {
-    if (el.masterData.published) {
-      const obj: IProducts = {
-        id: Math.random(),
-        key: el.key,
-        name: el.masterData.current.name['en-US'],
-        description: el.masterData.current.description['en-US'],
-        image: el.masterData.staged.masterVariant.images[0].url,
-        price: el.masterData.staged.masterVariant.prices[0].value.centAmount,
-      };
-      newArr.push(obj);
-    }
+  return processDataAllProducts(arr);
+}
+
+export async function CategoryProductsRequest(token: string, category: string) {
+  const urlRequestCategory = `${host}/${project}/categories/key=${category}`;
+
+  const responseCategory = await fetch(urlRequestCategory, {
+    method: 'GET',
+    headers: {
+      Authorization: 'Bearer ' + token,
+    },
   });
-  return newArr;
+  const objCategory = await responseCategory.json();
+  const idCategory = objCategory.id;
+
+  const urlRequestProducts = `${host}/${project}/product-projections/search?filter=categories.id:"${idCategory}"`;
+
+  const responseProducts = await fetch(urlRequestProducts, {
+    method: 'GET',
+    headers: {
+      Authorization: 'Bearer ' + token,
+    },
+  });
+  const products = await responseProducts.json();
+  const arr = products.results;
+  return processDataCategoryProducts(arr);
 }
