@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 
-import heart from '../../assets/icons/icon-heart-black.svg';
 import './_ProductDescription.scss';
 import Button from '../../shared/components/Button/Button';
+import Like from '../../shared/components/Like/Like';
 
 interface ProductDescriptionProps {
   inner: string;
@@ -35,7 +35,7 @@ const ProductDescription: FC<ProductDescriptionProps> = ({
               <span className={'price'}>${price}</span>
             )}
           </div>
-          <img src={heart} alt={heart} />
+          <Like />
         </div>
         <Button
           className={'buy-now-button'}

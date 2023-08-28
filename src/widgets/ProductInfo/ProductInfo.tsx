@@ -28,7 +28,7 @@ const ProductInfo: FC<ProductInfoProps> = ({ product }) => {
         inner={product.name}
         description={product.description}
         price={product.prices}
-        discount={product.discount}
+        discount={product.discount || ''}
       />
     </section>
   );
