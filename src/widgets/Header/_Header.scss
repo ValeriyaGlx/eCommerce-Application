@@ -110,7 +110,6 @@
     @extend %buttonSignUp;
     border: 1px solid $color-black;
     @extend %ButtonsHover;
-    //@extend %tabletSizeButtons780px;
 
     @media (max-width: 970px) {
         padding: 10px;
