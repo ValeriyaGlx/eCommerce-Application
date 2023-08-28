@@ -136,12 +136,10 @@ function processDataAllProducts(arr: Array<IResponseAll>) {
         name: el.masterData.current.name['en-US'],
         description: el.masterData.current.description['en-US'],
         image: el.masterData.staged.masterVariant.images[0].url,
-        price: Math.ceil(el.masterData.staged.masterVariant.prices[0].value.centAmount / 100).toFixed(2),
+        price: (el.masterData.staged.masterVariant.prices[0].value.centAmount / 100).toFixed(2),
       };
       if (el.masterData.current.masterVariant.prices[0].discounted) {
-        obj.discount = Math.ceil(
-          el.masterData.current.masterVariant.prices[0].discounted.value.centAmount / 100,
-        ).toFixed(2);
+        obj.discount = (el.masterData.current.masterVariant.prices[0].discounted.value.centAmount / 100).toFixed(2);
       }
 
       newArr.push(obj);
@@ -161,10 +159,10 @@ function processDataCategoryProducts(arr: Array<IResponseCategory>) {
         name: el.name['en-US'],
         description: el.description['en-US'],
         image: el.masterVariant.images[0].url,
-        price: Math.ceil(el.masterVariant.prices[0].value.centAmount / 100).toFixed(2),
+        price: (el.masterVariant.prices[0].value.centAmount / 100).toFixed(2),
       };
       if (el.masterVariant.prices[0].discounted) {
-        obj.discount = Math.ceil(el.masterVariant.prices[0].discounted.value.centAmount / 100).toFixed(2);
+        obj.discount = (el.masterVariant.prices[0].discounted.value.centAmount / 100).toFixed(2);
       }
       newArr.push(obj);
     }
