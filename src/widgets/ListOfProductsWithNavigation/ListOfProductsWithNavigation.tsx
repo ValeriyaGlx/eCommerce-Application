@@ -9,6 +9,7 @@ import arrow from '../../assets/icons/down-arrow-black.png';
 import SelectTag from '../../shared/components/SelectTag/SelectTag';
 import './_ListOfProductsWithNavigation.scss';
 import ProductCard from '../../entities/ProductCard/ProductCard';
+
 import { getAccessToken } from '../SignUpSection/usage/ApiRegistration';
 
 import { AllProductsRequest } from './ApiProduct';
