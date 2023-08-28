@@ -32,8 +32,9 @@ const ListOfProductsWithNavigation = () => {
             path={product.key}
             imageUrl={product.image}
             productName={product.name}
-            description={product.description}
             price={product.price}
+            description={product.description}
+            discount={product.discount ? product.discount : ''}
           />
         ));
 
@@ -49,6 +50,7 @@ const ListOfProductsWithNavigation = () => {
   }, []);
 
   const handleCategoryClick = async (data: string) => {
+    setIsLoading(true);
     setActiveCategory(data);
     const category = categories.find((item) => item.data === data);
     if (category && category.onclick) {
@@ -60,11 +62,12 @@ const ListOfProductsWithNavigation = () => {
             path={product.key}
             imageUrl={product.image}
             productName={product.name}
-            description={product.description}
             price={product.price}
+            description={product.description}
+            discount={product.discount ? product.discount : ''}
           />
         ));
-
+        setIsLoading(false);
         setProductData(productJSX);
       }
     }

@@ -8,6 +8,7 @@ export interface IProducts {
   image: string;
   description: string;
   price: string;
+  discount?: string;
 }
 
 interface IResponseAll {
@@ -39,6 +40,11 @@ interface IResponseAll {
         prices: [
           {
             id: string;
+            discounted: {
+              value: {
+                centAmount: number;
+              };
+            };
             value: {
               type: string;
               currencyCode: string;
@@ -111,7 +117,7 @@ interface IResponseCategory {
         };
         discounted: {
           value: {
-            centAmount: 22500;
+            centAmount: number;
           };
         };
       },
@@ -132,6 +138,11 @@ function processDataAllProducts(arr: Array<IResponseAll>) {
         image: el.masterData.staged.masterVariant.images[0].url,
         price: Math.ceil(el.masterData.staged.masterVariant.prices[0].value.centAmount / 100).toFixed(2),
       };
+      if (el.masterData.current.masterVariant.prices[0].discounted) {
+        obj.discount = Math.ceil(
+          el.masterData.current.masterVariant.prices[0].discounted.value.centAmount / 100,
+        ).toFixed(2);
+      }
 
       newArr.push(obj);
     }
@@ -152,7 +163,9 @@ function processDataCategoryProducts(arr: Array<IResponseCategory>) {
         image: el.masterVariant.images[0].url,
         price: Math.ceil(el.masterVariant.prices[0].value.centAmount / 100).toFixed(2),
       };
-
+      if (el.masterVariant.prices[0].discounted) {
+        obj.discount = Math.ceil(el.masterVariant.prices[0].discounted.value.centAmount / 100).toFixed(2);
+      }
       newArr.push(obj);
     }
   });
