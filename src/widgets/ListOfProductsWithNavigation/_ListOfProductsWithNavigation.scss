@@ -8,9 +8,9 @@
     align-items: center;
     gap: 50px;
     background: #FFFFFF;
-    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    padding: 10px;
+    box-shadow: $box-shadow;
+    border-radius: 20px;
+    padding: 5px 10px;
 }
 
 .sort-select {
