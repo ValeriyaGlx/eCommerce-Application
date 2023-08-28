@@ -72,41 +72,39 @@ const ListOfProductsWithNavigation = () => {
       }
     }
   };
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  } else {
-    return (
-      <>
-        <div className={'wrapper-sorting'}>
-          <nav className={'products-nav'}>
-            {categories.map(({ data, id }) => (
-              <Button
-                key={id}
-                className={`products-nav-item ${
-                  data === activeCategory ? 'products-nav-item_active' : ''
-                }`}
-                data={data}
-                onClick={() => handleCategoryClick(data)}
-              />
-            ))}
-          </nav>
-          <SelectTag
-            selectArray={sortArray}
-            className={'sort-select'}
-            value={'Sorting'}
-            inputName={'sort-select-tag'}
-            onClick={() => {
-              console.log('here will be implement redux save logic');
-            }}
-            arrow={arrow}
-          />
-        </div>
-
+  return (
+    <>
+      <div className={'wrapper-sorting'}>
+        <nav className={'products-nav'}>
+          {categories.map(({ data, id }) => (
+            <Button
+              key={id}
+              className={`products-nav-item ${
+                data === activeCategory ? 'products-nav-item_active' : ''
+              }`}
+              data={data}
+              onClick={() => handleCategoryClick(data)}
+            />
+          ))}
+        </nav>
+        <SelectTag
+          selectArray={sortArray}
+          className={'sort-select'}
+          value={'Sorting'}
+          inputName={'sort-select-tag'}
+          onClick={() => {
+            console.log('here will be implement redux save logic');
+          }}
+          arrow={arrow}
+        />
+      </div>
+      {isLoading ? (
+        <div className={'loading'}>Loading...</div>
+      ) : (
         <div className={'wrapper-products'}>{productData}</div>
-      </>
-    );
-  }
+      )}
+    </>
+  );
 };
 
 export default ListOfProductsWithNavigation;
