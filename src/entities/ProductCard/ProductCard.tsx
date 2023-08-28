@@ -4,7 +4,7 @@ import './_ProductCard.scss';
 import heart from '../../assets/icons/icon-heart-black.svg';
 import ButtonWithRoute from '../../shared/components/ButtonWithRoute/ButtonWithRoute';
 import cart from '../../assets/icons/shopping-cart-fill.svg';
-import ShoppingCartButton from '../../shared/components/ButtonCart/ShoppingCartButton';
+import ShoppingCartButton from '../../shared/components/ShoppingCardButton/ShoppingCartButton';
 
 interface ProductCardProps {
   key: number;
@@ -12,7 +12,7 @@ interface ProductCardProps {
   imageUrl: string;
   productName: string;
   description: string;
-  price: number;
+  price: string;
 }
 
 function clickCard() {

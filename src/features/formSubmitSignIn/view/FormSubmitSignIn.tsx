@@ -66,7 +66,7 @@ const FormSubmitSignIn = () => {
         dispatch(openModal());
       } else {
         const token = isAuthorization.access_token;
-        setToken(token);
+        setToken('authToken', token);
         const logindata = await logInRequest(email, password, token);
         setDataLocalStorage('firstName', logindata.customer.firstName);
 
