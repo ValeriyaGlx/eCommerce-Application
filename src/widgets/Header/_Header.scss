@@ -100,3 +100,20 @@
 .menu_icon.active {
     transform: rotate(90deg);
 }
+
+.all-products {
+    @extend %textColorOrangeBlueGradient;
+    @extend %buttonSignUp;
+    border: 1px solid $color-black;
+    @extend %ButtonsHover;
+
+    @media (max-width: 970px) {
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    @media (max-width: 740px) {
+
+    }
+}
+

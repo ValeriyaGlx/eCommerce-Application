@@ -2,89 +2,87 @@
 @import 'src/constants/scss/extentds';
 
 .main-inner {
-    display: flex;
-    margin-top: 100px;
-    justify-content: space-between;
+  display: flex;
+  margin-top: 100px;
+  justify-content: space-between;
 
+  div {
+    &:first-child {
+      width: 40%;
+    }
+
+    &:last-child {
+      width: 60%;
+      height: 100vh;
+    }
+  }
+
+  h1 {
+    font-size: 50px;
+    line-height: 63px;
+
+    span {
+      @extend %textColorOrangeBlueGradient;
+    }
+  }
+
+  p {
+    margin: 20px 0 80px;
+    color: $color-grey-paragraph;
+  }
+
+  @media (max-width: 1190px) {
     div {
+      &:first-child {
+        width: 50%;
+      }
 
-        &:first-child {
-            width: 40%;
-        }
-
-        &:last-child {
-            width: 60%;
-            height: 70vh;
-        }
+      &:last-child {
+        width: 50%;
+      }
     }
+  }
 
+  @media (max-width: 850px) {
+    flex-direction: column;
+    align-items: center;
+    div {
+      &:first-child {
+        width: 100%;
+      }
+
+      &:last-child {
+        width: 500px;
+      }
+    }
+  }
+
+  @media (max-width: 550px) {
+    margin-top: 60px;
     h1 {
-        font-size: 50px;
-        line-height: 63px;
-
-        span {
-            @extend %textColorOrangeBlueGradient;
-        }
+      font-size: 30px;
+      line-height: 33px;
     }
-
     p {
-        margin: 20px 0 80px;
-        color: $color-grey-paragraph;
+      margin: 20px 0 50px;
+      font-size: 16px;
     }
-
-    @media (max-width: 1190px) {
-        div {
-            &:first-child {
-                width: 50%;
-            }
-
-            &:last-child {
-                width: 50%;
-            }
-        }
+    div {
+      &:last-child {
+        width: 350px;
+        height: 50vh;
+      }
     }
-
-    @media (max-width: 850px) {
-        flex-direction: column;
-        align-items: center;
-        div {
-            &:first-child {
-                width: 100%;
-            }
-
-            &:last-child {
-                width: 500px;
-            }
-        }
-    }
-
-    @media (max-width: 550px) {
-        margin-top: 60px;
-        h1 {
-            font-size: 30px;
-            line-height: 33px;
-        }
-        p {
-            margin: 20px 0 50px;
-            font-size: 16px;
-        }
-        div {
-
-            &:last-child {
-                width: 350px;
-                height: 50vh;
-            }
-        }
-    }
+  }
 }
 
 .main-inner_img {
-    background-image: url("../../assets/img/main-img.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: top right;
+  background-image: url('../../assets/img/main-img.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: top right;
 }
 
 .main-inner-colorful {
-    display: block;
+  display: block;
 }

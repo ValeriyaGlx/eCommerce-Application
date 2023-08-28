@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 
 import Button from '../../shared/components/Button/Button';
-import { PRODUCTS_SORT_DATA as sortArray } from '../../constants/productsConstant/productsConstants';
+import {
+  CATEGORIES_OF_PRODUCTS as categories,
+  PRODUCTS_SORT_DATA as sortArray,
+} from '../../constants/productsConstant/productsConstants';
 import arrow from '../../assets/icons/down-arrow-black.png';
 import SelectTag from '../../shared/components/SelectTag/SelectTag';
 import './_ListOfProductsWithNavigation.scss';
 import ProductCard from '../../entities/ProductCard/ProductCard';
-import { CATEGORIES_OF_PRODUCTS as categories } from '../../constants/productCategories/productCategories';
+
 import { getAccessToken } from '../SignUpSection/usage/ApiRegistration';
 
 import { AllProductsRequest } from './ApiProduct';
@@ -54,10 +57,14 @@ const ListOfProductsWithNavigation = () => {
       <>
         <div className={'wrapper-sorting'}>
           <nav className={'products-nav'}>
-            {categories.map(({ data, id }) => (
+            {categories.map(({ data, id, className }) => (
               <Button
                 key={id}
-                className={'products-nav-item'}
+                className={
+                  !className
+                    ? 'products-nav-item'
+                    : ['products-nav-item', className].join(' ')
+                }
                 data={data}
                 onClick={clickAllCategories}
               />
