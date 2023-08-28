@@ -13,6 +13,7 @@ interface ProductCardProps {
   productName: string;
   description: string;
   price: string;
+  discount?: string;
 }
 
 function clickCard() {
@@ -25,6 +26,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   productName,
   description,
   price,
+  discount,
 }) => {
   return (
     <div className='product-card'>
@@ -43,8 +45,15 @@ const ProductCard: React.FC<ProductCardProps> = ({
       </div>
       <h3>{productName}</h3>
       <p>{description}</p>
-      <div className={'wrapper-price'}>
-        <span>${price}</span>
+      <div className={'product-card-container'}>
+        {discount ? (
+          <div className={'wrapper-prices'}>
+            <span className={'new-price'}>${discount}</span>
+            <span className={'old-price'}>${price}</span>
+          </div>
+        ) : (
+          <span className={'price'}>${price}</span>
+        )}
         <img src={heart} alt={'heart'} />
       </div>
     </div>
