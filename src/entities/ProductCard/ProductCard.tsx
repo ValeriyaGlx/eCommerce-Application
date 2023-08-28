@@ -12,7 +12,7 @@ interface ProductCardProps {
   imageUrl: string;
   productName: string;
   description: string;
-  price: number;
+  price: string;
 }
 
 function clickCard() {

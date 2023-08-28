@@ -7,7 +7,7 @@ export interface IProducts {
   name: string;
   image: string;
   description: string;
-  price: number;
+  price: string;
 }
 
 interface IResponseAll {
@@ -130,7 +130,7 @@ function processDataAllProducts(arr: Array<IResponseAll>) {
         name: el.masterData.current.name['en-US'],
         description: el.masterData.current.description['en-US'],
         image: el.masterData.staged.masterVariant.images[0].url,
-        price: Math.ceil(el.masterData.staged.masterVariant.prices[0].value.centAmount / 100),
+        price: Math.ceil(el.masterData.staged.masterVariant.prices[0].value.centAmount / 100).toFixed(2),
       };
 
       newArr.push(obj);
@@ -150,7 +150,7 @@ function processDataCategoryProducts(arr: Array<IResponseCategory>) {
         name: el.name['en-US'],
         description: el.description['en-US'],
         image: el.masterVariant.images[0].url,
-        price: Math.ceil(el.masterVariant.prices[0].value.centAmount / 100),
+        price: Math.ceil(el.masterVariant.prices[0].value.centAmount / 100).toFixed(2),
       };
 
       newArr.push(obj);
