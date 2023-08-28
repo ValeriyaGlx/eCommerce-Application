@@ -91,7 +91,7 @@ interface IResponseAll {
 
 interface IResponseCategory {
   published: boolean;
-  id: string;
+  key: string;
   name: {
     'en-US': string;
   };
@@ -146,7 +146,7 @@ function processDataCategoryProducts(arr: Array<IResponseCategory>) {
     if (el.published) {
       const obj: IProducts = {
         id: Math.random(),
-        key: el.id,
+        key: el.key,
         name: el.name['en-US'],
         description: el.description['en-US'],
         image: el.masterVariant.images[0].url,
