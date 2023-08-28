@@ -68,15 +68,11 @@ p {
     padding: 20px 100px;
     margin: 0 auto;
 
-    @media (max-width: 1050px) {
-        padding: 20px 60px;
-    }
-
     @media (max-width: 940px) {
         padding: 20px 50px;
     }
 
-    @media (max-width: 890px) {
+    @media (max-width: 840px) {
         padding: 10px 10px;
     }
 }
