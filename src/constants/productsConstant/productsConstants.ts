@@ -29,7 +29,7 @@ export const CATEGORIES_OF_PRODUCTS: Array<IButtonNavigation> = [
     data: 'All Categories',
     id: Math.random(),
     onclick: () => {
-      const token = getCookie('token');
+      const token = getCookie('accessToken');
       if (token) {
         return AllProductsRequest(token);
       }
@@ -39,7 +39,7 @@ export const CATEGORIES_OF_PRODUCTS: Array<IButtonNavigation> = [
     data: 'Free',
     id: Math.random(),
     onclick: () => {
-      const token = getCookie('token');
+      const token = getCookie('accessToken');
       if (token) {
         return CategoryProductsRequest(token, 'free');
       }
@@ -50,7 +50,7 @@ export const CATEGORIES_OF_PRODUCTS: Array<IButtonNavigation> = [
     data: 'Programming',
     id: Math.random(),
     onclick: () => {
-      const token = getCookie('token');
+      const token = getCookie('accessToken');
       if (token) {
         return CategoryProductsRequest(token, 'programming');
       }
@@ -61,7 +61,7 @@ export const CATEGORIES_OF_PRODUCTS: Array<IButtonNavigation> = [
     data: 'Data analysis',
     id: Math.random(),
     onclick: () => {
-      const token = getCookie('token');
+      const token = getCookie('accessToken');
       if (token) {
         return CategoryProductsRequest(token, 'dataAnalysis');
       }
@@ -72,7 +72,7 @@ export const CATEGORIES_OF_PRODUCTS: Array<IButtonNavigation> = [
     data: 'Design',
     id: Math.random(),
     onclick: () => {
-      const token = getCookie('token');
+      const token = getCookie('accessToken');
       if (token) {
         return CategoryProductsRequest(token, 'design');
       }
@@ -83,7 +83,7 @@ export const CATEGORIES_OF_PRODUCTS: Array<IButtonNavigation> = [
     data: 'Management',
     id: Math.random(),
     onclick: () => {
-      const token = getCookie('token');
+      const token = getCookie('accessToken');
       if (token) {
         return CategoryProductsRequest(token, 'management');
       }

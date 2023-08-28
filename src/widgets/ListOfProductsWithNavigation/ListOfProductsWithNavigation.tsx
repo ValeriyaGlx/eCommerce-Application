@@ -24,7 +24,7 @@ const ListOfProductsWithNavigation = () => {
       try {
         const tokenResponse = await getAccessToken();
         const token = tokenResponse.access_token;
-        setToken(token);
+        setToken('accessToken', token);
         const listOfProduct = await AllProductsRequest(token);
         const productJSX: JSX.Element[] = listOfProduct.map((product) => (
           <ProductCard
