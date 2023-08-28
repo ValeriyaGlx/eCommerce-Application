@@ -16,6 +16,7 @@ const Product = () => {
     description: '',
     images: [{ url: '' }],
     prices: '',
+    discount: null,
   });
 
   const { productId } = useParams();
@@ -59,3 +60,12 @@ const Product = () => {
 };
 
 export default Product;
+
+// {discount ? (
+//     <div className={'wrapper-prices'}>
+//         <span className={'new-price'}>${discount}</span>
+//         <span className={'old-price'}>${price}</span>
+//     </div>
+// ) : (
+//     <span className={'price'}>${price}</span>
+// )}
