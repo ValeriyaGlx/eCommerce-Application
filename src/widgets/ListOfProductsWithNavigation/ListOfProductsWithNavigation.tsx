@@ -9,24 +9,22 @@ import arrow from '../../assets/icons/down-arrow-black.png';
 import SelectTag from '../../shared/components/SelectTag/SelectTag';
 import './_ListOfProductsWithNavigation.scss';
 import ProductCard from '../../entities/ProductCard/ProductCard';
-
 import { getAccessToken } from '../SignUpSection/usage/ApiRegistration';
+import setToken from '../../shared/cookie/setToken';
 
 import { AllProductsRequest } from './ApiProduct';
-
-function clickAllCategories() {
-  console.log(1);
-}
 
 const ListOfProductsWithNavigation = () => {
   const [productData, setProductData] = useState<JSX.Element[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [activeCategory, setActiveCategory] = useState('All Categories');
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const tokenResponse = await getAccessToken();
         const token = tokenResponse.access_token;
+        setToken(token);
         const listOfProduct = await AllProductsRequest(token);
         const productJSX: JSX.Element[] = listOfProduct.map((product) => (
           <ProductCard
@@ -50,6 +48,28 @@ const ListOfProductsWithNavigation = () => {
     fetchData();
   }, []);
 
+  const handleCategoryClick = async (data: string) => {
+    setActiveCategory(data);
+    const category = categories.find((item) => item.data === data);
+    if (category && category.onclick) {
+      const listOfProduct = await category.onclick();
+      if (listOfProduct) {
+        const productJSX: JSX.Element[] = listOfProduct.map((product) => (
+          <ProductCard
+            key={product.id}
+            path={product.key}
+            imageUrl={product.image}
+            productName={product.name}
+            description={product.description}
+            price={product.price}
+          />
+        ));
+
+        setProductData(productJSX);
+      }
+    }
+  };
+
   if (isLoading) {
     return <div>Loading...</div>;
   } else {
@@ -57,16 +77,14 @@ const ListOfProductsWithNavigation = () => {
       <>
         <div className={'wrapper-sorting'}>
           <nav className={'products-nav'}>
-            {categories.map(({ data, id, className }) => (
+            {categories.map(({ data, id }) => (
               <Button
                 key={id}
-                className={
-                  !className
-                    ? 'products-nav-item'
-                    : ['products-nav-item', className].join(' ')
-                }
+                className={`products-nav-item ${
+                  data === activeCategory ? 'products-nav-item_active' : ''
+                }`}
                 data={data}
-                onClick={clickAllCategories}
+                onClick={() => handleCategoryClick(data)}
               />
             ))}
           </nav>
