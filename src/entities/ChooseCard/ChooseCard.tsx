@@ -6,8 +6,8 @@ interface ChooseLink {
   description: string;
   imageUrl: string;
 }
+
 const ChooseCard: React.FC<ChooseLink> = ({ imageUrl, description, title }) => {
-  console.log(imageUrl, description, title);
   return (
     <div className={'documentation'}>
       <div className={'documentation-container documentation-border'}>

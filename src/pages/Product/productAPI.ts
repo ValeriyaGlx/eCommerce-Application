@@ -1,12 +1,12 @@
 const project = process.env.REACT_APP_PROJECT_KEY;
 const host = process.env.REACT_APP_HOST;
 
-interface IProductDataProps {
+export interface IProductDataProps {
   name: string;
   description: string;
-  prices: number;
+  prices: string;
   images: { url: string }[];
-  discount?: number;
+  discount?: string;
 }
 
 export async function getProduct(key: string, token: string) {
@@ -30,13 +30,12 @@ export async function getProduct(key: string, token: string) {
   const productData: IProductDataProps = {
     name: res.name['en-US'],
     description: res.description['en-US'],
-    prices: res.masterVariant.prices[0].value.centAmount,
+    prices: (res.masterVariant.prices[0].value.centAmount / 100).toFixed(2),
     images: res.masterVariant.images,
   };
 
   if (res.masterVariant.prices[0].discounted) {
-    productData.discount = res.masterVariant.prices[0].discounted.value.centAmount;
-    console.log(res.masterVariant.prices[0].discounted.value.centAmount);
+    productData.discount = (res.masterVariant.prices[0].discounted.value.centAmount / 100).toFixed(2);
   }
   return productData;
 }
