@@ -31,7 +31,7 @@ export function Header() {
 
   function setLogOut() {
     setIsLogOut(true);
-    deleteToken('token');
+    deleteToken('authToken');
     localStorage.removeItem('firstName');
     dispatch(logOut());
     navigate('/');

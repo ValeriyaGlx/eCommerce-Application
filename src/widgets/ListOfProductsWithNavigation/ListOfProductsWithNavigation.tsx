@@ -10,22 +10,21 @@ import SelectTag from '../../shared/components/SelectTag/SelectTag';
 import './_ListOfProductsWithNavigation.scss';
 import ProductCard from '../../entities/ProductCard/ProductCard';
 import { getAccessToken } from '../SignUpSection/usage/ApiRegistration';
+import setToken from '../../shared/cookie/setToken';
 
 import { AllProductsRequest } from './ApiProduct';
-
-function clickAllCategories() {
-  console.log(1);
-}
 
 const ListOfProductsWithNavigation = () => {
   const [productData, setProductData] = useState<JSX.Element[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [activeCategory, setActiveCategory] = useState('All Categories');
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const tokenResponse = await getAccessToken();
         const token = tokenResponse.access_token;
+        setToken('accessToken', token);
         const listOfProduct = await AllProductsRequest(token);
         const productJSX: JSX.Element[] = listOfProduct.map((product) => (
           <ProductCard
@@ -33,8 +32,9 @@ const ListOfProductsWithNavigation = () => {
             path={product.key}
             imageUrl={product.image}
             productName={product.name}
-            description={product.description}
             price={product.price}
+            description={product.description}
+            discount={product.discount ? product.discount : ''}
           />
         ));
 
@@ -49,42 +49,62 @@ const ListOfProductsWithNavigation = () => {
     fetchData();
   }, []);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  } else {
-    return (
-      <>
-        <div className={'wrapper-sorting'}>
-          <nav className={'products-nav'}>
-            {categories.map(({ data, id, className }) => (
-              <Button
-                key={id}
-                className={
-                  !className
-                    ? 'products-nav-item'
-                    : ['products-nav-item', className].join(' ')
-                }
-                data={data}
-                onClick={clickAllCategories}
-              />
-            ))}
-          </nav>
-          <SelectTag
-            selectArray={sortArray}
-            className={'sort-select'}
-            value={'Sorting'}
-            inputName={'sort-select-tag'}
-            onClick={() => {
-              console.log('here will be implement redux save logic');
-            }}
-            arrow={arrow}
+  const handleCategoryClick = async (data: string) => {
+    setIsLoading(true);
+    setActiveCategory(data);
+    const category = categories.find((item) => item.data === data);
+    if (category && category.onclick) {
+      const listOfProduct = await category.onclick();
+      if (listOfProduct) {
+        const productJSX: JSX.Element[] = listOfProduct.map((product) => (
+          <ProductCard
+            key={product.id}
+            path={product.key}
+            imageUrl={product.image}
+            productName={product.name}
+            price={product.price}
+            description={product.description}
+            discount={product.discount ? product.discount : ''}
           />
-        </div>
-
+        ));
+        setIsLoading(false);
+        setProductData(productJSX);
+      }
+    }
+  };
+  return (
+    <>
+      <div className={'wrapper-sorting'}>
+        <nav className={'products-nav'}>
+          {categories.map(({ data, id }) => (
+            <Button
+              key={id}
+              className={`products-nav-item ${
+                data === activeCategory ? 'products-nav-item_active' : ''
+              }`}
+              data={data}
+              onClick={() => handleCategoryClick(data)}
+            />
+          ))}
+        </nav>
+        <SelectTag
+          selectArray={sortArray}
+          className={'sort-select'}
+          value={'Sorting'}
+          inputName={'sort-select-tag'}
+          onClick={() => {
+            console.log('here will be implement redux save logic');
+          }}
+          arrow={arrow}
+        />
+      </div>
+      {isLoading ? (
+        <div className={'loading'}>Loading...</div>
+      ) : (
         <div className={'wrapper-products'}>{productData}</div>
-      </>
-    );
-  }
+      )}
+    </>
+  );
 };
 
 export default ListOfProductsWithNavigation;
