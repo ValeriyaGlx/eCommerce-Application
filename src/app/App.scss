@@ -10,6 +10,8 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: Josefin Sans,
+    serif;
 }
 
 html,
@@ -67,6 +69,10 @@ p {
 .container {
     padding: 20px 100px;
     margin: 0 auto;
+
+    @media (max-width: 1060px) {
+        padding: 20px 60px;
+    }
 
     @media (max-width: 940px) {
         padding: 20px 50px;
