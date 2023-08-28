@@ -52,7 +52,7 @@ export function Header() {
       <nav className='menu'>
         <div className={'menu_list wrapper-button'}>
           <ButtonWithRoute
-            className={''}
+            className={'all-products'}
             path={'/products'}
             data={'All Products'}
           />

@@ -17,6 +17,11 @@
     justify-content: space-between;
     align-items: center;
     gap: 25px;
+
+
+    @media (max-width: 740px) {
+        gap: 15px;
+    }
 }
 
 
@@ -110,10 +115,6 @@
     @media (max-width: 970px) {
         padding: 10px;
         font-size: 16px;
-    }
-
-    @media (max-width: 740px) {
-
     }
 }
 
