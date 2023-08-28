@@ -32,8 +32,9 @@ const ListOfProductsWithNavigation = () => {
             path={product.key}
             imageUrl={product.image}
             productName={product.name}
-            description={product.description}
             price={product.price}
+            description={product.description}
+            discount={product.discount ? product.discount : ''}
           />
         ));
 
@@ -49,6 +50,7 @@ const ListOfProductsWithNavigation = () => {
   }, []);
 
   const handleCategoryClick = async (data: string) => {
+    setIsLoading(true);
     setActiveCategory(data);
     const category = categories.find((item) => item.data === data);
     if (category && category.onclick) {
@@ -60,50 +62,49 @@ const ListOfProductsWithNavigation = () => {
             path={product.key}
             imageUrl={product.image}
             productName={product.name}
-            description={product.description}
             price={product.price}
+            description={product.description}
+            discount={product.discount ? product.discount : ''}
           />
         ));
-
+        setIsLoading(false);
         setProductData(productJSX);
       }
     }
   };
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  } else {
-    return (
-      <>
-        <div className={'wrapper-sorting'}>
-          <nav className={'products-nav'}>
-            {categories.map(({ data, id }) => (
-              <Button
-                key={id}
-                className={`products-nav-item ${
-                  data === activeCategory ? 'products-nav-item_active' : ''
-                }`}
-                data={data}
-                onClick={() => handleCategoryClick(data)}
-              />
-            ))}
-          </nav>
-          <SelectTag
-            selectArray={sortArray}
-            className={'sort-select'}
-            value={'Sorting'}
-            inputName={'sort-select-tag'}
-            onClick={() => {
-              console.log('here will be implement redux save logic');
-            }}
-            arrow={arrow}
-          />
-        </div>
-
+  return (
+    <>
+      <div className={'wrapper-sorting'}>
+        <nav className={'products-nav'}>
+          {categories.map(({ data, id }) => (
+            <Button
+              key={id}
+              className={`products-nav-item ${
+                data === activeCategory ? 'products-nav-item_active' : ''
+              }`}
+              data={data}
+              onClick={() => handleCategoryClick(data)}
+            />
+          ))}
+        </nav>
+        <SelectTag
+          selectArray={sortArray}
+          className={'sort-select'}
+          value={'Sorting'}
+          inputName={'sort-select-tag'}
+          onClick={() => {
+            console.log('here will be implement redux save logic');
+          }}
+          arrow={arrow}
+        />
+      </div>
+      {isLoading ? (
+        <div className={'loading'}>Loading...</div>
+      ) : (
         <div className={'wrapper-products'}>{productData}</div>
-      </>
-    );
-  }
+      )}
+    </>
+  );
 };
 
 export default ListOfProductsWithNavigation;
