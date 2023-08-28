@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 
 import ProductImageSlider from '../../features/ProductImageSlider/ProductImageSlider';
 import ProductDescription from '../../features/ProductDescription/ProductDescription';
+import './_ProductInfo.scss';
 
 interface ProductInfoProps {
   product: {
@@ -20,10 +21,13 @@ const ProductInfo: FC<ProductInfoProps> = ({ product }) => {
   });
 
   return (
-    <>
+    <section className={'product-info_container'}>
       <ProductImageSlider items={items} />
-      <ProductDescription />
-    </>
+      <ProductDescription
+        inner={product.name}
+        description={product.description}
+      />
+    </section>
   );
 };
 
