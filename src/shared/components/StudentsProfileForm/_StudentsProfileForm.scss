@@ -6,15 +6,32 @@
     @media (max-width: 1170px) {
       flex-grow: 1;
     }
+    @media (max-width: 640px) {
+      padding: 21px 22px 51px 21px;
+    }
     flex-basis: 50%;
     &__title {
       font-weight: bold;
       font-size: 1.7em;
       justify-content: center;
       display: flex;
-      @media (max-width: 650px) {
+      @media (max-width: 640px) {
         font-size: 1.3em;
       }
+    }
+    &__icon {
+      align-items: end;
+      display: flex;
+    }
+    &__button {
+      display: flex;
+      align-items: end;
+      column-gap: 15px;
+      transition: 3s;
+    }
+    input {
+      height: 55px;
+      padding: 10px 40px;
     }
     &__input {
       display: grid;
@@ -46,10 +63,26 @@
         grid-area: 4 / 2 / 5 / 3;
       }
       :nth-child(9) {
-        grid-area: 5 / 1 / 6 / 3;
+        grid-area: 5 / 1 / 6 / 2;
       }
       :nth-child(10) {
-        grid-area: 6 / 1 / 7 / 3;
+        grid-area: 6 / 1 / 7 / 2;
+      }
+      @media (max-width: 640px) {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 10px 1fr 10px 1fr 10px;
+        :nth-child(1),
+        :nth-child(2),
+        :nth-child(3),
+        :nth-child(4),
+        :nth-child(5),
+        :nth-child(6),
+        :nth-child(7),
+        :nth-child(8),
+        :nth-child(9),
+        :nth-child(10) {
+          grid-area: auto;
+        }
       }
     }
     &__head {
@@ -57,6 +90,53 @@
       align-items: end;
       justify-content: space-evenly;
       margin-bottom: 15px;
+      button {
+        background: transparent;
+        border: none;
+      }
+      img {
+        width: 35px;
+        height: 35px;
+      }
     }
   }
+}
+
+.input-profile {
+  .show-password {
+    top: 24px;
+  }
+  .input-logo {
+    display: block;
+  }
+}
+
+.profile-form__button--icon {
+  opacity: 1;
+  transition:
+    opacity 0.5s ease,
+    transform 0.3s ease;
+}
+
+.profile-form__icon.active .profile-form__button--icon {
+  opacity: 0;
+  transform: translateX(100px);
+  transition:
+    opacity 0.5s ease,
+    transform 0.3s ease;
+}
+.profile-form__icon.active .profile-form__button {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 0.5s ease,
+    transform 0.3s ease;
+}
+
+.profile-form__button {
+  opacity: 0;
+  transform: translateX(100px);
+  transition:
+    opacity 0.5s ease,
+    transform 0.3s ease;
 }
