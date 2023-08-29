@@ -34,19 +34,18 @@
     @media (max-width: 650px) {
         flex-direction: row-reverse;
     }
-
-
-
 }
 
 .main-image {
     position: relative;
     width: 300px;
+    cursor: zoom-in;
 
     @media (max-width: 520px) {
         width: 200px;
     }
 }
+
 
 .alice-carousel__stage {
     display: flex;
@@ -61,6 +60,14 @@
     @media (max-width: 520px) {
         width: 200px;
     }
+}
+
+.alice-carousel__stage-item img {
+    opacity: 0;
+}
+
+.alice-carousel__stage-item.__active img {
+    opacity: 1;
 }
 
 .small-thumbnails {
