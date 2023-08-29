@@ -33,3 +33,8 @@
     display: flex;
     justify-content: space-between;
 }
+
+.wrapper-prices {
+    display: flex;
+    flex-direction: column-reverse;
+}

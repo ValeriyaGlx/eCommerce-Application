@@ -1,10 +1,10 @@
 import React from 'react';
 
 import './_ProductCard.scss';
-import heart from '../../assets/icons/icon-heart-black.svg';
 import ButtonWithRoute from '../../shared/components/ButtonWithRoute/ButtonWithRoute';
 import cart from '../../assets/icons/shopping-cart-fill.svg';
 import ShoppingCartButton from '../../shared/components/ShoppingCardButton/ShoppingCartButton';
+import Like from '../../shared/components/Like/Like';
 
 interface ProductCardProps {
   key: number;
@@ -54,7 +54,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         ) : (
           <span className={'price'}>${price}</span>
         )}
-        <img src={heart} alt={'heart'} />
+        <Like />
       </div>
     </div>
   );

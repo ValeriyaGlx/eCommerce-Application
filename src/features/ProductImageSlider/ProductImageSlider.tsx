@@ -13,7 +13,7 @@ const ProductImageSlider: React.FC<ProductImageSliderProps> = ({ items }) => {
   if (items.length === 1) {
     return (
       <div className='product-slider-container'>
-        <div className='main-slide-container'>
+        <div className='main-slide-container-single'>
           <div className='main-image single-image'>{items[0]}</div>
         </div>
       </div>
