@@ -17,6 +17,7 @@ interface InputValidationProps {
   min?: string;
   color: string;
   errorClass: string;
+  styles?: string;
 }
 
 const InputValidation: FC<InputValidationProps> = ({
@@ -32,10 +33,15 @@ const InputValidation: FC<InputValidationProps> = ({
   min,
   color,
   errorClass,
+  styles,
 }) => {
   return (
     <React.Fragment>
-      <div className={`input-area ${errorClass}`}>
+      <div
+        className={`input-area ${errorClass} ${
+          styles === undefined ? '' : styles
+        }`}
+      >
         {logo && <img className={'input-logo'} src={logo} alt={'icon'} />}
         <input
           type={type}

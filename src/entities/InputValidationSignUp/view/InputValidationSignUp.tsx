@@ -18,6 +18,7 @@ interface InputValidationSignUpProps {
   onBlur?: (event: React.FormEvent<HTMLInputElement>) => void;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   min?: string;
+  styles?: string;
 }
 
 const inputValidationSignUp: FC<InputValidationSignUpProps> = ({
@@ -28,6 +29,7 @@ const inputValidationSignUp: FC<InputValidationSignUpProps> = ({
   onBlur,
   inputName,
   min,
+  styles,
 }) => {
   const dispatch: ThunkDispatch<RootState, unknown, AnyAction> = useDispatch();
 
@@ -55,6 +57,7 @@ const inputValidationSignUp: FC<InputValidationSignUpProps> = ({
       value={inputState.value}
       errorMessage={inputState.validationError}
       color={''}
+      styles={styles}
     />
   );
 };

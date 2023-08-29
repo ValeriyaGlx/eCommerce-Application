@@ -11,7 +11,6 @@ export function Profile() {
       {formLinks.map(({ id, imageUrl, title }) => (
         <StudentProfileForm key={id} title={title} imageUrl={imageUrl} />
       ))}
-
       <StudentsProfileCollage />
     </div>
   );
