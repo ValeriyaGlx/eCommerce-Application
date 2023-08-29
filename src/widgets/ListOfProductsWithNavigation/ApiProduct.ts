@@ -187,7 +187,7 @@ export async function AllProductsRequest(token: string) {
   return processDataAllProducts(arr);
 }
 
-export async function CategoryProductsRequest(token: string, category: string) {
+async function getCategory(token: string, category: string) {
   const urlRequestCategory = `${host}/${project}/categories/key=${category}`;
 
   const responseCategory = await fetch(urlRequestCategory, {
@@ -197,11 +197,35 @@ export async function CategoryProductsRequest(token: string, category: string) {
     },
   });
   const objCategory = await responseCategory.json();
-  const idCategory = objCategory.id;
+  return objCategory.id;
+}
+
+export async function CategoryProductsRequest(token: string, category: string) {
+  const idCategory = await getCategory(token, category);
 
   const urlRequestProducts = `${host}/${project}/product-projections/search?filter=categories.id:"${idCategory}"`;
 
   const responseProducts = await fetch(urlRequestProducts, {
+    method: 'GET',
+    headers: {
+      Authorization: 'Bearer ' + token,
+    },
+  });
+  const products = await responseProducts.json();
+  const arr = products.results;
+  return processDataCategoryProducts(arr);
+}
+
+export async function sortAllProductsRequest(token: string, direction: string, activeCategory: string) {
+  let url: string;
+  if (activeCategory === 'All Categories') {
+    url = `${host}/${project}/product-projections/search?sort=${direction}`;
+  } else {
+    const category = activeCategory.toLowerCase().split(' ').join('');
+    const idCategory = await getCategory(token, category);
+    url = `${host}/${project}/product-projections/search?sort=${direction}&filter=categories.id:"${idCategory}"`;
+  }
+  const responseProducts = await fetch(url, {
     method: 'GET',
     headers: {
       Authorization: 'Bearer ' + token,
