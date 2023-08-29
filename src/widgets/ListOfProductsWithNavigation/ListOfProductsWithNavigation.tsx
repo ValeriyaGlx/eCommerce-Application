@@ -11,22 +11,26 @@ import './_ListOfProductsWithNavigation.scss';
 import ProductCard from '../../entities/ProductCard/ProductCard';
 import { getAccessToken } from '../SignUpSection/usage/ApiRegistration';
 import setToken from '../../shared/cookie/setToken';
+import getCookie from '../../shared/cookie/getCookie';
 
-import { AllProductsRequest } from './ApiProduct';
+import {
+  AllProductsRequest,
+  IProducts,
+  sortAllProductsRequest,
+} from './ApiProduct';
 
 const ListOfProductsWithNavigation = () => {
   const [productData, setProductData] = useState<JSX.Element[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState('All Categories');
+  const [nameSorting, setNameSorting] = useState('Sorting');
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const tokenResponse = await getAccessToken();
-        const token = tokenResponse.access_token;
-        setToken('accessToken', token);
-        const listOfProduct = await AllProductsRequest(token);
-        const productJSX: JSX.Element[] = listOfProduct.map((product) => (
+  const createHTMLListOfProducts = (
+    listOfProducts: Array<IProducts> | undefined,
+  ) => {
+    if (listOfProducts) {
+      const productJSX: JSX.Element[] = listOfProducts.map(
+        (product: IProducts) => (
           <ProductCard
             key={product.id}
             path={product.key}
@@ -36,10 +40,21 @@ const ListOfProductsWithNavigation = () => {
             description={product.description}
             discount={product.discount ? product.discount : ''}
           />
-        ));
+        ),
+      );
+      setIsLoading(false);
+      setProductData(productJSX);
+    }
+  };
 
-        setProductData(productJSX);
-        setIsLoading(false);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const tokenResponse = await getAccessToken();
+        const token = tokenResponse.access_token;
+        setToken('accessToken', token);
+        const listOfProduct = await AllProductsRequest(token);
+        createHTMLListOfProducts(listOfProduct);
       } catch (error) {
         console.error('Error fetching data:', error);
         setIsLoading(false);
@@ -55,23 +70,49 @@ const ListOfProductsWithNavigation = () => {
     const category = categories.find((item) => item.data === data);
     if (category && category.onclick) {
       const listOfProduct = await category.onclick();
-      if (listOfProduct) {
-        const productJSX: JSX.Element[] = listOfProduct.map((product) => (
-          <ProductCard
-            key={product.id}
-            path={product.key}
-            imageUrl={product.image}
-            productName={product.name}
-            price={product.price}
-            description={product.description}
-            discount={product.discount ? product.discount : ''}
-          />
-        ));
-        setIsLoading(false);
-        setProductData(productJSX);
-      }
+      createHTMLListOfProducts(listOfProduct);
     }
   };
+
+  const handleSortClick = async (event: React.MouseEvent) => {
+    setIsLoading(true);
+    const token = getCookie('accessToken') as string;
+    let listOfProducts: IProducts[] = [];
+    const target = event.currentTarget.innerHTML;
+    setNameSorting(target);
+    switch (target) {
+      case 'By price low to high':
+        listOfProducts = await sortAllProductsRequest(
+          token,
+          'price asc',
+          activeCategory,
+        );
+        break;
+      case 'By price high to low':
+        listOfProducts = await sortAllProductsRequest(
+          token,
+          'price desc',
+          activeCategory,
+        );
+        break;
+      case 'By name A-Z':
+        listOfProducts = await sortAllProductsRequest(
+          token,
+          'name.en-US asc',
+          activeCategory,
+        );
+        break;
+      case 'By name Z-A':
+        listOfProducts = await sortAllProductsRequest(
+          token,
+          'name.en-US desc',
+          activeCategory,
+        );
+        break;
+    }
+    createHTMLListOfProducts(listOfProducts);
+  };
+
   return (
     <>
       <div className={'wrapper-sorting'}>
@@ -90,11 +131,9 @@ const ListOfProductsWithNavigation = () => {
         <SelectTag
           selectArray={sortArray}
           className={'sort-select'}
-          value={'Sorting'}
+          value={nameSorting}
           inputName={'sort-select-tag'}
-          onClick={() => {
-            console.log('here will be implement redux save logic');
-          }}
+          onClick={(event) => handleSortClick(event)}
           arrow={arrow}
         />
       </div>
