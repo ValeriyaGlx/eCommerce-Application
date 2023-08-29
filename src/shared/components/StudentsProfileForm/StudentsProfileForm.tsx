@@ -6,15 +6,9 @@ import { INPUTS_PROFILE_DATA as profileLinks } from '../../../constants/students
 import InputValidationSignUp from '../../../entities/InputValidationSignUp/view/InputValidationSignUp';
 import submit from '../../../assets/icons/daw.png';
 import close from '../../../assets/icons/close.png';
-interface StudentProfileFormProps {
-  title: string;
-  imageUrl: string;
-}
+import pencil from '../../../assets/img/pencil.png';
 
-export const StudentProfileForm: React.FC<StudentProfileFormProps> = ({
-  title,
-  imageUrl,
-}) => {
+export const StudentProfileForm = () => {
   const isActive = useRef<HTMLDivElement>(null);
 
   const handleClick = () => {
@@ -27,7 +21,7 @@ export const StudentProfileForm: React.FC<StudentProfileFormProps> = ({
   return (
     <div className={'profile-form'}>
       <div className={'profile-form__head'}>
-        <div className={'profile-form__title'}>{title}</div>
+        <div className={'profile-form__title'}>Student's Profile</div>
         <div className={'profile-form__icon'} ref={isActive}>
           <div className={'profile-form__button'}>
             <button type='button' onClick={handleClick}>
@@ -42,7 +36,7 @@ export const StudentProfileForm: React.FC<StudentProfileFormProps> = ({
             className={'profile-form__button--icon'}
             onClick={handleClick}
           >
-            <img src={imageUrl} alt='img' />
+            <img src={pencil} alt='img' />
           </button>
         </div>
       </div>
