@@ -1,18 +1,12 @@
 import React from 'react';
+
 import './_StudentsProfileCollage.scss';
+import collage from '../../../assets/img/collage.png';
 
-interface StudentProfileCollageProps {
-  imageUrl: string;
-  className: string;
-}
-
-const StudentsProfileCollage: React.FC<StudentProfileCollageProps> = ({
-  imageUrl,
-  className,
-}) => {
+const StudentsProfileCollage = () => {
   return (
-    <div className={className}>
-      <img src={imageUrl} alt={'img'} />
+    <div className={'profile-container__img'}>
+      <img src={collage} alt={'img'} />
     </div>
   );
 };
