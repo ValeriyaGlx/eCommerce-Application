@@ -10,6 +10,7 @@ interface ProductInfoProps {
     description: string;
     images: Array<{ url: string }>;
     prices: string;
+    discount?: string;
   };
 }
 
@@ -26,6 +27,8 @@ const ProductInfo: FC<ProductInfoProps> = ({ product }) => {
       <ProductDescription
         inner={product.name}
         description={product.description}
+        price={product.prices}
+        discount={product.discount || ''}
       />
     </section>
   );
