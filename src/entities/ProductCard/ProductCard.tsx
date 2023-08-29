@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import './_ProductCard.scss';
 import ButtonWithRoute from '../../shared/components/ButtonWithRoute/ButtonWithRoute';
@@ -16,10 +17,6 @@ interface ProductCardProps {
   discount?: string;
 }
 
-function clickCard() {
-  console.log(1);
-}
-
 const ProductCard: React.FC<ProductCardProps> = ({
   path,
   imageUrl,
@@ -28,8 +25,17 @@ const ProductCard: React.FC<ProductCardProps> = ({
   price,
   discount,
 }) => {
+  const navigate = useNavigate();
+
+  function clickCard(event: React.MouseEvent) {
+    const currentTarget = event.target as HTMLElement;
+    if (currentTarget.parentElement?.className !== 'icon-cart') {
+      navigate(`/products/${path}`);
+    }
+  }
+
   return (
-    <div className='product-card'>
+    <div className='product-card' onClick={clickCard}>
       <img src={imageUrl} alt={productName} className={'product-card-img'} />
       <div className='hover-content'>
         <ButtonWithRoute
@@ -40,7 +46,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         <ShoppingCartButton
           className={'icon-cart'}
           src={cart}
-          onClick={clickCard}
+          onClick={() => console.log(1)}
         />
       </div>
       <h3>{productName}</h3>
