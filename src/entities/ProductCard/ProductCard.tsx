@@ -15,6 +15,8 @@ interface ProductCardProps {
   description: string;
   price: string;
   discount?: string;
+  difficulty: string;
+  duration: number;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
@@ -24,6 +26,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
   description,
   price,
   discount,
+  difficulty,
+  duration,
 }) => {
   const navigate = useNavigate();
 
@@ -51,8 +55,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
       </div>
       <h3>{productName}</h3>
       <div className={'product-card-attrs-container'}>
-        <span>8 weeks</span>
-        <span className={'product-card-icon-difficulty'}></span>
+        <span>{duration} weeks</span>
+        <span
+          className={`product-card-icon-difficulty icon-difficulty-${difficulty}`}
+        ></span>
       </div>
       <p>{description}</p>
       <div className={'product-card-container'}>

@@ -9,6 +9,8 @@ export interface IProducts {
   description: string;
   price: string;
   discount?: string;
+  difficulty: string;
+  duration: number;
 }
 
 interface IResponseAll {
@@ -110,6 +112,7 @@ interface IResponseCategory {
         url: string;
       },
     ];
+    attributes: [];
     prices: [
       {
         value: {
@@ -129,6 +132,11 @@ function processDataAllProducts(arr: Array<IResponseAll>) {
   const newArr: IProducts[] = [];
 
   arr.forEach((el: IResponseAll) => {
+    const attrArray: Array<{
+      name: string;
+      value: Array<string> | number;
+    }> = el.masterData.current.masterVariant.attributes;
+
     if (el.masterData.published) {
       const obj: IProducts = {
         id: Math.random(),
@@ -137,6 +145,8 @@ function processDataAllProducts(arr: Array<IResponseAll>) {
         description: el.masterData.current.description['en-US'],
         image: el.masterData.staged.masterVariant.images[0].url,
         price: (el.masterData.staged.masterVariant.prices[0].value.centAmount / 100).toFixed(2),
+        duration: attrArray[1].value as number,
+        difficulty: Array.isArray(attrArray[0].value) ? attrArray[0].value[0] : '',
       };
       if (el.masterData.current.masterVariant.prices[0].discounted) {
         obj.discount = (el.masterData.current.masterVariant.prices[0].discounted.value.centAmount / 100).toFixed(2);
@@ -152,8 +162,12 @@ function processDataCategoryProducts(arr: Array<IResponseCategory>) {
   const newArr: IProducts[] = [];
 
   arr.forEach((el: IResponseCategory) => {
-    console.log(el);
     if (el.published) {
+      const attrsArray: Array<{
+        name: string;
+        value: Array<string> | number;
+      }> = el.masterVariant.attributes;
+
       const obj: IProducts = {
         id: Math.random(),
         key: el.key,
@@ -161,6 +175,8 @@ function processDataCategoryProducts(arr: Array<IResponseCategory>) {
         description: el.description['en-US'],
         image: el.masterVariant.images[0].url,
         price: (el.masterVariant.prices[0].value.centAmount / 100).toFixed(2),
+        difficulty: Array.isArray(attrsArray[0].value) ? attrsArray[0].value[0] : '',
+        duration: attrsArray[1].value as number,
       };
       if (el.masterVariant.prices[0].discounted) {
         obj.discount = (el.masterVariant.prices[0].discounted.value.centAmount / 100).toFixed(2);
