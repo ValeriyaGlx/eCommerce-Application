@@ -12,6 +12,7 @@ import ProductCard from '../../entities/ProductCard/ProductCard';
 import { getAccessToken } from '../SignUpSection/usage/ApiRegistration';
 import setToken from '../../shared/cookie/setToken';
 import getCookie from '../../shared/cookie/getCookie';
+import Filter from '../../entities/Filtering/Filtering';
 
 import {
   AllProductsRequest,
@@ -135,6 +136,13 @@ const ListOfProductsWithNavigation = () => {
           inputName={'sort-select-tag'}
           onClick={(event) => handleSortClick(event)}
           arrow={arrow}
+        />
+      </div>
+      <div className={'wrapper-filtering'}>
+        <Filter
+          onFilterChange={() => {
+            console.log(1);
+          }}
         />
       </div>
       {isLoading ? (
