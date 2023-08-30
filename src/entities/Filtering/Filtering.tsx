@@ -63,6 +63,7 @@ const Filter: React.FC<FilterProps> = ({ onFilterChange }) => {
       <div className={'filtering_item'}>
         <h3 className={'filtering_item-title'}>Difficulty</h3>
         <InputRadio
+          name={'difficulty'}
           className={'wrapper-difficulty'}
           options={difficultyArr}
           onChange={(e) => {
@@ -76,6 +77,7 @@ const Filter: React.FC<FilterProps> = ({ onFilterChange }) => {
       <div className={'filtering_item'}>
         <h3 className={'filtering_item-title'}>Duration</h3>
         <InputRadio
+          name={'duration'}
           className={'wrapper-duration'}
           options={durationArr}
           onChange={(e) => {
