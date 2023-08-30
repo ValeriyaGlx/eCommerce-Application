@@ -50,6 +50,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
         />
       </div>
       <h3>{productName}</h3>
+      <div className={'product-card-attrs-container'}>
+        <span>8 weeks</span>
+        <span className={'product-card-icon-difficulty'}></span>
+      </div>
       <p>{description}</p>
       <div className={'product-card-container'}>
         {discount ? (

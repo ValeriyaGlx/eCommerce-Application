@@ -152,6 +152,7 @@ function processDataCategoryProducts(arr: Array<IResponseCategory>) {
   const newArr: IProducts[] = [];
 
   arr.forEach((el: IResponseCategory) => {
+    console.log(el);
     if (el.published) {
       const obj: IProducts = {
         id: Math.random(),
