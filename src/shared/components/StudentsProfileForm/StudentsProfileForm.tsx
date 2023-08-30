@@ -7,6 +7,11 @@ import InputValidationSignUp from '../../../entities/InputValidationSignUp/view/
 import submit from '../../../assets/icons/daw.png';
 import close from '../../../assets/icons/close.png';
 import pencil from '../../../assets/img/pencil.png';
+import {
+  INPUTS_SIGNUP_ADDRESS as addressArray,
+  SELECT_SIGNUP_DATA as selectArray,
+} from '../../../constants/signupConstants/signupConstants';
+import SignUpSelectTag from '../../../entities/SignUpSelectTag/SignUpSelectTag';
 
 export const StudentProfileForm = () => {
   const isActive = useRef<HTMLDivElement>(null);
@@ -54,6 +59,43 @@ export const StudentProfileForm = () => {
             />
           ),
         )}
+      </div>
+      <div className={'profile-form__adress'}>
+        <h4 className={'profile-form__headline'}>Adress information</h4>
+        <h5 className={'profile-form__title__adress'}>Shipping Adress</h5>
+        <div className={'profile-input__shipping'}>
+          <SignUpSelectTag
+            selectArray={selectArray}
+            className={'singUp-select'}
+            inputName={'shipping'}
+          />
+          {addressArray.map(({ type, placeholder, id, name }) => (
+            <InputValidationSignUp
+              key={id}
+              type={type}
+              placeholder={placeholder}
+              inputName={'shipping_' + name}
+            />
+          ))}
+        </div>
+      </div>
+      <div className={'profile-form__billing'}>
+        <h5 className={'profile-form__title__adress'}>Billing adress</h5>
+        <div className={'profile-input__billing'}>
+          <SignUpSelectTag
+            selectArray={selectArray}
+            className={'singUp-select'}
+            inputName={'billing'}
+          />
+          {addressArray.map(({ type, placeholder, id, name }) => (
+            <InputValidationSignUp
+              key={id}
+              type={type}
+              placeholder={placeholder}
+              inputName={'billing_' + name}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
