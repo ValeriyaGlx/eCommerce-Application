@@ -36,15 +36,15 @@
 }
 
 %tabletSizeButtons780px {
-        @media (max-width: 815px) {
-            padding: 10px;
-            width: 100px;
-            background-color: #a22a2a;
-        }
-        @media (max-width: 740px) {
-            font-size: 16px;
-            width: 80px;
-        }
+    @media (max-width: 815px) {
+        padding: 10px;
+        width: 100px;
+        background-color: #a22a2a;
+    }
+    @media (max-width: 740px) {
+        font-size: 16px;
+        width: 80px;
+    }
 }
 
 %innerForForms {
@@ -96,6 +96,16 @@
     }
 }
 
+%flexCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-
+%flexStartColumn {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+}
 
