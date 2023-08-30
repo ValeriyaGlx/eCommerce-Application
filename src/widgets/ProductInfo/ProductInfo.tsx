@@ -11,6 +11,8 @@ interface ProductInfoProps {
     images: Array<{ url: string }>;
     prices: string;
     discount?: string;
+    difficulty: string;
+    duration: number;
   };
 }
 
@@ -29,6 +31,8 @@ const ProductInfo: FC<ProductInfoProps> = ({ product }) => {
         description={product.description}
         price={product.prices}
         discount={product.discount || ''}
+        difficulty={product.difficulty}
+        duration={product.duration}
       />
     </section>
   );
