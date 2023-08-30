@@ -4,8 +4,8 @@ import './_StudentsProfileForm.scss';
 // eslint-disable-next-line max-len
 import { INPUTS_PROFILE_DATA as profileLinks } from '../../../constants/studentsProfileFormInput/studentsProfileFormInput';
 import InputValidationSignUp from '../../../entities/InputValidationSignUp/view/InputValidationSignUp';
-import submit from '../../../assets/icons/daw.png';
-import close from '../../../assets/icons/close.png';
+import daw from '../../../assets/icons/daw.svg';
+import cross from '../../../assets/icons/cross.svg';
 import pencil from '../../../assets/img/pencil.png';
 import {
   INPUTS_SIGNUP_ADDRESS as addressArray,
@@ -30,10 +30,10 @@ export const StudentProfileForm = () => {
         <div className={'profile-form__icon'} ref={isActive}>
           <div className={'profile-form__button'}>
             <button type='button' onClick={handleClick}>
-              <img src={submit} alt='' />{' '}
+              <img src={daw} alt='' />{' '}
             </button>
             <button type='button' onClick={handleClick}>
-              <img src={close} alt='' />{' '}
+              <img src={cross} alt='' />{' '}
             </button>
           </div>
           <button
