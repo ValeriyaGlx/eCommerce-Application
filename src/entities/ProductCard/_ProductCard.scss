@@ -5,7 +5,7 @@
     width: 270px;
     height: 315px;
     background: #F9F9F9;
-    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: $box-shadow;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -131,4 +131,22 @@
 
 .product-card:hover .hover-content {
     opacity: 1;
+}
+
+.product-card-attrs-container {
+    width: 100%;
+    padding: 0 20px;
+    display: flex;
+    justify-content: end;
+    gap: 15px;
+    align-items: center;
+    font-size: 10px;
+    position: absolute;
+    bottom: 36px;
+}
+
+.product-card-icon-difficulty {
+    @extend %radioInputStyle;
+    width: 10px;
+    height: 10px;
 }

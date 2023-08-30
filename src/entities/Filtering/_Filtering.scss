@@ -1,10 +1,6 @@
 @import '../../constants/scss/variables';
 @import '../../constants/scss/extentds';
 
-$color-1: #2ecc71;
-$color-2: #f1c40f;
-$color-3: #e74c3c;
-
 .filtering_list {
     margin: 10px;
     padding: 3% 4%;
@@ -64,17 +60,7 @@ $color-3: #e74c3c;
             font-size: 14px;
 
             span {
-                display: inline-block;
-                width: 40px;
-                height: 40px;
-                margin: -1px 4px 0 0;
-                vertical-align: middle;
-                cursor: pointer;
-                border-radius: 50%;
-                border: 2px solid #FFFFFF;
-                box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.33);
-                background-repeat: no-repeat;
-                background-position: center;
+                @extend %radioInputStyle;
                 text-align: center;
                 line-height: 44px;
 
@@ -86,15 +72,15 @@ $color-3: #e74c3c;
         }
 
         &#easy + label span {
-            background-color: $color-1;
+            background-color: $color-radio-green;
         }
 
         &#medium + label span {
-            background-color: $color-2;
+            background-color: $color-radio-yellow;
         }
 
         &#hard + label span {
-            background-color: $color-3;
+            background-color: $color-radio-red;
         }
 
         &:checked + label span img {
