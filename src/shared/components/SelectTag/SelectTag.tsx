@@ -1,8 +1,7 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 
 import './_SelectTag.scss';
 import arrowLogo from '../../../assets/icons/down-arrow-black.png';
-import { openDropdown } from '../../../features/formCommon/openDropdown';
 
 interface SelectTagProps {
   selectArray: { value: string; data: string; id: number }[];
@@ -23,8 +22,19 @@ const SelectTag: FC<SelectTagProps> = ({
   logo,
   arrow,
 }) => {
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!isDropdownOpen);
+  };
+
   return (
-    <div className={['dropdown', className].join(' ')} onClick={openDropdown}>
+    <div
+      className={['dropdown', className, isDropdownOpen ? 'active' : ''].join(
+        ' ',
+      )}
+      onClick={toggleDropdown}
+    >
       <div className={'select'}>
         <div className={'select-logo'}>
           {logo && <img src={logo} alt={'arrow'} />}
