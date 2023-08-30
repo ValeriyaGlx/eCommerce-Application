@@ -7,12 +7,14 @@ interface RadioInputProps {
   options: { label: string; value: string; key: number }[];
   onChange: (selectedValue: string) => void;
   className: string;
+  name: string;
 }
 
 export const InputRadio: React.FC<RadioInputProps> = ({
   options,
   onChange,
   className,
+  name,
 }) => {
   const [selectedValue, setSelectedValue] = useState<string>('');
 
@@ -29,7 +31,7 @@ export const InputRadio: React.FC<RadioInputProps> = ({
           <input
             id={option.value}
             type='radio'
-            name='radioInput'
+            name={name}
             value={option.value}
             checked={selectedValue === option.value}
             onChange={handleRadioChange}

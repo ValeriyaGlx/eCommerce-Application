@@ -9,6 +9,7 @@ import {
   FILTERS_DURATION_DATA as durationArr,
 } from '../../constants/filtersConstants/filtersConstants';
 import Button from '../../shared/components/Button/Button';
+import search from '../../assets/icons/search-line.svg';
 
 interface FilterProps {
   onFilterChange: (filters: Filters) => void;
@@ -63,6 +64,7 @@ const Filter: React.FC<FilterProps> = ({ onFilterChange }) => {
       <div className={'filtering_item'}>
         <h3 className={'filtering_item-title'}>Difficulty</h3>
         <InputRadio
+          name={'difficulty'}
           className={'wrapper-difficulty'}
           options={difficultyArr}
           onChange={(e) => {
@@ -76,6 +78,7 @@ const Filter: React.FC<FilterProps> = ({ onFilterChange }) => {
       <div className={'filtering_item'}>
         <h3 className={'filtering_item-title'}>Duration</h3>
         <InputRadio
+          name={'duration'}
           className={'wrapper-duration'}
           options={durationArr}
           onChange={(e) => {
@@ -88,15 +91,19 @@ const Filter: React.FC<FilterProps> = ({ onFilterChange }) => {
       </div>
       <div className={'filtering_item'}>
         <h3 className={'filtering_item-title'}>Search</h3>
-        <input
-          type='text'
-          value={filters.search}
-          onChange={(e) => {
-            const newFilters = { ...filters, search: e.target.value };
-            setFilters(newFilters);
-            onFilterChange(newFilters);
-          }}
-        />
+        <div className={'filtering_item-inner'}>
+          <img className={'filtering_item-img'} src={search} alt='icon' />
+          <input
+            type='text'
+            className={'item-search'}
+            value={filters.search}
+            onChange={(e) => {
+              const newFilters = { ...filters, search: e.target.value };
+              setFilters(newFilters);
+              onFilterChange(newFilters);
+            }}
+          />
+        </div>
       </div>
       <div className={'wrapper-button-reset'}>
         <Button
