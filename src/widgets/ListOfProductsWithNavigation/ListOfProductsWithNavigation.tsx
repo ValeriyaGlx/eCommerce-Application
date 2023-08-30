@@ -12,6 +12,7 @@ import ProductCard from '../../entities/ProductCard/ProductCard';
 import { getAccessToken } from '../SignUpSection/usage/ApiRegistration';
 import setToken from '../../shared/cookie/setToken';
 import getCookie from '../../shared/cookie/getCookie';
+import Filter from '../../entities/Filtering/Filtering';
 
 import {
   AllProductsRequest,
@@ -137,11 +138,18 @@ const ListOfProductsWithNavigation = () => {
           arrow={arrow}
         />
       </div>
-      {isLoading ? (
-        <div className={'loading'}>Loading...</div>
-      ) : (
-        <div className={'wrapper-products'}>{productData}</div>
-      )}
+      <div className={'wrapper-content'}>
+        <Filter
+          onFilterChange={() => {
+            console.log(1);
+          }}
+        />
+        {isLoading ? (
+          <div className={'loading'}>Loading...</div>
+        ) : (
+          <div className={'wrapper-products'}>{productData}</div>
+        )}
+      </div>
     </>
   );
 };
