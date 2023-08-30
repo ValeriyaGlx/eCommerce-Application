@@ -30,9 +30,10 @@ const ImageModal: React.FC<ImageModalProps> = ({
   if (items.length === 1) {
     return (
       <div className='image-modal-overlay'>
-        <div className='image-modal-content'>
-          <div className='main-image single-image'>{items[0]}</div>
+        <div className='image-modal-content single-image'>
+          <div className='modal-content-main-image'>{items[0]}</div>
         </div>
+        <div className='image-modal-close' onClick={onClose}></div>
       </div>
     );
   }
