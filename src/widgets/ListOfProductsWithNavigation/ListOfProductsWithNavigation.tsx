@@ -40,6 +40,8 @@ const ListOfProductsWithNavigation = () => {
             price={product.price}
             description={product.description}
             discount={product.discount ? product.discount : ''}
+            duration={product.duration}
+            difficulty={product.difficulty}
           />
         ),
       );

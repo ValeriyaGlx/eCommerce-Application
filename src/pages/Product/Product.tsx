@@ -16,6 +16,8 @@ const Product = () => {
     description: '',
     images: [{ url: '' }],
     prices: '',
+    difficulty: '',
+    duration: NaN,
   });
 
   const { productId } = useParams();

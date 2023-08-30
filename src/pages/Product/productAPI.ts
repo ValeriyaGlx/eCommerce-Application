@@ -7,6 +7,8 @@ export interface IProductDataProps {
   prices: string;
   images: { url: string }[];
   discount?: string;
+  difficulty: string;
+  duration: number;
 }
 
 export async function getProduct(key: string, token: string) {
@@ -32,6 +34,8 @@ export async function getProduct(key: string, token: string) {
     description: res.description['en-US'],
     prices: (res.masterVariant.prices[0].value.centAmount / 100).toFixed(2),
     images: res.masterVariant.images,
+    difficulty: res.masterVariant.attributes[0].value[0],
+    duration: res.masterVariant.attributes[1].value,
   };
 
   if (res.masterVariant.prices[0].discounted) {

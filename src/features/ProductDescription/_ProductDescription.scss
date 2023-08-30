@@ -29,7 +29,8 @@
     }
 }
 
-.price-container {
+.price-container,
+.attrs-container {
     display: flex;
     justify-content: space-between;
 }
@@ -37,4 +38,27 @@
 .wrapper-prices {
     display: flex;
     flex-direction: column-reverse;
+}
+
+.attrs-container {
+    color: $color-grey-paragraph;
+    align-items: center;
+}
+
+.icon-difficulty {
+    @extend %radioInputStyle;
+    width: 20px;
+    height: 20px;
+}
+
+.icon-difficulty-easy {
+    background-color: $color-radio-green;
+}
+
+.icon-difficulty-medium {
+    background-color: $color-radio-yellow;
+}
+
+.icon-difficulty-hard {
+    background-color: $color-radio-red;
 }
