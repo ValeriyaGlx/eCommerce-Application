@@ -26,8 +26,10 @@ const ProductDescription: FC<ProductDescriptionProps> = ({
       <div>
         <h2>{inner}</h2>
         <div className={'attrs-container'}>
-          <span>{difficulty}</span>
           <span>{duration} weeks</span>
+          <span
+            className={`icon-difficulty icon-difficulty-${difficulty}`}
+          ></span>
         </div>
 
         <p>{description}</p>
