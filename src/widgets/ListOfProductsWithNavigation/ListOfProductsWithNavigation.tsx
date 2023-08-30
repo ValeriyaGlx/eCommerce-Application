@@ -138,18 +138,18 @@ const ListOfProductsWithNavigation = () => {
           arrow={arrow}
         />
       </div>
-      <div className={'wrapper-filtering'}>
+      <div className={'wrapper-content'}>
         <Filter
           onFilterChange={() => {
             console.log(1);
           }}
         />
+        {isLoading ? (
+          <div className={'loading'}>Loading...</div>
+        ) : (
+          <div className={'wrapper-products'}>{productData}</div>
+        )}
       </div>
-      {isLoading ? (
-        <div className={'loading'}>Loading...</div>
-      ) : (
-        <div className={'wrapper-products'}>{productData}</div>
-      )}
     </>
   );
 };
