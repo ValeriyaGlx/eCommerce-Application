@@ -1,7 +1,7 @@
 import React from 'react';
 
 import './_StudentsProfileCollage.scss';
-import collage from '../../../assets/img/collage.svg';
+import collage from '../../assets/img/collage.svg';
 
 const StudentsProfileCollage = () => {
   return (

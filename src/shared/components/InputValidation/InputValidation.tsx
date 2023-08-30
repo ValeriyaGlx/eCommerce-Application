@@ -18,6 +18,7 @@ interface InputValidationProps {
   color: string;
   errorClass: string;
   styles?: string;
+  readonly?: boolean;
 }
 
 const InputValidation: FC<InputValidationProps> = ({
@@ -34,6 +35,7 @@ const InputValidation: FC<InputValidationProps> = ({
   color,
   errorClass,
   styles,
+  readonly,
 }) => {
   return (
     <React.Fragment>
@@ -51,6 +53,7 @@ const InputValidation: FC<InputValidationProps> = ({
           onBlur={onBlur}
           onChange={handleInputChange}
           min={min}
+          readOnly={readonly}
         />
         {type === 'password' && (
           <button className={'show-password'} onClick={showPassword}>

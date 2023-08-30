@@ -19,6 +19,7 @@ interface InputValidationSignUpProps {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   min?: string;
   styles?: string;
+  readonly?: boolean;
 }
 
 const inputValidationSignUp: FC<InputValidationSignUpProps> = ({
@@ -30,6 +31,7 @@ const inputValidationSignUp: FC<InputValidationSignUpProps> = ({
   inputName,
   min,
   styles,
+  readonly,
 }) => {
   const dispatch: ThunkDispatch<RootState, unknown, AnyAction> = useDispatch();
 
@@ -58,6 +60,7 @@ const inputValidationSignUp: FC<InputValidationSignUpProps> = ({
       errorMessage={inputState.validationError}
       color={''}
       styles={styles}
+      readonly={readonly}
     />
   );
 };

@@ -2,7 +2,7 @@ import React from 'react';
 import './_Profile.scss';
 
 import StudentProfileForm from '../../shared/components/StudentsProfileForm/StudentsProfileForm';
-import StudentsProfileCollage from '../../shared/components/StudentsProfileCollage/StudentsProfileCollage';
+import StudentsProfileCollage from '../../shared/StudentsProfileCollage/StudentsProfileCollage';
 
 export function Profile() {
   return (

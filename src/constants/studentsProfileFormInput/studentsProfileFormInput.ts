@@ -1,5 +1,4 @@
 import mailLogo from '../../assets/icons/mail-line.png';
-import passwordLogo from '../../assets/icons/password.png';
 import userLogo from '../../assets/icons/user.png';
 import dateLogo from '../../assets/icons/date.png';
 
@@ -12,22 +11,14 @@ export const INPUTS_PROFILE_DATA: {
   min?: string;
   style?: string;
 }[] = [
-  {
-    id: Math.random(),
-    type: 'text',
-    placeholder: 'Email',
-    name: 'email',
-    logo: mailLogo,
-    style: 'input-profile',
-  },
-  {
-    id: Math.random(),
-    type: 'password',
-    placeholder: 'Password',
-    name: 'password',
-    logo: passwordLogo,
-    style: 'input-profile',
-  },
+  // {
+  //   id: Math.random(),
+  //   type: 'password',
+  //   placeholder: 'Password',
+  //   name: 'password',
+  //   logo: passwordLogo,
+  //   style: 'input-profile',
+  // },
   {
     id: Math.random(),
     type: 'text',
@@ -42,6 +33,14 @@ export const INPUTS_PROFILE_DATA: {
     placeholder: 'Surname',
     name: 'surname',
     logo: userLogo,
+    style: 'input-profile',
+  },
+  {
+    id: Math.random(),
+    type: 'text',
+    placeholder: 'Email',
+    name: 'email',
+    logo: mailLogo,
     style: 'input-profile',
   },
   {

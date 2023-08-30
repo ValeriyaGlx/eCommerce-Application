@@ -41,13 +41,21 @@ a {
   text-decoration: none;
 }
 
-a, button, input[type=submit] {
+a,
+button,
+input[type=submit] {
   cursor: pointer;
   font-weight: 600;
 }
 
 input {
   font-family: Josefin Sans, serif;
+}
+
+input:read-only:hover,
+input:read-only:active {
+  cursor: default;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
 li {
@@ -82,9 +90,9 @@ p {
     padding: 20px 50px;
   }
 }
-@media (max-width: 890px) {
+@media (max-width: 701px) {
   .container {
-    padding: 10px 10px;
+    padding: 20px 30px;
   }
 }
 

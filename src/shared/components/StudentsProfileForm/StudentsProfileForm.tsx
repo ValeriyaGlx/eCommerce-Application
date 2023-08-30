@@ -1,8 +1,8 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
+import { useDispatch } from 'react-redux';
 
 import './_StudentsProfileForm.scss';
-// eslint-disable-next-line max-len
-import { INPUTS_PROFILE_DATA as profileLinks } from '../../../constants/studentsProfileFormInput/studentsProfileFormInput';
+import { INPUTS_PROFILE_DATA as profLinks } from '../../../constants/studentsProfileFormInput/studentsProfileFormInput';
 import InputValidationSignUp from '../../../entities/InputValidationSignUp/view/InputValidationSignUp';
 import daw from '../../../assets/icons/daw.svg';
 import cross from '../../../assets/icons/cross.svg';
@@ -11,10 +11,35 @@ import {
   INPUTS_SIGNUP_ADDRESS as addressArray,
   SELECT_SIGNUP_DATA as selectArray,
 } from '../../../constants/signupConstants/signupConstants';
-import SignUpSelectTag from '../../../entities/SignUpSelectTag/SignUpSelectTag';
+import getCookie from '../../cookie/getCookie';
+import { setInputValueWithValidation } from '../../../app/store/actions/signupActions/signupActions';
+import UserAddressSection from '../../../entities/UserAddressSection/UserAddressSection';
+
+import { getProfile } from './usage/ProfileFormAPI';
 
 export const StudentProfileForm = () => {
+  const dispatch = useDispatch();
   const isActive = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token: string = getCookie('authToken') as string;
+        const profile = await getProfile(token);
+        const profileFields = Object.entries(profile);
+
+        profileFields.forEach((el) => {
+          const inputName = el[0];
+          const newValue = el[1];
+          dispatch(setInputValueWithValidation(inputName, newValue));
+        });
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleClick = () => {
     const active = isActive.current;
@@ -46,57 +71,30 @@ export const StudentProfileForm = () => {
         </div>
       </div>
       <div className={'profile-form__input'}>
-        {profileLinks.map(
-          ({ id, type, placeholder, name, logo, min, style }) => (
-            <InputValidationSignUp
-              key={id}
-              type={type}
-              placeholder={placeholder}
-              inputName={name}
-              logo={logo}
-              min={min}
-              styles={style}
-            />
-          ),
-        )}
-      </div>
-      <div className={'profile-form__adress'}>
-        <h4 className={'profile-form__headline'}>Adress information</h4>
-        <h5 className={'profile-form__title__adress'}>Shipping Adress</h5>
-        <div className={'profile-input__shipping'}>
-          <SignUpSelectTag
-            selectArray={selectArray}
-            className={'singUp-select'}
-            inputName={'shipping'}
+        {profLinks.map(({ id, type, placeholder, name, logo, min, style }) => (
+          <InputValidationSignUp
+            key={id}
+            type={type}
+            placeholder={placeholder}
+            inputName={name}
+            logo={logo}
+            min={min}
+            styles={style}
+            readonly={true}
           />
-          {addressArray.map(({ type, placeholder, id, name }) => (
-            <InputValidationSignUp
-              key={id}
-              type={type}
-              placeholder={placeholder}
-              inputName={'shipping_' + name}
-            />
-          ))}
-        </div>
+        ))}
       </div>
-      <div className={'profile-form__billing'}>
-        <h5 className={'profile-form__title__adress'}>Billing adress</h5>
-        <div className={'profile-input__billing'}>
-          <SignUpSelectTag
-            selectArray={selectArray}
-            className={'singUp-select'}
-            inputName={'billing'}
-          />
-          {addressArray.map(({ type, placeholder, id, name }) => (
-            <InputValidationSignUp
-              key={id}
-              type={type}
-              placeholder={placeholder}
-              inputName={'billing_' + name}
-            />
-          ))}
-        </div>
-      </div>
+      <h4 className={'profile-form__headline'}>Adress information</h4>
+      <UserAddressSection
+        title={'Shipping Address'}
+        selectArray={selectArray}
+        addressArray={addressArray}
+      />
+      <UserAddressSection
+        title={'Billing address'}
+        selectArray={selectArray}
+        addressArray={addressArray}
+      />
     </div>
   );
 };
