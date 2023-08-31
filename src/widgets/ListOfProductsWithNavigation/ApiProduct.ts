@@ -1,3 +1,6 @@
+import { createFilterString } from './components/createUrlFilterString';
+import { AllFilters } from './ListOfProductsWithNavigation';
+
 const project = process.env.REACT_APP_PROJECT_KEY;
 const host = process.env.REACT_APP_HOST;
 
@@ -204,7 +207,7 @@ export async function AllProductsRequest(token: string) {
   return processDataAllProducts(arr);
 }
 
-async function getCategory(token: string, category: string) {
+export async function getCategory(token: string, category: string) {
   const urlRequestCategory = `${host}/${project}/categories/key=${category}`;
 
   const responseCategory = await fetch(urlRequestCategory, {
@@ -233,16 +236,26 @@ export async function CategoryProductsRequest(token: string, category: string) {
   return processDataCategoryProducts(arr);
 }
 
-export async function sortAllProductsRequest(token: string, direction: string, activeCategory: string) {
-  let url: string;
-  if (activeCategory === 'All Categories') {
-    url = `${host}/${project}/product-projections/search?sort=${direction}`;
-  } else {
-    const category = activeCategory.toLowerCase().split(' ').join('');
-    const idCategory = await getCategory(token, category);
-    url = `${host}/${project}/product-projections/search?sort=${direction}&filter=categories.id:"${idCategory}"`;
-  }
+export async function sortAllProductsRequest(token: string, direction: string, obj: AllFilters) {
+  const pathUrl = createFilterString(obj);
+  const url = `${host}/${project}/product-projections/search?sort=${direction}&${pathUrl}`;
   const responseProducts = await fetch(url, {
+    method: 'GET',
+    headers: {
+      Authorization: 'Bearer ' + token,
+    },
+  });
+  const products = await responseProducts.json();
+  const arr = products.results;
+  return processDataCategoryProducts(arr);
+}
+
+export async function filterProductsRequest(obj: AllFilters, token: string) {
+  const pathUrl = createFilterString(obj);
+
+  const urlRequestProducts = `${host}/${project}/product-projections/search?${pathUrl}`;
+
+  const responseProducts = await fetch(urlRequestProducts, {
     method: 'GET',
     headers: {
       Authorization: 'Bearer ' + token,

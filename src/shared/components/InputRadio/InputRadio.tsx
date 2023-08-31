@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import './_InputRadio.scss';
 import tick from '../../../assets/icons/check-icn.svg';
 
 interface RadioInputProps {
   options: { label: string; value: string; key: number }[];
+  selectedValue: string;
   onChange: (selectedValue: string) => void;
   className: string;
   name: string;
@@ -12,15 +13,13 @@ interface RadioInputProps {
 
 export const InputRadio: React.FC<RadioInputProps> = ({
   options,
+  selectedValue,
   onChange,
   className,
   name,
 }) => {
-  const [selectedValue, setSelectedValue] = useState<string>('');
-
   const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
-    setSelectedValue(value);
     onChange(value);
   };
 

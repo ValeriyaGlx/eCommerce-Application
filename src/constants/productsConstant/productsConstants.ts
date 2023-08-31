@@ -1,10 +1,3 @@
-import getCookie from '../../shared/cookie/getCookie';
-import {
-  AllProductsRequest,
-  CategoryProductsRequest,
-  IProducts,
-} from '../../widgets/ListOfProductsWithNavigation/ApiProduct';
-
 export const PRODUCTS_SORT_DATA = [
   {
     value: 'Price low to high',
@@ -28,75 +21,45 @@ export const PRODUCTS_SORT_DATA = [
   },
 ];
 
-interface IButtonNavigation {
+export interface IButtonNavigation {
   data: string;
   id: number;
-  onclick: () => Promise<Array<IProducts>> | undefined;
+  value: string;
 }
 
 export const CATEGORIES_OF_PRODUCTS: Array<IButtonNavigation> = [
   {
     data: 'All Categories',
+    value: '',
     id: Math.random(),
-    onclick: () => {
-      const token = getCookie('accessToken');
-      if (token) {
-        return AllProductsRequest(token);
-      }
-    },
   },
   {
     data: 'Free',
+    value: 'free',
     id: Math.random(),
-    onclick: () => {
-      const token = getCookie('accessToken');
-      if (token) {
-        return CategoryProductsRequest(token, 'free');
-      }
-    },
   },
 
   {
     data: 'Programming',
+    value: 'programming',
     id: Math.random(),
-    onclick: () => {
-      const token = getCookie('accessToken');
-      if (token) {
-        return CategoryProductsRequest(token, 'programming');
-      }
-    },
   },
 
   {
     data: 'Data analysis',
+    value: 'dataanalysis',
     id: Math.random(),
-    onclick: () => {
-      const token = getCookie('accessToken');
-      if (token) {
-        return CategoryProductsRequest(token, 'dataanalysis');
-      }
-    },
   },
 
   {
     data: 'Design',
+    value: 'design',
     id: Math.random(),
-    onclick: () => {
-      const token = getCookie('accessToken');
-      if (token) {
-        return CategoryProductsRequest(token, 'design');
-      }
-    },
   },
 
   {
     data: 'Management',
+    value: 'management',
     id: Math.random(),
-    onclick: () => {
-      const token = getCookie('accessToken');
-      if (token) {
-        return CategoryProductsRequest(token, 'management');
-      }
-    },
   },
 ];
