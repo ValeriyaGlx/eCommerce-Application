@@ -7,9 +7,10 @@
 
     @media (max-width: 1170px) {
       flex-grow: 1;
+      padding: 21px 22px 72px 21px;
     }
     @media (max-width: 640px) {
-      padding: 21px 22px 51px 21px;
+      padding: 21px 22px 62px 21px;
     }
     &__title {
       font-weight: bold;
