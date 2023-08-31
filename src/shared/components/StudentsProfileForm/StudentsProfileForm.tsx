@@ -52,9 +52,9 @@ export const StudentProfileForm = () => {
     <div className={'profile-form'}>
       <div className={'profile-form__head'}>
         <div className={'profile-form__title'}>Student's Profile</div>
+        <h4 className={'profile-form__headline'}>Personal Information</h4>
       </div>
       <div className={'profile-form__input'}>
-        <h4 className={'profile-form__headline'}>Personal Information</h4>
         {profLinks.map(({ id, type, placeholder, name, logo, min, style }) => (
           <InputValidationSignUp
             key={id}
