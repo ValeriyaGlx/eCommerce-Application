@@ -4,8 +4,16 @@ const host = process.env.REACT_APP_HOST;
 function getAddresses(array: string[], billingId: string, shippingId: string) {
   console.log(array, billingId, shippingId);
 }
-
-function getProfileObject(res) {
+interface UserProfile {
+  firstName: string;
+  lastName: string;
+  dateOfBirth: string;
+  email: string;
+  addresses: string[];
+  billingAddressIds: string;
+  shippingAddressIds: string;
+}
+function getProfileObject(res: UserProfile) {
   // console.log(res.billingAddressIds);
   const profileInfo = {
     name: res.firstName,
