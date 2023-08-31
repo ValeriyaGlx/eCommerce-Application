@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { useDispatch } from 'react-redux';
 
@@ -17,11 +17,12 @@ import { setInputValueWithValidation } from '../../../app/store/actions/signupAc
 import UserAddressSection from '../../../entities/UserAddressSection/UserAddressSection';
 
 import { getProfile } from './usage/ProfileFormAPI';
-import profile from '../../../pages/Profile/Profile';
+import AddressesSectionMap from '../../../entities/AddressesSectionMap/AddressesSectionMap';
 
 export const StudentProfileForm = () => {
   const dispatch = useDispatch();
-  const isActive = useRef<HTMLDivElement>(null);
+  const [billingAddresses, setBillingAddresses] = useState([]);
+  const [shippingAddresses, setShippingAddresses] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,7 +30,8 @@ export const StudentProfileForm = () => {
         const token: string = getCookie('authToken') as string;
         const profile = await getProfile(token);
         const profileFields = Object.entries(profile.personal);
-        console.log(profile);
+        setBillingAddresses(profile.addresses.billingAddress);
+        setShippingAddresses(profile.addresses.shippingAddress);
 
         profileFields.forEach((el) => {
           const inputName = el[0];
@@ -43,13 +45,6 @@ export const StudentProfileForm = () => {
 
     fetchData();
   }, []);
-
-  const handleClick = () => {
-    const active = isActive.current;
-    if (active) {
-      active.classList.toggle('active');
-    }
-  };
 
   return (
     <div className={'profile-form'}>
@@ -67,25 +62,27 @@ export const StudentProfileForm = () => {
             logo={logo}
             min={min}
             styles={style}
-            readonly={false}
+            readonly={true}
           />
         ))}
       </div>
       <h4 className={'profile-form__headline'}>Address Information</h4>
-      <UserAddressSection
+      <AddressesSectionMap
+        arr={shippingAddresses}
         inputName={'shipping'}
-        title={'Shipping Address'}
+        title={'Shipping address'}
         selectArray={selectArray}
         addressArray={addressArray}
         readonly={false}
       />
-      {}
-      <UserAddressSection
+
+      <AddressesSectionMap
+        arr={billingAddresses}
         inputName={'billing'}
         title={'Billing address'}
         selectArray={selectArray}
         addressArray={addressArray}
-        readonly={false}
+        readonly={true}
       />
     </div>
   );

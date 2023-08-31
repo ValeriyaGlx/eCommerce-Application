@@ -1,0 +1,17 @@
+.slick-slide {
+    opacity: 0;
+    transition: opacity 0.3s;
+    display: none;
+}
+
+.slick-slide.slick-active {
+    opacity: 1;
+    padding: 0 10px;
+}
+
+.addresses-container {
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+

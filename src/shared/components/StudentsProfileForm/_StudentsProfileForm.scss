@@ -1,5 +1,6 @@
 .profile {
   &-form {
+    width: 500px;
     box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.15);
     border-radius: 10px;
     padding: 42px 44px 42px 44px;
@@ -9,7 +10,10 @@
       flex-grow: 1;
     }
     @media (max-width: 640px) {
-      padding: 21px 22px 51px 21px;
+      padding: 21px 22px 51px;
+    }
+    @media (max-width: 500px) {
+      width: 380px;
     }
     &__title {
       font-weight: bold;
