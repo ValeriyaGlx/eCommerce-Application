@@ -103,9 +103,7 @@
         :nth-child(5),
         :nth-child(6),
         :nth-child(7),
-        :nth-child(8),
-        :nth-child(9),
-        :nth-child(10) {
+        :nth-child(8) {
           grid-area: auto;
         }
       }
@@ -199,7 +197,7 @@
     @media (max-width: 640px) {
       display: grid;
       grid-template-columns: 1fr;
-      grid-template-rows: repeat(2, 1fr) 15px 1fr 15px 1fr 15px 1fr;
+      grid-template-rows: repeat(2, 1fr) 15px 1fr 15px 1fr;
       :nth-child(1),
       :nth-child(2),
       :nth-child(3),
