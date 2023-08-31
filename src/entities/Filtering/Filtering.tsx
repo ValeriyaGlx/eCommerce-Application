@@ -23,15 +23,14 @@ export interface Filters {
   search: string;
 }
 
+const initialFilters: Filters = {
+  priceMin: 0,
+  priceMax: 500,
+  difficulty: '',
+  duration: '',
+  search: '',
+};
 const Filter: React.FC<FilterProps> = ({ onFilterChange }) => {
-  const initialFilters: Filters = {
-    priceMin: 0,
-    priceMax: 1000,
-    difficulty: '',
-    duration: '',
-    search: '',
-  };
-
   const [filters, setFilters] = useState<Filters>(initialFilters);
 
   const handleResetFilters = () => {
@@ -48,7 +47,7 @@ const Filter: React.FC<FilterProps> = ({ onFilterChange }) => {
           range
           min={0}
           max={500}
-          defaultValue={[filters.priceMin, filters.priceMax]}
+          value={[filters.priceMin, filters.priceMax]}
           onChange={(value: number[] | number) => {
             if (Array.isArray(value)) {
               const [priceMin, priceMax] = value;

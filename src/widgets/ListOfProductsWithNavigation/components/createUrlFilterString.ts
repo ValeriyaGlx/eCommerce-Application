@@ -1,6 +1,6 @@
-import { Filters } from '../../../entities/Filtering/Filtering';
+import { AllFilters } from '../ListOfProductsWithNavigation';
 
-export function createFilterString(obj: Filters): string {
+export function createFilterString(obj: AllFilters): string {
   const filters: string[] = [];
 
   const priceFilter = `filter=variants.price.centAmount:range("${obj.priceMin * 100}" to "${obj.priceMax * 100}")`;
@@ -22,6 +22,31 @@ export function createFilterString(obj: Filters): string {
   if (obj.search !== undefined && obj.search !== '') {
     const searchFilter = `text.en-US=${obj.search}`;
     filters.push(searchFilter);
+  }
+
+  if (obj.category !== undefined && obj.category !== '') {
+    const searchFilter = `filter=categories.id:"${obj.category}"`;
+    filters.push(searchFilter);
+  }
+
+  if (obj.sorting !== undefined && obj.sorting !== '') {
+    let direction = '';
+    switch (obj.sorting) {
+      case 'By price low to high':
+        direction = 'price asc';
+        break;
+      case 'By price high to low':
+        direction = 'price desc';
+        break;
+      case 'By name A-Z':
+        direction = 'name.en-US asc';
+        break;
+      case 'By name Z-A':
+        direction = 'name.en-US desc';
+        break;
+    }
+    const searchSorting = `sort=${direction}`;
+    filters.push(searchSorting);
   }
 
   return filters.join('&');

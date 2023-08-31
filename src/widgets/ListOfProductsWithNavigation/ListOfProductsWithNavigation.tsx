@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Button from '../../shared/components/Button/Button';
 import {
   CATEGORIES_OF_PRODUCTS as categories,
+  IButtonNavigation,
   PRODUCTS_SORT_DATA as sortArray,
 } from '../../constants/productsConstant/productsConstants';
 import arrow from '../../assets/icons/down-arrow-black.png';
@@ -17,15 +18,36 @@ import Filter, { Filters } from '../../entities/Filtering/Filtering';
 import {
   AllProductsRequest,
   filterProductsRequest,
+  getCategory,
   IProducts,
-  sortAllProductsRequest,
 } from './ApiProduct';
+
+export interface AllFilters {
+  category: string;
+  priceMin: number;
+  priceMax: number;
+  difficulty: string;
+  duration: string;
+  search: string;
+  sorting: string;
+}
+
+export const initialAllFilters: AllFilters = {
+  category: '',
+  priceMin: 0,
+  priceMax: 1000,
+  difficulty: '',
+  duration: '',
+  search: '',
+  sorting: '',
+};
 
 const ListOfProductsWithNavigation = () => {
   const [productData, setProductData] = useState<JSX.Element[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState('All Categories');
   const [nameSorting, setNameSorting] = useState('Sorting');
+  const [activeFilters, setFilters] = useState(initialAllFilters);
 
   const createHTMLListOfProducts = (
     listOfProducts: Array<IProducts> | undefined,
@@ -71,56 +93,43 @@ const ListOfProductsWithNavigation = () => {
   const handleCategoryClick = async (data: string) => {
     setIsLoading(true);
     setActiveCategory(data);
-    const category = categories.find((item) => item.data === data);
-    if (category && category.onclick) {
-      const listOfProduct = await category.onclick();
-      createHTMLListOfProducts(listOfProduct);
+    const token = getCookie('accessToken') as string;
+    const category = categories.find(
+      (item) => item.data === data,
+    ) as IButtonNavigation;
+    let newFilters;
+    if (category.value) {
+      const id = await getCategory(token, category.value);
+      newFilters = { ...activeFilters, category: id };
+    } else {
+      newFilters = { ...activeFilters, category: '' };
     }
+    setFilters(newFilters);
+    const listOfProducts = await filterProductsRequest(newFilters, token);
+    createHTMLListOfProducts(listOfProducts);
   };
 
   const handleSortClick = async (event: React.MouseEvent) => {
     setIsLoading(true);
     const token = getCookie('accessToken') as string;
-    let listOfProducts: IProducts[] = [];
     const target = event.currentTarget.innerHTML;
     setNameSorting(target);
-    switch (target) {
-      case 'By price low to high':
-        listOfProducts = await sortAllProductsRequest(
-          token,
-          'price asc',
-          activeCategory,
-        );
-        break;
-      case 'By price high to low':
-        listOfProducts = await sortAllProductsRequest(
-          token,
-          'price desc',
-          activeCategory,
-        );
-        break;
-      case 'By name A-Z':
-        listOfProducts = await sortAllProductsRequest(
-          token,
-          'name.en-US asc',
-          activeCategory,
-        );
-        break;
-      case 'By name Z-A':
-        listOfProducts = await sortAllProductsRequest(
-          token,
-          'name.en-US desc',
-          activeCategory,
-        );
-        break;
-    }
+    const newFilters = { ...activeFilters, sorting: target };
+    setFilters(newFilters);
+    const listOfProducts = await filterProductsRequest(newFilters, token);
     createHTMLListOfProducts(listOfProducts);
   };
 
   const handleFilteringClick = async (obj: Filters) => {
+    const newFilters = {
+      ...obj,
+      category: activeFilters.category,
+      sorting: activeFilters.sorting,
+    };
+    setFilters(newFilters);
     setIsLoading(true);
     const token = getCookie('accessToken') as string;
-    const listOfProducts = await filterProductsRequest(obj, token);
+    const listOfProducts = await filterProductsRequest(newFilters, token);
     createHTMLListOfProducts(listOfProducts);
   };
 
