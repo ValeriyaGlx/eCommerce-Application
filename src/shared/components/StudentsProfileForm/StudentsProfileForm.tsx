@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
+import { store } from '../../../app/store/store';
 import './_StudentsProfileForm.scss';
 import { INPUTS_PROFILE_DATA as profLinks } from '../../../constants/studentsProfileFormInput/studentsProfileFormInput';
 import InputValidationSignUp from '../../../entities/InputValidationSignUp/view/InputValidationSignUp';
@@ -13,7 +14,7 @@ import { setInputValueWithValidation } from '../../../app/store/actions/signupAc
 import AddressesSectionMap from '../../../entities/AddressesSectionMap/AddressesSectionMap';
 
 import { Address, getProfile } from './usage/ProfileFormAPI';
-import { store } from '../../../app/store/store';
+import { initializeAddresses } from '../../../app/store/actions/profileAddressesAction/profileAddressesAction';
 
 type AppDispatch = typeof store.dispatch;
 
@@ -25,6 +26,9 @@ export const StudentProfileForm = () => {
   const [shippingAddresses, setShippingAddresses] = useState<Address[]>(
     [] as Address[],
   );
+  const [fullAddresses, setFullAddresses] = useState<Address[]>(
+    [] as Address[],
+  );
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,8 +36,13 @@ export const StudentProfileForm = () => {
         const token: string = getCookie('authToken') as string;
         const profile = await getProfile(token);
         const profileFields = Object.entries(profile.personal);
+
         setBillingAddresses(profile.addresses.billingAddress);
         setShippingAddresses(profile.addresses.shippingAddress);
+        setFullAddresses([
+          ...profile.addresses.shippingAddress,
+          ...profile.addresses.billingAddress,
+        ]);
 
         profileFields.forEach((el) => {
           const inputName = el[0];
@@ -47,6 +56,24 @@ export const StudentProfileForm = () => {
 
     fetchData();
   }, []);
+
+  useEffect(() => {
+    const initialAddressState = {};
+
+    fullAddresses.forEach((address) => {
+      initialAddressState[address.id] = {};
+
+      addressArray.forEach(({ name }) => {
+        initialAddressState[address.id][name] = {
+          value: address[name],
+          validationError: '',
+        };
+      });
+    });
+
+    // Диспатчить инициализацию в Redux
+    dispatch(initializeAddresses(initialAddressState));
+  }, [dispatch, addressArray, fullAddresses]);
 
   return (
     <div className={'profile-form'}>

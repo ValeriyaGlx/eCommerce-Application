@@ -1,7 +1,8 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 
 import SignUpSelectTag from '../SignUpSelectTag/SignUpSelectTag';
 import InputValidationSignUp from '../InputValidationSignUp/view/InputValidationSignUp';
+import { Address } from '../../shared/components/StudentsProfileForm/usage/ProfileFormAPI';
 
 interface UserAddressSectionProps {
   title: string;
@@ -14,6 +15,7 @@ interface UserAddressSectionProps {
     id: number;
     name: string;
   }[];
+  data: Address[];
 }
 
 const UserAddressSection: FC<UserAddressSectionProps> = ({
@@ -22,6 +24,7 @@ const UserAddressSection: FC<UserAddressSectionProps> = ({
   selectArray,
   addressArray,
   readonly,
+  data,
 }) => {
   return (
     <div className={'profile-form__billing'}>
@@ -32,7 +35,7 @@ const UserAddressSection: FC<UserAddressSectionProps> = ({
           className={'singUp-select'}
           inputName={inputName}
         />
-        {addressArray.map(({ type, placeholder, id, name }) => (
+        {addressArray.map(({ type, placeholder, id, name }, index) => (
           <InputValidationSignUp
             key={id}
             type={type}

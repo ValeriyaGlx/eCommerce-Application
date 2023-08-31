@@ -11,12 +11,21 @@ export interface Address {
 
 function getAddresses(array: Address[], ids: string[]): Address[] {
   const addressesIds = ids;
-  console.log(array);
   const allAddresses = array;
   const result = [];
 
+  const newAllAddresses = allAddresses.map((oldObj) => {
+    const newObj = {
+      id: oldObj.id,
+      street: oldObj.streetName,
+      code: oldObj.postalCode,
+      city: oldObj.city,
+    };
+    return newObj;
+  });
+
   for (let i = 0; i < addressesIds.length; i++) {
-    result.push(...allAddresses.filter((el) => el.id === addressesIds[i]));
+    result.push(...newAllAddresses.filter((el) => el.id === addressesIds[i]));
   }
 
   return result;

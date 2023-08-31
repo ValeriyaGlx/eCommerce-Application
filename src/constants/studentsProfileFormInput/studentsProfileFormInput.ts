@@ -11,14 +11,6 @@ export const INPUTS_PROFILE_DATA: {
   min?: string;
   style?: string;
 }[] = [
-  // {
-  //   id: Math.random(),
-  //   type: 'password',
-  //   placeholder: 'Password',
-  //   name: 'password',
-  //   logo: passwordLogo,
-  //   style: 'input-profile',
-  // },
   {
     id: Math.random(),
     type: 'text',
@@ -51,5 +43,26 @@ export const INPUTS_PROFILE_DATA: {
     logo: dateLogo,
     min: '1900-01-02',
     style: 'input-profile',
+  },
+];
+
+export const INPUTS_PROFILE_ADDRESS = [
+  {
+    type: 'text',
+    placeholder: 'Postal Code',
+    id: Math.random(),
+    name: 'postalCode',
+  },
+  {
+    type: 'text',
+    placeholder: 'City',
+    id: Math.random(),
+    name: 'city',
+  },
+  {
+    type: 'text',
+    placeholder: 'Street',
+    id: Math.random(),
+    name: 'streetName',
   },
 ];

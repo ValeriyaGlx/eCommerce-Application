@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import Slider from 'react-slick';
 
 import UserAddressSection from '../UserAddressSection/UserAddressSection';
@@ -10,6 +10,8 @@ import './_AddressesSectionMap.scss';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { Address } from '../../shared/components/StudentsProfileForm/usage/ProfileFormAPI';
+import { useDispatch } from 'react-redux';
+import { initializeAddresses } from '../../app/store/actions/profileAddressesAction/profileAddressesAction';
 
 interface AddressesSectionMapProps {
   arr: Address[];
@@ -48,6 +50,7 @@ const AddressesSectionMap: FC<AddressesSectionMapProps> = ({
             selectArray={selectArray}
             addressArray={addressArray}
             readonly={readonly}
+            data={arr}
           />
         ))}
         <div>Add new</div>
