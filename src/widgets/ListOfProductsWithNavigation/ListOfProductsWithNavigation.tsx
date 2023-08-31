@@ -12,10 +12,11 @@ import ProductCard from '../../entities/ProductCard/ProductCard';
 import { getAccessToken } from '../SignUpSection/usage/ApiRegistration';
 import setToken from '../../shared/cookie/setToken';
 import getCookie from '../../shared/cookie/getCookie';
-import Filter from '../../entities/Filtering/Filtering';
+import Filter, { Filters } from '../../entities/Filtering/Filtering';
 
 import {
   AllProductsRequest,
+  filterProductsRequest,
   IProducts,
   sortAllProductsRequest,
 } from './ApiProduct';
@@ -114,6 +115,13 @@ const ListOfProductsWithNavigation = () => {
     createHTMLListOfProducts(listOfProducts);
   };
 
+  const handleFilteringClick = async (obj: Filters) => {
+    setIsLoading(true);
+    const token = getCookie('accessToken') as string;
+    const listOfProducts = await filterProductsRequest(obj, token);
+    createHTMLListOfProducts(listOfProducts);
+  };
+
   return (
     <>
       <div className={'wrapper-sorting'}>
@@ -139,11 +147,7 @@ const ListOfProductsWithNavigation = () => {
         />
       </div>
       <div className={'wrapper-content'}>
-        <Filter
-          onFilterChange={() => {
-            console.log(1);
-          }}
-        />
+        <Filter onFilterChange={handleFilteringClick} />
         {isLoading ? (
           <div className={'loading'}>Loading...</div>
         ) : (

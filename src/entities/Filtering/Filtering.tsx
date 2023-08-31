@@ -15,7 +15,7 @@ interface FilterProps {
   onFilterChange: (filters: Filters) => void;
 }
 
-interface Filters {
+export interface Filters {
   priceMin: number;
   priceMax: number;
   difficulty: string;
@@ -50,10 +50,17 @@ const Filter: React.FC<FilterProps> = ({ onFilterChange }) => {
           max={500}
           defaultValue={[filters.priceMin, filters.priceMax]}
           onChange={(value: number[] | number) => {
-            console.log(value);
             if (Array.isArray(value)) {
               const [priceMin, priceMax] = value;
-              setFilters({ ...filters, priceMin, priceMax });
+              const newFilters = { ...filters, priceMin, priceMax };
+              setFilters(newFilters);
+            }
+          }}
+          onAfterChange={(value: number[] | number) => {
+            if (Array.isArray(value)) {
+              const [priceMin, priceMax] = value;
+              const newFilters = { ...filters, priceMin, priceMax };
+              onFilterChange(newFilters);
             }
           }}
         />
@@ -69,7 +76,6 @@ const Filter: React.FC<FilterProps> = ({ onFilterChange }) => {
           options={difficultyArr}
           onChange={(e) => {
             const newFilters = { ...filters, difficulty: e };
-            console.log(newFilters);
             setFilters(newFilters);
             onFilterChange(newFilters);
           }}
@@ -83,7 +89,6 @@ const Filter: React.FC<FilterProps> = ({ onFilterChange }) => {
           options={durationArr}
           onChange={(e) => {
             const newFilters = { ...filters, duration: e };
-            console.log(newFilters);
             setFilters(newFilters);
             onFilterChange(newFilters);
           }}

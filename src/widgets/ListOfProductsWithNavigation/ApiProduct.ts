@@ -1,3 +1,7 @@
+import { Filters } from '../../entities/Filtering/Filtering';
+
+import { createFilterString } from './components/createUrlFilterString';
+
 const project = process.env.REACT_APP_PROJECT_KEY;
 const host = process.env.REACT_APP_HOST;
 
@@ -226,6 +230,22 @@ export async function sortAllProductsRequest(token: string, direction: string, a
     url = `${host}/${project}/product-projections/search?sort=${direction}&filter=categories.id:"${idCategory}"`;
   }
   const responseProducts = await fetch(url, {
+    method: 'GET',
+    headers: {
+      Authorization: 'Bearer ' + token,
+    },
+  });
+  const products = await responseProducts.json();
+  const arr = products.results;
+  return processDataCategoryProducts(arr);
+}
+
+export async function filterProductsRequest(obj: Filters, token: string) {
+  const pathUrl = createFilterString(obj);
+
+  const urlRequestProducts = `${host}/${project}/product-projections/search?${pathUrl}`;
+
+  const responseProducts = await fetch(urlRequestProducts, {
     method: 'GET',
     headers: {
       Authorization: 'Bearer ' + token,
