@@ -9,6 +9,8 @@ interface ProductDescriptionProps {
   description: string;
   discount: string;
   price: string;
+  difficulty: string;
+  duration: number;
 }
 
 const ProductDescription: FC<ProductDescriptionProps> = ({
@@ -16,11 +18,20 @@ const ProductDescription: FC<ProductDescriptionProps> = ({
   description,
   discount,
   price,
+  difficulty,
+  duration,
 }) => {
   return (
     <div className={'product-description'}>
       <div>
         <h2>{inner}</h2>
+        <div className={'attrs-container'}>
+          <span>{duration} weeks</span>
+          <span
+            className={`icon-difficulty icon-difficulty-${difficulty}`}
+          ></span>
+        </div>
+
         <p>{description}</p>
       </div>
       <div>
