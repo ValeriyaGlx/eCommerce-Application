@@ -15,7 +15,7 @@ interface FilterProps {
   onFilterChange: (filters: Filters) => void;
 }
 
-interface Filters {
+export interface Filters {
   priceMin: number;
   priceMax: number;
   difficulty: string;
@@ -23,20 +23,25 @@ interface Filters {
   search: string;
 }
 
+const initialFilters: Filters = {
+  priceMin: 0,
+  priceMax: 500,
+  difficulty: '',
+  duration: '',
+  search: '',
+};
 const Filter: React.FC<FilterProps> = ({ onFilterChange }) => {
-  const initialFilters: Filters = {
-    priceMin: 0,
-    priceMax: 1000,
-    difficulty: '',
-    duration: '',
-    search: '',
-  };
-
   const [filters, setFilters] = useState<Filters>(initialFilters);
+  const [selectedDifficultyValue, setSelectedDifficultyValue] =
+    useState<string>('');
+  const [selectedDurationValue, setSelectedDurationValue] =
+    useState<string>('');
 
   const handleResetFilters = () => {
     setFilters(initialFilters);
     onFilterChange(initialFilters);
+    setSelectedDifficultyValue('');
+    setSelectedDurationValue('');
   };
 
   return (
@@ -48,12 +53,19 @@ const Filter: React.FC<FilterProps> = ({ onFilterChange }) => {
           range
           min={0}
           max={500}
-          defaultValue={[filters.priceMin, filters.priceMax]}
+          value={[filters.priceMin, filters.priceMax]}
           onChange={(value: number[] | number) => {
-            console.log(value);
             if (Array.isArray(value)) {
               const [priceMin, priceMax] = value;
-              setFilters({ ...filters, priceMin, priceMax });
+              const newFilters = { ...filters, priceMin, priceMax };
+              setFilters(newFilters);
+            }
+          }}
+          onAfterChange={(value: number[] | number) => {
+            if (Array.isArray(value)) {
+              const [priceMin, priceMax] = value;
+              const newFilters = { ...filters, priceMin, priceMax };
+              onFilterChange(newFilters);
             }
           }}
         />
@@ -64,28 +76,30 @@ const Filter: React.FC<FilterProps> = ({ onFilterChange }) => {
       <div className={'filtering_item'}>
         <h3 className={'filtering_item-title'}>Difficulty</h3>
         <InputRadio
+          selectedValue={selectedDifficultyValue}
           name={'difficulty'}
           className={'wrapper-difficulty'}
           options={difficultyArr}
           onChange={(e) => {
             const newFilters = { ...filters, difficulty: e };
-            console.log(newFilters);
             setFilters(newFilters);
             onFilterChange(newFilters);
+            setSelectedDifficultyValue(e);
           }}
         />
       </div>
       <div className={'filtering_item'}>
         <h3 className={'filtering_item-title'}>Duration</h3>
         <InputRadio
+          selectedValue={selectedDurationValue}
           name={'duration'}
           className={'wrapper-duration'}
           options={durationArr}
           onChange={(e) => {
             const newFilters = { ...filters, duration: e };
-            console.log(newFilters);
             setFilters(newFilters);
             onFilterChange(newFilters);
+            setSelectedDurationValue(e);
           }}
         />
       </div>
