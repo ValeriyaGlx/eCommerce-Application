@@ -5,6 +5,9 @@
       bottom: 1%;
       left: 42%;
     }
+    @media (max-width: 550px) {
+      left: 32%;
+    }
   }
   &-container {
     &__button {
