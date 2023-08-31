@@ -32,10 +32,16 @@ const initialFilters: Filters = {
 };
 const Filter: React.FC<FilterProps> = ({ onFilterChange }) => {
   const [filters, setFilters] = useState<Filters>(initialFilters);
+  const [selectedDifficultyValue, setSelectedDifficultyValue] =
+    useState<string>('');
+  const [selectedDurationValue, setSelectedDurationValue] =
+    useState<string>('');
 
   const handleResetFilters = () => {
     setFilters(initialFilters);
     onFilterChange(initialFilters);
+    setSelectedDifficultyValue('');
+    setSelectedDurationValue('');
   };
 
   return (
@@ -70,6 +76,7 @@ const Filter: React.FC<FilterProps> = ({ onFilterChange }) => {
       <div className={'filtering_item'}>
         <h3 className={'filtering_item-title'}>Difficulty</h3>
         <InputRadio
+          selectedValue={selectedDifficultyValue}
           name={'difficulty'}
           className={'wrapper-difficulty'}
           options={difficultyArr}
@@ -77,12 +84,14 @@ const Filter: React.FC<FilterProps> = ({ onFilterChange }) => {
             const newFilters = { ...filters, difficulty: e };
             setFilters(newFilters);
             onFilterChange(newFilters);
+            setSelectedDifficultyValue(e);
           }}
         />
       </div>
       <div className={'filtering_item'}>
         <h3 className={'filtering_item-title'}>Duration</h3>
         <InputRadio
+          selectedValue={selectedDurationValue}
           name={'duration'}
           className={'wrapper-duration'}
           options={durationArr}
@@ -90,6 +99,7 @@ const Filter: React.FC<FilterProps> = ({ onFilterChange }) => {
             const newFilters = { ...filters, duration: e };
             setFilters(newFilters);
             onFilterChange(newFilters);
+            setSelectedDurationValue(e);
           }}
         />
       </div>
