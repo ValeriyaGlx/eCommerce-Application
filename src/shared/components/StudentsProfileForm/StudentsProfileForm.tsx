@@ -52,25 +52,9 @@ export const StudentProfileForm = () => {
     <div className={'profile-form'}>
       <div className={'profile-form__head'}>
         <div className={'profile-form__title'}>Student's Profile</div>
-        <div className={'profile-form__icon'} ref={isActive}>
-          <div className={'profile-form__button'}>
-            <button type='button' onClick={handleClick}>
-              <img src={daw} alt='' />{' '}
-            </button>
-            <button type='button' onClick={handleClick}>
-              <img src={cross} alt='' />{' '}
-            </button>
-          </div>
-          <button
-            type='button'
-            className={'profile-form__button--icon'}
-            onClick={handleClick}
-          >
-            <img src={pencil} alt='img' />
-          </button>
-        </div>
       </div>
       <div className={'profile-form__input'}>
+        <h4 className={'profile-form__headline'}>Personal Information</h4>
         {profLinks.map(({ id, type, placeholder, name, logo, min, style }) => (
           <InputValidationSignUp
             key={id}
@@ -80,22 +64,22 @@ export const StudentProfileForm = () => {
             logo={logo}
             min={min}
             styles={style}
-            readonly={true}
+            readonly={false}
           />
         ))}
       </div>
-      <h4 className={'profile-form__headline'}>Adress information</h4>
+      <h4 className={'profile-form__headline'}>Address Information</h4>
       <UserAddressSection
         title={'Shipping Address'}
         selectArray={selectArray}
         addressArray={addressArray}
-        readonly={true}
+        readonly={false}
       />
       <UserAddressSection
         title={'Billing address'}
         selectArray={selectArray}
         addressArray={addressArray}
-        readonly={true}
+        readonly={false}
       />
     </div>
   );
