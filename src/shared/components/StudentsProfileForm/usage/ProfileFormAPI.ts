@@ -4,12 +4,12 @@ const host = process.env.REACT_APP_HOST;
 function getAddresses(array: string[], ids: string[]) {
   // console.log(array);
   // console.log(ids);
-  const billingAddressesIds = ids;
+  const addressesIds = ids;
   const allAddresses = array;
   let result = [];
 
-  for (let i = 0; i < billingAddressesIds.length; i++) {
-    result.push(...allAddresses.filter((el) => el.id === billingAddressesIds[i]));
+  for (let i = 0; i < addressesIds.length; i++) {
+    result.push(...allAddresses.filter((el) => el.id === addressesIds[i]));
   }
 
   // console.log(result);
@@ -29,13 +29,17 @@ interface UserProfile {
 
 function getProfileObject(res: UserProfile) {
   const profileInfo = {
-    name: res.firstName,
-    surname: res.lastName,
-    date: res.dateOfBirth,
-    email: res.email,
-    billingAddress: getAddresses(res.addresses, res.billingAddressIds),
+    personal: {
+      name: res.firstName,
+      surname: res.lastName,
+      date: res.dateOfBirth,
+      email: res.email,
+    },
+    addresses: {
+      billingAddress: getAddresses(res.addresses, res.billingAddressIds),
+      shippingAddress: getAddresses(res.addresses, res.shippingAddressIds),
+    },
   };
-
   return profileInfo;
 }
 

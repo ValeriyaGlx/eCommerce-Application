@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+
 import { useDispatch } from 'react-redux';
 
 import './_StudentsProfileForm.scss';
@@ -27,7 +28,7 @@ export const StudentProfileForm = () => {
       try {
         const token: string = getCookie('authToken') as string;
         const profile = await getProfile(token);
-        const profileFields = Object.entries(profile);
+        const profileFields = Object.entries(profile.personal);
         console.log(profile);
 
         profileFields.forEach((el) => {
