@@ -12,8 +12,8 @@ const StudentsProfileCollage = () => {
         <div className={'profile-container__button'}>
           <ButtonWithRoute
             className={'button-signIn button-main-products'}
-            path={'/products'}
-            data={'Load More'}
+            path={''}
+            data={'Change Password'}
           />
         </div>
       </div>
