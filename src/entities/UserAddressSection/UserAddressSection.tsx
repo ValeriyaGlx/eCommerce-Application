@@ -6,6 +6,7 @@ import InputValidationSignUp from '../InputValidationSignUp/view/InputValidation
 interface UserAddressSectionProps {
   title: string;
   readonly: boolean;
+  inputName: string;
   selectArray: { value: string; data: string; id: number }[];
   addressArray: {
     type: string;
@@ -17,6 +18,7 @@ interface UserAddressSectionProps {
 
 const UserAddressSection: FC<UserAddressSectionProps> = ({
   title,
+  inputName,
   selectArray,
   addressArray,
   readonly,
@@ -28,14 +30,14 @@ const UserAddressSection: FC<UserAddressSectionProps> = ({
         <SignUpSelectTag
           selectArray={selectArray}
           className={'singUp-select'}
-          inputName={'billing'}
+          inputName={inputName}
         />
         {addressArray.map(({ type, placeholder, id, name }) => (
           <InputValidationSignUp
             key={id}
             type={type}
             placeholder={placeholder}
-            inputName={'billing_' + name}
+            inputName={`${inputName}_` + name}
             readonly={readonly}
           />
         ))}

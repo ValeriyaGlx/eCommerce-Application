@@ -16,6 +16,7 @@ import { setInputValueWithValidation } from '../../../app/store/actions/signupAc
 import UserAddressSection from '../../../entities/UserAddressSection/UserAddressSection';
 
 import { getProfile } from './usage/ProfileFormAPI';
+import profile from '../../../pages/Profile/Profile';
 
 export const StudentProfileForm = () => {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ export const StudentProfileForm = () => {
         const token: string = getCookie('authToken') as string;
         const profile = await getProfile(token);
         const profileFields = Object.entries(profile);
+        console.log(profile);
 
         profileFields.forEach((el) => {
           const inputName = el[0];
@@ -70,12 +72,15 @@ export const StudentProfileForm = () => {
       </div>
       <h4 className={'profile-form__headline'}>Address Information</h4>
       <UserAddressSection
+        inputName={'shipping'}
         title={'Shipping Address'}
         selectArray={selectArray}
         addressArray={addressArray}
         readonly={false}
       />
+      {}
       <UserAddressSection
+        inputName={'billing'}
         title={'Billing address'}
         selectArray={selectArray}
         addressArray={addressArray}
