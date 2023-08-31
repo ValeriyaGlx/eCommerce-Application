@@ -6,10 +6,12 @@ import StudentsProfileCollage from '../../shared/StudentsProfileCollage/Students
 
 export function Profile() {
   return (
-    <div className='wrapper-profile'>
-      <StudentProfileForm />
-      <StudentsProfileCollage />
-    </div>
+    <>
+      <div className='wrapper-profile'>
+        <StudentProfileForm />
+        <StudentsProfileCollage />
+      </div>
+    </>
   );
 }
 

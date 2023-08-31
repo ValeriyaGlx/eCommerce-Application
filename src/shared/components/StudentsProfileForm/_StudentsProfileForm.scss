@@ -8,12 +8,10 @@
 
     @media (max-width: 1170px) {
       flex-grow: 1;
+      padding: 21px 22px 72px 21px;
     }
     @media (max-width: 640px) {
-      padding: 21px 22px 51px;
-    }
-    @media (max-width: 500px) {
-      width: 380px;
+      padding: 21px 22px 62px 21px;
     }
     &__title {
       font-weight: bold;
