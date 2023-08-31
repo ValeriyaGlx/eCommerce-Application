@@ -7,12 +7,12 @@ import {
   SELECT_SIGNUP_DATA,
 } from '../../constants/signupConstants/signupConstants';
 import './_AddressesSectionMap.scss';
-
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { Address } from '../../shared/components/StudentsProfileForm/usage/ProfileFormAPI';
 
 interface AddressesSectionMapProps {
-  arr: [];
+  arr: Address[];
   inputName: string;
   title: string;
   selectArray: typeof SELECT_SIGNUP_DATA;

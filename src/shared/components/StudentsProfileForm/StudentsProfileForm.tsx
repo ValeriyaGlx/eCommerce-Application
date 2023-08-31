@@ -1,28 +1,30 @@
-import React, { useEffect, useRef, useState } from 'react';
-
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import './_StudentsProfileForm.scss';
 import { INPUTS_PROFILE_DATA as profLinks } from '../../../constants/studentsProfileFormInput/studentsProfileFormInput';
 import InputValidationSignUp from '../../../entities/InputValidationSignUp/view/InputValidationSignUp';
-import daw from '../../../assets/icons/daw.svg';
-import cross from '../../../assets/icons/cross.svg';
-import pencil from '../../../assets/img/pencil.png';
 import {
   INPUTS_SIGNUP_ADDRESS as addressArray,
   SELECT_SIGNUP_DATA as selectArray,
 } from '../../../constants/signupConstants/signupConstants';
 import getCookie from '../../cookie/getCookie';
 import { setInputValueWithValidation } from '../../../app/store/actions/signupActions/signupActions';
-import UserAddressSection from '../../../entities/UserAddressSection/UserAddressSection';
-
-import { getProfile } from './usage/ProfileFormAPI';
 import AddressesSectionMap from '../../../entities/AddressesSectionMap/AddressesSectionMap';
 
+import { Address, getProfile } from './usage/ProfileFormAPI';
+import { store } from '../../../app/store/store';
+
+type AppDispatch = typeof store.dispatch;
+
 export const StudentProfileForm = () => {
-  const dispatch = useDispatch();
-  const [billingAddresses, setBillingAddresses] = useState([]);
-  const [shippingAddresses, setShippingAddresses] = useState([]);
+  const dispatch = useDispatch<AppDispatch>();
+  const [billingAddresses, setBillingAddresses] = useState<Address[]>(
+    [] as Address[],
+  );
+  const [shippingAddresses, setShippingAddresses] = useState<Address[]>(
+    [] as Address[],
+  );
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,8 +37,8 @@ export const StudentProfileForm = () => {
 
         profileFields.forEach((el) => {
           const inputName = el[0];
-          const newValue = el[1];
-          dispatch(setInputValueWithValidation(inputName, newValue));
+          const inputValue = el[1];
+          dispatch(setInputValueWithValidation(inputName, inputValue));
         });
       } catch (e) {
         console.log(e);

@@ -1,18 +1,24 @@
 const project = process.env.REACT_APP_PROJECT_KEY;
 const host = process.env.REACT_APP_HOST;
 
-function getAddresses(array: string[], ids: string[]) {
-  // console.log(array);
-  // console.log(ids);
+export interface Address {
+  id: string;
+  streetName: string;
+  postalCode: string;
+  city: string;
+  country: string;
+}
+
+function getAddresses(array: Address[], ids: string[]): Address[] {
   const addressesIds = ids;
+  console.log(array);
   const allAddresses = array;
-  let result = [];
+  const result = [];
 
   for (let i = 0; i < addressesIds.length; i++) {
     result.push(...allAddresses.filter((el) => el.id === addressesIds[i]));
   }
 
-  // console.log(result);
   return result;
 }
 
@@ -21,7 +27,7 @@ interface UserProfile {
   lastName: string;
   dateOfBirth: string;
   email: string;
-  addresses: string[];
+  addresses: Address[];
   billingAddressIds: string[];
   shippingAddressIds: string[];
   billingAddress: [];
