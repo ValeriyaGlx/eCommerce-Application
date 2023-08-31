@@ -89,11 +89,13 @@ export const StudentProfileForm = () => {
         title={'Shipping Address'}
         selectArray={selectArray}
         addressArray={addressArray}
+        readonly={true}
       />
       <UserAddressSection
         title={'Billing address'}
         selectArray={selectArray}
         addressArray={addressArray}
+        readonly={true}
       />
     </div>
   );

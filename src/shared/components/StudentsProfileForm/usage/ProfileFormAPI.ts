@@ -1,14 +1,20 @@
 const project = process.env.REACT_APP_PROJECT_KEY;
 const host = process.env.REACT_APP_HOST;
 
+function getAddresses(array: string[], billingId: string, shippingId: string) {
+  console.log(array, billingId, shippingId);
+}
+
 function getProfileObject(res) {
-  console.log(res);
+  // console.log(res.billingAddressIds);
   const profileInfo = {
     name: res.firstName,
     surname: res.lastName,
     date: res.dateOfBirth,
     email: res.email,
   };
+
+  getAddresses(res.addresses, res.billingAddressIds, res.shippingAddressIds);
 
   return profileInfo;
 }

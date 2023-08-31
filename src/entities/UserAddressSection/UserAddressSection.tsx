@@ -5,6 +5,7 @@ import InputValidationSignUp from '../InputValidationSignUp/view/InputValidation
 
 interface UserAddressSectionProps {
   title: string;
+  readonly: boolean;
   selectArray: { value: string; data: string; id: number }[];
   addressArray: {
     type: string;
@@ -18,6 +19,7 @@ const UserAddressSection: FC<UserAddressSectionProps> = ({
   title,
   selectArray,
   addressArray,
+  readonly,
 }) => {
   return (
     <div className={'profile-form__billing'}>
@@ -34,6 +36,7 @@ const UserAddressSection: FC<UserAddressSectionProps> = ({
             type={type}
             placeholder={placeholder}
             inputName={'billing_' + name}
+            readonly={readonly}
           />
         ))}
       </div>
