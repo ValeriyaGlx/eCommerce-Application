@@ -5,8 +5,10 @@ import collage from '../../assets/img/collage.svg';
 
 const StudentsProfileCollage = () => {
   return (
-    <div className={'profile-container__img'}>
-      <img src={collage} alt={'img'} />
+    <div className={'profile-wrapper'}>
+      <div className={'profile-container__img'}>
+        <img src={collage} alt={'img'} />
+      </div>
     </div>
   );
 };
