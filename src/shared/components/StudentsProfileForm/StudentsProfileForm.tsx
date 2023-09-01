@@ -3,8 +3,6 @@ import { useDispatch } from 'react-redux';
 
 import { store } from '../../../app/store/store';
 import './_StudentsProfileForm.scss';
-import { INPUTS_PROFILE_DATA as profLinks } from '../../../constants/studentsProfileFormInput/studentsProfileFormInput';
-import InputValidationSignUp from '../../../entities/InputValidationSignUp/view/InputValidationSignUp';
 import {
   INPUTS_SIGNUP_ADDRESS as addressArray,
   SELECT_SIGNUP_DATA as selectArray,
@@ -15,6 +13,7 @@ import AddressesSectionMap from '../../../entities/AddressesSectionMap/Addresses
 import { initializeAddresses } from '../../../app/store/actions/profileAddressesAction/profileAddressesAction';
 
 import { Address, getProfile } from './usage/ProfileFormAPI';
+import ProfilePersonalInfo from '../../../widgets/ProfilePersonalInfo/ProfilePersonalInfo';
 
 type AppDispatch = typeof store.dispatch;
 
@@ -97,21 +96,7 @@ export const StudentProfileForm = () => {
       <div className={'profile-form__head'}>
         <div className={'profile-form__title'}>Student's Profile</div>
       </div>
-      <h4 className={'profile-form__headline'}>Personal Information</h4>
-      <div className={'profile-form__input'}>
-        {profLinks.map(({ id, type, placeholder, name, logo, min, style }) => (
-          <InputValidationSignUp
-            key={id}
-            type={type}
-            placeholder={placeholder}
-            inputName={name}
-            logo={logo}
-            min={min}
-            styles={style}
-            readonly={true}
-          />
-        ))}
-      </div>
+      <ProfilePersonalInfo />
       <h4 className={'profile-form__headline'}>Address Information</h4>
       <AddressesSectionMap
         arr={shippingAddresses}
@@ -121,7 +106,6 @@ export const StudentProfileForm = () => {
         addressArray={addressArray}
         readonly={true}
       />
-
       <AddressesSectionMap
         arr={billingAddresses}
         inputName={'billing'}

@@ -1,0 +1,28 @@
+.edit-mode {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .edit,
+  .ok,
+  .close {
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+  }
+
+  .edit {
+    background: center url("../../../assets/icons/icon-edit.svg") no-repeat;
+    background-size: 100%;
+  }
+
+  .ok {
+    background: center url("../../../assets/icons/icon-ok.svg") no-repeat;
+    background-size: 100%;
+  }
+
+  .close {
+    background: center url("../../../assets/icons/close-line.svg") no-repeat;
+    background-size: 100%;
+  }
+}
