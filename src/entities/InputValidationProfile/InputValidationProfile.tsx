@@ -1,9 +1,12 @@
 import React, { FC } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import logoVisible from '../../assets/icons/icon-heart.svg';
 import { store } from '../../app/store/store';
 import InputValidation from '../../shared/components/InputValidation/InputValidation';
+import { setInputValueWithValidation } from '../../app/store/actions/signupActions/signupActions';
+import { setAddressInputValueWithValidation } from '../../app/store/actions/profileAddressesAction/profileAddressesAction';
+import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 
 type RootState = ReturnType<typeof store.getState>;
 type AddressId = keyof RootState['profileAddresses'];
@@ -40,9 +43,18 @@ const InputValidationProfile: FC<InputValidationProfileProps> = ({
   readonly,
   addressId,
 }) => {
+  const dispatch: ThunkDispatch<RootState, unknown, AnyAction> = useDispatch();
+
   const inputStateRender: ProfileState = useSelector(
     (state: RootState) => state.profileAddresses[addressId as AddressId],
   ) as ProfileState;
+
+  const handleInputChangeTest = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = e.target.value.trimStart();
+    dispatch(
+      setAddressInputValueWithValidation(addressId, inputName, newValue),
+    );
+  };
 
   return (
     <InputValidation
@@ -53,11 +65,15 @@ const InputValidationProfile: FC<InputValidationProfileProps> = ({
       showPassword={showPassword}
       onBlur={onBlur}
       min={min}
-      handleInputChange={() => {}}
+      handleInputChange={handleInputChangeTest}
       value={
         inputStateRender ? inputStateRender.validation[inputName].value : ''
       }
-      errorMessage={''}
+      errorMessage={
+        inputStateRender
+          ? inputStateRender.validation[inputName].validationError
+          : ''
+      }
       color={''}
       styles={styles}
       readonly={readonly}

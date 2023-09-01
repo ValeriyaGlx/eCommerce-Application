@@ -10,7 +10,7 @@ import {
 import getCookie from '../../cookie/getCookie';
 import { setInputValueWithValidation } from '../../../app/store/actions/signupActions/signupActions';
 import AddressesSectionMap from '../../../entities/AddressesSectionMap/AddressesSectionMap';
-import { initializeAddresses } from '../../../app/store/actions/profileAddressesAction/profileAddressesAction';
+import { initializeAddresses } from '../../../app/store/actions/profileAddressesAction/profileAddressesSlice';
 
 import { Address, getProfile } from './usage/ProfileFormAPI';
 import ProfilePersonalInfo from '../../../widgets/ProfilePersonalInfo/ProfilePersonalInfo';
@@ -26,6 +26,7 @@ interface State {
   };
   withoutValidation: {
     country?: string;
+    defaultAddress?: boolean;
   };
 }
 
@@ -78,6 +79,7 @@ export const StudentProfileForm = () => {
       };
       initialAddressState[address.id].withoutValidation = {
         country: address.country,
+        defaultAddress: address.defaultAddress,
       };
 
       addressArray.forEach(({ name }) => {
@@ -104,7 +106,7 @@ export const StudentProfileForm = () => {
         title={'Shipping address'}
         selectArray={selectArray}
         addressArray={addressArray}
-        readonly={true}
+        readonly={false}
       />
       <AddressesSectionMap
         arr={billingAddresses}
