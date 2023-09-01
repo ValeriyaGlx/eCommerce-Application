@@ -71,9 +71,8 @@ export const StudentProfileForm = () => {
       });
     });
 
-    // Диспатчить инициализацию в Redux
     dispatch(initializeAddresses(initialAddressState));
-  }, [dispatch, addressArray, fullAddresses]);
+  }, [fullAddresses]);
 
   return (
     <div className={'profile-form'}>

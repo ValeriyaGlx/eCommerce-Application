@@ -50,7 +50,7 @@ const AddressesSectionMap: FC<AddressesSectionMapProps> = ({
             selectArray={selectArray}
             addressArray={addressArray}
             readonly={readonly}
-            data={arr}
+            addressId={id}
           />
         ))}
         <div>Add new</div>
