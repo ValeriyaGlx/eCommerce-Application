@@ -3,11 +3,34 @@ const host = process.env.REACT_APP_HOST;
 
 export interface Address {
   id: string;
+  defaultAddress: boolean;
+  country: string;
 
-  [key: string]: string;
+  [key: string]: string | boolean;
 }
 
-function getAddresses(array: Address[], ids: string[]): Address[] {
+function getCountry(country: string) {
+  let fullCountry;
+  switch (country) {
+    case 'ru':
+      fullCountry = 'Russia';
+      break;
+    case 'by':
+      fullCountry = 'Belarus';
+      break;
+    case 'us':
+      fullCountry = 'United States';
+      break;
+    case 'ge':
+      fullCountry = 'Georgia';
+      break;
+    default:
+      fullCountry = 'Choose country';
+  }
+  return fullCountry;
+}
+
+function getAddresses(array: Address[], ids: string[], defaultAddressId: string): Address[] {
   const addressesIds = ids;
   const allAddresses = array;
   const result = [];
@@ -15,10 +38,19 @@ function getAddresses(array: Address[], ids: string[]): Address[] {
   const newAllAddresses = allAddresses.map((oldObj) => {
     const newObj = {
       id: oldObj.id,
+      defaultAddress: false,
+      country: getCountry(oldObj.country.toLowerCase()),
       street: oldObj.streetName,
       code: oldObj.postalCode,
       city: oldObj.city,
     };
+
+    if (newObj.id === defaultAddressId) {
+      newObj.defaultAddress = true;
+    } else {
+      newObj.defaultAddress = false;
+    }
+
     return newObj;
   });
 
@@ -38,6 +70,8 @@ interface UserProfile {
   billingAddressIds: string[];
   shippingAddressIds: string[];
   billingAddress: [];
+  defaultBillingAddressId: string;
+  defaultShippingAddressId: string;
 }
 
 function getProfileObject(res: UserProfile) {
@@ -49,10 +83,11 @@ function getProfileObject(res: UserProfile) {
       email: res.email,
     },
     addresses: {
-      billingAddress: getAddresses(res.addresses, res.billingAddressIds),
-      shippingAddress: getAddresses(res.addresses, res.shippingAddressIds),
+      billingAddress: getAddresses(res.addresses, res.billingAddressIds, res.defaultBillingAddressId),
+      shippingAddress: getAddresses(res.addresses, res.shippingAddressIds, res.defaultShippingAddressId),
     },
   };
+
   return profileInfo;
 }
 

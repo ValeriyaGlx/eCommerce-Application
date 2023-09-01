@@ -6,6 +6,14 @@ import { store } from '../../app/store/store';
 import InputValidation from '../../shared/components/InputValidation/InputValidation';
 
 type RootState = ReturnType<typeof store.getState>;
+type AddressId = keyof RootState['profileAddresses'];
+
+interface AddressState {
+  value: string;
+  validationError: string;
+}
+
+type ProfileState = Record<string, Record<string, AddressState>>;
 
 interface InputValidationProfileProps {
   type: string;
@@ -32,13 +40,9 @@ const InputValidationProfile: FC<InputValidationProfileProps> = ({
   readonly,
   addressId,
 }) => {
-  const inputStateRender = useSelector(
-    (state: RootState) => state.profileAddresses[addressId],
-  );
-
-  if (inputStateRender) {
-    console.log(store.getState().profileAddresses[addressId][inputName]);
-  }
+  const inputStateRender: ProfileState = useSelector(
+    (state: RootState) => state.profileAddresses[addressId as AddressId],
+  ) as ProfileState;
 
   return (
     <InputValidation
@@ -51,9 +55,7 @@ const InputValidationProfile: FC<InputValidationProfileProps> = ({
       min={min}
       handleInputChange={() => {}}
       value={
-        inputStateRender
-          ? store.getState().profileAddresses[addressId][inputName].value
-          : ''
+        inputStateRender ? inputStateRender.validation[inputName].value : ''
       }
       errorMessage={''}
       color={''}

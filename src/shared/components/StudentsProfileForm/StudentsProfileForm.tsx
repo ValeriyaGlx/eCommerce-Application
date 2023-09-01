@@ -18,9 +18,16 @@ import { Address, getProfile } from './usage/ProfileFormAPI';
 
 type AppDispatch = typeof store.dispatch;
 
-interface AddressState {
-  value: string;
-  validationError: string;
+interface State {
+  validation: {
+    [key: string]: {
+      value?: string;
+      validationError?: string;
+    };
+  };
+  withoutValidation: {
+    country?: string;
+  };
 }
 
 export const StudentProfileForm = () => {
@@ -63,21 +70,24 @@ export const StudentProfileForm = () => {
   }, []);
 
   useEffect(() => {
-    const initialAddressState: Record<
-      string,
-      Record<string, AddressState>
-    > = {};
+    const initialAddressState: { [key: string]: State } = {};
 
     fullAddresses.forEach((address) => {
-      initialAddressState[address.id] = {};
+      initialAddressState[address.id] = {
+        validation: {},
+        withoutValidation: {},
+      };
+      initialAddressState[address.id].withoutValidation = {
+        country: address.country,
+      };
 
       addressArray.forEach(({ name }) => {
-        initialAddressState[address.id][name] = {
-          value: address[name] || '',
+        initialAddressState[address.id].validation[name] = {
+          value: (address[name] as string) || '',
           validationError: '',
         };
       });
-    });
+    }, []);
 
     dispatch(initializeAddresses(initialAddressState));
   }, [fullAddresses]);
@@ -109,7 +119,7 @@ export const StudentProfileForm = () => {
         title={'Shipping address'}
         selectArray={selectArray}
         addressArray={addressArray}
-        readonly={false}
+        readonly={true}
       />
 
       <AddressesSectionMap

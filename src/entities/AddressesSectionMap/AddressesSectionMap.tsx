@@ -40,7 +40,7 @@ const AddressesSectionMap: FC<AddressesSectionMapProps> = ({
   return (
     <div className={'addresses-container'}>
       <Slider {...sliderSettings}>
-        {arr.map(({ id }, index) => (
+        {arr.map(({ id, defaultAddress }, index) => (
           <UserAddressSection
             key={id}
             inputName={inputName}
@@ -49,6 +49,7 @@ const AddressesSectionMap: FC<AddressesSectionMapProps> = ({
             addressArray={addressArray}
             readonly={readonly}
             addressId={id}
+            defaultAddress={defaultAddress}
           />
         ))}
         <div>Add new</div>

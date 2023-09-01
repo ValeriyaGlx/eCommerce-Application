@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
-import SignUpSelectTag from '../SignUpSelectTag/SignUpSelectTag';
 import InputValidationProfile from '../InputValidationProfile/InputValidationProfile';
+import ProfileSelectTag from '../ProfileSelectedTag/ProfileSelectedTag';
 
 interface UserAddressSectionProps {
   title: string;
@@ -15,6 +15,7 @@ interface UserAddressSectionProps {
     name: string;
   }[];
   addressId: string;
+  defaultAddress: boolean;
 }
 
 const UserAddressSection: FC<UserAddressSectionProps> = ({
@@ -24,15 +25,18 @@ const UserAddressSection: FC<UserAddressSectionProps> = ({
   addressArray,
   readonly,
   addressId,
+  defaultAddress,
 }) => {
   return (
     <div className={'profile-form__billing'}>
       <h5 className={'profile-form__title__adress'}>{title}</h5>
+      {defaultAddress && <span style={{ color: 'red' }}>default</span>}
       <div className={'profile-input__billing'}>
-        <SignUpSelectTag
+        <ProfileSelectTag
           selectArray={selectArray}
           className={'singUp-select'}
           inputName={inputName}
+          addressId={addressId}
         />
         {addressArray.map(({ type, placeholder, id, name }) => (
           <InputValidationProfile

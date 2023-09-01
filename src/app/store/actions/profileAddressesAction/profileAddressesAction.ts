@@ -5,9 +5,18 @@ interface AddressState {
   validationError: string;
 }
 
+export type State = {
+  validation: Record<string, Record<string, AddressState>>;
+  withoutValidation: Record<string, AddressState>;
+};
+
 const profileAddressSlice = createSlice({
   name: 'addresses',
-  initialState: {} as Record<string, Record<string, AddressState>>,
+  initialState: {
+    validation: {},
+    withoutValidation: {},
+  } as State,
+
   reducers: {
     initializeAddresses: (state, action) => {
       return action.payload;
@@ -15,13 +24,13 @@ const profileAddressSlice = createSlice({
     setAddressValue: (state, action) => {
       const { inputName, fieldName, value } = action.payload;
 
-      if (!state[inputName]) {
-        state[inputName] = {};
+      if (!state.validation[inputName]) {
+        state.validation[inputName] = {};
       }
-      state[inputName][fieldName] = value;
+      state.validation[inputName][fieldName] = value;
     },
   },
 });
 
-export const { initializeAddresses, setAddressValue } = profileAddressSlice.actions;
+export const { initializeAddresses } = profileAddressSlice.actions;
 export default profileAddressSlice.reducer;
