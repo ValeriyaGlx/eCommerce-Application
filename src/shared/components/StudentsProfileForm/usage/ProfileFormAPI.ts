@@ -3,10 +3,8 @@ const host = process.env.REACT_APP_HOST;
 
 export interface Address {
   id: string;
-  streetName: string;
-  postalCode: string;
-  city: string;
-  country: string;
+
+  [key: string]: string;
 }
 
 function getAddresses(array: Address[], ids: string[]): Address[] {

@@ -12,11 +12,16 @@ import {
 import getCookie from '../../cookie/getCookie';
 import { setInputValueWithValidation } from '../../../app/store/actions/signupActions/signupActions';
 import AddressesSectionMap from '../../../entities/AddressesSectionMap/AddressesSectionMap';
-
-import { Address, getProfile } from './usage/ProfileFormAPI';
 import { initializeAddresses } from '../../../app/store/actions/profileAddressesAction/profileAddressesAction';
 
+import { Address, getProfile } from './usage/ProfileFormAPI';
+
 type AppDispatch = typeof store.dispatch;
+
+interface AddressState {
+  value: string;
+  validationError: string;
+}
 
 export const StudentProfileForm = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -58,14 +63,17 @@ export const StudentProfileForm = () => {
   }, []);
 
   useEffect(() => {
-    const initialAddressState = {};
+    const initialAddressState: Record<
+      string,
+      Record<string, AddressState>
+    > = {};
 
     fullAddresses.forEach((address) => {
       initialAddressState[address.id] = {};
 
       addressArray.forEach(({ name }) => {
         initialAddressState[address.id][name] = {
-          value: address[name],
+          value: address[name] || '',
           validationError: '',
         };
       });

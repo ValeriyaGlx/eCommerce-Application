@@ -1,8 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+interface AddressState {
+  value: string;
+  validationError: string;
+}
+
 const profileAddressSlice = createSlice({
   name: 'addresses',
-  initialState: {} as Record<string, any>,
+  initialState: {} as Record<string, Record<string, AddressState>>,
   reducers: {
     initializeAddresses: (state, action) => {
       return action.payload;

@@ -1,11 +1,9 @@
-import React, { FC, useEffect, useState } from 'react';
-import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { FC } from 'react';
+import { useSelector } from 'react-redux';
 
-import logoVisible from '../../../assets/icons/visible.png';
+import logoVisible from '../../assets/icons/icon-heart.svg';
 import { store } from '../../app/store/store';
 import InputValidation from '../../shared/components/InputValidation/InputValidation';
-import { setInputValueWithValidation } from '../../app/store/actions/signupActions/signupActions';
 
 type RootState = ReturnType<typeof store.getState>;
 
@@ -26,7 +24,6 @@ interface InputValidationProfileProps {
 const InputValidationProfile: FC<InputValidationProfileProps> = ({
   type,
   placeholder,
-  logo,
   showPassword,
   onBlur,
   inputName,
@@ -35,8 +32,6 @@ const InputValidationProfile: FC<InputValidationProfileProps> = ({
   readonly,
   addressId,
 }) => {
-  const dispatch: ThunkDispatch<RootState, unknown, AnyAction> = useDispatch();
-
   const inputStateRender = useSelector(
     (state: RootState) => state.profileAddresses[addressId],
   );
