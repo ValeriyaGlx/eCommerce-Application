@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 
-import Button from '../../shared/components/Button/Button';
 import {
   CATEGORIES_OF_PRODUCTS as categories,
   IButtonNavigation,
@@ -14,6 +13,8 @@ import { getAccessToken } from '../SignUpSection/usage/ApiRegistration';
 import setToken from '../../shared/cookie/setToken';
 import getCookie from '../../shared/cookie/getCookie';
 import Filter, { Filters } from '../../entities/Filtering/Filtering';
+import CategoryNavigation from '../../features/CategoryNavigation/CategoryNavigation';
+import SubcategoryNavigation from '../../features/SubcategoryNavigation/SubcategoryNavigation';
 
 import {
   AllProductsRequest,
@@ -42,10 +43,16 @@ export const initialAllFilters: AllFilters = {
   sorting: '',
 };
 
-const ListOfProductsWithNavigation = () => {
+interface ListOfProductsWithNavigationProps {
+  category: string;
+  subCategory?: string;
+}
+
+const ListOfProductsWithNavigation: React.FC<
+  ListOfProductsWithNavigationProps
+> = ({ category, subCategory }) => {
   const [productData, setProductData] = useState<JSX.Element[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [activeCategory, setActiveCategory] = useState('All Categories');
   const [nameSorting, setNameSorting] = useState('Sorting');
   const [activeFilters, setFilters] = useState(initialAllFilters);
 
@@ -79,8 +86,25 @@ const ListOfProductsWithNavigation = () => {
         const tokenResponse = await getAccessToken();
         const token = tokenResponse.access_token;
         setToken('accessToken', token);
-        const listOfProduct = await AllProductsRequest(token);
-        createHTMLListOfProducts(listOfProduct);
+        if (category === 'All Categories') {
+          const listOfProduct = await AllProductsRequest(token);
+          createHTMLListOfProducts(listOfProduct);
+        } else if (subCategory === undefined) {
+          const categoryObj = categories.find(
+            (item) => item.data === category,
+          ) as IButtonNavigation;
+          const id = await getCategory(token, categoryObj.value);
+          const newFilters = { ...activeFilters, category: id };
+          setFilters(newFilters);
+          const listOfProducts = await filterProductsRequest(newFilters, token);
+          createHTMLListOfProducts(listOfProducts);
+        } else {
+          const id = await getCategory(token, subCategory);
+          const newFilters = { ...activeFilters, category: id };
+          setFilters(newFilters);
+          const listOfProducts = await filterProductsRequest(newFilters, token);
+          createHTMLListOfProducts(listOfProducts);
+        }
       } catch (error) {
         console.error('Error fetching data:', error);
         setIsLoading(false);
@@ -89,25 +113,6 @@ const ListOfProductsWithNavigation = () => {
 
     fetchData();
   }, []);
-
-  const handleCategoryClick = async (data: string) => {
-    setIsLoading(true);
-    setActiveCategory(data);
-    const token = getCookie('accessToken') as string;
-    const category = categories.find(
-      (item) => item.data === data,
-    ) as IButtonNavigation;
-    let newFilters;
-    if (category.value) {
-      const id = await getCategory(token, category.value);
-      newFilters = { ...activeFilters, category: id };
-    } else {
-      newFilters = { ...activeFilters, category: '' };
-    }
-    setFilters(newFilters);
-    const listOfProducts = await filterProductsRequest(newFilters, token);
-    createHTMLListOfProducts(listOfProducts);
-  };
 
   const handleSortClick = async (event: React.MouseEvent) => {
     setIsLoading(true);
@@ -136,18 +141,12 @@ const ListOfProductsWithNavigation = () => {
   return (
     <>
       <div className={'wrapper-sorting'}>
-        <nav className={'products-nav'}>
-          {categories.map(({ data, id }) => (
-            <Button
-              key={id}
-              className={`products-nav-item ${
-                data === activeCategory ? 'products-nav-item_active' : ''
-              }`}
-              data={data}
-              onClick={() => handleCategoryClick(data)}
-            />
-          ))}
-        </nav>
+        {category === 'All Categories' && subCategory === undefined ? (
+          <CategoryNavigation />
+        ) : subCategory === undefined ? (
+          <SubcategoryNavigation category={category} />
+        ) : null}
+
         <SelectTag
           selectArray={sortArray}
           className={'sort-select'}

@@ -34,7 +34,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   function clickCard(event: React.MouseEvent) {
     const currentTarget = event.target as HTMLElement;
     if (currentTarget.parentElement?.className !== 'icon-cart') {
-      navigate(`/products/${path}`);
+      navigate(`/products/product/${path}`);
     }
   }
 
@@ -44,7 +44,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       <div className='hover-content'>
         <ButtonWithRoute
           className={'button-link'}
-          path={`/products/${path}`}
+          path={`/products/product/${path}`}
           data={'More detailed'}
         />
         <ShoppingCartButton

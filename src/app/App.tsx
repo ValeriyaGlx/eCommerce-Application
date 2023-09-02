@@ -15,6 +15,8 @@ import AboutUs from '../pages/AboutUs/AboutUs';
 import Layout from '../shared/components/Layout/Layout';
 import Products from '../pages/Products/Products';
 import Product from '../pages/Product/Product';
+import Category from '../pages/Category/Category';
+import SubCategory from '../pages/SubCategory/SubCategory';
 
 import RequireAuth from './hoc/RequireAuth';
 import { store } from './store/store';
@@ -57,7 +59,12 @@ function App() {
           <Route path='favorites' element={<Favorites />} />
           <Route path='about' element={<AboutUs />} />
           <Route path='products' element={<Products />} />
-          <Route path='/products/:productId' element={<Product />} />
+          <Route path='/products/product/:productId' element={<Product />} />
+          <Route path='/products/:categoryId' element={<Category />} />
+          <Route
+            path='/products/:categoryId/:subCategoryId'
+            element={<SubCategory />}
+          />
         </Route>
       </Routes>
     </Provider>
