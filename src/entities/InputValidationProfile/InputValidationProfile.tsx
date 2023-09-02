@@ -10,13 +10,6 @@ import { setAddressInputWithValidation } from '../../app/store/actions/profileAd
 type RootState = ReturnType<typeof store.getState>;
 type AddressId = keyof RootState['profileAddresses'];
 
-interface AddressState {
-  value: string;
-  validationError: string;
-}
-
-type ProfileState = Record<string, Record<string, AddressState>>;
-
 interface InputValidationProfileProps {
   type: string;
   placeholder: string;
@@ -44,9 +37,9 @@ const InputValidationProfile: FC<InputValidationProfileProps> = ({
 }) => {
   const dispatch: ThunkDispatch<RootState, unknown, AnyAction> = useDispatch();
 
-  const inputStateRender: ProfileState = useSelector(
+  const inputStateRender = useSelector(
     (state: RootState) => state.profileAddresses[addressId as AddressId],
-  ) as ProfileState;
+  );
 
   const handleInputChangeTest = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value.trimStart();

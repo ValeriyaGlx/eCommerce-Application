@@ -37,6 +37,7 @@ const UserAddressSection: FC<UserAddressSectionProps> = ({
           className={'singUp-select'}
           inputName={inputName}
           addressId={addressId}
+          readonly={readonly}
         />
         {addressArray.map(({ type, placeholder, id, name }) => (
           <InputValidationProfile

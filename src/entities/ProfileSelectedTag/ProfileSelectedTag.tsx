@@ -1,43 +1,41 @@
 import React, { FC } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import SelectTag from '../../shared/components/SelectTag/SelectTag';
 import { store } from '../../app/store/store';
 import arrow from '../../assets/icons/down-arrow-black.png';
+import { AppDispatch } from '../../shared/components/StudentsProfileForm/StudentsProfileForm';
+import { setProfileSelectValue } from '../../app/store/actions/profileAddressesAction/profileAddressesSlice';
 
 interface ProfileSelectTagProps {
   selectArray: { value: string; data: string; id: number }[];
   className: string;
   inputName: string;
   addressId: string;
+  readonly: boolean;
 }
 
 type RootState = ReturnType<typeof store.getState>;
 type AddressId = keyof RootState['profileAddresses'];
-
-interface AddressState {
-  value: string;
-  validationError: string;
-  country?: string;
-}
-
-type ProfileState =
-  | Record<string, AddressState>
-  | Record<string, Record<string, AddressState>>;
 
 const ProfileSelectTag: FC<ProfileSelectTagProps> = ({
   selectArray,
   className,
   inputName,
   addressId,
+  readonly,
 }) => {
-  const inputStateRender: ProfileState = useSelector(
+  const inputStateRender = useSelector(
     (state: RootState) => state.profileAddresses[addressId as AddressId],
   );
 
+  const dispatch = useDispatch<AppDispatch>();
+
   function chooseCountry(e: React.MouseEvent) {
+    if (readonly) return;
+
     const newValue = (e.target as HTMLElement).textContent as string;
-    console.log(newValue);
+    dispatch(setProfileSelectValue({ addressId, newValue }));
   }
 
   return (
@@ -52,6 +50,7 @@ const ProfileSelectTag: FC<ProfileSelectTagProps> = ({
       }
       onClick={chooseCountry}
       arrow={arrow}
+      readonly={readonly}
     />
   );
 };

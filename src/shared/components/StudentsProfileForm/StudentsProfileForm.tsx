@@ -15,7 +15,7 @@ import ProfilePersonalInfo from '../../../widgets/ProfilePersonalInfo/ProfilePer
 
 import { Address, getProfile } from './usage/ProfileFormAPI';
 
-type AppDispatch = typeof store.dispatch;
+export type AppDispatch = typeof store.dispatch;
 
 interface State {
   validation: {
@@ -99,7 +99,6 @@ export const StudentProfileForm = () => {
         <div className={'profile-form__title'}>Student's Profile</div>
       </div>
       <ProfilePersonalInfo />
-      {/*<h4 className={'profile-form__headline'}>Address Information</h4>*/}
       <AddressesSectionMap
         arr={shippingAddresses}
         inputName={'shipping'}

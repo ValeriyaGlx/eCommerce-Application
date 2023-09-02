@@ -2,20 +2,19 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface AddressState {
   value: string;
-  validationError: string;
+  validationError: string | null;
 }
 
 export type State = {
-  validation: Record<string, Record<string, AddressState>>;
-  withoutValidation: Record<string, AddressState>;
+  [addressId: string]: {
+    validation: Record<string, AddressState>;
+    withoutValidation: Record<string, string>;
+  };
 };
 
 const profileAddressSlice = createSlice({
   name: 'addresses',
-  initialState: {
-    validation: {},
-    withoutValidation: {},
-  } as State,
+  initialState: {} as State,
 
   reducers: {
     initializeAddresses: (state, action) => {
@@ -48,6 +47,11 @@ const profileAddressSlice = createSlice({
       const { addressId, inputName } = action.payload;
       state[addressId].validation[inputName].validationError = null;
     },
+
+    setProfileSelectValue: (state, action: PayloadAction<{ addressId: string; newValue: string }>) => {
+      const { addressId, newValue } = action.payload;
+      state[addressId].withoutValidation.country = newValue;
+    },
   },
 });
 
@@ -56,5 +60,6 @@ export const {
   setAddressInputValue,
   setAddressInputValidationError,
   clearAddressInputValidationError,
+  setProfileSelectValue,
 } = profileAddressSlice.actions;
 export default profileAddressSlice.reducer;

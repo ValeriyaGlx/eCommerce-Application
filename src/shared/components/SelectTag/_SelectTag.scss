@@ -79,3 +79,9 @@
 .dropdown.active .select > img {
     transform: rotate(-180deg);
 }
+
+.select-readonly {
+  cursor: default;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 4px 3px inset !important;
+  color: black;
+}
