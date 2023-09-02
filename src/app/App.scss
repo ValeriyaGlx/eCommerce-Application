@@ -34,7 +34,9 @@ a {
     text-decoration: none;
 }
 
-a, button, input[type=submit] {
+a,
+button,
+input[type='submit'] {
     cursor: pointer;
     font-weight: 600;
 }
@@ -44,8 +46,15 @@ input {
     serif;
 }
 
-input[type=submit] {
+input[type='submit'] {
     @extend %ButtonsHover;
+}
+
+input:read-only:hover,
+input:read-only:active {
+    cursor: default;
+    box-shadow: $box-shadow;
+    //TODO: add styles here
 }
 
 li {
@@ -63,7 +72,7 @@ p {
 }
 
 *::-webkit-scrollbar-thumb {
-    background-color: $color-orange
+    background-color: $color-orange;
 }
 
 .container {
@@ -78,8 +87,8 @@ p {
         padding: 20px 50px;
     }
 
-    @media (max-width: 890px) {
-        padding: 10px 10px;
+    @media (max-width: 701px) {
+        padding: 20px 30px;
     }
 }
 

@@ -1,0 +1,43 @@
+.profile {
+  &-wrapper {
+    @media (max-width: 1170px) {
+      position: absolute;
+      bottom: 1%;
+      left: 42%;
+    }
+    @media (max-width: 550px) {
+      left: 32%;
+    }
+  }
+  &-container {
+    &__button {
+      display: flex;
+      justify-content: center;
+
+      a {
+        width: auto;
+        height: auto;
+      }
+    }
+
+    &__img {
+      flex-basis: 40%;
+
+      img {
+        @media (max-width: 1170px) {
+          display: none;
+        }
+      }
+
+      img {
+        width: 100%;
+        height: auto;
+        @media (max-width: 1400px) {
+        }
+        @media (max-width: 650px) {
+          width: 35px;
+        }
+      }
+    }
+  }
+}
