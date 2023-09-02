@@ -19,6 +19,9 @@ interface SubcategoryNavigationProps {
 
 interface Response {
   key: string;
+  name: {
+    'en-US': string;
+  };
   parent?: {
     id: string;
   };
@@ -49,14 +52,19 @@ const SubcategoryNavigation: React.FC<SubcategoryNavigationProps> = ({
           (item: Response) => item.parent && item.parent.id === id,
         );
         const productJSX: JSX.Element[] = subCategories.map(
-          (product: Response) => (
-            <Button
-              key={id}
-              className={'products-nav-item'}
-              data={product.key}
-              onClick={() => handleCategoryClick(product.key)}
-            />
-          ),
+          (product: Response) => {
+            const productName =
+              product.name['en-US'].charAt(0).toUpperCase() +
+              product.name['en-US'].slice(1);
+            return (
+              <Button
+                key={id}
+                className={'products-nav-item'}
+                data={productName}
+                onClick={() => handleCategoryClick(product.key)}
+              />
+            );
+          },
         );
         setProductData(productJSX);
       } catch (error) {

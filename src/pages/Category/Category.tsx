@@ -9,10 +9,6 @@ const Category = () => {
   if (categoryId) {
     const breadcrumb = [
       {
-        value: 'Home',
-        path: '/',
-      },
-      {
         value: 'Products',
         path: '/products',
       },
@@ -23,7 +19,6 @@ const Category = () => {
     ];
     return (
       <main>
-        <Breadcrumbs breadcrumbs={breadcrumb} />
         <div className={'container products-inner'}>
           <h1>
             Discover Our Range of
@@ -31,6 +26,7 @@ const Category = () => {
               Products & Categories
             </span>
           </h1>
+          <Breadcrumbs breadcrumbs={breadcrumb} />
           <ProductWithNavigation category={categoryId} />
         </div>
       </main>

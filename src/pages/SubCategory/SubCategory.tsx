@@ -7,11 +7,10 @@ import ProductWithNavigation from '../../features/ProductsWithNavigation/Product
 const SubCategory = () => {
   const { categoryId, subCategoryId } = useParams();
   if (subCategoryId && categoryId) {
+    let subCategoryName = subCategoryId.split('-')[0];
+    subCategoryName =
+      subCategoryName.charAt(0).toUpperCase() + subCategoryName.slice(1);
     const breadcrumb = [
-      {
-        value: 'Home',
-        path: '/',
-      },
       {
         value: 'Products',
         path: '/products',
@@ -21,13 +20,12 @@ const SubCategory = () => {
         path: `/products/${categoryId}`,
       },
       {
-        value: subCategoryId,
+        value: subCategoryName,
         path: `/products/${categoryId}/${subCategoryId}`,
       },
     ];
     return (
       <main>
-        <Breadcrumbs breadcrumbs={breadcrumb} />
         <div className={'container products-inner'}>
           <h1>
             Discover Our Range of
@@ -35,6 +33,7 @@ const SubCategory = () => {
               Products & Categories
             </span>
           </h1>
+          <Breadcrumbs breadcrumbs={breadcrumb} />
           <ProductWithNavigation
             category={categoryId}
             subCategory={subCategoryId}

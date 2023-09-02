@@ -6,19 +6,14 @@ import Breadcrumbs from '../../shared/components/Breadcrumb/Breadcrumbs';
 
 const breadcrumb = [
   {
-    value: 'Home',
-    path: '/',
-  },
-  {
-    value: 'Products',
-    path: '/products',
+    value: ' ',
+    path: '',
   },
 ];
 
 const Products = () => {
   return (
     <main>
-      <Breadcrumbs breadcrumbs={breadcrumb} />
       <div className={'container products-inner'}>
         <h1>
           Discover Our Range of
@@ -26,6 +21,7 @@ const Products = () => {
             Products & Categories
           </span>
         </h1>
+        <Breadcrumbs breadcrumbs={breadcrumb} />
         <ProductWithNavigation category={'All Categories'} />
       </div>
     </main>
