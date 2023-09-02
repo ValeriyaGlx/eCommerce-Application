@@ -1,3 +1,5 @@
+import React from 'react';
+
 import ListOfProductsWithNavigation from '../../widgets/ListOfProductsWithNavigation/ListOfProductsWithNavigation';
 import Button from '../../shared/components/Button/Button';
 import './_ProductWithNavigation.scss';
@@ -6,10 +8,21 @@ function clickNavigation() {
   console.log(1);
 }
 
-const ProductWithNavigation = () => {
+interface ProductWithNavigationProps {
+  category: string;
+  subCategory?: string;
+}
+
+const ProductWithNavigation: React.FC<ProductWithNavigationProps> = ({
+  category,
+  subCategory,
+}) => {
   return (
     <>
-      <ListOfProductsWithNavigation />
+      <ListOfProductsWithNavigation
+        category={category}
+        subCategory={subCategory}
+      />
       <div className={'wrapper-pagination'}>
         <nav className='pagination'>
           <Button

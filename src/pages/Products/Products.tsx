@@ -2,6 +2,14 @@ import React from 'react';
 
 import ProductWithNavigation from '../../features/ProductsWithNavigation/ProductWithNavigation';
 import './_Products.scss';
+import Breadcrumbs from '../../shared/components/Breadcrumb/Breadcrumbs';
+
+const breadcrumb = [
+  {
+    value: ' ',
+    path: '',
+  },
+];
 
 const Products = () => {
   return (
@@ -13,7 +21,8 @@ const Products = () => {
             Products & Categories
           </span>
         </h1>
-        <ProductWithNavigation />
+        <Breadcrumbs breadcrumbs={breadcrumb} />
+        <ProductWithNavigation category={'All Categories'} />
       </div>
     </main>
   );

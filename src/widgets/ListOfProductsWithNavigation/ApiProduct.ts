@@ -220,6 +220,19 @@ export async function getCategory(token: string, category: string) {
   return objCategory.id;
 }
 
+export async function getCategories(token: string) {
+  const urlRequestCategory = `${host}/${project}/categories/`;
+
+  const responseCategory = await fetch(urlRequestCategory, {
+    method: 'GET',
+    headers: {
+      Authorization: 'Bearer ' + token,
+    },
+  });
+  const objCategory = await responseCategory.json();
+  return objCategory.results;
+}
+
 export async function CategoryProductsRequest(token: string, category: string) {
   const idCategory = await getCategory(token, category);
 
