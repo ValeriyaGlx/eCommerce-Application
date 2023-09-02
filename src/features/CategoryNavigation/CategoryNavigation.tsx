@@ -7,7 +7,9 @@ import Button from '../../shared/components/Button/Button';
 const CategoryNavigation = () => {
   const navigate = useNavigate();
   const handleCategoryClick = async (data: string) => {
-    navigate(`/products/${data}`);
+    if (data !== 'All Categories') {
+      navigate(`/products/${data}`);
+    }
   };
 
   return (
