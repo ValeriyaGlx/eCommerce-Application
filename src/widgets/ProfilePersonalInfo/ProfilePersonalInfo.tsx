@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import EditMode from '../../shared/components/EditMode/EditMode';
 import { INPUTS_PROFILE_DATA as profLinks } from '../../constants/studentsProfileFormInput/studentsProfileFormInput';
@@ -7,7 +8,6 @@ import getCookie from '../../shared/cookie/getCookie';
 import { getProfile } from '../../shared/components/StudentsProfileForm/usage/ProfileFormAPI';
 import { setInputValueWithValidation } from '../../app/store/actions/signupActions/signupActions';
 import { store } from '../../app/store/store';
-import { useDispatch } from 'react-redux';
 
 type AppDispatch = typeof store.dispatch;
 

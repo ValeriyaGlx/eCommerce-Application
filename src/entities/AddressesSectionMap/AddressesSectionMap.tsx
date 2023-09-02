@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import Slider from 'react-slick';
 
 import UserAddressSection from '../UserAddressSection/UserAddressSection';
@@ -10,6 +10,8 @@ import './_AddressesSectionMap.scss';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { Address } from '../../shared/components/StudentsProfileForm/usage/ProfileFormAPI';
+import Button from '../../shared/components/Button/Button';
+import EditMode from '../../shared/components/EditMode/EditMode';
 
 interface AddressesSectionMapProps {
   arr: Address[];
@@ -17,7 +19,6 @@ interface AddressesSectionMapProps {
   title: string;
   selectArray: typeof SELECT_SIGNUP_DATA;
   addressArray: typeof INPUTS_SIGNUP_ADDRESS;
-  readonly: boolean;
 }
 
 const AddressesSectionMap: FC<AddressesSectionMapProps> = ({
@@ -26,7 +27,6 @@ const AddressesSectionMap: FC<AddressesSectionMapProps> = ({
   title,
   addressArray,
   selectArray,
-  readonly,
 }) => {
   const sliderSettings = {
     dots: true,
@@ -37,23 +37,48 @@ const AddressesSectionMap: FC<AddressesSectionMapProps> = ({
     slidesToScroll: 1,
   };
 
+  const [editMode, setEditMode] = useState(false);
+  const [readonlyMode, setReadonlyMode] = useState(true);
+
+  const onEditMode = () => {
+    setEditMode(true);
+    setReadonlyMode(false);
+  };
+
+  const offEditMode = () => {
+    setEditMode(false);
+    setReadonlyMode(true);
+  };
+
   return (
     <div className={'addresses-container'}>
+      <div className={'personal-information-edit_container'}>
+        <h4 className={'profile-form__headline'}>{title}</h4>
+        <EditMode
+          editMode={editMode}
+          onEditMode={onEditMode}
+          offEditMode={offEditMode}
+        />
+      </div>
       <Slider {...sliderSettings}>
         {arr.map(({ id, defaultAddress }, index) => (
           <UserAddressSection
             key={id}
             inputName={inputName}
-            title={`${title} ${index + 1}`}
+            title={`Address #${index + 1}`}
             selectArray={selectArray}
             addressArray={addressArray}
-            readonly={readonly}
+            readonly={readonlyMode}
             addressId={id}
             defaultAddress={defaultAddress}
           />
         ))}
-        <div>Add new</div>
       </Slider>
+      <Button
+        className={'profile-add-address'}
+        data={`Add New ${title}`}
+        onClick={() => {}}
+      />
     </div>
   );
 };

@@ -1,12 +1,11 @@
 import React, { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 
 import logoVisible from '../../assets/icons/icon-heart.svg';
 import { store } from '../../app/store/store';
 import InputValidation from '../../shared/components/InputValidation/InputValidation';
-import { setInputValueWithValidation } from '../../app/store/actions/signupActions/signupActions';
-import { setAddressInputValueWithValidation } from '../../app/store/actions/profileAddressesAction/profileAddressesAction';
-import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
+import { setAddressInputWithValidation } from '../../app/store/actions/profileAddressesAction/profileAddressesAction';
 
 type RootState = ReturnType<typeof store.getState>;
 type AddressId = keyof RootState['profileAddresses'];
@@ -51,9 +50,7 @@ const InputValidationProfile: FC<InputValidationProfileProps> = ({
 
   const handleInputChangeTest = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value.trimStart();
-    dispatch(
-      setAddressInputValueWithValidation(addressId, inputName, newValue),
-    );
+    dispatch(setAddressInputWithValidation(addressId, inputName, newValue));
   };
 
   return (

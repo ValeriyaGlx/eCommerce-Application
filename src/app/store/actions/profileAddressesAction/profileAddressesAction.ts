@@ -1,12 +1,13 @@
 import * as yup from 'yup';
 import { Action, ThunkAction } from '@reduxjs/toolkit';
 
+import { store } from '../../store';
 import {
   emptyFieldValidationSchema,
   getPostalCodeValidationSchema,
   streetValidationSchema,
 } from '../../../../entities/InputValidationSignUp/usage/utils/validationSignUp';
-import { store } from '../../store';
+
 import {
   clearAddressInputValidationError,
   setAddressInputValidationError,
@@ -17,11 +18,7 @@ type RootState = ReturnType<typeof store.getState>;
 
 type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, Action<string>>;
 
-export const setAddressInputValueWithValidation = (
-  addressId: string,
-  inputName: string,
-  inputValue: string,
-): AppThunk => {
+export const setAddressInputWithValidation = (addressId: string, inputName: string, inputValue: string): AppThunk => {
   return (dispatch) => {
     dispatch(setAddressInputValue({ addressId, inputName, inputValue }));
 

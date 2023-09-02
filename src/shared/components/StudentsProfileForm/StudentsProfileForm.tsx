@@ -11,9 +11,9 @@ import getCookie from '../../cookie/getCookie';
 import { setInputValueWithValidation } from '../../../app/store/actions/signupActions/signupActions';
 import AddressesSectionMap from '../../../entities/AddressesSectionMap/AddressesSectionMap';
 import { initializeAddresses } from '../../../app/store/actions/profileAddressesAction/profileAddressesSlice';
+import ProfilePersonalInfo from '../../../widgets/ProfilePersonalInfo/ProfilePersonalInfo';
 
 import { Address, getProfile } from './usage/ProfileFormAPI';
-import ProfilePersonalInfo from '../../../widgets/ProfilePersonalInfo/ProfilePersonalInfo';
 
 type AppDispatch = typeof store.dispatch;
 
@@ -99,14 +99,13 @@ export const StudentProfileForm = () => {
         <div className={'profile-form__title'}>Student's Profile</div>
       </div>
       <ProfilePersonalInfo />
-      <h4 className={'profile-form__headline'}>Address Information</h4>
+      {/*<h4 className={'profile-form__headline'}>Address Information</h4>*/}
       <AddressesSectionMap
         arr={shippingAddresses}
         inputName={'shipping'}
         title={'Shipping address'}
         selectArray={selectArray}
         addressArray={addressArray}
-        readonly={false}
       />
       <AddressesSectionMap
         arr={billingAddresses}
@@ -114,7 +113,6 @@ export const StudentProfileForm = () => {
         title={'Billing address'}
         selectArray={selectArray}
         addressArray={addressArray}
-        readonly={true}
       />
     </div>
   );
