@@ -35,7 +35,8 @@ const ProfileSelectTag: FC<ProfileSelectTagProps> = ({
     if (readonly) return;
 
     const newValue = (e.target as HTMLElement).textContent as string;
-    dispatch(setProfileSelectValue({ addressId, newValue }));
+    const inputName = 'country';
+    dispatch(setProfileSelectValue({ addressId, inputName, newValue }));
   }
 
   return (
