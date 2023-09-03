@@ -18,6 +18,7 @@ const ProfilePersonalInfo = () => {
   const [editMode, setEditMode] = useState(false);
   const [readonlyMode, setReadonlyMode] = useState(true);
   const [message, setMessage] = useState('');
+  const [color, setColor] = useState('red');
   const [fieldChanges, setFieldChanges] = useState({});
   const [validErrors, setValidErrors] = useState({});
   const [currentValues, setCurrentValues] = useState({});
@@ -88,13 +89,15 @@ const ProfilePersonalInfo = () => {
     });
 
     if (!hasChanges) {
-      setMessage('nothing changes');
+      setMessage('No changes made.');
+      setColor('red');
       setTimeout(() => setMessage(''), 1000);
       return;
     }
 
     if (hasValidationErrors) {
-      setMessage('fix valid errors first');
+      setMessage('Fix validation errors first.');
+      setColor('red');
       setTimeout(() => setMessage(''), 1000);
       return;
     }
@@ -120,14 +123,16 @@ const ProfilePersonalInfo = () => {
         );
 
         if (!isMatch) {
-          const updProfile = await updateProfile(token);
-          setMessage('success');
+          await updateProfile(token);
+          setMessage('Data updated successfully!');
           setTimeout(() => setMessage(''), 1000);
 
+          setColor('green');
           setEditMode(false);
           setReadonlyMode(true);
         } else {
-          setMessage('nothing changes');
+          setMessage('No changes made.');
+          setColor('red');
           setTimeout(() => setMessage(''), 1000);
           return;
         }
@@ -152,7 +157,7 @@ const ProfilePersonalInfo = () => {
           offEditMode={offEditMode}
           sendRequest={sendRequest}
           message={message}
-          colorMessage={'red'}
+          colorMessage={color}
         />
       </div>
       <div className={'profile-form__input'}>
