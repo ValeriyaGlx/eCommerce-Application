@@ -1,12 +1,12 @@
 import React, { FC } from 'react';
+import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
+import { useDispatch, useSelector } from 'react-redux';
 
 import logoVisible from '../../assets/icons/icon-heart.svg';
 import InputValidation from '../../shared/components/InputValidation/InputValidation';
-import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
-import { useDispatch, useSelector } from 'react-redux';
 import { store } from '../../app/store/store';
-import { setInputValueWithValidation } from '../../app/store/actions/signupActions/signupActions';
 import {
+  ChangePasswordState,
   setPasswordValue,
   validateAllFields,
 } from '../../app/store/actions/changePasswordAction/changePasswordSlice';
@@ -25,6 +25,7 @@ interface InputValidationPasswordCurrentProps {
 }
 
 type RootState = ReturnType<typeof store.getState>;
+export type ChangePasswordStateKey = keyof ChangePasswordState;
 
 const InputValidationPassword: FC<InputValidationPasswordCurrentProps> = ({
   type,
@@ -39,16 +40,26 @@ const InputValidationPassword: FC<InputValidationPasswordCurrentProps> = ({
   const dispatch: ThunkDispatch<RootState, unknown, AnyAction> = useDispatch();
 
   const inputState = useSelector(
-    (state: RootState) => state.changePassword[inputName],
+    (state: RootState) =>
+      state.changePassword[inputName as ChangePasswordStateKey],
   );
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value.trimStart();
-    dispatch(setPasswordValue({ inputName, inputValue }));
-    dispatch(validateAllFields({ inputName }));
+    dispatch(
+      setPasswordValue({
+        inputName: inputName as ChangePasswordStateKey,
+        inputValue,
+      }),
+    );
+    dispatch(
+      validateAllFields({ inputName: inputName as ChangePasswordStateKey }),
+    );
   };
 
-  const error = store.getState().changePassword[inputName].validationError;
+  const error =
+    store.getState().changePassword[inputName as ChangePasswordStateKey]
+      .validationError;
 
   return (
     <InputValidation

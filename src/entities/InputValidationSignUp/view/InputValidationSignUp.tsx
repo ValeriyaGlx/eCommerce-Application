@@ -7,6 +7,7 @@ import { setInputValueWithValidation } from '../../../app/store/actions/signupAc
 import { store } from '../../../app/store/store';
 import logoVisible from '../../../assets/icons/visible.png';
 import { setPasswordValue } from '../../../app/store/actions/changePasswordAction/changePasswordSlice';
+import { ChangePasswordStateKey } from '../../InputValidationPassword/InputValidationPassword';
 
 type RootState = ReturnType<typeof store.getState>;
 
@@ -54,7 +55,12 @@ const inputValidationSignUp: FC<InputValidationSignUpProps> = ({
 
     if (changePassword) {
       const inputValue = newValue;
-      dispatch(setPasswordValue({ inputName, inputValue }));
+      dispatch(
+        setPasswordValue({
+          inputName: inputName as ChangePasswordStateKey,
+          inputValue,
+        }),
+      );
     }
   };
   const error = store.getState().signup.signup[inputName].validationError;

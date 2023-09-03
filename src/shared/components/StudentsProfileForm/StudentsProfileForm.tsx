@@ -12,9 +12,11 @@ import { setInputValueWithValidation } from '../../../app/store/actions/signupAc
 import AddressesSectionMap from '../../../entities/AddressesSectionMap/AddressesSectionMap';
 import { initializeAddresses } from '../../../app/store/actions/profileAddressesAction/profileAddressesSlice';
 import ProfilePersonalInfo from '../../../widgets/ProfilePersonalInfo/ProfilePersonalInfo';
+import { setVersion } from '../../../app/store/actions/profileVersion/profileVersion';
+import { openModal } from '../../../app/store/actions/modalSliceAction/modalSlice';
+import Button from '../Button/Button';
 
 import { Address, getProfile } from './usage/ProfileFormAPI';
-import { setVersion } from '../../../app/store/actions/profileVersion/profileVersion';
 
 export type AppDispatch = typeof store.dispatch;
 
@@ -117,6 +119,13 @@ export const StudentProfileForm = () => {
         selectArray={selectArray}
         addressArray={addressArray}
       />
+      <div className={'profile-form__buttons'}>
+        <Button
+          className={'profile-button'}
+          data={'Change the Password'}
+          onClick={() => dispatch(openModal())}
+        />
+      </div>
     </div>
   );
 };

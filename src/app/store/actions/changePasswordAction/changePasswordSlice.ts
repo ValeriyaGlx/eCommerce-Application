@@ -1,28 +1,41 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+interface PasswordState {
+  value: string;
+  validationError: string;
+}
+
+export interface ChangePasswordState {
+  currentPassword: PasswordState;
+  confirmPassword: PasswordState;
+  password: PasswordState;
+}
+
+const initialState: ChangePasswordState = {
+  currentPassword: {
+    value: '',
+    validationError: '',
+  },
+  confirmPassword: {
+    value: '',
+    validationError: '',
+  },
+  password: {
+    value: '',
+    validationError: '',
+  },
+};
+
 const changePassword = createSlice({
   name: 'changePassword',
-  initialState: {
-    currentPassword: {
-      value: '',
-      validationError: '',
-    },
-    confirmPassword: {
-      value: '',
-      validationError: '',
-    },
-    password: {
-      value: '',
-      validationError: '',
-    },
-  },
-
+  initialState,
   reducers: {
-    setPasswordValue: (state, action: PayloadAction<{ inputName: keyof typeof state; inputValue: string }>) => {
+    resetPasswordState: () => initialState,
+    setPasswordValue: (state, action: PayloadAction<{ inputName: keyof ChangePasswordState; inputValue: string }>) => {
       const { inputName, inputValue } = action.payload;
       state[inputName].value = inputValue;
     },
-    validateAllFields: (state, action: PayloadAction<{ inputName: string }>) => {
+    validateAllFields: (state, action: PayloadAction<{ inputName: keyof ChangePasswordState }>) => {
       const { inputName } = action.payload;
       if (!state[inputName].value) {
         state[inputName].validationError = 'This field is required';
@@ -30,16 +43,28 @@ const changePassword = createSlice({
         state[inputName].validationError = '';
       }
 
-      if (!state.confirmPassword.value) {
-        state.confirmPassword.validationError = 'This field is required';
-      } else if (state.confirmPassword.value !== state.password.value) {
+      if (state.confirmPassword.value !== state.password.value) {
         state.confirmPassword.validationError = 'Passwords do not match';
-      } else {
+      }
+
+      if (state.confirmPassword.value && !state.password.value) {
+        state.confirmPassword.validationError = 'Set a new password first';
+      }
+
+      if (
+        state.confirmPassword.value === state.password.value &&
+        !state.confirmPassword.value &&
+        state.password.value
+      ) {
         state.confirmPassword.validationError = '';
       }
+      //   state.confirmPassword.validationError = 'This field is required';
+      // } else {
+      //   state.confirmPassword.validationError = '';
+      // }
     },
   },
 });
 
-export const { setPasswordValue, validateAllFields } = changePassword.actions;
+export const { resetPasswordState, setPasswordValue, validateAllFields } = changePassword.actions;
 export default changePassword.reducer;
