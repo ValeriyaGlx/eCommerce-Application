@@ -11,6 +11,7 @@ interface SelectTagProps {
   onClick: (e: React.MouseEvent) => void;
   logo?: typeof arrowLogo;
   arrow: typeof arrowLogo;
+  readonly?: boolean;
 }
 
 const SelectTag: FC<SelectTagProps> = ({
@@ -21,10 +22,12 @@ const SelectTag: FC<SelectTagProps> = ({
   onClick,
   logo,
   arrow,
+  readonly,
 }) => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
+    if (readonly) return;
     setDropdownOpen(!isDropdownOpen);
   };
 
@@ -35,12 +38,13 @@ const SelectTag: FC<SelectTagProps> = ({
       )}
       onClick={toggleDropdown}
     >
-      <div className={'select'}>
+      <div className={readonly ? 'select select-readonly' : 'select'}>
         <div className={'select-logo'}>
           {logo && <img src={logo} alt={'arrow'} />}
           <span>{value}</span>
         </div>
-        <img src={arrow} alt={'arrow'} />
+
+        {!readonly && <img src={arrow} alt={'arrow'} />}
       </div>
       <input type='hidden' value={value} name={inputName} />
       <ul className={'dropdown-menu'}>

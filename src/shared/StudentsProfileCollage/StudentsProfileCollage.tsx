@@ -10,8 +10,8 @@ const StudentsProfileCollage = () => {
       <div className={'profile-container__img'}>
         <div className={'profile-container__button'}>
           <Button
-            className={'button-main-products'}
-            data={'Change Password'}
+            className={'profile-button'}
+            data={'Change the Password'}
             onClick={() => console.log('change password')}
           />
         </div>

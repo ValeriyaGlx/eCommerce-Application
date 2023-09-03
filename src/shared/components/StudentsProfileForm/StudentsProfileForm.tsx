@@ -3,8 +3,6 @@ import { useDispatch } from 'react-redux';
 
 import { store } from '../../../app/store/store';
 import './_StudentsProfileForm.scss';
-import { INPUTS_PROFILE_DATA as profLinks } from '../../../constants/studentsProfileFormInput/studentsProfileFormInput';
-import InputValidationSignUp from '../../../entities/InputValidationSignUp/view/InputValidationSignUp';
 import {
   INPUTS_SIGNUP_ADDRESS as addressArray,
   SELECT_SIGNUP_DATA as selectArray,
@@ -12,11 +10,13 @@ import {
 import getCookie from '../../cookie/getCookie';
 import { setInputValueWithValidation } from '../../../app/store/actions/signupActions/signupActions';
 import AddressesSectionMap from '../../../entities/AddressesSectionMap/AddressesSectionMap';
-import { initializeAddresses } from '../../../app/store/actions/profileAddressesAction/profileAddressesAction';
+import { initializeAddresses } from '../../../app/store/actions/profileAddressesAction/profileAddressesSlice';
+import ProfilePersonalInfo from '../../../widgets/ProfilePersonalInfo/ProfilePersonalInfo';
 
 import { Address, getProfile } from './usage/ProfileFormAPI';
+import { setVersion } from '../../../app/store/actions/profileVersion/profileVersion';
 
-type AppDispatch = typeof store.dispatch;
+export type AppDispatch = typeof store.dispatch;
 
 interface State {
   validation: {
@@ -27,6 +27,7 @@ interface State {
   };
   withoutValidation: {
     country?: string;
+    defaultAddress?: boolean;
   };
 }
 
@@ -48,6 +49,9 @@ export const StudentProfileForm = () => {
         const token: string = getCookie('authToken') as string;
         const profile = await getProfile(token);
         const profileFields = Object.entries(profile.personal);
+        const version = profile.version;
+
+        dispatch(setVersion({ version }));
 
         setBillingAddresses(profile.addresses.billingAddress);
         setShippingAddresses(profile.addresses.shippingAddress);
@@ -79,6 +83,7 @@ export const StudentProfileForm = () => {
       };
       initialAddressState[address.id].withoutValidation = {
         country: address.country,
+        defaultAddress: address.defaultAddress,
       };
 
       addressArray.forEach(({ name }) => {
@@ -97,38 +102,20 @@ export const StudentProfileForm = () => {
       <div className={'profile-form__head'}>
         <div className={'profile-form__title'}>Student's Profile</div>
       </div>
-      <h4 className={'profile-form__headline'}>Personal Information</h4>
-      <div className={'profile-form__input'}>
-        {profLinks.map(({ id, type, placeholder, name, logo, min, style }) => (
-          <InputValidationSignUp
-            key={id}
-            type={type}
-            placeholder={placeholder}
-            inputName={name}
-            logo={logo}
-            min={min}
-            styles={style}
-            readonly={true}
-          />
-        ))}
-      </div>
-      <h4 className={'profile-form__headline'}>Address Information</h4>
+      <ProfilePersonalInfo />
       <AddressesSectionMap
         arr={shippingAddresses}
         inputName={'shipping'}
         title={'Shipping address'}
         selectArray={selectArray}
         addressArray={addressArray}
-        readonly={true}
       />
-
       <AddressesSectionMap
         arr={billingAddresses}
         inputName={'billing'}
         title={'Billing address'}
         selectArray={selectArray}
         addressArray={addressArray}
-        readonly={true}
       />
     </div>
   );

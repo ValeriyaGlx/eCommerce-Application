@@ -4,7 +4,8 @@ import signupReducer from './actions/signupActions/sugnupSlice';
 import signinReducer from './actions/signinAction/signinSlice';
 import modalSliceReducer from './actions/modalSliceAction/modalSlice';
 import authorizationSlice from './actions/authorizationAction/authorizationSlice';
-import profileAddressSlice from './actions/profileAddressesAction/profileAddressesAction';
+import profileAddressSlice from './actions/profileAddressesAction/profileAddressesSlice';
+import profileSlice from './actions/profileVersion/profileVersion';
 
 export const store = configureStore({
   reducer: {
@@ -13,5 +14,6 @@ export const store = configureStore({
     modal: modalSliceReducer,
     authorization: authorizationSlice,
     profileAddresses: profileAddressSlice,
+    profileVersion: profileSlice,
   },
 });

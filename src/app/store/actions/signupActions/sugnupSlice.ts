@@ -100,7 +100,6 @@ const signupSlice = createSlice({
     },
     setInputValidationError: (state, action: PayloadAction<{ inputName: string; validationError: string }>) => {
       const { inputName, validationError } = action.payload;
-
       state.signup[inputName].validationError = validationError;
     },
     clearInputValidationError: (state, action: PayloadAction<{ inputName: string }>) => {
