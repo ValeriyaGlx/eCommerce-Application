@@ -72,6 +72,7 @@ interface UserProfile {
   billingAddress: [];
   defaultBillingAddressId: string;
   defaultShippingAddressId: string;
+  version: number;
 }
 
 function getProfileObject(res: UserProfile) {
@@ -86,6 +87,7 @@ function getProfileObject(res: UserProfile) {
       billingAddress: getAddresses(res.addresses, res.billingAddressIds, res.defaultBillingAddressId),
       shippingAddress: getAddresses(res.addresses, res.shippingAddressIds, res.defaultShippingAddressId),
     },
+    version: res.version,
   };
 
   return profileInfo;
@@ -100,7 +102,7 @@ export async function getProfile(token: string) {
       Authorization: 'Bearer ' + token,
     },
   });
-  const products = await responseProfile.json();
+  const person = await responseProfile.json();
 
-  return getProfileObject(products);
+  return getProfileObject(person);
 }

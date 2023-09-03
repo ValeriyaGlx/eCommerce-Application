@@ -43,6 +43,7 @@ const InputValidationProfile: FC<InputValidationProfileProps> = ({
 
   const handleInputChangeTest = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value.trimStart();
+
     dispatch(setAddressInputWithValidation(addressId, inputName, newValue));
   };
 

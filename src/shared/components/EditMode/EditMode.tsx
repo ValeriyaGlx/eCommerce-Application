@@ -6,18 +6,27 @@ interface EditModeProps {
   editMode: boolean;
   onEditMode: () => void;
   offEditMode: () => void;
+  sendRequest: () => void;
 }
 
-const EditMode: FC<EditModeProps> = ({ editMode, onEditMode, offEditMode }) => {
+const EditMode: FC<EditModeProps> = ({
+  editMode,
+  onEditMode,
+  offEditMode,
+  sendRequest,
+}) => {
   return (
-    <div className={'edit-mode'}>
-      {!editMode && <div className={'edit'} onClick={onEditMode} />}
-      {editMode && (
-        <>
-          <div className={'ok'} />
-          <div className={'close'} onClick={offEditMode} />
-        </>
-      )}
+    <div>
+      <div className={'edit-mode'}>
+        {!editMode && <div className={'edit'} onClick={onEditMode} />}
+        {editMode && (
+          <>
+            <div className={'ok'} onClick={sendRequest} />
+            <div className={'close'} onClick={offEditMode} />
+          </>
+        )}
+      </div>
+      <div className={'edit-mode-error'}></div>
     </div>
   );
 };

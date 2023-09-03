@@ -14,6 +14,7 @@ import { initializeAddresses } from '../../../app/store/actions/profileAddresses
 import ProfilePersonalInfo from '../../../widgets/ProfilePersonalInfo/ProfilePersonalInfo';
 
 import { Address, getProfile } from './usage/ProfileFormAPI';
+import { setVersion } from '../../../app/store/actions/profileVersion/profileVersion';
 
 export type AppDispatch = typeof store.dispatch;
 
@@ -48,6 +49,9 @@ export const StudentProfileForm = () => {
         const token: string = getCookie('authToken') as string;
         const profile = await getProfile(token);
         const profileFields = Object.entries(profile.personal);
+        const version = profile.version;
+
+        dispatch(setVersion({ version }));
 
         setBillingAddresses(profile.addresses.billingAddress);
         setShippingAddresses(profile.addresses.shippingAddress);

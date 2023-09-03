@@ -8,6 +8,9 @@ import getCookie from '../../shared/cookie/getCookie';
 import { getProfile } from '../../shared/components/StudentsProfileForm/usage/ProfileFormAPI';
 import { setInputValueWithValidation } from '../../app/store/actions/signupActions/signupActions';
 import { store } from '../../app/store/store';
+import { updateProfile } from './usage/profileUpdateAPI';
+import { setVersion } from '../../app/store/actions/profileVersion/profileVersion';
+import profile from '../../pages/Profile/Profile';
 
 type AppDispatch = typeof store.dispatch;
 
@@ -30,6 +33,7 @@ const ProfilePersonalInfo = () => {
         const token: string = getCookie('authToken') as string;
         const profile = await getProfile(token);
         const profileFields = Object.entries(profile.personal);
+        console.log(profileFields);
 
         profileFields.forEach((el) => {
           const inputName = el[0];
@@ -44,6 +48,26 @@ const ProfilePersonalInfo = () => {
     fetchData();
   };
 
+  const sendRequest = () => {
+    const fetchData = async () => {
+      try {
+        const token: string = getCookie('authToken') as string;
+        const profile = await getProfile(token);
+        const version = profile.version;
+
+        await dispatch(setVersion({ version }));
+        await updateProfile(token);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    fetchData();
+
+    setEditMode(false);
+    setReadonlyMode(true);
+  };
+
   return (
     <>
       <div className={'personal-information-edit_container'}>
@@ -52,6 +76,7 @@ const ProfilePersonalInfo = () => {
           editMode={editMode}
           onEditMode={onEditMode}
           offEditMode={offEditMode}
+          sendRequest={sendRequest}
         />
       </div>
       <div className={'profile-form__input'}>

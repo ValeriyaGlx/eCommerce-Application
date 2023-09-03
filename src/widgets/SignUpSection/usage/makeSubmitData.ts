@@ -83,7 +83,6 @@ const makeSubmitData = () => {
   if (!isSameAddresses && isShippingDefault) {
     data.defaultShippingAddress = 0;
   }
-  
   return data;
 };
 

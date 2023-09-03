@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Slider from 'react-slick';
 
@@ -19,6 +19,7 @@ import EditMode from '../../shared/components/EditMode/EditMode';
 import { AppDispatch } from '../../shared/components/StudentsProfileForm/StudentsProfileForm';
 import getCookie from '../../shared/cookie/getCookie';
 import {
+  createNewAddress,
   setAddressInputValue,
   setProfileSelectValue,
 } from '../../app/store/actions/profileAddressesAction/profileAddressesSlice';
@@ -38,6 +39,10 @@ const AddressesSectionMap: FC<AddressesSectionMapProps> = ({
   addressArray,
   selectArray,
 }) => {
+  const [addresses, setAddresses] = useState<Address[]>(arr);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const sliderRef = useRef<Slider | null>(null);
+
   const sliderSettings = {
     dots: true,
     arrows: false,
@@ -51,6 +56,10 @@ const AddressesSectionMap: FC<AddressesSectionMapProps> = ({
   const [readonlyMode, setReadonlyMode] = useState(true);
 
   const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    setAddresses(arr);
+  }, [arr]);
 
   const onEditMode = () => {
     setEditMode(true);
@@ -97,6 +106,25 @@ const AddressesSectionMap: FC<AddressesSectionMapProps> = ({
     fetchData();
   };
 
+  const addNewAddress = () => {
+    const newAddress: Address = {
+      id: String(Math.random()),
+      country: 'Choose a country',
+      defaultAddress: false,
+    };
+
+    const newAddressId = newAddress.id;
+    dispatch(createNewAddress(newAddressId));
+    setAddresses([...addresses, newAddress]);
+    setCurrentIndex(addresses.length);
+
+    if (sliderRef.current) {
+      sliderRef.current.slickGoTo(addresses.length);
+    }
+
+    onEditMode();
+  };
+
   return (
     <div className={'addresses-container'}>
       <div className={'personal-information-edit_container'}>
@@ -107,8 +135,13 @@ const AddressesSectionMap: FC<AddressesSectionMapProps> = ({
           offEditMode={offEditMode}
         />
       </div>
-      <Slider {...sliderSettings}>
-        {arr.map(({ id, defaultAddress }, index) => (
+      <Slider
+        {...sliderSettings}
+        ref={sliderRef}
+        initialSlide={currentIndex}
+        afterChange={(index) => setCurrentIndex(index)}
+      >
+        {addresses.map(({ id, defaultAddress }, index) => (
           <UserAddressSection
             key={id}
             inputName={inputName}
@@ -124,7 +157,7 @@ const AddressesSectionMap: FC<AddressesSectionMapProps> = ({
       <Button
         className={'profile-add-address'}
         data={`Add New ${title}`}
-        onClick={() => {}}
+        onClick={addNewAddress}
       />
     </div>
   );
