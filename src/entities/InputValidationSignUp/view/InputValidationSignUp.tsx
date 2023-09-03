@@ -6,6 +6,7 @@ import InputValidation from '../../../shared/components/InputValidation/InputVal
 import { setInputValueWithValidation } from '../../../app/store/actions/signupActions/signupActions';
 import { store } from '../../../app/store/store';
 import logoVisible from '../../../assets/icons/visible.png';
+import { setPasswordValue } from '../../../app/store/actions/changePasswordAction/changePasswordSlice';
 
 type RootState = ReturnType<typeof store.getState>;
 
@@ -21,6 +22,7 @@ interface InputValidationSignUpProps {
   styles?: string;
   readonly?: boolean;
   onFieldChange?: (fieldName: string, fieldValue: string) => void;
+  changePassword?: boolean;
 }
 
 const inputValidationSignUp: FC<InputValidationSignUpProps> = ({
@@ -34,6 +36,7 @@ const inputValidationSignUp: FC<InputValidationSignUpProps> = ({
   styles,
   readonly,
   onFieldChange,
+  changePassword,
 }) => {
   const dispatch: ThunkDispatch<RootState, unknown, AnyAction> = useDispatch();
 
@@ -47,6 +50,11 @@ const inputValidationSignUp: FC<InputValidationSignUpProps> = ({
 
     if (onFieldChange) {
       onFieldChange(inputName, newValue);
+    }
+
+    if (changePassword) {
+      const inputValue = newValue;
+      dispatch(setPasswordValue({ inputName, inputValue }));
     }
   };
   const error = store.getState().signup.signup[inputName].validationError;

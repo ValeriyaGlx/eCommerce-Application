@@ -1,13 +1,10 @@
-import './_ModalWindowPassword.scss';
 import React, { FC } from 'react';
 import { CSSTransition } from 'react-transition-group';
 
 import './_ModalWindowPasswordAnimation.scss';
-// eslint-disable-next-line max-len
-import InputValidationPasswordAuthenticity from '../../entities/InputValidationPasswordAuthenticity/InputValidationPasswordAuthenticity';
-// eslint-disable-next-line max-len
-import InputValidationPasswordCurrent from '../../entities/InputValidationPasswordCurrent/InputValidationPasswordCurrent';
+import './_ModalWindowPassword.scss';
 import InputValidationSignUp from '../../entities/InputValidationSignUp/view/InputValidationSignUp';
+import InputValidationPassword from '../../entities/InputValidationPassword/InputValidationPassword';
 
 interface ModalProfileProps {
   isOpen: boolean;
@@ -22,21 +19,22 @@ const ModalProfile: FC<ModalProfileProps> = ({ isOpen }) => {
           <div className={'modal-inner'}>
             <h2>Change the Password</h2>
             <h5>Current Password</h5>
-            <InputValidationPasswordCurrent
+            <InputValidationPassword
               type={'password'}
               placeholder={'Current Password'}
-              inputName={'password'}
+              inputName={'currentPassword'}
             />
             <h5>New Password</h5>
             <InputValidationSignUp
               type={'password'}
               placeholder={'New Password'}
               inputName={'password'}
+              changePassword={true}
             />
-            <InputValidationPasswordAuthenticity
+            <InputValidationPassword
               type={'password'}
               placeholder={'Confirm Password'}
-              inputName={'password'}
+              inputName={'confirmPassword'}
             />
           </div>
         </div>
