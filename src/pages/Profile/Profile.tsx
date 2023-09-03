@@ -11,7 +11,7 @@ export function Profile() {
       <div className='wrapper-profile'>
         <StudentProfileForm />
         <StudentsProfileCollage />
-        <ModalProfile isOpen={true} onClick={() => undefined} />
+        <ModalProfile isOpen={false} onClick={() => undefined} />
       </div>
     </>
   );

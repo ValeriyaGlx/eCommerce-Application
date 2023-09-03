@@ -11,7 +11,7 @@ import InputValidationPasswordNew from '../../entities/InputValidationPasswordNe
 
 interface ModalProfileProps {
   isOpen: boolean;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 const ModalProfile: FC<ModalProfileProps> = ({ isOpen }) => {
