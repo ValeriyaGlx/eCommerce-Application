@@ -5,7 +5,7 @@ const host = process.env.REACT_APP_HOST;
 
 function getProfileData() {
   const profileStateInfo = store.getState().signup.signup;
-  console.log(profileStateInfo);
+
   const data = {
     version: store.getState().profileVersion.version,
     actions: [

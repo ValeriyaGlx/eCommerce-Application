@@ -5,13 +5,18 @@ import { CSSTransition } from 'react-transition-group';
 
 import './_ModalWindowPasswordAnimation.scss';
 import './_ModalWindowPassword.scss';
-import InputValidationSignUp from '../../entities/InputValidationSignUp/view/InputValidationSignUp';
-import InputValidationPassword from '../../entities/InputValidationPassword/InputValidationPassword';
-import { store } from '../../app/store/store';
-import { closeModal } from '../../app/store/actions/modalSliceAction/modalSlice';
-import Button from '../components/Button/Button';
-import { resetPasswordState } from '../../app/store/actions/changePasswordAction/changePasswordSlice';
-import { resetPassword } from '../../app/store/actions/signupActions/sugnupSlice';
+import InputValidationSignUp from '../../../entities/InputValidationSignUp/view/InputValidationSignUp';
+import InputValidationPassword from '../../../entities/InputValidationPassword/InputValidationPassword';
+import { store } from '../../../app/store/store';
+import { closeModal } from '../../../app/store/actions/modalSliceAction/modalSlice';
+import Button from '../../components/Button/Button';
+import { resetPasswordState } from '../../../app/store/actions/changePasswordAction/changePasswordSlice';
+import { resetPassword } from '../../../app/store/actions/signupActions/sugnupSlice';
+import getCookie from '../../cookie/getCookie';
+import { getProfile } from '../../components/StudentsProfileForm/usage/ProfileFormAPI';
+import { setVersion } from '../../../app/store/actions/profileVersion/profileVersion';
+import { setInputValueWithValidation } from '../../../app/store/actions/signupActions/signupActions';
+import { changePassword } from '../usage/changePasswordAPI';
 
 type RootState = ReturnType<typeof store.getState>;
 
@@ -27,6 +32,23 @@ const ModalProfile: FC<ModalProfileProps> = ({ isOpen }) => {
     dispatch(closeModal());
     dispatch(resetPasswordState());
     dispatch(resetPassword());
+  };
+
+  const submitChangePassword = () => {
+    const fetchData = async () => {
+      try {
+        const token: string = getCookie('authToken') as string;
+        const profile = await getProfile(token);
+        const version = profile.version;
+
+        dispatch(setVersion({ version }));
+        const res = await changePassword(token);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    fetchData();
   };
 
   return (
@@ -61,7 +83,7 @@ const ModalProfile: FC<ModalProfileProps> = ({ isOpen }) => {
               <Button
                 className={'profile-button'}
                 data={'Save'}
-                onClick={() => {}}
+                onClick={submitChangePassword}
               />
               <Button
                 className={'profile-button'}
