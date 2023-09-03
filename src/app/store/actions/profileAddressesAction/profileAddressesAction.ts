@@ -30,7 +30,7 @@ export const setAddressInputWithValidation = (addressId: string, inputName: stri
         break;
       case 'code':
         const countryShip = store.getState().profileAddresses[addressId].withoutValidation.country;
-        validationSchema = getPostalCodeValidationSchema(countryShip);
+        validationSchema = getPostalCodeValidationSchema(countryShip as string);
         break;
       default:
         validationSchema = emptyFieldValidationSchema;

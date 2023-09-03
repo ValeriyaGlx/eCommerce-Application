@@ -1,4 +1,5 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import InputValidationProfile from '../InputValidationProfile/InputValidationProfile';
 import ProfileSelectTag from '../ProfileSelectedTag/ProfileSelectedTag';
@@ -12,7 +13,6 @@ import {
   setAddressInputValue,
   setProfileSelectValue,
 } from '../../app/store/actions/profileAddressesAction/profileAddressesSlice';
-import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../shared/components/StudentsProfileForm/StudentsProfileForm';
 
 interface UserAddressSectionProps {
@@ -27,6 +27,7 @@ interface UserAddressSectionProps {
   }[];
   addressId: string;
   defaultAddress: boolean;
+  isEditMode: boolean;
 }
 
 const UserAddressSection: FC<UserAddressSectionProps> = ({
@@ -36,6 +37,7 @@ const UserAddressSection: FC<UserAddressSectionProps> = ({
   addressArray,
   addressId,
   defaultAddress,
+  isEditMode,
 }) => {
   const dispatch = useDispatch<AppDispatch>();
 
@@ -46,6 +48,12 @@ const UserAddressSection: FC<UserAddressSectionProps> = ({
     setEditMode(true);
     setReadonlyMode(false);
   };
+
+  useEffect(() => {
+    if (isEditMode) {
+      onEditMode();
+    }
+  }, []);
 
   const offEditMode = () => {
     setEditMode(false);
@@ -96,6 +104,8 @@ const UserAddressSection: FC<UserAddressSectionProps> = ({
           onEditMode={onEditMode}
           offEditMode={offEditMode}
           sendRequest={() => {}}
+          message={''}
+          colorMessage={''}
         />
       </div>
       {defaultAddress && <span style={{ color: 'red' }}>default</span>}

@@ -32,6 +32,7 @@ const AddressesSectionMap: FC<AddressesSectionMapProps> = ({
 }) => {
   const [addresses, setAddresses] = useState<Address[]>(arr);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [editMode, setEditMode] = useState(false);
   const sliderRef = useRef<Slider | null>(null);
 
   const sliderSettings = {
@@ -64,6 +65,7 @@ const AddressesSectionMap: FC<AddressesSectionMapProps> = ({
     if (sliderRef.current) {
       sliderRef.current.slickGoTo(addresses.length);
     }
+    setEditMode(true);
   };
 
   return (
@@ -84,6 +86,7 @@ const AddressesSectionMap: FC<AddressesSectionMapProps> = ({
             addressArray={addressArray}
             addressId={id}
             defaultAddress={defaultAddress}
+            isEditMode={editMode}
           />
         ))}
       </Slider>

@@ -46,7 +46,8 @@
       "error",
       {
         "allow": [
-          "inputName"
+          "inputName",
+          "addressId"
         ]
       }
     ],

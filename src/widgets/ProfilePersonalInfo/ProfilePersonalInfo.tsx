@@ -8,17 +8,44 @@ import getCookie from '../../shared/cookie/getCookie';
 import { getProfile } from '../../shared/components/StudentsProfileForm/usage/ProfileFormAPI';
 import { setInputValueWithValidation } from '../../app/store/actions/signupActions/signupActions';
 import { store } from '../../app/store/store';
-import { updateProfile } from './usage/profileUpdateAPI';
 import { setVersion } from '../../app/store/actions/profileVersion/profileVersion';
-import profile from '../../pages/Profile/Profile';
+
+import { updateProfile } from './usage/profileUpdateAPI';
 
 type AppDispatch = typeof store.dispatch;
 
 const ProfilePersonalInfo = () => {
   const [editMode, setEditMode] = useState(false);
   const [readonlyMode, setReadonlyMode] = useState(true);
+  const [message, setMessage] = useState('');
+  const [fieldChanges, setFieldChanges] = useState({});
+  const [validErrors, setValidErrors] = useState({});
+  const [currentValues, setCurrentValues] = useState({});
 
   const dispatch = useDispatch<AppDispatch>();
+
+  const onFieldChange = (fieldName: string, fieldValue: string) => {
+    setFieldChanges((prevChanges) => ({
+      ...prevChanges,
+      [fieldName]: fieldValue,
+    }));
+
+    const validationErrors = store.getState().signup.signup[fieldName]
+      .validationError as string;
+
+    const values = store
+      .getState()
+      .signup.signup[fieldName].value.trim() as string;
+    setCurrentValues((prevValues) => ({
+      ...prevValues,
+      [fieldName]: values,
+    }));
+
+    setValidErrors((prevErrors) => ({
+      ...prevErrors,
+      [fieldName]: validationErrors,
+    }));
+  };
 
   const onEditMode = () => {
     setEditMode(true);
@@ -33,7 +60,6 @@ const ProfilePersonalInfo = () => {
         const token: string = getCookie('authToken') as string;
         const profile = await getProfile(token);
         const profileFields = Object.entries(profile.personal);
-        console.log(profileFields);
 
         profileFields.forEach((el) => {
           const inputName = el[0];
@@ -46,17 +72,65 @@ const ProfilePersonalInfo = () => {
     };
 
     fetchData();
+
+    setFieldChanges({});
+    setValidErrors({});
   };
 
   const sendRequest = () => {
+    const hasChanges = Object.keys(fieldChanges).length > 0;
+    let hasValidationErrors = false;
+
+    Object.values(validErrors).forEach((error) => {
+      if (error) {
+        hasValidationErrors = true;
+      }
+    });
+
+    if (!hasChanges) {
+      setMessage('nothing changes');
+      setTimeout(() => setMessage(''), 1000);
+      return;
+    }
+
+    if (hasValidationErrors) {
+      setMessage('fix valid errors first');
+      setTimeout(() => setMessage(''), 1000);
+      return;
+    }
+
     const fetchData = async () => {
       try {
         const token: string = getCookie('authToken') as string;
         const profile = await getProfile(token);
         const version = profile.version;
-
         await dispatch(setVersion({ version }));
-        await updateProfile(token);
+
+        const entriesProfilePersonal = Object.entries(profile.personal);
+        const entriesCurrentValues = Object.entries(currentValues);
+
+        const isMatch = entriesCurrentValues.every(
+          ([currentKey, currentValue]) => {
+            const matchingEntry = entriesProfilePersonal.find(
+              ([key, value]) => key === currentKey && value === currentValue,
+            );
+
+            return matchingEntry !== undefined;
+          },
+        );
+
+        if (!isMatch) {
+          const updProfile = await updateProfile(token);
+          setMessage('success');
+          setTimeout(() => setMessage(''), 1000);
+
+          setEditMode(false);
+          setReadonlyMode(true);
+        } else {
+          setMessage('nothing changes');
+          setTimeout(() => setMessage(''), 1000);
+          return;
+        }
       } catch (e) {
         console.log(e);
       }
@@ -64,8 +138,8 @@ const ProfilePersonalInfo = () => {
 
     fetchData();
 
-    setEditMode(false);
-    setReadonlyMode(true);
+    setFieldChanges({});
+    setValidErrors({});
   };
 
   return (
@@ -77,6 +151,8 @@ const ProfilePersonalInfo = () => {
           onEditMode={onEditMode}
           offEditMode={offEditMode}
           sendRequest={sendRequest}
+          message={message}
+          colorMessage={'red'}
         />
       </div>
       <div className={'profile-form__input'}>
@@ -90,6 +166,7 @@ const ProfilePersonalInfo = () => {
             min={min}
             styles={style}
             readonly={readonlyMode}
+            onFieldChange={onFieldChange}
           />
         ))}
       </div>

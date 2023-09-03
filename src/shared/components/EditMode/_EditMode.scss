@@ -1,3 +1,20 @@
+@import 'src/constants/scss/variables';
+@import 'src/constants/scss/extentds';
+
+.edit-mode-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.edit-mode-error {
+  font-size: 16px;
+  padding: 5px 10px;
+  height: 40px;
+  position: relative;
+  z-index: 5;
+}
+
 .edit-mode {
   display: flex;
   align-items: center;

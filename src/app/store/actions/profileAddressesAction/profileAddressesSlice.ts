@@ -8,7 +8,7 @@ interface AddressState {
 export type State = {
   [addressId: string]: {
     validation: Record<string, AddressState>;
-    withoutValidation: Record<string, string>;
+    withoutValidation: Record<string, string | boolean>;
   };
 };
 
