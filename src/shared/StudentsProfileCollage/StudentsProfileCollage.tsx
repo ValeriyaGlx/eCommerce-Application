@@ -13,7 +13,7 @@ const StudentsProfileCollage = () => {
 
   return (
     <>
-      {isOpen && <ModalProfile isOpen={isOpen} />}
+      <ModalProfile isOpen={isOpen} />
       <div className={'profile-wrapper'}>
         <div className={'profile-container__img'}>
           <div className={'profile-container__button'}>
