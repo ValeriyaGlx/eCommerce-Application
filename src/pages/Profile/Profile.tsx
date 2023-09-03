@@ -1,4 +1,3 @@
-import React from 'react';
 import './_Profile.scss';
 
 import StudentProfileForm from '../../shared/components/StudentsProfileForm/StudentsProfileForm';
@@ -11,7 +10,7 @@ export function Profile() {
       <div className='wrapper-profile'>
         <StudentProfileForm />
         <StudentsProfileCollage />
-        <ModalProfile isOpen={false} onClick={() => undefined} />
+        <ModalProfile isOpen={false} />
       </div>
     </>
   );
