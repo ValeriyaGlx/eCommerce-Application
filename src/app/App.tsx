@@ -20,6 +20,7 @@ import SubCategory from '../pages/SubCategory/SubCategory';
 
 import RequireAuth from './hoc/RequireAuth';
 import { store } from './store/store';
+import RequireProfile from './hoc/RequireProfile';
 
 checkIsLogin();
 
@@ -47,7 +48,14 @@ function App() {
         <Route path={'/'} element={<Layout />}>
           <Route index element={<HomePage />} />
           <Route path='cart' element={<Cart />} />
-          <Route path='profile' element={<Profile />} />
+          <Route
+            path='profile'
+            element={
+              <RequireProfile>
+                <Profile />
+              </RequireProfile>
+            }
+          />
           <Route path='favorites' element={<Favorites />} />
           <Route path='about' element={<AboutUs />} />
           <Route path='products' element={<Products />} />

@@ -1,36 +1,48 @@
-import { createSlice } from '@reduxjs/toolkit';
+import * as yup from 'yup';
+import { Action, ThunkAction } from '@reduxjs/toolkit';
 
-interface AddressState {
-  value: string;
-  validationError: string;
-}
+import { store } from '../../store';
+import {
+  emptyFieldValidationSchema,
+  getPostalCodeValidationSchema,
+  streetValidationSchema,
+} from '../../../../entities/InputValidationSignUp/usage/utils/validationSignUp';
 
-export type State = {
-  validation: Record<string, Record<string, AddressState>>;
-  withoutValidation: Record<string, AddressState>;
-};
+import {
+  clearAddressInputValidationError,
+  setAddressInputValidationError,
+  setAddressInputValue,
+} from './profileAddressesSlice';
 
-const profileAddressSlice = createSlice({
-  name: 'addresses',
-  initialState: {
-    validation: {},
-    withoutValidation: {},
-  } as State,
+type RootState = ReturnType<typeof store.getState>;
 
-  reducers: {
-    initializeAddresses: (state, action) => {
-      return action.payload;
-    },
-    setAddressValue: (state, action) => {
-      const { inputName, fieldName, value } = action.payload;
+type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, Action<string>>;
 
-      if (!state.validation[inputName]) {
-        state.validation[inputName] = {};
+export const setAddressInputWithValidation = (addressId: string, inputName: string, inputValue: string): AppThunk => {
+  return (dispatch) => {
+    dispatch(setAddressInputValue({ addressId, inputName, inputValue }));
+
+    let validationSchema: yup.StringSchema | yup.DateSchema;
+
+    switch (inputName) {
+      case 'street':
+        validationSchema = streetValidationSchema;
+        break;
+      case 'code':
+        const countryShip = store.getState().profileAddresses[addressId].withoutValidation.country;
+        validationSchema = getPostalCodeValidationSchema(countryShip as string);
+        break;
+      default:
+        validationSchema = emptyFieldValidationSchema;
+    }
+
+    try {
+      validationSchema.validateSync(inputValue);
+      dispatch(clearAddressInputValidationError({ addressId, inputName }));
+    } catch (error) {
+      if (error instanceof yup.ValidationError) {
+        dispatch(setAddressInputValidationError({ addressId, inputName, validationError: error.message }));
       }
-      state.validation[inputName][fieldName] = value;
-    },
-  },
-});
-
-export const { initializeAddresses } = profileAddressSlice.actions;
-export default profileAddressSlice.reducer;
+    }
+  };
+};

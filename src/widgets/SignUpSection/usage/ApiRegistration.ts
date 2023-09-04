@@ -21,8 +21,8 @@ export interface ISubmitData {
   password: string;
   dateOfBirth: string;
   addresses: IAddress[];
-  billingAddress: string;
-  shippingAddress: string;
+  billingAddresses: number[];
+  shippingAddresses: number[];
   defaultShippingAddress?: number;
   defaultBillingAddress?: number;
 }

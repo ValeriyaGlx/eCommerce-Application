@@ -1,0 +1,55 @@
+@import 'src/constants/scss/variables';
+@import 'src/constants/scss/extentds';
+
+.edit-mode-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.edit-mode-error {
+  font-size: 16px;
+  padding: 5px 10px;
+  height: 40px;
+  position: relative;
+  z-index: 5;
+}
+
+.edit-mode {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .edit,
+  .ok,
+  .close {
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+  }
+
+  .edit {
+    background: center url("../../../assets/icons/icon-edit.svg") no-repeat;
+    background-size: 100%;
+  }
+
+  .ok {
+    background: center url("../../../assets/icons/icon-ok.svg") no-repeat;
+    background-size: 100%;
+  }
+
+  .close {
+    background: center url("../../../assets/icons/close-line.svg") no-repeat;
+    background-size: 100%;
+  }
+}
+
+.edit-mode-error-red {
+  color: $color-radio-red;
+}
+
+.edit-mode-error-green {
+  color: $color-radio-green;
+}
+
+

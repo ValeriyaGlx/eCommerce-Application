@@ -20,6 +20,7 @@ interface InputValidationSignUpProps {
   min?: string;
   styles?: string;
   readonly?: boolean;
+  onFieldChange?: (fieldName: string, fieldValue: string) => void;
 }
 
 const inputValidationSignUp: FC<InputValidationSignUpProps> = ({
@@ -32,6 +33,7 @@ const inputValidationSignUp: FC<InputValidationSignUpProps> = ({
   min,
   styles,
   readonly,
+  onFieldChange,
 }) => {
   const dispatch: ThunkDispatch<RootState, unknown, AnyAction> = useDispatch();
 
@@ -42,6 +44,10 @@ const inputValidationSignUp: FC<InputValidationSignUpProps> = ({
   const handleInputChangeTest = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value.trimStart();
     dispatch(setInputValueWithValidation(inputName, newValue));
+
+    if (onFieldChange) {
+      onFieldChange(inputName, newValue);
+    }
   };
   const error = store.getState().signup.signup[inputName].validationError;
 
