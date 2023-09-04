@@ -22,10 +22,7 @@ import {
 } from '../../app/store/actions/profileAddressesAction/profileAddressesSlice';
 import getCookie from '../../shared/cookie/getCookie';
 import { setVersion } from '../../app/store/actions/profileVersion/profileVersion';
-import {
-  addAddresses,
-  changeAddresses,
-} from '../UserAddressSection/usage/addressesAPI';
+import { addAddresses } from '../UserAddressSection/usage/addressesAPI';
 
 interface AddressesSectionMapProps {
   arr: Address[];
@@ -48,7 +45,6 @@ const AddressesSectionMap: FC<AddressesSectionMapProps> = ({
   const [isNewAddressBeingAdded, setIsNewAddressBeingAdded] = useState(false);
   const sliderRef = useRef<Slider | null>(null);
   const [isUnfinishedAddress, setIsUnfinishedAddress] = useState('');
-  const [addId, setAddId] = useState('');
 
   const sliderSettings = {
     dots: true,
@@ -84,14 +80,12 @@ const AddressesSectionMap: FC<AddressesSectionMapProps> = ({
           const token: string = getCookie('authToken') as string;
           const profile = await getProfile(token);
           const version = profile.version;
-          await dispatch(setVersion({ version }));
+          dispatch(setVersion({ version }));
 
           const res = await addAddresses(token);
 
           const addressesArray = [...res.addresses];
           const newAddressApiId = addressesArray[addressesArray.length - 1];
-
-          // await changeAddresses(token, 'addShipping', newAddressApiId.id);
 
           const newAddress: Address = {
             id: newAddressApiId.id,
@@ -146,9 +140,9 @@ const AddressesSectionMap: FC<AddressesSectionMapProps> = ({
       >
         {addresses.map(({ id, defaultAddress }, index) => (
           <UserAddressSection
-            key={addresses.length}
+            key={id}
             inputName={inputName}
-            title={`Address #${addresses.length}`}
+            title={`Address #${index + 1}`}
             selectArray={selectArray}
             addressArray={addressArray}
             addressId={id}
@@ -156,6 +150,7 @@ const AddressesSectionMap: FC<AddressesSectionMapProps> = ({
             defaultAddress={defaultAddress}
             cancelAddNewAddress={cancelAddNewAddress}
             removeAddressProps={removeAddressProps}
+            isNewAddressBeingAdded={isNewAddressBeingAdded}
           />
         ))}
       </Slider>

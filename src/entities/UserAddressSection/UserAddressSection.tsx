@@ -11,7 +11,6 @@ import {
 } from '../../shared/components/StudentsProfileForm/usage/ProfileFormAPI';
 import {
   changeProfileAddressCheckboxData,
-  removeAddress,
   setAddressInputValue,
   setProfileSelectValue,
 } from '../../app/store/actions/profileAddressesAction/profileAddressesSlice';
@@ -19,8 +18,9 @@ import { AppDispatch } from '../../shared/components/StudentsProfileForm/Student
 import Button from '../../shared/components/Button/Button';
 import InputCheckbox from '../../shared/components/InputCheckbox/InputCheckbox';
 import { store } from '../../app/store/store';
-import { changeAddresses } from './usage/addressesAPI';
 import { setVersion } from '../../app/store/actions/profileVersion/profileVersion';
+
+import { changeAddresses } from './usage/addressesAPI';
 
 interface UserAddressSectionProps {
   title: string;
@@ -37,6 +37,7 @@ interface UserAddressSectionProps {
   defaultAddress: boolean;
   cancelAddNewAddress?: () => void;
   removeAddressProps?: (addressId: string) => void;
+  isNewAddressBeingAdded?: boolean;
 }
 
 type RootState = ReturnType<typeof store.getState>;
@@ -50,11 +51,17 @@ const UserAddressSection: FC<UserAddressSectionProps> = ({
   isEditMode,
   cancelAddNewAddress,
   removeAddressProps,
+  isNewAddressBeingAdded,
 }) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const [editMode, setEditMode] = useState(false);
   const [readonlyMode, setReadonlyMode] = useState(true);
+
+  const addressesType = useSelector(
+    (state: RootState) =>
+      state.profileAddresses[addressId].withoutValidation.type,
+  );
 
   const checkboxState = useSelector(
     (state: RootState) =>
@@ -64,6 +71,38 @@ const UserAddressSection: FC<UserAddressSectionProps> = ({
   const checkboxOnChange = (addressId: string) => {
     const checkboxValue = !checkboxState;
     dispatch(changeProfileAddressCheckboxData({ addressId, checkboxValue }));
+  };
+
+  const saveAddress = () => {
+    const fetchData = async () => {
+      try {
+        const token: string = getCookie('authToken') as string;
+        const profile = await getProfile(token);
+        const version = profile.version;
+        dispatch(setVersion({ version }));
+
+        await changeAddresses(token, 'change', addressId);
+
+        if (isNewAddressBeingAdded) {
+          const profile = await getProfile(token);
+          const version = profile.version;
+          dispatch(setVersion({ version }));
+
+          if (addressesType === 'billing') {
+            await changeAddresses(token, 'addBilling', addressId);
+          } else {
+            await changeAddresses(token, 'addShipping', addressId);
+          }
+        }
+
+        setEditMode(false);
+        setReadonlyMode(true);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    fetchData();
   };
 
   const onEditMode = () => {
@@ -149,7 +188,7 @@ const UserAddressSection: FC<UserAddressSectionProps> = ({
           editMode={editMode}
           onEditMode={onEditMode}
           offEditMode={offEditMode}
-          sendRequest={() => {}}
+          sendRequest={saveAddress}
           className={'addresses'}
           message={''}
           colorMessage={''}

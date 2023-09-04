@@ -17,12 +17,41 @@ function actionAddress(action: string, id: string) {
         ],
       };
       break;
+    case 'change':
+      const newAddress = store.getState().profileAddresses[id];
+      data = {
+        version: store.getState().profileVersion.version,
+        actions: [
+          {
+            action: 'changeAddress',
+            addressId: id,
+            address: {
+              streetName: newAddress.validation.street.value,
+              postalCode: newAddress.validation.code.value,
+              city: newAddress.validation.city.value,
+              country: 'US',
+            },
+          },
+        ],
+      };
+      break;
     case 'addShipping':
       data = {
         version: store.getState().profileVersion.version,
         actions: [
           {
             action: 'addShippingAddressId',
+            addressId: id,
+          },
+        ],
+      };
+      break;
+    case 'addBilling':
+      data = {
+        version: store.getState().profileVersion.version,
+        actions: [
+          {
+            action: 'addBillingAddressId',
             addressId: id,
           },
         ],
@@ -47,12 +76,10 @@ function addAddress() {
       },
     ],
   };
-
   return data;
 }
 
 export async function changeAddresses(token: string, action: string, id: string) {
-  console.log(id);
   const urlRequest = `${host}/${project}/me`;
 
   const authHeader = 'Bearer ' + token;
