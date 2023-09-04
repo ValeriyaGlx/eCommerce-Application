@@ -13,6 +13,12 @@
     @media (max-width: 640px) {
       padding: 21px 22px 62px 21px;
     }
+    @media (max-width: 550px) {
+      box-shadow: none;
+    }
+    @media (max-width: 535px) {
+      margin-left: -13px;
+    }
 
     &__title {
       font-weight: bold;
@@ -157,29 +163,33 @@
 
 .profile-form__button--icon {
   opacity: 1;
-  transition: opacity 0.5s ease,
-  transform 0.3s ease;
+  transition:
+    opacity 0.5s ease,
+    transform 0.3s ease;
 }
 
 .profile-form__icon.active .profile-form__button--icon {
   opacity: 0;
   transform: translateX(100px);
-  transition: opacity 0.5s ease,
-  transform 0.3s ease;
+  transition:
+    opacity 0.5s ease,
+    transform 0.3s ease;
 }
 
 .profile-form__icon.active .profile-form__button {
   opacity: 1;
   transform: translateY(0);
-  transition: opacity 0.5s ease,
-  transform 0.3s ease;
+  transition:
+    opacity 0.5s ease,
+    transform 0.3s ease;
 }
 
 .profile-form__button {
   opacity: 0;
   transform: translateX(100px);
-  transition: opacity 0.5s ease,
-  transform 0.3s ease;
+  transition:
+    opacity 0.5s ease,
+    transform 0.3s ease;
 }
 
 .profile-input {
@@ -288,6 +298,20 @@
       :nth-child(7) {
         grid-area: auto;
       }
+    }
+  }
+}
+
+@media (max-width: 550px) {
+  .wrapper-profile {
+    margin-left: -8px;
+  }
+}
+
+@media (max-width: 525px) {
+  .wrapper {
+    .footer {
+      width: 0;
     }
   }
 }

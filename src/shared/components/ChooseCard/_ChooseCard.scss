@@ -3,11 +3,21 @@
 .documentation {
   flex-basis: 270px;
   flex-grow: 1;
+  @media (max-width: 629px) {
+    justify-content: center;
+    display: flex;
+  }
   &-container {
     display: flex;
     flex-direction: column;
     row-gap: 20px;
     height: 100%;
+
+    @media (max-width: 629px) {
+      justify-content: center;
+      align-items: center;
+      width: 64%;
+    }
     &__img {
       width: 100px;
       height: 100px;
@@ -17,6 +27,22 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      @media (max-width: 450px) {
+        width: 65px;
+        height: 65px;
+      }
+      img {
+        @media (max-width: 450px) {
+          width: 27px;
+          height: 27px;
+        }
+      }
+    }
+
+    &__name {
+      @media (max-width: 450px) {
+        font-size: 18px;
+      }
     }
     &.documentation-border {
       border-radius: 10px;
@@ -30,4 +56,10 @@ h5 {
   color: $color-grey-paragraph;
   font-weight: 400;
   font-size: 17px;
+  @media (max-width: 629px) {
+    text-align: center;
+  }
+  @media (max-width: 450px) {
+    font-size: 13px;
+  }
 }

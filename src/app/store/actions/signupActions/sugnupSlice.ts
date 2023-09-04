@@ -116,6 +116,12 @@ const signupSlice = createSlice({
       const { checkbox, checkboxValue } = action.payload;
       state.checkboxes[checkbox] = checkboxValue;
     },
+    resetState: () => initialState,
+
+    resetPassword: (state) => {
+      state.signup.password.value = '';
+      state.signup.password.validationError = '';
+    },
   },
 });
 
@@ -125,5 +131,7 @@ export const {
   setInputValidationError,
   clearInputValidationError,
   changeAddressCheckboxData,
+  resetState,
+  resetPassword,
 } = signupSlice.actions;
 export default signupSlice.reducer;

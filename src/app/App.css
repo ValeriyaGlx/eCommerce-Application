@@ -3,14 +3,14 @@ input[type=submit] {
   transition: 0.2s;
 }
 input[type=submit]:hover {
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 5px, rgba(113, 88, 226, 0.3) 0px 3px 5px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0 3px 5px, rgba(113, 88, 226, 0.3) 0 3px 5px;
 }
 
 input[type=submit] {
   transition: 0.2s;
 }
 input[type=submit]:hover {
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 5px, rgba(113, 88, 226, 0.3) 0px 3px 5px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0 3px 5px, rgba(113, 88, 226, 0.3) 0 3px 5px;
 }
 
 *,
@@ -56,7 +56,7 @@ input:read-only,
 input:read-only:hover,
 input:read-only:active {
   cursor: default;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 4px 3px inset !important;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 2px 4px 3px inset !important;
 }
 
 li {
@@ -80,6 +80,7 @@ p {
 .container {
   padding: 20px 100px;
   margin: 0 auto;
+  max-width: 1440px;
 }
 @media (max-width: 1060px) {
   .container {
