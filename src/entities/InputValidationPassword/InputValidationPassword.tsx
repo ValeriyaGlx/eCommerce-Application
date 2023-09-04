@@ -22,7 +22,6 @@ interface InputValidationPasswordCurrentProps {
   min?: string;
   styles?: string;
   readonly?: boolean;
-  isValid?: boolean;
 }
 
 type RootState = ReturnType<typeof store.getState>;
@@ -37,7 +36,6 @@ const InputValidationPassword: FC<InputValidationPasswordCurrentProps> = ({
   min,
   styles,
   readonly,
-  isValid,
 }) => {
   const dispatch: ThunkDispatch<RootState, unknown, AnyAction> = useDispatch();
 
@@ -58,12 +56,6 @@ const InputValidationPassword: FC<InputValidationPasswordCurrentProps> = ({
       validateAllFields({ inputName: inputName as ChangePasswordStateKey }),
     );
   };
-
-  if (!isValid) {
-    dispatch(
-      validateAllFields({ inputName: inputName as ChangePasswordStateKey }),
-    );
-  }
 
   const error =
     store.getState().changePassword[inputName as ChangePasswordStateKey]

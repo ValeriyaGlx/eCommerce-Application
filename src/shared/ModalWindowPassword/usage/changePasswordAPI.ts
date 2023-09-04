@@ -37,6 +37,6 @@ export async function changePassword(token: string) {
     const token = await tokenRequest(email, newPassword.password.value);
     const accessToken = token.access_token;
     setToken('authToken', accessToken);
-    return res;
+    return response.status;
   }
 }
