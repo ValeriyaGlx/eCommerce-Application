@@ -8,7 +8,11 @@ const mockFilterChange = jest.fn();
 describe('Filtering', () => {
   const setup = () => {
     const utils = render(
-      <Filter className='test-filter' onFilterChange={mockFilterChange} />,
+      <Filter
+        className='test-filter'
+        onFilterChange={mockFilterChange}
+        onClickCloseButton={mockFilterChange}
+      />,
     );
     const difficultyRadio = utils.getByText('Easy');
     const durationRadio = utils.getByText('Less 4 weeks');
