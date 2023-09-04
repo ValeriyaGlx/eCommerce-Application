@@ -5,6 +5,7 @@ import './_ModalWindowPasswordAnimation.scss';
 import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 
+import { showPassword } from '../../features/formCommon/showPassword';
 // eslint-disable-next-line max-len
 import InputValidationPasswordAuthenticity from '../../entities/InputValidationPasswordAuthenticity/InputValidationPasswordAuthenticity';
 // eslint-disable-next-line max-len
@@ -34,18 +35,21 @@ const ModalProfile: FC<ModalProfileProps> = ({ isOpen }) => {
                 type={'password'}
                 placeholder={'Password'}
                 inputName={'password'}
+                showPassword={showPassword}
               />
               <h5>New Password</h5>
               <InputValidationPasswordNew
                 type={'password'}
                 placeholder={'Password'}
                 inputName={'password'}
+                showPassword={showPassword}
               />
               <h5>Confirm Password</h5>
               <InputValidationPasswordAuthenticity
                 type={'password'}
                 placeholder={'Password'}
                 inputName={'password'}
+                showPassword={showPassword}
               />
             </div>
             <div
