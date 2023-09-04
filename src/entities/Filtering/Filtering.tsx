@@ -14,6 +14,7 @@ import search from '../../assets/icons/search-line.svg';
 interface FilterProps {
   className: string;
   onFilterChange: (filters: Filters) => void;
+  onClickCloseButton: () => void;
 }
 
 export interface Filters {
@@ -31,7 +32,11 @@ const initialFilters: Filters = {
   duration: '',
   search: '',
 };
-const Filter: React.FC<FilterProps> = ({ className, onFilterChange }) => {
+const Filter: React.FC<FilterProps> = ({
+  className,
+  onFilterChange,
+  onClickCloseButton,
+}) => {
   const [filters, setFilters] = useState<Filters>(initialFilters);
   const [selectedDifficultyValue, setSelectedDifficultyValue] =
     useState<string>('');
@@ -47,6 +52,7 @@ const Filter: React.FC<FilterProps> = ({ className, onFilterChange }) => {
 
   return (
     <div className={className}>
+      <div className='image-modal-close' onClick={onClickCloseButton}></div>
       <h2 className={'filtering-title'}>Filter by</h2>
       <div className={'filtering_item'}>
         <label className={'filtering_item-title'}>Price</label>

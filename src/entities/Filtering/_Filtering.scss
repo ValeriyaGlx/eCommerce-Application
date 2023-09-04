@@ -12,6 +12,13 @@
   box-shadow: $box-shadow;
   border-radius: 20px;
 
+  .image-modal-close {
+    display: none;
+    @media (max-width: 1400px) {
+      display: block;
+    }
+  }
+
   @media (max-width: 1400px) {
     width: 50%;
     position: absolute;
@@ -24,6 +31,7 @@
       transform: translateX(0%);
     }
   }
+
   @media (max-width: 600px) {
     width: 70%;
   }

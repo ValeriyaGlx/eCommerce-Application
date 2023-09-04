@@ -92,7 +92,10 @@
 
 .wrapper-content {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  @media screen and (max-width: 1400px) {
+    justify-content: center;
+  }
 }
 
 .loading {

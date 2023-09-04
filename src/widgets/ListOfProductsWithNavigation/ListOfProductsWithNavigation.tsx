@@ -83,6 +83,16 @@ const ListOfProductsWithNavigation: React.FC<
     }
   };
 
+  const handleClickOutside = (event: MouseEvent) => {
+    const menuIcon = document.querySelector('.filtering_list') as HTMLElement;
+    const settingButton = document.querySelector(
+      '.button-setting',
+    ) as HTMLElement;
+    const modal1 = event.composedPath().includes(menuIcon);
+    const modal2 = event.composedPath().includes(settingButton);
+    if (!modal1 && !modal2) setIsOpenFilters(false);
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -113,9 +123,17 @@ const ListOfProductsWithNavigation: React.FC<
         setIsLoading(false);
       }
     };
-
     fetchData();
-  }, []);
+    if (isOpenFilters) {
+      window.addEventListener('click', handleClickOutside);
+    } else {
+      window.removeEventListener('click', handleClickOutside);
+    }
+
+    return () => {
+      window.removeEventListener('click', handleClickOutside);
+    };
+  }, [isOpenFilters]);
 
   const handleSortClick = async (event: React.MouseEvent) => {
     setIsLoading(true);
@@ -171,6 +189,7 @@ const ListOfProductsWithNavigation: React.FC<
         <Filter
           className={`filtering_list ${isOpenFilters ? 'open' : ''}`}
           onFilterChange={handleFilteringClick}
+          onClickCloseButton={() => setIsOpenFilters(false)}
         />
         {isLoading ? (
           <div className={'loading'}>Loading...</div>

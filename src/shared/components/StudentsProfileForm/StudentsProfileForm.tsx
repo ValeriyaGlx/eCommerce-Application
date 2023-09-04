@@ -12,9 +12,9 @@ import { setInputValueWithValidation } from '../../../app/store/actions/signupAc
 import AddressesSectionMap from '../../../entities/AddressesSectionMap/AddressesSectionMap';
 import { initializeAddresses } from '../../../app/store/actions/profileAddressesAction/profileAddressesSlice';
 import ProfilePersonalInfo from '../../../widgets/ProfilePersonalInfo/ProfilePersonalInfo';
+import { setVersion } from '../../../app/store/actions/profileVersion/profileVersion';
 
 import { Address, getProfile } from './usage/ProfileFormAPI';
-import { setVersion } from '../../../app/store/actions/profileVersion/profileVersion';
 
 export type AppDispatch = typeof store.dispatch;
 
