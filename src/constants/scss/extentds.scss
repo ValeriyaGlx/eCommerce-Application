@@ -95,7 +95,7 @@
 
   &:focus {
     box-shadow: 0 0 6px 1px #d3d3d3;
-    outline-width: 0px;
+    outline-width: 0;
   }
 }
 
@@ -103,7 +103,7 @@
   transition: 0.2s;
 
   &:hover {
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 5px, rgba(113, 88, 226, 0.3) 0px 3px 5px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0 3px 5px, rgba(113, 88, 226, 0.3) 0 3px 5px;
   }
 }
 
