@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface PasswordState {
   value: string;
-  validationError: string;
+  validationError: string | null;
 }
 
 export interface ChangePasswordState {

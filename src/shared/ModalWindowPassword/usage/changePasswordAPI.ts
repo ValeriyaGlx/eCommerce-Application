@@ -31,11 +31,11 @@ export async function changePassword(token: string) {
   if (!response.ok) {
     return response.status;
   } else {
-    const res = response.json();
+    response.json();
     const email = store.getState().signup.signup.email.value;
     const newPassword = store.getState().changePassword;
-    const token = await tokenRequest(email, newPassword.password.value);
-    const accessToken = token.access_token;
+    const tokenNew = await tokenRequest(email, newPassword.password.value);
+    const accessToken = tokenNew.access_token;
     setToken('authToken', accessToken);
     return response.status;
   }

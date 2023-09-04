@@ -21,7 +21,6 @@ import { setVersion } from '../../../app/store/actions/profileVersion/profileVer
 import { showPassword } from '../../../features/formCommon/showPassword';
 import { setInputValueWithValidation } from '../../../app/store/actions/signupActions/signupActions';
 import ModalChangePasswordReq from '../../ModalChangePasswordReq/ModalChangePasswordReq';
-
 import { changePassword } from '../usage/changePasswordAPI';
 
 type RootState = ReturnType<typeof store.getState>;
@@ -34,6 +33,7 @@ interface ModalProfileProps {
 const ModalProfile: FC<ModalProfileProps> = ({ isOpen }) => {
   const [status, setStatus] = useState('');
   const [description, setDescription] = useState('');
+  const [isModal, setIsModal] = useState(false);
   const passwordState = useSelector(
     (state: RootState) => state.signup.signup.password,
   );
@@ -72,15 +72,20 @@ const ModalProfile: FC<ModalProfileProps> = ({ isOpen }) => {
 
         dispatch(setVersion({ version }));
         const res = await changePassword(token);
+        await setIsModal(true);
         if (res === 200) {
           setStatus('Password Changed');
           setDescription('Password successfully updated');
+          closePasswordModal();
         } else if (res === 400) {
           setStatus('Change Failed');
           setDescription('Incorrect current password. Please try again');
         } else {
-          console.log('something goes wrong');
+          setStatus('Change Failed');
+          setDescription('Something goes wrong. Please try again');
         }
+
+        setTimeout(() => setIsModal(false), 1300);
       } catch (e) {
         console.log(e);
       }
@@ -95,7 +100,7 @@ const ModalProfile: FC<ModalProfileProps> = ({ isOpen }) => {
         <div className={'modal-background'}>
           <div className={'modal-window'}>
             <div className={'modal-inner'}>
-              <h2>Change the Password</h2>
+              <h2 className={'modal-header'}>Change the Password</h2>
               <h5>Current Password</h5>
               <InputValidationPassword
                 type={'password'}
@@ -135,9 +140,11 @@ const ModalProfile: FC<ModalProfileProps> = ({ isOpen }) => {
               </div>
             </div>
           </div>
-          <ModalChangePasswordReq status={status} description={description} />
         </div>
       </CSSTransition>
+      {isModal && (
+        <ModalChangePasswordReq status={status} description={description} />
+      )}
     </>
   );
 };
