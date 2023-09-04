@@ -6,6 +6,7 @@ interface BreadcrumbProps {
   breadcrumbs: Array<{
     value: string;
     path: string;
+    key: number;
   }>;
 }
 
@@ -13,7 +14,7 @@ const Breadcrumbs: React.FC<BreadcrumbProps> = ({ breadcrumbs }) => {
   return (
     <div className='breadcrumbs'>
       {breadcrumbs.map((breadcrumb, index) => (
-        <Link to={breadcrumb.path}>
+        <Link to={breadcrumb.path} key={breadcrumb.key}>
           {breadcrumb.value}
           {index < breadcrumbs.length - 1 && <span> / </span>}
         </Link>

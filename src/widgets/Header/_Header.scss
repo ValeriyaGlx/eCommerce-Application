@@ -2,119 +2,119 @@
 @import 'src/constants/scss/extentds';
 
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #fff;
-    padding: 10px 20px;
-    border-radius: 20px;
-    box-shadow: $box-shadow;
-    position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  padding: 10px 20px;
+  border-radius: 20px;
+  box-shadow: $box-shadow;
+  position: relative;
 }
 
 .wrapper-button {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 25px;
 
 
-    @media (max-width: 740px) {
-        gap: 15px;
-    }
+  @media (max-width: 770px) {
+    gap: 15px;
+  }
 }
 
 
 .menu {
-    position: static;
+  position: static;
 
-    @extend %transitionSettings;
-    @media screen and (max-width: 680px) {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: fit-content;
-        height: 100%;
-        background-color: rgba(216, 216, 217, 0.9);
+  @extend %transitionSettings;
+  @media screen and (max-width: 680px) {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: fit-content;
+    height: 100%;
+    background-color: rgba(216, 216, 217, 0.9);
 
-        overflow: auto;
-        z-index: 9;
+    overflow: auto;
+    z-index: 9;
 
-        &.active {
-            right: 0;
-        }
-
-        .wrapper-button {
-            margin: 170px 15px 0;
-            flex-direction: column;
-            align-items: end;
-        }
-
-        .button-profile {
-            padding: 0;
-            width: 50px;
-            height: 50px;
-        }
-
-        .span-profile {
-            display: none;
-        }
-
-        .img-profile {
-            width: 30px;
-            height: 30px;
-            top: 10px;
-            right: 4px;
-        }
-
-        a + .button-logOut,
-        a + .button-signIn {
-            margin-top: 50px;
-        }
+    &.active {
+      right: 0;
     }
+
+    .wrapper-button {
+      margin: 170px 15px 0;
+      flex-direction: column;
+      align-items: end;
+    }
+
+    .button-profile {
+      padding: 0;
+      width: 50px;
+      height: 50px;
+    }
+
+    .span-profile {
+      display: none;
+    }
+
+    .img-profile {
+      width: 30px;
+      height: 30px;
+      top: 10px;
+      right: 4px;
+    }
+
+    a + .button-logOut,
+    a + .button-signIn {
+      margin-top: 50px;
+    }
+  }
 }
 
 .menu_icon {
-    display: none;
-    @extend %transitionSettings;
+  display: none;
+  @extend %transitionSettings;
 
 
-    div {
-        width: 30px;
-        height: 2px;
-        background-color: $color-violet;
+  div {
+    width: 30px;
+    height: 2px;
+    background-color: $color-violet;
 
-        & + div {
-            margin-top: 9px;
-        }
+    & + div {
+      margin-top: 9px;
     }
+  }
 
-    @media screen and (max-width: 680px) {
-        display: block;
-        cursor: pointer;
-        position: absolute;
-        right: 23px;
-        width: 30px;
-        height: 22px;
-        transform-origin: center;
-        transition: transform 0.3s ease;
-        z-index: 12;
-    }
+  @media screen and (max-width: 680px) {
+    display: block;
+    cursor: pointer;
+    position: absolute;
+    right: 23px;
+    width: 30px;
+    height: 22px;
+    transform-origin: center;
+    transition: transform 0.3s ease;
+    z-index: 12;
+  }
 }
 
 .menu_icon.active {
-    transform: rotate(90deg);
+  transform: rotate(90deg);
 }
 
 .all-products {
-    @extend %textColorOrangeBlueGradient;
-    @extend %buttonSignUp;
-    border: 1px solid $color-black;
-    @extend %ButtonsHover;
+  @extend %textColorOrangeBlueGradient;
+  @extend %buttonSignUp;
+  border: 1px solid $color-black;
+  @extend %ButtonsHover;
 
-    @media (max-width: 970px) {
-        padding: 10px;
-        font-size: 16px;
-    }
+  @media (max-width: 970px) {
+    padding: 6px;
+    font-size: 14px;
+  }
 }
 

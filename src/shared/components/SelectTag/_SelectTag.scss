@@ -3,85 +3,89 @@
 
 
 .dropdown {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    transition: all 0.5s ease;
-    position: relative;
-    color: #474747;
-    text-align: left;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.5s ease;
+  position: relative;
+  color: #474747;
+  text-align: left;
 }
 
 .select {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 30px;
+  border-radius: 10px;
+  align-items: center;
+  cursor: pointer;
+  font: 14px Josefin Sans,
+  serif;
+  color: $color-grey-paragraph;
+  margin: 10px;
+  position: relative;
+  z-index: 3;
+
+  .select-logo {
     display: flex;
-    justify-content: space-between;
-    padding: 20px 30px;
-    border-radius: 10px;
     align-items: center;
-    cursor: pointer;
-    font: 14px Josefin Sans,
-    serif;
-    color: $color-grey-paragraph;
-    margin: 10px;
-    position: relative;
-    z-index: 3;
+    gap: 7px;
+  }
 
-    .select-logo {
-        display: flex;
-        align-items: center;
-        gap: 7px;
-    }
-
-    img {
-        width: 10px;
-        height: 10px;
-        transition: 0.5s;
-    }
+  img {
+    width: 10px;
+    height: 10px;
+    transition: 0.5s;
+  }
 }
 
 .dropdown-menu {
-    position: absolute;
-    top: 100%;
-    background-color: #fff;
-    width: 100%;
-    margin-top: 1px;
-    box-shadow: $box-shadow;
-    border-radius: 2px;
-    overflow: hidden;
-    transition: $transition;
-    max-height: 0%;
-    overflow-y: auto;
-    opacity: 0;
+  position: absolute;
+  top: 100%;
+  background-color: #fff;
+  width: 100%;
+  margin-top: 1px;
+  box-shadow: $box-shadow;
+  border-radius: 2px;
+  overflow: hidden;
+  transition: $transition;
+  max-height: 0;
+  overflow-y: auto;
+  opacity: 0;
 
-    z-index: 2;
-    @media (max-width: 690px) {
-        z-index: 12;
-    }
+  z-index: 2;
+  @media (max-width: 690px) {
+    z-index: 12;
+  }
 }
 
 .dropdown-menu li {
-    position: relative;
-    padding: 5px;
-    transition: $transition;
-    cursor: pointer;
+  position: relative;
+  padding: 5px;
+  transition: $transition;
+  cursor: pointer;
 
-    &:hover {
-        background-color: $color-hover-select;
-    }
+  &:hover {
+    background-color: $color-hover-select;
+  }
+
+  @media (max-width: 600px) {
+    font-size: 15px;
+  }
 }
 
 .dropdown.active .dropdown-menu {
-    opacity: 1;
-    max-height: 170%;
-    overflow-y: auto;
+  opacity: 1;
+  max-height: 170%;
+  overflow-y: auto;
 }
 
 .dropdown.active .select > img {
-    transform: rotate(-180deg);
+  transform: rotate(-180deg);
 }
 
 .select-readonly {
   cursor: default;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 4px 3px inset !important;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 2px 4px 3px inset !important;
   color: black;
 }
