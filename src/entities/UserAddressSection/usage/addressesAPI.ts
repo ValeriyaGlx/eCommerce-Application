@@ -17,12 +17,42 @@ function actionAddress(action: string, id: string) {
         ],
       };
       break;
+    case 'addShipping':
+      data = {
+        version: store.getState().profileVersion.version,
+        actions: [
+          {
+            action: 'addShippingAddressId',
+            addressId: id,
+          },
+        ],
+      };
+      break;
   }
+  return data;
+}
+
+function addAddress() {
+  const data = {
+    version: store.getState().profileVersion.version,
+    actions: [
+      {
+        action: 'addAddress',
+        address: {
+          streetName: '',
+          postalCode: '',
+          city: '',
+          country: 'US',
+        },
+      },
+    ],
+  };
 
   return data;
 }
 
 export async function changeAddresses(token: string, action: string, id: string) {
+  console.log(id);
   const urlRequest = `${host}/${project}/me`;
 
   const authHeader = 'Bearer ' + token;
@@ -33,6 +63,25 @@ export async function changeAddresses(token: string, action: string, id: string)
       'Content-Type': 'application/x-www-form-urlencoded',
     },
     body: JSON.stringify(actionAddress(action, id)),
+  });
+  if (!response.ok) {
+    return response.status;
+  } else {
+    return response.json();
+  }
+}
+
+export async function addAddresses(token: string) {
+  const urlRequest = `${host}/${project}/me`;
+
+  const authHeader = 'Bearer ' + token;
+  const response = await fetch(urlRequest, {
+    method: 'POST',
+    headers: {
+      Authorization: authHeader,
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: JSON.stringify(addAddress()),
   });
   if (!response.ok) {
     return response.status;

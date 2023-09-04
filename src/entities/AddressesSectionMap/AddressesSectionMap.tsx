@@ -10,13 +10,22 @@ import {
 import './_AddressesSectionMap.scss';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { Address } from '../../shared/components/StudentsProfileForm/usage/ProfileFormAPI';
+import {
+  Address,
+  getProfile,
+} from '../../shared/components/StudentsProfileForm/usage/ProfileFormAPI';
 import Button from '../../shared/components/Button/Button';
 import { AppDispatch } from '../../shared/components/StudentsProfileForm/StudentsProfileForm';
 import {
   createNewAddress,
   removeAddress,
 } from '../../app/store/actions/profileAddressesAction/profileAddressesSlice';
+import getCookie from '../../shared/cookie/getCookie';
+import { setVersion } from '../../app/store/actions/profileVersion/profileVersion';
+import {
+  addAddresses,
+  changeAddresses,
+} from '../UserAddressSection/usage/addressesAPI';
 
 interface AddressesSectionMapProps {
   arr: Address[];
@@ -39,6 +48,7 @@ const AddressesSectionMap: FC<AddressesSectionMapProps> = ({
   const [isNewAddressBeingAdded, setIsNewAddressBeingAdded] = useState(false);
   const sliderRef = useRef<Slider | null>(null);
   const [isUnfinishedAddress, setIsUnfinishedAddress] = useState('');
+  const [addId, setAddId] = useState('');
 
   const sliderSettings = {
     dots: true,
@@ -56,42 +66,55 @@ const AddressesSectionMap: FC<AddressesSectionMapProps> = ({
   }, [arr]);
 
   const removeAddressProps = (addressIdToRemove: string) => {
-    // Filter out the address to remove from the state.
     const updatedAddresses = addresses.filter(
       (address) => address.id !== addressIdToRemove,
     );
-
-    // Update the state with the new addresses.
     setAddresses(updatedAddresses);
-
-    // Find the index of the removed address.
     const removedIndex = addresses.findIndex(
       (address) => address.id === addressIdToRemove,
     );
-
-    // Update the current index to show the previous address.
     const newIndex = removedIndex > 0 ? removedIndex - 1 : 0;
     setCurrentIndex(newIndex);
   };
 
   const addNewAddress = () => {
     if (!isNewAddressBeingAdded) {
-      const newAddress: Address = {
-        id: String(Math.random()),
-        country: 'Choose a country',
-        defaultAddress: false,
+      const fetchData = async () => {
+        try {
+          const token: string = getCookie('authToken') as string;
+          const profile = await getProfile(token);
+          const version = profile.version;
+          await dispatch(setVersion({ version }));
+
+          const res = await addAddresses(token);
+
+          const addressesArray = [...res.addresses];
+          const newAddressApiId = addressesArray[addressesArray.length - 1];
+
+          // await changeAddresses(token, 'addShipping', newAddressApiId.id);
+
+          const newAddress: Address = {
+            id: newAddressApiId.id,
+            country: 'Choose a country',
+            defaultAddress: false,
+          };
+
+          const newAddressId = newAddress.id;
+          dispatch(createNewAddress({ newAddressId, inputName }));
+          setAddresses([...addresses, newAddress]);
+          setCurrentIndex(addresses.length);
+
+          if (sliderRef.current) {
+            sliderRef.current.slickGoTo(addresses.length);
+          }
+          setEditMode(true);
+          setIsNewAddressBeingAdded(true);
+        } catch (err) {
+          console.log(err);
+        }
       };
 
-      const newAddressId = newAddress.id;
-      dispatch(createNewAddress({ newAddressId, inputName }));
-      setAddresses([...addresses, newAddress]);
-      setCurrentIndex(addresses.length);
-
-      if (sliderRef.current) {
-        sliderRef.current.slickGoTo(addresses.length);
-      }
-      setEditMode(true);
-      setIsNewAddressBeingAdded(true);
+      fetchData();
     }
     if (isNewAddressBeingAdded) {
       setIsUnfinishedAddress(

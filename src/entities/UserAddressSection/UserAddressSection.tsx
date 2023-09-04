@@ -20,6 +20,7 @@ import Button from '../../shared/components/Button/Button';
 import InputCheckbox from '../../shared/components/InputCheckbox/InputCheckbox';
 import { store } from '../../app/store/store';
 import { changeAddresses } from './usage/addressesAPI';
+import { setVersion } from '../../app/store/actions/profileVersion/profileVersion';
 
 interface UserAddressSectionProps {
   title: string;
@@ -123,8 +124,11 @@ const UserAddressSection: FC<UserAddressSectionProps> = ({
     const fetchData = async () => {
       try {
         const token: string = getCookie('authToken') as string;
-        const profile = await changeAddresses(token, 'remove', addressId);
-        console.log(addressId);
+        const profile = await getProfile(token);
+        const version = profile.version;
+        await dispatch(setVersion({ version }));
+
+        await changeAddresses(token, 'remove', addressId);
 
         if (removeAddressProps) {
           await removeAddressProps(addressId);
