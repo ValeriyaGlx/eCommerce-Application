@@ -15,8 +15,8 @@ import { resetPassword } from '../../../app/store/actions/signupActions/sugnupSl
 import getCookie from '../../cookie/getCookie';
 import { getProfile } from '../../components/StudentsProfileForm/usage/ProfileFormAPI';
 import { setVersion } from '../../../app/store/actions/profileVersion/profileVersion';
-import { setInputValueWithValidation } from '../../../app/store/actions/signupActions/signupActions';
 import { changePassword } from '../usage/changePasswordAPI';
+import { showPassword } from '../../../features/formCommon/showPassword';
 
 type RootState = ReturnType<typeof store.getState>;
 
@@ -62,6 +62,7 @@ const ModalProfile: FC<ModalProfileProps> = ({ isOpen }) => {
               type={'password'}
               placeholder={'Current Password'}
               inputName={'currentPassword'}
+              showPassword={showPassword}
             />
             <h5>New Password</h5>
             <InputValidationSignUp
@@ -69,11 +70,13 @@ const ModalProfile: FC<ModalProfileProps> = ({ isOpen }) => {
               placeholder={'New Password'}
               inputName={'password'}
               changePassword={true}
+              showPassword={showPassword}
             />
             <InputValidationPassword
               type={'password'}
               placeholder={'Confirm Password'}
               inputName={'confirmPassword'}
+              showPassword={showPassword}
             />
             <div
               className={'image-modal-close'}
