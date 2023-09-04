@@ -15,6 +15,8 @@ import getCookie from '../../shared/cookie/getCookie';
 import Filter, { Filters } from '../../entities/Filtering/Filtering';
 import CategoryNavigation from '../../features/CategoryNavigation/CategoryNavigation';
 import SubcategoryNavigation from '../../features/SubcategoryNavigation/SubcategoryNavigation';
+import iconSetting from '../../assets/icons/equalizer-line.svg';
+import ShoppingCartButton from '../../shared/components/ShoppingCardButton/ShoppingCartButton';
 
 import {
   AllProductsRequest,
@@ -146,15 +148,23 @@ const ListOfProductsWithNavigation: React.FC<
         ) : subCategory === undefined ? (
           <SubcategoryNavigation category={category} />
         ) : null}
-
-        <SelectTag
-          selectArray={sortArray}
-          className={'sort-select'}
-          value={nameSorting}
-          inputName={'sort-select-tag'}
-          onClick={(event) => handleSortClick(event)}
-          arrow={arrow}
-        />
+        <div className={'wrapper-buttons'}>
+          <SelectTag
+            selectArray={sortArray}
+            className={'sort-select'}
+            value={nameSorting}
+            inputName={'sort-select-tag'}
+            onClick={(event) => handleSortClick(event)}
+            arrow={arrow}
+          />
+          <ShoppingCartButton
+            className={'icon-cart button-setting'}
+            src={iconSetting}
+            onClick={() => {
+              console.log(1);
+            }}
+          />
+        </div>
       </div>
       <div className={'wrapper-content'}>
         <Filter onFilterChange={handleFilteringClick} />

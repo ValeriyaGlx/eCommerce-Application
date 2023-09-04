@@ -11,10 +11,12 @@ const Category = () => {
       {
         value: 'Products',
         path: '/products',
+        key: Math.random(),
       },
       {
         value: categoryId,
         path: `/products/${categoryId}`,
+        key: Math.random(),
       },
     ];
     return (
