@@ -1,36 +1,44 @@
 @import './../../constants/scss/variables';
 
 .wrapper-pagination {
-    text-align: center;
+  text-align: center;
 }
 
 .pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-    margin: 10px auto;
-    padding: 20px;
-    width: 25%;
-    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin: 10px auto;
+  padding: 20px;
+  width: 25%;
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
 
-    button {
-        color: #FFFFFF;
-        font-size: 18px;
-        box-shadow: rgba(0, 0, 0, 0.16) 0 3px 5px, rgba(113, 88, 226, 0.3) 0 3px 5px;
-        transition: $transition;
-    }
+  @media (max-width: 1300px) {
+    width: 50%;
+  }
 
-    button.active {
-        background: rgba(113, 88, 226, 0.7);
-        font-size: 20px;
-        box-shadow: none;
-        transform: scale(1.1);
-        transition: 0.3s all ease-in-out;
-    }
+  @media (max-width: 700px) {
+    width: 84%;
+  }
 
-    button:hover {
-        box-shadow: none;
-    }
+  button {
+    color: #FFFFFF;
+    font-size: 18px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0 3px 5px, rgba(113, 88, 226, 0.3) 0 3px 5px;
+    transition: $transition;
+  }
+
+  button.active {
+    background: rgba(113, 88, 226, 0.7);
+    font-size: 20px;
+    box-shadow: none;
+    transform: scale(1.1);
+    transition: 0.3s all ease-in-out;
+  }
+
+  button:hover {
+    box-shadow: none;
+  }
 }

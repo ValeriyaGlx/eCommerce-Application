@@ -15,6 +15,8 @@ import getCookie from '../../shared/cookie/getCookie';
 import Filter, { Filters } from '../../entities/Filtering/Filtering';
 import CategoryNavigation from '../../features/CategoryNavigation/CategoryNavigation';
 import SubcategoryNavigation from '../../features/SubcategoryNavigation/SubcategoryNavigation';
+import iconSetting from '../../assets/icons/equalizer-line.svg';
+import ShoppingCartButton from '../../shared/components/ShoppingCardButton/ShoppingCartButton';
 
 import {
   AllProductsRequest,
@@ -55,6 +57,7 @@ const ListOfProductsWithNavigation: React.FC<
   const [isLoading, setIsLoading] = useState(true);
   const [nameSorting, setNameSorting] = useState('Sorting');
   const [activeFilters, setFilters] = useState(initialAllFilters);
+  const [isOpenFilters, setIsOpenFilters] = useState(false);
 
   const createHTMLListOfProducts = (
     listOfProducts: Array<IProducts> | undefined,
@@ -78,6 +81,16 @@ const ListOfProductsWithNavigation: React.FC<
       setIsLoading(false);
       setProductData(productJSX);
     }
+  };
+
+  const handleClickOutside = (event: MouseEvent) => {
+    const menuIcon = document.querySelector('.filtering_list') as HTMLElement;
+    const settingButton = document.querySelector(
+      '.button-setting',
+    ) as HTMLElement;
+    const modal1 = event.composedPath().includes(menuIcon);
+    const modal2 = event.composedPath().includes(settingButton);
+    if (!modal1 && !modal2) setIsOpenFilters(false);
   };
 
   useEffect(() => {
@@ -110,9 +123,17 @@ const ListOfProductsWithNavigation: React.FC<
         setIsLoading(false);
       }
     };
-
     fetchData();
-  }, []);
+    if (isOpenFilters) {
+      window.addEventListener('click', handleClickOutside);
+    } else {
+      window.removeEventListener('click', handleClickOutside);
+    }
+
+    return () => {
+      window.removeEventListener('click', handleClickOutside);
+    };
+  }, [isOpenFilters]);
 
   const handleSortClick = async (event: React.MouseEvent) => {
     setIsLoading(true);
@@ -146,18 +167,30 @@ const ListOfProductsWithNavigation: React.FC<
         ) : subCategory === undefined ? (
           <SubcategoryNavigation category={category} />
         ) : null}
-
-        <SelectTag
-          selectArray={sortArray}
-          className={'sort-select'}
-          value={nameSorting}
-          inputName={'sort-select-tag'}
-          onClick={(event) => handleSortClick(event)}
-          arrow={arrow}
-        />
+        <div className={'wrapper-buttons'}>
+          <SelectTag
+            selectArray={sortArray}
+            className={'sort-select'}
+            value={nameSorting}
+            inputName={'sort-select-tag'}
+            onClick={(event) => handleSortClick(event)}
+            arrow={arrow}
+          />
+          <ShoppingCartButton
+            className={'icon-cart button-setting'}
+            src={iconSetting}
+            onClick={() => {
+              setIsOpenFilters(!isOpenFilters);
+            }}
+          />
+        </div>
       </div>
       <div className={'wrapper-content'}>
-        <Filter onFilterChange={handleFilteringClick} />
+        <Filter
+          className={`filtering_list ${isOpenFilters ? 'open' : ''}`}
+          onFilterChange={handleFilteringClick}
+          onClickCloseButton={() => setIsOpenFilters(false)}
+        />
         {isLoading ? (
           <div className={'loading'}>Loading...</div>
         ) : (

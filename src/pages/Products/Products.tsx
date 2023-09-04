@@ -8,6 +8,7 @@ const breadcrumb = [
   {
     value: ' ',
     path: '',
+    key: Math.random(),
   },
 ];
 

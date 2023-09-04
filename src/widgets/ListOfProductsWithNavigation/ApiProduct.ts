@@ -100,7 +100,7 @@ interface IResponseAll {
   };
 }
 
-interface IResponseCategory {
+export interface IResponseCategory {
   published: boolean;
   key: string;
   name: {
@@ -231,36 +231,6 @@ export async function getCategories(token: string) {
   });
   const objCategory = await responseCategory.json();
   return objCategory.results;
-}
-
-export async function CategoryProductsRequest(token: string, category: string) {
-  const idCategory = await getCategory(token, category);
-
-  const urlRequestProducts = `${host}/${project}/product-projections/search?filter=categories.id:"${idCategory}"`;
-
-  const responseProducts = await fetch(urlRequestProducts, {
-    method: 'GET',
-    headers: {
-      Authorization: 'Bearer ' + token,
-    },
-  });
-  const products = await responseProducts.json();
-  const arr = products.results;
-  return processDataCategoryProducts(arr);
-}
-
-export async function sortAllProductsRequest(token: string, direction: string, obj: AllFilters) {
-  const pathUrl = createFilterString(obj);
-  const url = `${host}/${project}/product-projections/search?sort=${direction}&${pathUrl}`;
-  const responseProducts = await fetch(url, {
-    method: 'GET',
-    headers: {
-      Authorization: 'Bearer ' + token,
-    },
-  });
-  const products = await responseProducts.json();
-  const arr = products.results;
-  return processDataCategoryProducts(arr);
 }
 
 export async function filterProductsRequest(obj: AllFilters, token: string) {
