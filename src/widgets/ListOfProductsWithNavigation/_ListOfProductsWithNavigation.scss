@@ -60,6 +60,10 @@
     line-height: 50px;
     padding: 0 30px;
 
+    @media (max-width: 600px) {
+      padding: 0 20px;
+    }
+
   }
 
 }
@@ -69,7 +73,7 @@
 }
 
 .wrapper-products {
-  margin: 40px 0;
+  margin: 40px 5px;
   display: grid;
   gap: 20px;
   grid-template-columns: repeat(3, 1fr);
@@ -88,9 +92,7 @@
 
 .wrapper-content {
   display: flex;
-  @media screen and (max-width: 1300px) {
-    justify-content: center;
-  }
+  justify-content: center;
 }
 
 .loading {
@@ -112,6 +114,7 @@
 
   @media screen and (max-width: 1400px) {
     width: 100%;
+    padding: 0 32px;
   }
 
   @media screen and (max-width: 600px) {

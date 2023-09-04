@@ -78,6 +78,7 @@ p {
 .container {
   padding: 20px 100px;
   margin: 0 auto;
+  max-width: 1440px;
 
   @media (max-width: 1060px) {
     padding: 20px 60px;
