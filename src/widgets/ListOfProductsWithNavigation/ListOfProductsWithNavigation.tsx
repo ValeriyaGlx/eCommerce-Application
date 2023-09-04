@@ -57,6 +57,7 @@ const ListOfProductsWithNavigation: React.FC<
   const [isLoading, setIsLoading] = useState(true);
   const [nameSorting, setNameSorting] = useState('Sorting');
   const [activeFilters, setFilters] = useState(initialAllFilters);
+  const [isOpenFilters, setIsOpenFilters] = useState(false);
 
   const createHTMLListOfProducts = (
     listOfProducts: Array<IProducts> | undefined,
@@ -161,13 +162,16 @@ const ListOfProductsWithNavigation: React.FC<
             className={'icon-cart button-setting'}
             src={iconSetting}
             onClick={() => {
-              console.log(1);
+              setIsOpenFilters(!isOpenFilters);
             }}
           />
         </div>
       </div>
       <div className={'wrapper-content'}>
-        <Filter onFilterChange={handleFilteringClick} />
+        <Filter
+          className={`filtering_list ${isOpenFilters ? 'open' : ''}`}
+          onFilterChange={handleFilteringClick}
+        />
         {isLoading ? (
           <div className={'loading'}>Loading...</div>
         ) : (

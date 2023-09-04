@@ -12,6 +12,7 @@ import Button from '../../shared/components/Button/Button';
 import search from '../../assets/icons/search-line.svg';
 
 interface FilterProps {
+  className: string;
   onFilterChange: (filters: Filters) => void;
 }
 
@@ -30,7 +31,7 @@ const initialFilters: Filters = {
   duration: '',
   search: '',
 };
-const Filter: React.FC<FilterProps> = ({ onFilterChange }) => {
+const Filter: React.FC<FilterProps> = ({ className, onFilterChange }) => {
   const [filters, setFilters] = useState<Filters>(initialFilters);
   const [selectedDifficultyValue, setSelectedDifficultyValue] =
     useState<string>('');
@@ -45,7 +46,7 @@ const Filter: React.FC<FilterProps> = ({ onFilterChange }) => {
   };
 
   return (
-    <div className={'filtering_list'}>
+    <div className={className}>
       <h2 className={'filtering-title'}>Filter by</h2>
       <div className={'filtering_item'}>
         <label className={'filtering_item-title'}>Price</label>
