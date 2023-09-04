@@ -30,6 +30,7 @@ interface State {
   withoutValidation: {
     country?: string;
     defaultAddress?: boolean;
+    type?: string;
   };
 }
 
@@ -86,6 +87,7 @@ export const StudentProfileForm = () => {
       initialAddressState[address.id].withoutValidation = {
         country: address.country,
         defaultAddress: address.defaultAddress,
+        type: address.type as string,
       };
 
       addressArray.forEach(({ name }) => {

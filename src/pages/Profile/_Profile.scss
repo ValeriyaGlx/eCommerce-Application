@@ -7,6 +7,12 @@
     position: relative;
   }
 }
+
 .profile-container__button {
   margin-top: 50px;
+}
+
+.address-del-btn_container {
+  display: flex;
+  justify-content: space-between;
 }

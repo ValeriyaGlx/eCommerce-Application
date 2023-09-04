@@ -9,6 +9,7 @@ interface EditModeProps {
   onEditMode: () => void;
   offEditMode: () => void;
   sendRequest: () => void;
+  className?: string;
 }
 
 const EditMode: FC<EditModeProps> = ({
@@ -18,13 +19,18 @@ const EditMode: FC<EditModeProps> = ({
   onEditMode,
   offEditMode,
   sendRequest,
+  className,
 }) => {
   return (
     <div className={'edit-mode-container'}>
       <p className={`edit-mode-error edit-mode-error-${colorMessage}`}>
         {message}
       </p>
-      <div className={'edit-mode'}>
+      <div
+        className={
+          !className ? 'edit-mode' : `edit-mode edit-mode-${className}`
+        }
+      >
         {!editMode && <div className={'edit'} onClick={onEditMode} />}
         {editMode && (
           <>

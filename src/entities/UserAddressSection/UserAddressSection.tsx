@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import InputValidationProfile from '../InputValidationProfile/InputValidationProfile';
 import ProfileSelectTag from '../ProfileSelectedTag/ProfileSelectedTag';
@@ -10,10 +10,14 @@ import {
   getProfile,
 } from '../../shared/components/StudentsProfileForm/usage/ProfileFormAPI';
 import {
+  changeProfileAddressCheckboxData,
   setAddressInputValue,
   setProfileSelectValue,
 } from '../../app/store/actions/profileAddressesAction/profileAddressesSlice';
 import { AppDispatch } from '../../shared/components/StudentsProfileForm/StudentsProfileForm';
+import Button from '../../shared/components/Button/Button';
+import InputCheckbox from '../../shared/components/InputCheckbox/InputCheckbox';
+import { store } from '../../app/store/store';
 
 interface UserAddressSectionProps {
   title: string;
@@ -26,9 +30,11 @@ interface UserAddressSectionProps {
     name: string;
   }[];
   addressId: string;
-  defaultAddress: boolean;
   isEditMode: boolean;
+  defaultAddress: boolean;
 }
+
+type RootState = ReturnType<typeof store.getState>;
 
 const UserAddressSection: FC<UserAddressSectionProps> = ({
   title,
@@ -36,13 +42,22 @@ const UserAddressSection: FC<UserAddressSectionProps> = ({
   selectArray,
   addressArray,
   addressId,
-  defaultAddress,
   isEditMode,
 }) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const [editMode, setEditMode] = useState(false);
   const [readonlyMode, setReadonlyMode] = useState(true);
+
+  const checkboxState = useSelector(
+    (state: RootState) =>
+      state.profileAddresses[addressId].withoutValidation.defaultAddress,
+  );
+
+  const checkboxOnChange = (addressId: string) => {
+    const checkboxValue = !checkboxState;
+    dispatch(changeProfileAddressCheckboxData({ addressId, checkboxValue }));
+  };
 
   const onEditMode = () => {
     setEditMode(true);
@@ -104,11 +119,11 @@ const UserAddressSection: FC<UserAddressSectionProps> = ({
           onEditMode={onEditMode}
           offEditMode={offEditMode}
           sendRequest={() => {}}
+          className={'addresses'}
           message={''}
           colorMessage={''}
         />
       </div>
-      {defaultAddress && <span style={{ color: 'red' }}>default</span>}
       <div className={'profile-input__billing'}>
         <ProfileSelectTag
           selectArray={selectArray}
@@ -127,6 +142,17 @@ const UserAddressSection: FC<UserAddressSectionProps> = ({
             addressId={addressId}
           />
         ))}
+      </div>
+      <div className={'address-del-btn_container'}>
+        <InputCheckbox
+          id={'default'}
+          data={`Default ${inputName} address`}
+          className={'default-address'}
+          onChange={() => checkboxOnChange(addressId)}
+          checked={checkboxState as boolean}
+          disabled={readonlyMode}
+        />
+        <Button className={'delete-btn'} data={''} />
       </div>
     </div>
   );

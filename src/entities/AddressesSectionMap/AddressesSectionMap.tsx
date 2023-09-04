@@ -85,8 +85,8 @@ const AddressesSectionMap: FC<AddressesSectionMapProps> = ({
             selectArray={selectArray}
             addressArray={addressArray}
             addressId={id}
-            defaultAddress={defaultAddress}
             isEditMode={editMode}
+            defaultAddress={defaultAddress}
           />
         ))}
       </Slider>

@@ -8,6 +8,7 @@ interface InputCheckboxProps {
   className: string;
   onChange: () => void;
   checked: boolean;
+  disabled?: boolean;
 }
 
 const InputCheckbox: FC<InputCheckboxProps> = ({
@@ -16,6 +17,7 @@ const InputCheckbox: FC<InputCheckboxProps> = ({
   className,
   onChange,
   checked,
+  disabled,
 }) => {
   return (
     <div className={className}>
@@ -25,6 +27,7 @@ const InputCheckbox: FC<InputCheckboxProps> = ({
         name={id}
         onChange={onChange}
         checked={checked}
+        disabled={disabled}
       />
       <label htmlFor={id}>{data}</label>
     </div>

@@ -69,3 +69,12 @@
   box-shadow: $box-shadow;
   border-radius: 10px;
 }
+
+.delete-btn {
+  width: 20px;
+  height: 20px;
+  background: no-repeat url("../../../assets/icons/icon-delete.svg") center;
+  background-size: 100%;
+  border: none;
+  opacity: .8;
+}
