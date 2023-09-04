@@ -13,7 +13,10 @@ import 'slick-carousel/slick/slick-theme.css';
 import { Address } from '../../shared/components/StudentsProfileForm/usage/ProfileFormAPI';
 import Button from '../../shared/components/Button/Button';
 import { AppDispatch } from '../../shared/components/StudentsProfileForm/StudentsProfileForm';
-import { createNewAddress } from '../../app/store/actions/profileAddressesAction/profileAddressesSlice';
+import {
+  createNewAddress,
+  removeAddress,
+} from '../../app/store/actions/profileAddressesAction/profileAddressesSlice';
 
 interface AddressesSectionMapProps {
   arr: Address[];
@@ -33,7 +36,9 @@ const AddressesSectionMap: FC<AddressesSectionMapProps> = ({
   const [addresses, setAddresses] = useState<Address[]>(arr);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [editMode, setEditMode] = useState(false);
+  const [isNewAddressBeingAdded, setIsNewAddressBeingAdded] = useState(false);
   const sliderRef = useRef<Slider | null>(null);
+  const [isUnfinishedAddress, setIsUnfinishedAddress] = useState('');
 
   const sliderSettings = {
     dots: true,
@@ -50,22 +55,61 @@ const AddressesSectionMap: FC<AddressesSectionMapProps> = ({
     setAddresses(arr);
   }, [arr]);
 
+  const removeAddressProps = (addressIdToRemove: string) => {
+    // Filter out the address to remove from the state.
+    const updatedAddresses = addresses.filter(
+      (address) => address.id !== addressIdToRemove,
+    );
+
+    // Update the state with the new addresses.
+    setAddresses(updatedAddresses);
+
+    // Find the index of the removed address.
+    const removedIndex = addresses.findIndex(
+      (address) => address.id === addressIdToRemove,
+    );
+
+    // Update the current index to show the previous address.
+    const newIndex = removedIndex > 0 ? removedIndex - 1 : 0;
+    setCurrentIndex(newIndex);
+  };
+
   const addNewAddress = () => {
-    const newAddress: Address = {
-      id: String(Math.random()),
-      country: 'Choose a country',
-      defaultAddress: false,
-    };
+    if (!isNewAddressBeingAdded) {
+      const newAddress: Address = {
+        id: String(Math.random()),
+        country: 'Choose a country',
+        defaultAddress: false,
+      };
 
-    const newAddressId = newAddress.id;
-    dispatch(createNewAddress(newAddressId));
-    setAddresses([...addresses, newAddress]);
-    setCurrentIndex(addresses.length);
+      const newAddressId = newAddress.id;
+      dispatch(createNewAddress({ newAddressId, inputName }));
+      setAddresses([...addresses, newAddress]);
+      setCurrentIndex(addresses.length);
 
-    if (sliderRef.current) {
-      sliderRef.current.slickGoTo(addresses.length);
+      if (sliderRef.current) {
+        sliderRef.current.slickGoTo(addresses.length);
+      }
+      setEditMode(true);
+      setIsNewAddressBeingAdded(true);
     }
-    setEditMode(true);
+    if (isNewAddressBeingAdded) {
+      setIsUnfinishedAddress(
+        'Please finish with the first address before adding a new one.',
+      );
+      setTimeout(() => {
+        setIsUnfinishedAddress('');
+      }, 1000);
+    }
+  };
+
+  const cancelAddNewAddress = () => {
+    if (isNewAddressBeingAdded) {
+      const removedAddress = addresses[addresses.length - 1].id;
+      setAddresses(addresses.slice(0, addresses.length - 1));
+      setIsNewAddressBeingAdded(false);
+      dispatch(removeAddress(removedAddress));
+    }
   };
 
   return (
@@ -79,17 +123,21 @@ const AddressesSectionMap: FC<AddressesSectionMapProps> = ({
       >
         {addresses.map(({ id, defaultAddress }, index) => (
           <UserAddressSection
-            key={id}
+            key={addresses.length}
             inputName={inputName}
-            title={`Address #${index + 1}`}
+            title={`Address #${addresses.length}`}
             selectArray={selectArray}
             addressArray={addressArray}
             addressId={id}
             isEditMode={editMode}
             defaultAddress={defaultAddress}
+            cancelAddNewAddress={cancelAddNewAddress}
+            removeAddressProps={removeAddressProps}
           />
         ))}
       </Slider>
+      <div className={'finish-new-address-msg'}>{isUnfinishedAddress}</div>
+
       <Button
         className={'profile-add-address'}
         data={`Add New ${title}`}

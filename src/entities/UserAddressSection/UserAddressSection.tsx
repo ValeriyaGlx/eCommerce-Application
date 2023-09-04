@@ -11,6 +11,7 @@ import {
 } from '../../shared/components/StudentsProfileForm/usage/ProfileFormAPI';
 import {
   changeProfileAddressCheckboxData,
+  removeAddress,
   setAddressInputValue,
   setProfileSelectValue,
 } from '../../app/store/actions/profileAddressesAction/profileAddressesSlice';
@@ -18,6 +19,7 @@ import { AppDispatch } from '../../shared/components/StudentsProfileForm/Student
 import Button from '../../shared/components/Button/Button';
 import InputCheckbox from '../../shared/components/InputCheckbox/InputCheckbox';
 import { store } from '../../app/store/store';
+import { changeAddresses } from './usage/addressesAPI';
 
 interface UserAddressSectionProps {
   title: string;
@@ -32,6 +34,8 @@ interface UserAddressSectionProps {
   addressId: string;
   isEditMode: boolean;
   defaultAddress: boolean;
+  cancelAddNewAddress?: () => void;
+  removeAddressProps?: (addressId: string) => void;
 }
 
 type RootState = ReturnType<typeof store.getState>;
@@ -43,6 +47,8 @@ const UserAddressSection: FC<UserAddressSectionProps> = ({
   addressArray,
   addressId,
   isEditMode,
+  cancelAddNewAddress,
+  removeAddressProps,
 }) => {
   const dispatch = useDispatch<AppDispatch>();
 
@@ -73,6 +79,9 @@ const UserAddressSection: FC<UserAddressSectionProps> = ({
   const offEditMode = () => {
     setEditMode(false);
     setReadonlyMode(true);
+    if (cancelAddNewAddress) {
+      cancelAddNewAddress();
+    }
 
     const fetchData = async () => {
       try {
@@ -104,6 +113,24 @@ const UserAddressSection: FC<UserAddressSectionProps> = ({
         });
       } catch (e) {
         console.log(e);
+      }
+    };
+
+    fetchData();
+  };
+
+  const deleteAddress = () => {
+    const fetchData = async () => {
+      try {
+        const token: string = getCookie('authToken') as string;
+        const profile = await changeAddresses(token, 'remove', addressId);
+        console.log(addressId);
+
+        if (removeAddressProps) {
+          await removeAddressProps(addressId);
+        }
+      } catch (err) {
+        console.log(err);
       }
     };
 
@@ -152,7 +179,7 @@ const UserAddressSection: FC<UserAddressSectionProps> = ({
           checked={checkboxState as boolean}
           disabled={readonlyMode}
         />
-        <Button className={'delete-btn'} data={''} />
+        <Button className={'delete-btn'} data={''} onClick={deleteAddress} />
       </div>
     </div>
   );
