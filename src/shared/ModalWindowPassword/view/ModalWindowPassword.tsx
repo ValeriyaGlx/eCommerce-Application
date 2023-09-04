@@ -1,6 +1,6 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
 
 import './_ModalWindowPasswordAnimation.scss';
@@ -15,8 +15,9 @@ import { resetPassword } from '../../../app/store/actions/signupActions/sugnupSl
 import getCookie from '../../cookie/getCookie';
 import { getProfile } from '../../components/StudentsProfileForm/usage/ProfileFormAPI';
 import { setVersion } from '../../../app/store/actions/profileVersion/profileVersion';
-import { setInputValueWithValidation } from '../../../app/store/actions/signupActions/signupActions';
+
 import { changePassword } from '../usage/changePasswordAPI';
+import { setInputValueWithValidation } from '../../../app/store/actions/signupActions/signupActions';
 
 type RootState = ReturnType<typeof store.getState>;
 
@@ -26,15 +27,42 @@ interface ModalProfileProps {
 }
 
 const ModalProfile: FC<ModalProfileProps> = ({ isOpen }) => {
+  const passwordState = useSelector(
+    (state: RootState) => state.signup.signup.password,
+  );
+  const [isValid, setIsValid] = useState(true);
   const dispatch: ThunkDispatch<RootState, unknown, AnyAction> = useDispatch();
 
   const closePasswordModal = () => {
+    setIsValid(true);
     dispatch(closeModal());
     dispatch(resetPasswordState());
     dispatch(resetPassword());
   };
 
   const submitChangePassword = () => {
+    const errorState = store.getState().changePassword;
+    const newPasswordValidation =
+      store.getState().signup.signup.password.validationError;
+    const errors = [
+      errorState.confirmPassword.validationError,
+      errorState.currentPassword.validationError,
+      newPasswordValidation,
+    ];
+
+    const filteredErrors = errors.filter((error) => error !== null);
+
+    if (filteredErrors.length > 0) {
+      setIsValid(false);
+      //
+      Object.entries(passwordState).forEach((inputName) => {
+        console.log(inputName);
+        // dispatch(setInputValueWithValidation(inputName[0], inputName[1].value));
+      });
+      console.log(errors);
+      return;
+    }
+
     const fetchData = async () => {
       try {
         const token: string = getCookie('authToken') as string;
@@ -47,8 +75,8 @@ const ModalProfile: FC<ModalProfileProps> = ({ isOpen }) => {
         console.log(e);
       }
     };
-
-    fetchData();
+    console.log('send');
+    // fetchData();
   };
 
   return (
@@ -62,6 +90,7 @@ const ModalProfile: FC<ModalProfileProps> = ({ isOpen }) => {
               type={'password'}
               placeholder={'Current Password'}
               inputName={'currentPassword'}
+              isValid={isValid}
             />
             <h5>New Password</h5>
             <InputValidationSignUp
@@ -74,6 +103,7 @@ const ModalProfile: FC<ModalProfileProps> = ({ isOpen }) => {
               type={'password'}
               placeholder={'Confirm Password'}
               inputName={'confirmPassword'}
+              isValid={isValid}
             />
             <div
               className={'image-modal-close'}

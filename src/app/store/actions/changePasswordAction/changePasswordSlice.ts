@@ -40,7 +40,7 @@ const changePassword = createSlice({
       if (!state[inputName].value) {
         state[inputName].validationError = 'This field is required';
       } else {
-        state[inputName].validationError = '';
+        state[inputName].validationError = null;
       }
 
       if (state.confirmPassword.value !== state.password.value) {
@@ -56,12 +56,8 @@ const changePassword = createSlice({
         !state.confirmPassword.value &&
         state.password.value
       ) {
-        state.confirmPassword.validationError = '';
+        state.confirmPassword.validationError = null;
       }
-      //   state.confirmPassword.validationError = 'This field is required';
-      // } else {
-      //   state.confirmPassword.validationError = '';
-      // }
     },
   },
 });
