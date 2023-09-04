@@ -13,6 +13,8 @@ import AddressesSectionMap from '../../../entities/AddressesSectionMap/Addresses
 import { initializeAddresses } from '../../../app/store/actions/profileAddressesAction/profileAddressesSlice';
 import ProfilePersonalInfo from '../../../widgets/ProfilePersonalInfo/ProfilePersonalInfo';
 import { setVersion } from '../../../app/store/actions/profileVersion/profileVersion';
+import { openModal } from '../../../app/store/actions/modalSliceAction/modalSlice';
+import Button from '../Button/Button';
 
 import { Address, getProfile } from './usage/ProfileFormAPI';
 
@@ -117,6 +119,13 @@ export const StudentProfileForm = () => {
         selectArray={selectArray}
         addressArray={addressArray}
       />
+      <div className={'profile-form__buttons'}>
+        <Button
+          className={'profile-button'}
+          data={'Change the Password'}
+          onClick={() => dispatch(openModal())}
+        />
+      </div>
     </div>
   );
 };

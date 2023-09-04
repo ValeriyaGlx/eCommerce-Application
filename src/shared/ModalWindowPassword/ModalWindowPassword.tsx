@@ -1,20 +1,28 @@
 import './_ModalWindowPassword.scss';
 import React, { FC } from 'react';
 import { CSSTransition } from 'react-transition-group';
-
 import './_ModalWindowPasswordAnimation.scss';
+import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
+import { useDispatch } from 'react-redux';
+
 // eslint-disable-next-line max-len
 import InputValidationPasswordAuthenticity from '../../entities/InputValidationPasswordAuthenticity/InputValidationPasswordAuthenticity';
 // eslint-disable-next-line max-len
 import InputValidationPasswordCurrent from '../../entities/InputValidationPasswordCurrent/InputValidationPasswordCurrent';
 import InputValidationPasswordNew from '../../entities/InputValidationPasswordNew/InputValidationPasswordNew';
+import { store } from '../../app/store/store';
+import { closeModal } from '../../app/store/actions/modalSliceAction/modalSlice';
+import Button from '../components/Button/Button';
 
+type RootState = ReturnType<typeof store.getState>;
 interface ModalProfileProps {
   isOpen: boolean;
   onClick?: () => void;
 }
 
 const ModalProfile: FC<ModalProfileProps> = ({ isOpen }) => {
+  const dispatch: ThunkDispatch<RootState, unknown, AnyAction> = useDispatch();
+
   return (
     <>
       <CSSTransition in={isOpen} classNames='alert' timeout={300} unmountOnExit>
@@ -38,6 +46,22 @@ const ModalProfile: FC<ModalProfileProps> = ({ isOpen }) => {
                 type={'password'}
                 placeholder={'Password'}
                 inputName={'password'}
+              />
+            </div>
+            <div
+              className={'image-modal-close'}
+              onClick={() => dispatch(closeModal())}
+            ></div>
+            <div className={'image-modal-save'}>
+              <Button
+                className={'profile-button'}
+                data={'Save'}
+                onClick={() => {}}
+              />
+              <Button
+                className={'profile-button'}
+                data={'Cancel'}
+                onClick={() => {}}
               />
             </div>
           </div>

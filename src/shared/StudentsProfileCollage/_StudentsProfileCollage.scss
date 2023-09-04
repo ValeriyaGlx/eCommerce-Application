@@ -1,13 +1,11 @@
 .profile {
   &-wrapper {
     @media (max-width: 1170px) {
-      position: absolute;
-      bottom: 1%;
-      left: 42%;
+      display: none;
     }
-    @media (max-width: 550px) {
-      left: 32%;
-    }
+    //@media (max-width: 550px) {
+    //  left: 32%;
+    //}
   }
   &-container {
     &__button {
