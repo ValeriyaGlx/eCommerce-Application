@@ -24,6 +24,7 @@ import InputValidationSignUp from '../../../entities/InputValidationSignUp/view/
 import {
   changeAddressCheckboxData,
   CheckboxesState,
+  resetState,
 } from '../../../app/store/actions/signupActions/sugnupSlice';
 import {
   loginSuccess,
@@ -125,6 +126,7 @@ const SignUpSection = () => {
 
     if (isSignUpSuccessful && isModal) {
       sendSignUp();
+      dispatch(resetState());
     }
   }, [isModal]);
 

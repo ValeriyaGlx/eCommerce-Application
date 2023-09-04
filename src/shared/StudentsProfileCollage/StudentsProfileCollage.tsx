@@ -5,7 +5,7 @@ import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 
 import collage from '../../assets/img/collage.svg';
 import Button from '../components/Button/Button';
-import ModalProfile from '../ModalWindowPassword/ModalWindowPassword';
+import ModalProfile from '../ModalWindowPassword/view/ModalWindowPassword';
 import { openModal } from '../../app/store/actions/modalSliceAction/modalSlice';
 import { store } from '../../app/store/store';
 
@@ -16,7 +16,7 @@ const StudentsProfileCollage = () => {
 
   return (
     <>
-      {<ModalProfile isOpen={showModal} />}
+      <ModalProfile isOpen={showModal} />
       <div className={'profile-wrapper'}>
         <div className={'profile-container__img'}>
           <div className={'profile-container__button'}>
