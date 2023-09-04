@@ -58,6 +58,7 @@ const SubcategoryNavigation: React.FC<SubcategoryNavigationProps> = ({
               product.name['en-US'].slice(1);
             return (
               <Button
+                role={'navigation-products'}
                 key={Math.random()}
                 className={'products-nav-item'}
                 data={productName}

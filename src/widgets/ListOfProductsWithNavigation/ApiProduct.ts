@@ -16,7 +16,7 @@ export interface IProducts {
   duration: number;
 }
 
-interface IResponseAll {
+export interface IResponseAll {
   key: string;
   masterData: {
     published: boolean;
@@ -63,14 +63,17 @@ interface IResponseAll {
         images: [
           {
             url: string;
-            label: string;
+            label?: string;
             dimensions: {
               w: number;
               h: number;
             };
           },
         ];
-        attributes: [];
+        attributes: Array<{
+          name: string;
+          value: [string] | number;
+        }>;
         assets: [];
       };
       variants: [];
@@ -81,7 +84,7 @@ interface IResponseAll {
         images: [
           {
             url: string;
-            label: string;
+            label?: string;
           },
         ];
         prices: [
@@ -131,9 +134,8 @@ export interface IResponseCategory {
   };
 }
 
-function processDataAllProducts(arr: Array<IResponseAll>) {
+export function processDataAllProducts(arr: Array<IResponseAll>) {
   const newArr: IProducts[] = [];
-
   arr.forEach((el: IResponseAll) => {
     const attrArray: Array<{
       name: string;
