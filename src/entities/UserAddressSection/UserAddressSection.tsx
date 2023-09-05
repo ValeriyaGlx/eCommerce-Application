@@ -150,7 +150,7 @@ const UserAddressSection: FC<UserAddressSectionProps> = ({
           ),
         );
       });
-      return errs.every((el) => el === null);
+      return errs.every((el) => el === null || el === '');
     }
 
     if (!validateBeforeSubmit()) {
