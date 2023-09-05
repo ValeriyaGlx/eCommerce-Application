@@ -43,6 +43,7 @@ const ImageModal: React.FC<ImageModalProps> = ({
         <div className='modal-main-image'>
           <AliceCarousel
             activeIndex={mainIndex}
+            onSlideChanged={(e) => setMainIndex(e.item)}
             animationType='fadeout'
             animationDuration={800}
             disableDotsControls
