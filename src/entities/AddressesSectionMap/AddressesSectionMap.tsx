@@ -45,6 +45,7 @@ const AddressesSectionMap: FC<AddressesSectionMapProps> = ({
   const [isNewAddressBeingAdded, setIsNewAddressBeingAdded] = useState(false);
   const sliderRef = useRef<Slider | null>(null);
   const [isUnfinishedAddress, setIsUnfinishedAddress] = useState('');
+  const [isFinishedAddress, setIsFinishedAddress] = useState(false);
 
   const sliderSettings = {
     dots: true,
@@ -74,7 +75,7 @@ const AddressesSectionMap: FC<AddressesSectionMapProps> = ({
   };
 
   const addNewAddress = () => {
-    if (!isNewAddressBeingAdded) {
+    if (!isFinishedAddress && !isNewAddressBeingAdded) {
       const fetchData = async () => {
         try {
           const token: string = getCookie('authToken') as string;
@@ -110,7 +111,7 @@ const AddressesSectionMap: FC<AddressesSectionMapProps> = ({
 
       fetchData();
     }
-    if (isNewAddressBeingAdded) {
+    if (isNewAddressBeingAdded && !isFinishedAddress) {
       setIsUnfinishedAddress(
         'Please finish with the first address before adding a new one.',
       );
@@ -151,6 +152,8 @@ const AddressesSectionMap: FC<AddressesSectionMapProps> = ({
             cancelAddNewAddress={cancelAddNewAddress}
             removeAddressProps={removeAddressProps}
             isNewAddressBeingAdded={isNewAddressBeingAdded}
+            isFinishedAddress={setIsFinishedAddress}
+            setNewAddressBeingAdded={setIsNewAddressBeingAdded}
           />
         ))}
       </Slider>

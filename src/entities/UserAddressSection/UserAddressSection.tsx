@@ -1,4 +1,10 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, {
+  Dispatch,
+  FC,
+  SetStateAction,
+  useEffect,
+  useState,
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import InputValidationProfile from '../InputValidationProfile/InputValidationProfile';
@@ -21,6 +27,8 @@ import { store } from '../../app/store/store';
 import { setVersion } from '../../app/store/actions/profileVersion/profileVersion';
 
 import { changeAddresses } from './usage/addressesAPI';
+import { updateProfile } from '../../widgets/ProfilePersonalInfo/usage/profileUpdateAPI';
+import { setAddressInputWithValidation } from '../../app/store/actions/profileAddressesAction/profileAddressesAction';
 
 interface UserAddressSectionProps {
   title: string;
@@ -38,6 +46,8 @@ interface UserAddressSectionProps {
   cancelAddNewAddress?: () => void;
   removeAddressProps?: (addressId: string) => void;
   isNewAddressBeingAdded?: boolean;
+  isFinishedAddress?: Dispatch<SetStateAction<boolean>>;
+  setNewAddressBeingAdded?: Dispatch<SetStateAction<boolean>>;
 }
 
 type RootState = ReturnType<typeof store.getState>;
@@ -49,14 +59,36 @@ const UserAddressSection: FC<UserAddressSectionProps> = ({
   addressArray,
   addressId,
   isEditMode,
-  cancelAddNewAddress,
   removeAddressProps,
   isNewAddressBeingAdded,
+  isFinishedAddress,
+  setNewAddressBeingAdded,
 }) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const [editMode, setEditMode] = useState(false);
   const [readonlyMode, setReadonlyMode] = useState(true);
+
+  const [message, setMessage] = useState('');
+  const [color, setColor] = useState('red');
+  const [fieldChanges, setFieldChanges] = useState({});
+  const [validErrors, setValidErrors] = useState({});
+
+  const onFieldChange = (fieldName: string, fieldValue: string) => {
+    setFieldChanges((prevChanges) => ({
+      ...prevChanges,
+      [fieldName]: fieldValue,
+    }));
+
+    const validationErrors =
+      store.getState().profileAddresses[addressId].validation[fieldName]
+        .validationError;
+
+    setValidErrors((prevErrors) => ({
+      ...prevErrors,
+      [fieldName]: validationErrors,
+    }));
+  };
 
   const addressesType = useSelector(
     (state: RootState) =>
@@ -74,12 +106,38 @@ const UserAddressSection: FC<UserAddressSectionProps> = ({
   };
 
   const saveAddress = () => {
+    const hasChanges = Object.keys(fieldChanges).length > 0;
+    let hasValidationErrors = false;
+
+    Object.values(validErrors).forEach((error) => {
+      if (error) {
+        hasValidationErrors = true;
+      }
+    });
+
+    if (!hasChanges) {
+      setMessage('No changes made.');
+      setColor('red');
+      setTimeout(() => setMessage(''), 1000);
+      return;
+    }
+
+    if (hasValidationErrors) {
+      setMessage('Fix validation errors first.');
+      setColor('red');
+      setTimeout(() => setMessage(''), 1000);
+      return;
+    }
+
     const fetchData = async () => {
       try {
         const token: string = getCookie('authToken') as string;
         const profile = await getProfile(token);
         const version = profile.version;
         dispatch(setVersion({ version }));
+
+        // dispatch(setAddressInputWithValidation(addressId, ))
+        //TODO: dispatch here
 
         await changeAddresses(token, 'change', addressId);
 
@@ -94,6 +152,18 @@ const UserAddressSection: FC<UserAddressSectionProps> = ({
             await changeAddresses(token, 'addShipping', addressId);
           }
         }
+
+        if (isFinishedAddress && setNewAddressBeingAdded) {
+          isFinishedAddress(false);
+          setNewAddressBeingAdded(false);
+        }
+
+        setMessage('Data updated successfully!');
+        setTimeout(() => setMessage(''), 1000);
+
+        setColor('green');
+        setEditMode(false);
+        setReadonlyMode(true);
 
         setEditMode(false);
         setReadonlyMode(true);
@@ -119,9 +189,6 @@ const UserAddressSection: FC<UserAddressSectionProps> = ({
   const offEditMode = () => {
     setEditMode(false);
     setReadonlyMode(true);
-    if (cancelAddNewAddress) {
-      cancelAddNewAddress();
-    }
 
     const fetchData = async () => {
       try {
@@ -140,7 +207,7 @@ const UserAddressSection: FC<UserAddressSectionProps> = ({
             const addressId = address.id as string;
             const inputValue = address[inputName] as string;
             dispatch(
-              setAddressInputValue({ addressId, inputName, inputValue }),
+              setAddressInputWithValidation(addressId, inputName, inputValue),
             );
           });
 
@@ -175,6 +242,11 @@ const UserAddressSection: FC<UserAddressSectionProps> = ({
       } catch (err) {
         console.log(err);
       }
+
+      if (isFinishedAddress && setNewAddressBeingAdded) {
+        isFinishedAddress(false);
+        setNewAddressBeingAdded(false);
+      }
     };
 
     fetchData();
@@ -190,8 +262,8 @@ const UserAddressSection: FC<UserAddressSectionProps> = ({
           offEditMode={offEditMode}
           sendRequest={saveAddress}
           className={'addresses'}
-          message={''}
-          colorMessage={''}
+          message={message}
+          colorMessage={color}
         />
       </div>
       <div className={'profile-input__billing'}>
@@ -210,6 +282,7 @@ const UserAddressSection: FC<UserAddressSectionProps> = ({
             inputName={name}
             readonly={readonlyMode}
             addressId={addressId}
+            onFieldChange={onFieldChange}
           />
         ))}
       </div>

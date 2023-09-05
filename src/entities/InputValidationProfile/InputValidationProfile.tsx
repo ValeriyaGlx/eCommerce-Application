@@ -22,6 +22,7 @@ interface InputValidationProfileProps {
   styles?: string;
   readonly?: boolean;
   addressId: string;
+  onFieldChange?: (fieldName: string, fieldValue: string) => void;
 }
 
 const InputValidationProfile: FC<InputValidationProfileProps> = ({
@@ -34,6 +35,7 @@ const InputValidationProfile: FC<InputValidationProfileProps> = ({
   styles,
   readonly,
   addressId,
+  onFieldChange,
 }) => {
   const dispatch: ThunkDispatch<RootState, unknown, AnyAction> = useDispatch();
 
@@ -43,8 +45,11 @@ const InputValidationProfile: FC<InputValidationProfileProps> = ({
 
   const handleInputChangeTest = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value.trimStart();
-
     dispatch(setAddressInputWithValidation(addressId, inputName, newValue));
+
+    if (onFieldChange) {
+      onFieldChange(inputName, newValue);
+    }
   };
 
   return (
