@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import { getAccessToken } from '../../widgets/SignUpSection/usage/ApiRegistration';
 import ProductInfo from '../../widgets/ProductInfo/ProductInfo';
-import SameCategory from '../../widgets/SameCategory/SameCategory';
 
 import { getProduct } from './productAPI';
 
@@ -52,7 +51,6 @@ const Product = () => {
         {pageFound && (
           <div>
             <ProductInfo product={productInfo} />
-            <SameCategory />
           </div>
         )}
       </>

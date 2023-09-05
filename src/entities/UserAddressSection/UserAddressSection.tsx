@@ -111,6 +111,9 @@ const UserAddressSection: FC<UserAddressSectionProps> = ({
       ...prevChanges,
       check: 'change',
     }));
+
+    if (!checkboxValue) {
+    }
   };
 
   const saveAddress = () => {
@@ -150,8 +153,11 @@ const UserAddressSection: FC<UserAddressSectionProps> = ({
           ),
         );
       });
-      return errs.every((el) => el === null || el === '');
+
+      return errs.every((el) => el === null);
     }
+
+    validateBeforeSubmit();
 
     if (!validateBeforeSubmit()) {
       setMessage('Fix validation errors first.');
