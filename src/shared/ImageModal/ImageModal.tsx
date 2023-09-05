@@ -45,7 +45,7 @@ const ImageModal: React.FC<ImageModalProps> = ({
             activeIndex={mainIndex}
             onSlideChanged={(e) => setMainIndex(e.item)}
             animationType='fadeout'
-            animationDuration={800}
+            animationDuration={100}
             disableDotsControls
             disableButtonsControls
             items={items}
