@@ -37,7 +37,7 @@ const InputValidation: FC<InputValidationProps> = ({
   styles,
   readonly,
 }) => {
-  const [visible, setVisible] = useState('false');
+  const [isVisible, setIsVisible] = useState(false);
   return (
     <React.Fragment>
       <div
@@ -59,11 +59,11 @@ const InputValidation: FC<InputValidationProps> = ({
         {type === 'password' && (
           <button
             className={
-              visible ? 'show-password' : 'show-password hide-password'
+              isVisible ? 'show-password' : 'show-password hide-password'
             }
             onClick={(e) => {
               if (showPassword) {
-                setVisible(!visible);
+                setIsVisible(!isVisible);
                 showPassword(e);
               }
             }}
