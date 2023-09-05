@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 
 import logoVisible from '../../../assets/icons/visible.png';
 import './_InputValidation.scss';
@@ -37,6 +37,7 @@ const InputValidation: FC<InputValidationProps> = ({
   styles,
   readonly,
 }) => {
+  const [visible, setVisible] = useState('false');
   return (
     <React.Fragment>
       <div
@@ -56,7 +57,17 @@ const InputValidation: FC<InputValidationProps> = ({
           readOnly={readonly}
         />
         {type === 'password' && (
-          <button className={'show-password'} onClick={showPassword}>
+          <button
+            className={
+              visible ? 'show-password' : 'show-password hide-password'
+            }
+            onClick={(e) => {
+              if (showPassword) {
+                setVisible(!visible);
+                showPassword(e);
+              }
+            }}
+          >
             <img className={'password-visible'} src={logoVisible} alt={'eye'} />
           </button>
         )}
