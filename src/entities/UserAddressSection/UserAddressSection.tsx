@@ -77,15 +77,16 @@ const UserAddressSection: FC<UserAddressSectionProps> = ({
       ...prevChanges,
       [fieldName]: fieldValue,
     }));
+    if (fieldName !== 'country') {
+      const validationErrors =
+        store.getState().profileAddresses[addressId].validation[fieldName]
+          .validationError;
 
-    const validationErrors =
-      store.getState().profileAddresses[addressId].validation[fieldName]
-        .validationError;
-
-    setValidErrors((prevErrors) => ({
-      ...prevErrors,
-      [fieldName]: validationErrors,
-    }));
+      setValidErrors((prevErrors) => ({
+        ...prevErrors,
+        [fieldName]: validationErrors,
+      }));
+    }
   };
 
   const addressesType = useSelector(
@@ -136,14 +137,35 @@ const UserAddressSection: FC<UserAddressSectionProps> = ({
       return;
     }
 
+    function validateBeforeSubmit() {
+      const errs: Array<string | null> = [];
+      const address = store.getState().profileAddresses[addressId].validation;
+      Object.entries(address).forEach((inputName) => {
+        errs.push(inputName[1].validationError);
+        dispatch(
+          setAddressInputWithValidation(
+            addressId,
+            inputName[0],
+            inputName[1].value,
+          ),
+        );
+      });
+      return errs.every((el) => el === null);
+    }
+
+    if (!validateBeforeSubmit()) {
+      setMessage('Fix validation errors first.');
+      setColor('red');
+      setTimeout(() => setMessage(''), 1000);
+      return;
+    }
+
     const fetchData = async () => {
       try {
         const token: string = getCookie('authToken') as string;
         const profile = await getProfile(token);
         const version = profile.version;
         dispatch(setVersion({ version }));
-
-        //TODO: dispatch here
 
         await changeAddresses(token, 'change', addressId);
 
@@ -187,6 +209,7 @@ const UserAddressSection: FC<UserAddressSectionProps> = ({
 
         setEditMode(false);
         setReadonlyMode(true);
+        setFieldChanges({});
       } catch (e) {
         console.log(e);
       }
@@ -293,6 +316,7 @@ const UserAddressSection: FC<UserAddressSectionProps> = ({
           inputName={inputName}
           addressId={addressId}
           readonly={readonlyMode}
+          onFieldChange={onFieldChange}
         />
         {addressArray.map(({ type, placeholder, id, name }) => (
           <InputValidationProfile
