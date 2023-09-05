@@ -3,6 +3,28 @@ import { store } from '../../../app/store/store';
 const project = process.env.REACT_APP_PROJECT_KEY;
 const host = process.env.REACT_APP_HOST;
 
+const getCountry = (country: string) => {
+  let countryForJSON: string;
+  switch (country) {
+    case 'Russia':
+      countryForJSON = 'RU';
+      break;
+    case 'Georgia':
+      countryForJSON = 'GE';
+      break;
+    case 'United States':
+      countryForJSON = 'US';
+      break;
+    case 'Belarus':
+      countryForJSON = 'BY';
+      break;
+    default:
+      countryForJSON = 'RU';
+  }
+
+  return countryForJSON;
+};
+
 function actionAddress(action: string, id: string) {
   let data;
   switch (action) {
@@ -29,7 +51,7 @@ function actionAddress(action: string, id: string) {
               streetName: newAddress.validation.street.value,
               postalCode: newAddress.validation.code.value,
               city: newAddress.validation.city.value,
-              country: 'US',
+              country: getCountry(newAddress.withoutValidation.country as string),
             },
           },
         ],
@@ -52,6 +74,28 @@ function actionAddress(action: string, id: string) {
         actions: [
           {
             action: 'addBillingAddressId',
+            addressId: id,
+          },
+        ],
+      };
+      break;
+    case 'defaultBilling':
+      data = {
+        version: store.getState().profileVersion.version,
+        actions: [
+          {
+            action: 'setDefaultBillingAddress',
+            addressId: id,
+          },
+        ],
+      };
+      break;
+    case 'defaultShipping':
+      data = {
+        version: store.getState().profileVersion.version,
+        actions: [
+          {
+            action: 'setDefaultShippingAddress',
             addressId: id,
           },
         ],

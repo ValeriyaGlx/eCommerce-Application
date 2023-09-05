@@ -17,7 +17,7 @@ import {
 } from '../../shared/components/StudentsProfileForm/usage/ProfileFormAPI';
 import {
   changeProfileAddressCheckboxData,
-  setAddressInputValue,
+  setDefaultAddress,
   setProfileSelectValue,
 } from '../../app/store/actions/profileAddressesAction/profileAddressesSlice';
 import { AppDispatch } from '../../shared/components/StudentsProfileForm/StudentsProfileForm';
@@ -25,10 +25,9 @@ import Button from '../../shared/components/Button/Button';
 import InputCheckbox from '../../shared/components/InputCheckbox/InputCheckbox';
 import { store } from '../../app/store/store';
 import { setVersion } from '../../app/store/actions/profileVersion/profileVersion';
+import { setAddressInputWithValidation } from '../../app/store/actions/profileAddressesAction/profileAddressesAction';
 
 import { changeAddresses } from './usage/addressesAPI';
-import { updateProfile } from '../../widgets/ProfilePersonalInfo/usage/profileUpdateAPI';
-import { setAddressInputWithValidation } from '../../app/store/actions/profileAddressesAction/profileAddressesAction';
 
 interface UserAddressSectionProps {
   title: string;
@@ -68,7 +67,6 @@ const UserAddressSection: FC<UserAddressSectionProps> = ({
 
   const [editMode, setEditMode] = useState(false);
   const [readonlyMode, setReadonlyMode] = useState(true);
-
   const [message, setMessage] = useState('');
   const [color, setColor] = useState('red');
   const [fieldChanges, setFieldChanges] = useState({});
@@ -103,6 +101,15 @@ const UserAddressSection: FC<UserAddressSectionProps> = ({
   const checkboxOnChange = (addressId: string) => {
     const checkboxValue = !checkboxState;
     dispatch(changeProfileAddressCheckboxData({ addressId, checkboxValue }));
+    if (checkboxValue) {
+      const type =
+        store.getState().profileAddresses[addressId].withoutValidation.type;
+      dispatch(setDefaultAddress({ addressId, type: type as string }));
+    }
+    setFieldChanges((prevChanges) => ({
+      ...prevChanges,
+      check: 'change',
+    }));
   };
 
   const saveAddress = () => {
@@ -136,7 +143,6 @@ const UserAddressSection: FC<UserAddressSectionProps> = ({
         const version = profile.version;
         dispatch(setVersion({ version }));
 
-        // dispatch(setAddressInputWithValidation(addressId, ))
         //TODO: dispatch here
 
         await changeAddresses(token, 'change', addressId);
@@ -150,6 +156,20 @@ const UserAddressSection: FC<UserAddressSectionProps> = ({
             await changeAddresses(token, 'addBilling', addressId);
           } else {
             await changeAddresses(token, 'addShipping', addressId);
+          }
+        }
+        const defaultAddress =
+          store.getState().profileAddresses[addressId].withoutValidation
+            .defaultAddress;
+        if (defaultAddress) {
+          const profile = await getProfile(token);
+          const version = profile.version;
+          dispatch(setVersion({ version }));
+
+          if (addressesType === 'billing') {
+            await changeAddresses(token, 'defaultBilling', addressId);
+          } else {
+            await changeAddresses(token, 'defaultShipping', addressId);
           }
         }
 

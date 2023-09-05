@@ -99,6 +99,16 @@ const profileAddressSlice = createSlice({
       const newAddressId = action.payload;
       delete state[newAddressId];
     },
+    setDefaultAddress: (state, action: PayloadAction<{ addressId: string; type: string }>) => {
+      const { addressId, type } = action.payload;
+
+      Object.values(state).forEach((address) => {
+        if (address.withoutValidation.type === type) {
+          address.withoutValidation.defaultAddress = false;
+        }
+      });
+      state[addressId].withoutValidation.defaultAddress = true;
+    },
   },
 });
 
@@ -111,5 +121,6 @@ export const {
   createNewAddress,
   changeProfileAddressCheckboxData,
   removeAddress,
+  setDefaultAddress,
 } = profileAddressSlice.actions;
 export default profileAddressSlice.reducer;
