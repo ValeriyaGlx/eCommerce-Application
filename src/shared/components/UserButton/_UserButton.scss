@@ -2,30 +2,18 @@
 @import 'src/constants/scss/extentds';
 
 .button-profile {
-    position: relative;
-    @extend %mainButtonGradient;
-    width: fit-content;
-    padding: 15px;
-    @extend %ButtonsHover;
+  position: relative;
+  @extend %mainButtonGradient;
+  width: fit-content;
+  padding: 15px;
+  @extend %ButtonsHover;
 }
 
 .img-profile {
-    width: 20px;
-    height: 20px;
-    display: block;
-    margin: 0 auto;
-    position: relative;
-    top: -5px;
-}
-
-.span-profile {
-    display: block;
-    text-align: center;
-    font-size: 16px;
-    margin: 0 auto;
-    color: #fff;
-    width: fit-content;
-    position: relative;
-    bottom: 12px;
-    z-index: 2;
+  width: 30px;
+  height: 30px;
+  display: block;
+  margin: 0 auto;
+  position: relative;
+  bottom: 3px;
 }

@@ -18,6 +18,11 @@
     }
     @media (max-width: 535px) {
       margin-left: -13px;
+      width: 400px;
+    }
+
+    @media (max-width: 410px) {
+      width: 350px;
     }
 
     &__title {

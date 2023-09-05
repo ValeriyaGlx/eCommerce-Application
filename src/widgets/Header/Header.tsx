@@ -22,7 +22,6 @@ type RootState = ReturnType<typeof store.getState>;
 export function Header() {
   const dispatch: ThunkDispatch<RootState, unknown, AnyAction> = useDispatch();
   const navigate = useNavigate();
-  const name = localStorage.getItem('firstName');
 
   const [isLogOut, setIsLogOut] = useState(false);
   const isAuthorization = useSelector(
@@ -60,12 +59,7 @@ export function Header() {
           <CartButton src={iconHeart} alt='favoriets' to={'/favorites'} />
           {isAuthorization && !isLogOut && (
             <>
-              <UserButton
-                src={iconProfile}
-                alt={'profile'}
-                to={'/profile'}
-                name={name ? `${name}` : 'Profile'}
-              />
+              <UserButton src={iconProfile} alt={'profile'} to={'/profile'} />
             </>
           )}
           {isAuthorization === false && (
