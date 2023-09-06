@@ -26,6 +26,26 @@ export async function tokenRequest(email: string, password: string) {
   }
 }
 
+export async function tokenAnonRequest() {
+  const urlRequest = `${url}/oauth/final-app/anonymous/token?grant_type=client_credentials`;
+  const body = new URLSearchParams();
+  body.append('grant_type', 'client_credentials');
+  const authHeader = 'Basic ' + btoa(clientId + ':' + clientSecret);
+  const response = await fetch(urlRequest, {
+    method: 'POST',
+    headers: {
+      Authorization: authHeader,
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: body,
+  });
+  if (!response.ok) {
+    return response.status;
+  } else {
+    return response.json();
+  }
+}
+
 export async function logInRequest(email: string, password: string, token: string) {
   const urlRequest = `${host}/final-app/login`;
   const authHeader = 'Bearer ' + token;
