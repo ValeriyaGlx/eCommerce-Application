@@ -1,3 +1,5 @@
+import getCookie from '../../../shared/cookie/getCookie';
+
 const url = process.env.REACT_APP_AUTH_URL;
 const project = process.env.REACT_APP_PROJECT_KEY;
 const clientId = process.env.REACT_APP_CLIENT_ID;
@@ -49,17 +51,31 @@ export async function tokenAnonRequest() {
 export async function logInRequest(email: string, password: string, token: string) {
   const urlRequest = `${host}/final-app/login`;
   const authHeader = 'Bearer ' + token;
+  const isCart = getCookie('cartId');
+  let requestBody;
 
+  if (isCart) {
+    requestBody = {
+      email: email,
+      password: password,
+      anonymousCart: {
+        id: isCart,
+        typeId: 'cart',
+      },
+    };
+  } else {
+    requestBody = {
+      email: email,
+      password: password,
+    };
+  }
   const response = await fetch(urlRequest, {
     method: 'POST',
     headers: {
       Authorization: authHeader,
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({
-      email: email,
-      password: password,
-    }),
+    body: JSON.stringify(requestBody),
   });
   if (!response.ok) {
     return response.status;

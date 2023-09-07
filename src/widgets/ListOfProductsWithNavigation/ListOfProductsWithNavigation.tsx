@@ -75,6 +75,7 @@ const ListOfProductsWithNavigation: React.FC<
             discount={product.discount ? product.discount : ''}
             duration={product.duration}
             difficulty={product.difficulty}
+            productId={product.productId}
           />
         ),
       );
@@ -100,7 +101,10 @@ const ListOfProductsWithNavigation: React.FC<
         const token = tokenResponse.access_token;
         setToken('accessToken', token);
         if (category === 'All Categories') {
-          const listOfProduct = await AllProductsRequest(token);
+          const listOfProduct = await filterProductsRequest(
+            activeFilters,
+            token,
+          );
           createHTMLListOfProducts(listOfProduct);
         } else if (subCategory === undefined) {
           const categoryObj = categories.find(

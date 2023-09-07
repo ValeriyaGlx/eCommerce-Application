@@ -4,7 +4,7 @@ import './_ShoppingCartButton.scss';
 interface ButtonProps {
   className: string;
   src: string;
-  onClick: () => void;
+  onClick: (event: React.MouseEvent) => void;
 }
 
 const ShoppingCartButton: FC<ButtonProps> = ({ className, src, onClick }) => {

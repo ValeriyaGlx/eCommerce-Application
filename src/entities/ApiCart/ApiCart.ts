@@ -1,4 +1,5 @@
 import setToken from '../../shared/cookie/setToken';
+import getCookie from '../../shared/cookie/getCookie';
 
 const project = process.env.REACT_APP_PROJECT_KEY;
 const host = process.env.REACT_APP_HOST;
@@ -26,13 +27,48 @@ export async function createCart(authToken: string) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      currency: 'EUR',
+      currency: 'USD',
     }),
   });
   if (!response.ok) {
     return response.status;
   } else {
     const data = await response.json();
-    setToken('cardId', data.id);
+    setToken('cartId', data.id);
+    return data;
+  }
+}
+
+export async function addProductToCart(token: string, productId: string) {
+  const cartId = getCookie('cartId');
+  if (cartId) {
+    const cartObj = await getCartById(cartId, token);
+    const cartVersion = cartObj.version;
+    const urlRequest = `${host}/${project}/carts/${cartId}`;
+    const authHeader = 'Bearer ' + token;
+
+    const response = await fetch(urlRequest, {
+      method: 'POST',
+      headers: {
+        Authorization: authHeader,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        version: cartVersion,
+        actions: [
+          {
+            action: 'addLineItem',
+            productId: productId,
+            variantId: 1,
+            quantity: 1,
+          },
+        ],
+      }),
+    });
+    if (!response.ok) {
+      return response.status;
+    } else {
+      return response.json();
+    }
   }
 }

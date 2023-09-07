@@ -6,6 +6,11 @@ import ButtonWithRoute from '../../shared/components/ButtonWithRoute/ButtonWithR
 import cart from '../../assets/icons/shopping-cart-fill.svg';
 import ShoppingCartButton from '../../shared/components/ShoppingCardButton/ShoppingCartButton';
 import Like from '../../shared/components/Like/Like';
+import { store } from '../../app/store/store';
+import getCookie from '../../shared/cookie/getCookie';
+import { tokenAnonRequest } from '../../features/formSubmitSignIn/usage/ApiAuthorization';
+import { addProductToCart, createCart } from '../ApiCart/ApiCart';
+import setToken from '../../shared/cookie/setToken';
 
 interface ProductCardProps {
   key: number;
@@ -17,6 +22,7 @@ interface ProductCardProps {
   discount?: string;
   difficulty: string;
   duration: number;
+  productId: string;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
@@ -28,6 +34,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   discount,
   difficulty,
   duration,
+  productId,
 }) => {
   const navigate = useNavigate();
 
@@ -35,6 +42,41 @@ const ProductCard: React.FC<ProductCardProps> = ({
     const currentTarget = event.target as HTMLElement;
     if (currentTarget.parentElement?.className !== 'icon-cart') {
       navigate(`/products/product/${path}`);
+    }
+  }
+
+  async function clickCart(event: React.MouseEvent) {
+    const isAuth = store.getState().authorization.isAuthorization;
+    const isCart = getCookie('cartId');
+    const target = event.target as HTMLButtonElement;
+    if (target.classList.contains('shopping-img-cart')) {
+      const button = target.closest('button') as HTMLButtonElement;
+      if (button) {
+        button.disabled = true;
+      }
+    } else if (target.classList.contains('icon-cart')) {
+      target.disabled = true;
+    }
+    if (!isAuth && !isCart) {
+      const anonTokenObj = await tokenAnonRequest();
+      const anonToken = anonTokenObj.access_token;
+      setToken('anonToken', anonToken);
+      await createCart(anonToken);
+      const a = await addProductToCart(anonToken, productId);
+      console.log(a);
+    } else if (!isAuth && isCart) {
+      const token = getCookie('anonToken') as string;
+      const a = await addProductToCart(token, productId);
+      console.log(a);
+    } else if (isAuth && isCart) {
+      const token = getCookie('authToken') as string;
+      const a = await addProductToCart(token, productId);
+      console.log(a);
+    } else {
+      const token = getCookie('authToken') as string;
+      await createCart(token);
+      const a = await addProductToCart(token, productId);
+      console.log(a);
     }
   }
 
@@ -50,7 +92,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         <ShoppingCartButton
           className={'icon-cart'}
           src={cart}
-          onClick={() => console.log(1)}
+          onClick={(event) => clickCart(event)}
         />
       </div>
       <h3>{productName}</h3>
