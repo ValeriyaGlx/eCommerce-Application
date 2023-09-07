@@ -72,6 +72,8 @@ const makeSubmitData = () => {
   if (isSameAddresses && isDefaultBothAddresses) {
     data.defaultBillingAddress = 0;
     data.defaultShippingAddress = 1;
+    data.billingAddresses = [];
+    data.shippingAddresses = [];
 
     return data;
   }

@@ -1,17 +1,32 @@
+@import 'src/constants/scss/variables';
+@import 'src/constants/scss/extentds';
+
 .slick-slide {
-    opacity: 0;
-    transition: opacity 0.3s;
-    display: none;
+  opacity: 1;
+  transition: opacity 0.3s;
+  display: none;
 }
 
 .slick-slide.slick-active {
-    opacity: 1;
-    padding: 0 10px;
+  opacity: 1;
+  padding: 0 10px;
 }
 
 .addresses-container {
-    width: 100%;
-    margin-bottom: 30px;
+  width: 100%;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.finish-new-address-msg {
+  color: $color-radio-red;
+  text-align: center;
+  font-size: 14px;
+  position: absolute;
+  bottom: 50px;
+  right: 0;
+  left: 0;
+
 }
 
 

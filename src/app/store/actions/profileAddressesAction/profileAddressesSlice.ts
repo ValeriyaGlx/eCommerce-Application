@@ -60,9 +60,20 @@ const profileAddressSlice = createSlice({
       state[addressId].withoutValidation[inputName] = newValue;
     },
 
-    createNewAddress: (state, action: PayloadAction<string>) => {
-      const addressId = action.payload;
-      state[addressId] = {
+    changeProfileAddressCheckboxData: (
+      state,
+      action: PayloadAction<{
+        addressId: string;
+        checkboxValue: boolean;
+      }>,
+    ) => {
+      const { addressId, checkboxValue } = action.payload;
+      state[addressId].withoutValidation.defaultAddress = checkboxValue;
+    },
+
+    createNewAddress: (state, action: PayloadAction<{ newAddressId: string; inputName: string }>) => {
+      const { newAddressId, inputName } = action.payload;
+      state[newAddressId] = {
         validation: {
           code: {
             value: '',
@@ -80,8 +91,23 @@ const profileAddressSlice = createSlice({
         withoutValidation: {
           country: 'Choose a country',
           defaultAddress: false,
+          type: inputName,
         },
       };
+    },
+    removeAddress: (state, action: PayloadAction<string>) => {
+      const newAddressId = action.payload;
+      delete state[newAddressId];
+    },
+    setDefaultAddress: (state, action: PayloadAction<{ addressId: string; type: string }>) => {
+      const { addressId, type } = action.payload;
+
+      Object.values(state).forEach((address) => {
+        if (address.withoutValidation.type === type) {
+          address.withoutValidation.defaultAddress = false;
+        }
+      });
+      state[addressId].withoutValidation.defaultAddress = true;
     },
   },
 });
@@ -93,5 +119,8 @@ export const {
   clearAddressInputValidationError,
   setProfileSelectValue,
   createNewAddress,
+  changeProfileAddressCheckboxData,
+  removeAddress,
+  setDefaultAddress,
 } = profileAddressSlice.actions;
 export default profileAddressSlice.reducer;

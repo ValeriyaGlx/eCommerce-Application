@@ -18,6 +18,11 @@
     }
     @media (max-width: 535px) {
       margin-left: -13px;
+      width: 400px;
+    }
+
+    @media (max-width: 410px) {
+      width: 350px;
     }
 
     &__title {
@@ -46,7 +51,7 @@
       margin-top: 15px;
     }
 
-    input {
+    input:not([type="checkbox"]) {
       height: 55px;
       padding: 10px 40px;
     }
@@ -163,33 +168,29 @@
 
 .profile-form__button--icon {
   opacity: 1;
-  transition:
-    opacity 0.5s ease,
-    transform 0.3s ease;
+  transition: opacity 0.5s ease,
+  transform 0.3s ease;
 }
 
 .profile-form__icon.active .profile-form__button--icon {
   opacity: 0;
   transform: translateX(100px);
-  transition:
-    opacity 0.5s ease,
-    transform 0.3s ease;
+  transition: opacity 0.5s ease,
+  transform 0.3s ease;
 }
 
 .profile-form__icon.active .profile-form__button {
   opacity: 1;
   transform: translateY(0);
-  transition:
-    opacity 0.5s ease,
-    transform 0.3s ease;
+  transition: opacity 0.5s ease,
+  transform 0.3s ease;
 }
 
 .profile-form__button {
   opacity: 0;
   transform: translateX(100px);
-  transition:
-    opacity 0.5s ease,
-    transform 0.3s ease;
+  transition: opacity 0.5s ease,
+  transform 0.3s ease;
 }
 
 .profile-input {

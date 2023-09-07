@@ -47,7 +47,9 @@
       {
         "allow": [
           "inputName",
-          "addressId"
+          "addressId",
+          "version",
+          "profile"
         ]
       }
     ],
