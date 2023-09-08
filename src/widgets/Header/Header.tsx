@@ -16,7 +16,6 @@ import { logOut } from '../../app/store/actions/authorizationAction/authorizatio
 import deleteToken from '../../shared/cookie/deleteToken';
 import UserButton from '../../shared/components/UserButton/UserButton';
 import { openMenu } from '../../shared/burgerMenuUsage/burgerMenuUsage';
-import { clearCart } from '../../app/store/actions/cartSliceAction/cartSliceAction';
 import { deleteCart } from '../../entities/ApiCart/ApiCart';
 import getCookie from '../../shared/cookie/getCookie';
 
@@ -38,7 +37,6 @@ export function Header() {
     deleteToken('authToken');
     deleteToken('cartId');
     localStorage.removeItem('firstName');
-    dispatch(clearCart());
     dispatch(logOut());
     navigate('/');
   }

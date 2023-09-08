@@ -39,7 +39,7 @@ export async function createCart(authToken: string) {
   }
 }
 
-export async function addProductToCart(token: string, productId: string) {
+export async function addProductApi(token: string, productId: string) {
   const cartId = getCookie('cartId');
   if (cartId) {
     const cartObj = await getCartById(cartId, token);

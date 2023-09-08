@@ -7,7 +7,6 @@ import authorizationSlice from './actions/authorizationAction/authorizationSlice
 import profileAddressSlice from './actions/profileAddressesAction/profileAddressesSlice';
 import profileSlice from './actions/profileVersion/profileVersion';
 import changePassword from './actions/changePasswordAction/changePasswordSlice';
-import cartSlice from './actions/cartSliceAction/cartSliceAction';
 
 export const store = configureStore({
   reducer: {
@@ -18,6 +17,5 @@ export const store = configureStore({
     profileAddresses: profileAddressSlice,
     profileVersion: profileSlice,
     changePassword: changePassword,
-    cart: cartSlice,
   },
 });

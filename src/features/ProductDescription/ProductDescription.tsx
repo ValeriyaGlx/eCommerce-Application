@@ -1,8 +1,12 @@
-import React, { FC } from 'react';
-
+import React, { FC, useEffect, useState } from 'react';
 import './_ProductDescription.scss';
-import Button from '../../shared/components/Button/Button';
+
 import Like from '../../shared/components/Like/Like';
+import {
+  addProductToCart,
+  idOfProductToCart,
+} from '../../entities/ApiCart/addProductToCart';
+import ShoppingCartButton from '../../shared/components/ShoppingCardButton/ShoppingCartButton';
 
 interface ProductDescriptionProps {
   inner: string;
@@ -11,6 +15,7 @@ interface ProductDescriptionProps {
   price: string;
   difficulty: string;
   duration: number;
+  productId: string;
 }
 
 const ProductDescription: FC<ProductDescriptionProps> = ({
@@ -20,7 +25,28 @@ const ProductDescription: FC<ProductDescriptionProps> = ({
   price,
   difficulty,
   duration,
+  productId,
 }) => {
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const idOfProducts = await idOfProductToCart();
+        const isProductsToCart = idOfProducts.includes(productId);
+        setIsButtonDisabled(isProductsToCart);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  async function clickCart(event: React.MouseEvent) {
+    await addProductToCart(event, productId);
+    setIsButtonDisabled(true);
+  }
+
   return (
     <div className={'product-description'}>
       <div>
@@ -48,10 +74,11 @@ const ProductDescription: FC<ProductDescriptionProps> = ({
           </div>
           <Like />
         </div>
-        <Button
+        <ShoppingCartButton
+          isDisabled={isButtonDisabled}
           className={'buy-now-button'}
           data={'Buy Now'}
-          onClick={() => console.log('buy')}
+          onClick={(event) => clickCart(event)}
         />
       </div>
     </div>

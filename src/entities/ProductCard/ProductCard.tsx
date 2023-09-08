@@ -1,20 +1,15 @@
-import React from 'react';
-import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import ButtonWithRoute from '../../shared/components/ButtonWithRoute/ButtonWithRoute';
-import cart from '../../assets/icons/shopping-cart-fill.svg';
 import ShoppingCartButton from '../../shared/components/ShoppingCardButton/ShoppingCartButton';
 import Like from '../../shared/components/Like/Like';
-import { store } from '../../app/store/store';
-import getCookie from '../../shared/cookie/getCookie';
-import { tokenAnonRequest } from '../../features/formSubmitSignIn/usage/ApiAuthorization';
-import { addProductToCart, createCart } from '../ApiCart/ApiCart';
-import setToken from '../../shared/cookie/setToken';
-import { addProduct } from '../../app/store/actions/cartSliceAction/cartSliceAction';
-
 import './_ProductCard.scss';
+import { LoadingSpinner } from '../../shared/components/LoadingSpinner/LoadingSpinner';
+import {
+  addProductToCart,
+  idOfProductToCart,
+} from '../ApiCart/addProductToCart';
 
 interface ProductCardProps {
   key: number;
@@ -29,8 +24,6 @@ interface ProductCardProps {
   productId: string;
 }
 
-type RootState = ReturnType<typeof store.getState>;
-
 const ProductCard: React.FC<ProductCardProps> = ({
   path,
   imageUrl,
@@ -43,67 +36,56 @@ const ProductCard: React.FC<ProductCardProps> = ({
   productId,
 }) => {
   const navigate = useNavigate();
-  const dispatch: ThunkDispatch<RootState, unknown, AnyAction> = useDispatch();
-  useSelector((state: RootState) => state.cart.productsInCart);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const idOfProducts = await idOfProductToCart();
+        const isProductsToCart = idOfProducts.includes(productId);
+        setIsButtonDisabled(isProductsToCart);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchData();
+  }, []);
 
   function clickCard(event: React.MouseEvent) {
     const currentTarget = event.target as HTMLElement;
-    if (currentTarget.parentElement?.className !== 'icon-cart') {
+    if (currentTarget.className !== 'icon-cart') {
       navigate(`/products/product/${path}`);
     }
   }
 
   async function clickCart(event: React.MouseEvent) {
-    const isAuth = store.getState().authorization.isAuthorization;
-    const isCart = getCookie('cartId');
-    const target = event.target as HTMLButtonElement;
-    if (target.classList.contains('shopping-img-cart')) {
-      const button = target.closest('button') as HTMLButtonElement;
-      if (button) {
-        button.disabled = true;
-      }
-    } else if (target.classList.contains('icon-cart')) {
-      target.disabled = true;
-    }
-    dispatch(addProduct({ productId }));
-    if (!isAuth && !isCart) {
-      const anonTokenObj = await tokenAnonRequest();
-      const anonToken = anonTokenObj.access_token;
-      setToken('anonToken', anonToken);
-      await createCart(anonToken);
-      const a = await addProductToCart(anonToken, productId);
-      console.log(a);
-    } else if (!isAuth && isCart) {
-      const token = getCookie('anonToken') as string;
-      const a = await addProductToCart(token, productId);
-      console.log(a);
-    } else if (isAuth && isCart) {
-      const token = getCookie('authToken') as string;
-      const a = await addProductToCart(token, productId);
-      console.log(a);
-    } else {
-      const token = getCookie('authToken') as string;
-      await createCart(token);
-      const a = await addProductToCart(token, productId);
-      console.log(a);
-    }
+    setIsLoading(true);
+    await addProductToCart(event, productId);
+    setIsLoading(false);
+    setIsButtonDisabled(true);
   }
 
   return (
     <div className='product-card' onClick={clickCard}>
       <img src={imageUrl} alt={productName} className={'product-card-img'} />
       <div className='hover-content'>
-        <ButtonWithRoute
-          className={'button-link'}
-          path={`/products/product/${path}`}
-          data={'More detailed'}
-        />
-        <ShoppingCartButton
-          productId={productId}
-          className={'icon-cart'}
-          src={cart}
-          onClick={(event) => clickCart(event)}
-        />
+        {isLoading ? (
+          <LoadingSpinner />
+        ) : (
+          <>
+            <ButtonWithRoute
+              className={'button-link'}
+              path={`/products/product/${path}`}
+              data={'More detailed'}
+            />
+            <ShoppingCartButton
+              isDisabled={isButtonDisabled}
+              className={'icon-cart'}
+              onClick={(event) => clickCart(event)}
+            />
+          </>
+        )}
       </div>
       <h3>{productName}</h3>
       <div className={'product-card-attrs-container'}>

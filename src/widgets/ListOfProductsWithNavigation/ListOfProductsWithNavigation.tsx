@@ -17,6 +17,7 @@ import CategoryNavigation from '../../features/CategoryNavigation/CategoryNaviga
 import SubcategoryNavigation from '../../features/SubcategoryNavigation/SubcategoryNavigation';
 import iconSetting from '../../assets/icons/equalizer-line.svg';
 import ButtonReset from '../../shared/ButtonReset/ButtonReset';
+import { LoadingSpinner } from '../../shared/components/LoadingSpinner/LoadingSpinner';
 
 import { filterProductsRequest, getCategory, IProducts } from './ApiProduct';
 
@@ -191,7 +192,7 @@ const ListOfProductsWithNavigation: React.FC<
           onClickCloseButton={() => setIsOpenFilters(false)}
         />
         {isLoading ? (
-          <div className={'loading'}>Loading...</div>
+          <LoadingSpinner />
         ) : (
           <div className={'wrapper-products'}>{productData}</div>
         )}

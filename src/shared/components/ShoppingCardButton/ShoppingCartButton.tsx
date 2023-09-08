@@ -1,33 +1,28 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import './_ShoppingCartButton.scss';
-import { useDispatch, useSelector } from 'react-redux';
-
-import { store } from '../../../app/store/store';
 
 interface ButtonProps {
   className: string;
-  src: string;
   onClick: (event: React.MouseEvent) => void;
-  productId: string;
+  data?: string;
+  isDisabled: boolean;
 }
-
-type RootState = ReturnType<typeof store.getState>;
 
 const ShoppingCartButton: FC<ButtonProps> = ({
   className,
-  src,
   onClick,
-  productId,
+  data,
+  isDisabled,
 }) => {
-  useDispatch();
-  const productsInCart = useSelector(
-    (state: RootState) => state.cart.productsInCart,
-  );
-  const isProductInCart = productsInCart.includes(productId);
+  const [localIsDisabled, setLocalIsDisabled] = useState(false);
+
+  useEffect(() => {
+    setLocalIsDisabled(isDisabled);
+  }, [isDisabled]);
 
   return (
-    <button className={className} onClick={onClick} disabled={isProductInCart}>
-      <img className={'shopping-img-cart'} src={src} alt={'cart'} />
+    <button className={className} onClick={onClick} disabled={localIsDisabled}>
+      {data}
     </button>
   );
 };
