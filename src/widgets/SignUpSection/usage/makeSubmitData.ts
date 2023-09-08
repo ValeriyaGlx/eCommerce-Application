@@ -45,11 +45,18 @@ const makeSubmitData = () => {
         streetName: signUpData.shipping_street.value,
       },
     ],
-    shippingAddress: '[0]',
-    billingAddress: `${isSameAddresses ? '[0]' : '[1]'}`,
+    shippingAddresses: [0],
+    billingAddresses: [1],
   };
 
-  if (!isSameAddresses) {
+  if (isSameAddresses) {
+    data.addresses.push({
+      country: getCountry(SignUpCountries.shipping),
+      postalCode: signUpData.shipping_code.value,
+      city: signUpData.shipping_city.value,
+      streetName: signUpData.shipping_street.value,
+    });
+  } else {
     data.addresses.push({
       country: getCountry(SignUpCountries.billing),
       postalCode: signUpData.billing_code.value,
@@ -64,7 +71,9 @@ const makeSubmitData = () => {
 
   if (isSameAddresses && isDefaultBothAddresses) {
     data.defaultBillingAddress = 0;
-    data.defaultShippingAddress = 0;
+    data.defaultShippingAddress = 1;
+    data.billingAddresses = [];
+    data.shippingAddresses = [];
 
     return data;
   }
@@ -76,7 +85,6 @@ const makeSubmitData = () => {
   if (!isSameAddresses && isShippingDefault) {
     data.defaultShippingAddress = 0;
   }
-
   return data;
 };
 

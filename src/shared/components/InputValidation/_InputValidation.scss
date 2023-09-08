@@ -1,123 +1,116 @@
-input {
-    height: 22px;
+@import 'src/constants/scss/extentds';
+@import 'src/constants/scss/variables';
 
+input {
+  height: 22px;
 }
 
 .input-area {
-    position: relative;
+  position: relative;
 }
 
 input[type=date]::-webkit-calendar-picker-indicator {
-    opacity: 0;
+  opacity: 0;
 }
 
 .input-logo {
-    width: 18px;
-    height: 18px;
-    line-height: 26px;
-    text-align: center;
-    position: absolute;
-    z-index: 1;
-    float: left;
-    top: 22px;
-    left: 16px;
-    opacity: .8;
+  width: 18px;
+  height: 18px;
+  line-height: 26px;
+  text-align: center;
+  position: absolute;
+  z-index: 1;
+  float: left;
+  top: 22px;
+  left: 16px;
+  opacity: .8;
 
-    @media (max-width: 550.5px) {
-        display: none;
-    }
+  @media (max-width: 550.5px) {
+    display: none;
+  }
 }
 
 .input-area {
+  width: 100%;
+  font-size: 16px;
+  outline: none;
+  justify-content: center;
+  display: flex;
+
+  & input {
     width: 100%;
-    font-size: 16px;
-    outline: none;
-    justify-content: center;
-    display: flex;
+    height: 55px;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 40px;
+    margin: 4px 0px 0px;
 
-    & input {
-        width: 100%;
-        height: 55px;
-        border: none;
-        border-radius: 10px;
-        padding: 10px 40px;
-        margin: 4px 0px 0px;
-        box-shadow: 0 0 2pt 0.5pt #ababab;
-        transition: 0.5s;
+    @extend %InputBoxShadowWithHover;
 
-
-        &:hover {
-            box-shadow: 0 0 5pt 0.5pt #ababab;
-        }
-
-        &:focus {
-            box-shadow: 0 0 5pt 2pt #d3d3d3;
-            outline-width: 0px;
-        }
-
-        @media (max-width: 550.5px) {
-            height: 35px;
-            padding: 2px 20px;
-        }
+    @media (max-width: 550.5px) {
+      height: 35px;
+      padding: 2px 20px;
     }
+  }
 }
 
 .show-password {
-    border: none;
-    background-color: inherit;
-    padding: 0;
-    width: 20px;
-    height: 20px;
-    text-align: center;
-    right: 20px;
-    top: 24px;
-    margin-left: -20px;
-    position: relative;
-    cursor: pointer;
-    z-index: 1;
-    opacity: .7;
+  border: none;
+  background-color: inherit;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  right: 20px;
+  top: 24px;
+  margin-left: -20px;
+  position: relative;
+  cursor: pointer;
+  z-index: 1;
+  opacity: .7;
 
-    @media (max-width: 550px) {
-        top: 14px;
-    }
+  @media (max-width: 550px) {
+    top: 14px;
+  }
 }
 
-
 .password-visible {
-    cursor: pointer;
-    width: 15px;
-    height: 15px;
+  cursor: pointer;
+  width: 15px;
+  height: 15px;
 }
 
 .hide-password {
-    position: relative;
+  position: relative;
 }
 
 .hide-password::after {
-    content: '/';
-    font-size: 16px;
-    position: absolute;
-    top: -1%;
-    right: 40%;
-    z-index: -1;
+  content: '/';
+  font-size: 19px;
+  position: absolute;
+  transform: rotate(20deg);
+  top: -0%;
+  opacity: .7;
+  right: 37%;
+  z-index: -1;
 }
 
 .error-message {
-    color: #a22a2a;
-    text-align: center;
-    height: 15px;
-    font: 13px sans-serif;
-    margin: 2px 0 5px;
+  color: #a22a2a;
+  text-align: center;
+  height: 15px;
+  font: 13px sans-serif;
+  margin: 2px 0 5px;
 }
 
 .error-message.white {
-    color: #fff;
+  color: #fff;
 }
 
 .red input {
-    border: 1px solid #e38888;
+  border: 1px solid #e38888;
 }
 
 .red-singin input {
-    border: 1.2px solid #d54141;
+  border: 1.2px solid #d54141;
 }

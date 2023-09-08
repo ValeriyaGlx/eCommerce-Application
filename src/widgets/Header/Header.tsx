@@ -22,7 +22,6 @@ type RootState = ReturnType<typeof store.getState>;
 export function Header() {
   const dispatch: ThunkDispatch<RootState, unknown, AnyAction> = useDispatch();
   const navigate = useNavigate();
-  const name = localStorage.getItem('firstName');
 
   const [isLogOut, setIsLogOut] = useState(false);
   const isAuthorization = useSelector(
@@ -31,7 +30,7 @@ export function Header() {
 
   function setLogOut() {
     setIsLogOut(true);
-    deleteToken('token');
+    deleteToken('authToken');
     localStorage.removeItem('firstName');
     dispatch(logOut());
     navigate('/');
@@ -51,16 +50,16 @@ export function Header() {
 
       <nav className='menu'>
         <div className={'menu_list wrapper-button'}>
+          <ButtonWithRoute
+            className={'all-products'}
+            path={'/products'}
+            data={'All Products'}
+          />
           <CartButton src={iconCart} alt='cartButton' to={'/cart'} />
           <CartButton src={iconHeart} alt='favoriets' to={'/favorites'} />
           {isAuthorization && !isLogOut && (
             <>
-              <UserButton
-                src={iconProfile}
-                alt={'profile'}
-                to={'/profile'}
-                name={name ? `${name}` : 'Profile'}
-              />
+              <UserButton src={iconProfile} alt={'profile'} to={'/profile'} />
             </>
           )}
           {isAuthorization === false && (

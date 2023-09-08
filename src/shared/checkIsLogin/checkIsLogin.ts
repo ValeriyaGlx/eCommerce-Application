@@ -3,7 +3,7 @@ import { store } from '../../app/store/store';
 import { loginSuccess } from '../../app/store/actions/authorizationAction/authorizationSlice';
 
 const checkIsLogin = () => {
-  const token = getCookie('token');
+  const token = getCookie('authToken');
   if (token) {
     store.dispatch(loginSuccess());
   }

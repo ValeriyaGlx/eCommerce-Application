@@ -1,9 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;200;300;400;500;600;700&display=swap");
+input[type=submit] {
+  transition: 0.2s;
+}
+input[type=submit]:hover {
+  box-shadow: rgba(0, 0, 0, 0.16) 0 3px 5px, rgba(113, 88, 226, 0.3) 0 3px 5px;
+}
+
+input[type=submit] {
+  transition: 0.2s;
+}
+input[type=submit]:hover {
+  box-shadow: rgba(0, 0, 0, 0.16) 0 3px 5px, rgba(113, 88, 226, 0.3) 0 3px 5px;
+}
+
 *,
 *::after,
 *::before {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: Josefin Sans, serif;
 }
 
 html,
@@ -12,21 +28,43 @@ body {
   height: 100%;
   font-family: Josefin Sans, serif;
   font-size: 20px;
-  font-weight: 600;
   line-height: 30px;
+}
+@media (max-width: 680px) {
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    width: 0;
+  }
 }
 
 a {
   text-decoration: none;
 }
 
-a, button, input[type=submit] {
+a,
+button,
+input[type=submit] {
   cursor: pointer;
+  font-weight: 600;
+}
+
+input {
   font-family: Josefin Sans, serif;
+}
+
+input:read-only,
+input:read-only:hover,
+input:read-only:active {
+  cursor: default;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 2px 4px 3px inset !important;
 }
 
 li {
   list-style-type: none;
+}
+
+p {
+  font-weight: 400;
 }
 
 *::-webkit-scrollbar {
@@ -42,15 +80,21 @@ li {
 .container {
   padding: 20px 100px;
   margin: 0 auto;
+  max-width: 1440px;
 }
-@media (max-width: 850px) {
+@media (max-width: 1060px) {
+  .container {
+    padding: 20px 60px;
+  }
+}
+@media (max-width: 940px) {
   .container {
     padding: 20px 50px;
   }
 }
-@media (max-width: 700px) {
+@media (max-width: 860px) {
   .container {
-    padding: 10px 10px;
+    padding: 20px 20px;
   }
 }
 

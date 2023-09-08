@@ -1,11 +1,14 @@
 import React, { FC } from 'react';
 
+import './_InputChackbox.scss';
+
 interface InputCheckboxProps {
   id: string;
   data: string;
   className: string;
   onChange: () => void;
   checked: boolean;
+  disabled?: boolean;
 }
 
 const InputCheckbox: FC<InputCheckboxProps> = ({
@@ -14,6 +17,7 @@ const InputCheckbox: FC<InputCheckboxProps> = ({
   className,
   onChange,
   checked,
+  disabled,
 }) => {
   return (
     <div className={className}>
@@ -23,6 +27,7 @@ const InputCheckbox: FC<InputCheckboxProps> = ({
         name={id}
         onChange={onChange}
         checked={checked}
+        disabled={disabled}
       />
       <label htmlFor={id}>{data}</label>
     </div>

@@ -9,8 +9,6 @@
     .address-title {
         margin-top: 10px;
         font-size: 24px;
-        font-family: Josefin Sans,
-        serif;
         line-height: 59px;
     }
 }
@@ -32,6 +30,7 @@
 
     .select {
         margin: 5px 0;
+        @extend %InputBoxShadowWithHover;
     }
 
     .dropdown-menu::-webkit-scrollbar {
@@ -48,7 +47,6 @@
 .signup_submit-button {
     display: block;
     margin: 10px auto 100px;
-    @extend %fontSettings;
 
     @media (max-width: 790px) {
         margin: 10px auto;
