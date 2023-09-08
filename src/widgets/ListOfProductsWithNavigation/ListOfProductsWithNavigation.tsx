@@ -16,14 +16,9 @@ import Filter, { Filters } from '../../entities/Filtering/Filtering';
 import CategoryNavigation from '../../features/CategoryNavigation/CategoryNavigation';
 import SubcategoryNavigation from '../../features/SubcategoryNavigation/SubcategoryNavigation';
 import iconSetting from '../../assets/icons/equalizer-line.svg';
-import ShoppingCartButton from '../../shared/components/ShoppingCardButton/ShoppingCartButton';
+import ButtonReset from '../../shared/ButtonReset/ButtonReset';
 
-import {
-  AllProductsRequest,
-  filterProductsRequest,
-  getCategory,
-  IProducts,
-} from './ApiProduct';
+import { filterProductsRequest, getCategory, IProducts } from './ApiProduct';
 
 export interface AllFilters {
   category: string;
@@ -180,7 +175,7 @@ const ListOfProductsWithNavigation: React.FC<
             onClick={(event) => handleSortClick(event)}
             arrow={arrow}
           />
-          <ShoppingCartButton
+          <ButtonReset
             className={'icon-cart button-setting'}
             src={iconSetting}
             onClick={() => {

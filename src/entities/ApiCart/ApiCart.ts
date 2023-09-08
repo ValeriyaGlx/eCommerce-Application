@@ -72,3 +72,26 @@ export async function addProductToCart(token: string, productId: string) {
     }
   }
 }
+
+export async function deleteCart(token: string) {
+  const cartId = getCookie('cartId');
+  if (cartId) {
+    const cartObj = await getCartById(cartId, token);
+    const cartVersion = cartObj.version;
+    const urlRequest = `${host}/${project}/carts/${cartId}?version=${cartVersion}`;
+    const authHeader = 'Bearer ' + token;
+
+    const response = await fetch(urlRequest, {
+      method: 'DELETE',
+      headers: {
+        Authorization: authHeader,
+        'Content-Type': 'application/json',
+      },
+    });
+    if (!response.ok) {
+      return response.status;
+    } else {
+      return response.json();
+    }
+  }
+}

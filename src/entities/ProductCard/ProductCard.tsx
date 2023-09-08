@@ -1,7 +1,8 @@
 import React from 'react';
+import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import './_ProductCard.scss';
 import ButtonWithRoute from '../../shared/components/ButtonWithRoute/ButtonWithRoute';
 import cart from '../../assets/icons/shopping-cart-fill.svg';
 import ShoppingCartButton from '../../shared/components/ShoppingCardButton/ShoppingCartButton';
@@ -11,6 +12,9 @@ import getCookie from '../../shared/cookie/getCookie';
 import { tokenAnonRequest } from '../../features/formSubmitSignIn/usage/ApiAuthorization';
 import { addProductToCart, createCart } from '../ApiCart/ApiCart';
 import setToken from '../../shared/cookie/setToken';
+import { addProduct } from '../../app/store/actions/cartSliceAction/cartSliceAction';
+
+import './_ProductCard.scss';
 
 interface ProductCardProps {
   key: number;
@@ -25,6 +29,8 @@ interface ProductCardProps {
   productId: string;
 }
 
+type RootState = ReturnType<typeof store.getState>;
+
 const ProductCard: React.FC<ProductCardProps> = ({
   path,
   imageUrl,
@@ -37,6 +43,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
   productId,
 }) => {
   const navigate = useNavigate();
+  const dispatch: ThunkDispatch<RootState, unknown, AnyAction> = useDispatch();
+  useSelector((state: RootState) => state.cart.productsInCart);
 
   function clickCard(event: React.MouseEvent) {
     const currentTarget = event.target as HTMLElement;
@@ -57,6 +65,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
     } else if (target.classList.contains('icon-cart')) {
       target.disabled = true;
     }
+    dispatch(addProduct({ productId }));
     if (!isAuth && !isCart) {
       const anonTokenObj = await tokenAnonRequest();
       const anonToken = anonTokenObj.access_token;
@@ -90,6 +99,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           data={'More detailed'}
         />
         <ShoppingCartButton
+          productId={productId}
           className={'icon-cart'}
           src={cart}
           onClick={(event) => clickCart(event)}
