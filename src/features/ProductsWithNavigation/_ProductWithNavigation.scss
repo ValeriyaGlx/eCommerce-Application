@@ -4,6 +4,14 @@
   text-align: center;
 }
 
+.icon-pagination {
+  background: $color-gradient-blue-orange;
+  border: none;
+  border-radius: 5px;
+  width: 40px;
+  height: 40px;
+}
+
 .pagination {
   display: flex;
   justify-content: center;
