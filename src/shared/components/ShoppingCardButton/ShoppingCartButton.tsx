@@ -1,16 +1,28 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import './_ShoppingCartButton.scss';
 
 interface ButtonProps {
   className: string;
-  src: string;
-  onClick: () => void;
+  onClick: (event: React.MouseEvent) => void;
+  data?: string;
+  isDisabled: boolean;
 }
 
-const ShoppingCartButton: FC<ButtonProps> = ({ className, src, onClick }) => {
+const ShoppingCartButton: FC<ButtonProps> = ({
+  className,
+  onClick,
+  data,
+  isDisabled,
+}) => {
+  const [localIsDisabled, setLocalIsDisabled] = useState(false);
+
+  useEffect(() => {
+    setLocalIsDisabled(isDisabled);
+  }, [isDisabled]);
+
   return (
-    <button className={className} onClick={onClick}>
-      <img className={'shopping-img-cart'} src={src} alt={'cart'} />
+    <button className={className} onClick={onClick} disabled={localIsDisabled}>
+      {data}
     </button>
   );
 };

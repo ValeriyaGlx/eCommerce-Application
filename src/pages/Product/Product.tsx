@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import { getAccessToken } from '../../widgets/SignUpSection/usage/ApiRegistration';
 import ProductInfo from '../../widgets/ProductInfo/ProductInfo';
+import { LoadingSpinner } from '../../shared/components/LoadingSpinner/LoadingSpinner';
 
 import { getProduct } from './productAPI';
 
@@ -17,6 +18,7 @@ const Product = () => {
     prices: '',
     difficulty: '',
     duration: NaN,
+    productId: '',
   });
 
   const { productId } = useParams();
@@ -31,7 +33,6 @@ const Product = () => {
         } else {
           setProductInfo(product);
         }
-
         setIsLoading(false);
         return product;
       } catch (err) {
@@ -43,7 +44,11 @@ const Product = () => {
   }, []);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className={'wrapper-spinner'}>
+        <LoadingSpinner />
+      </div>
+    );
   } else {
     return (
       <>

@@ -26,27 +26,27 @@ const ProductWithNavigation: React.FC<ProductWithNavigationProps> = ({
       <div className={'wrapper-pagination'}>
         <nav className='pagination'>
           <Button
-            className={'icon-cart'}
+            className={'icon-pagination'}
             data={'<'}
             onClick={clickNavigation}
           />
           <Button
-            className={'icon-cart active'}
+            className={'icon-pagination active'}
             data={'1'}
             onClick={clickNavigation}
           />
           <Button
-            className={'icon-cart'}
+            className={'icon-pagination'}
             data={'2'}
             onClick={clickNavigation}
           />
           <Button
-            className={'icon-cart'}
+            className={'icon-pagination'}
             data={'3'}
             onClick={clickNavigation}
           />
           <Button
-            className={'icon-cart'}
+            className={'icon-pagination'}
             data={'>'}
             onClick={clickNavigation}
           />
