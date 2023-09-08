@@ -57,7 +57,8 @@
   }
 }
 
-.profile-button {
+.profile-button,
+.reset-cart-button {
   @extend %mainButtonGradient;
   @extend %tabletSizeButtons780px;
   width: fit-content;
@@ -75,11 +76,29 @@
   border-radius: 10px;
 }
 
+.delete-from-cart {
+  background: center url("../../../assets/icons/close-line.svg") no-repeat;
+}
+
 .delete-btn {
-  width: 20px;
-  height: 20px;
   background: no-repeat url("../../../assets/icons/icon-delete.svg") center;
-  background-size: 100%;
-  border: none;
   opacity: .8;
 }
+
+.get-disc_btn {
+  background: no-repeat url("../../../assets/icons/checkbox-fill.svg") center;
+}
+
+.delete-btn,
+.delete-from-cart,
+.get-disc_btn {
+  width: 20px;
+  height: 20px;
+background-color: inherit;
+  background-size: 100%;
+  border: none;
+}
+
+
+
+

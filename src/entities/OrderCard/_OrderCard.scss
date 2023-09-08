@@ -10,14 +10,39 @@
 
 .order_card-container {
   display: flex;
-  margin: 30px 0;
+  margin: 20px 0;
+  gap: 100px;
 
   img {
+    display: block;
     width: 100px;
   }
 
   .order_inner {
     display: flex;
     justify-content: space-between;
+
+    h5 {
+      color: #000;
+      font-size: 24px;
+    }
+  }
+}
+
+.order_amounts {
+  width: 300px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  .order_amounts-prices,
+  .order_amounts-numberof {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .order_amounts-numberof span {
+    font-size: 14px;
+    color: $color-grey-paragraph;
   }
 }

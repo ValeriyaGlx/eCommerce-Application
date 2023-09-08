@@ -1,0 +1,11 @@
+
+.cart-container {
+  padding-left: 30px;
+  margin-top: 50px;
+  display: flex;
+  gap: 7vw;
+
+  @media (max-width: 1190px) {
+    gap: 20px;
+  };
+}

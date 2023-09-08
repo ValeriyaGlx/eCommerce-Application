@@ -1,0 +1,29 @@
+@import './../../constants/scss/variables';
+
+.quantity-counter {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  margin: 0 auto;
+  border-radius: 5px;
+  box-shadow: $box-shadow;
+}
+
+.quantity-counter button {
+  width: 30px;
+  height: 30px;
+  background-color: $color-white;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+.quantity-counter div {
+  width: 30px;
+  font-size: 18px;
+  text-align: center;
+}
