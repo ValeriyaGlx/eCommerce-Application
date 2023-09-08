@@ -1,0 +1,23 @@
+@import '../../constants/scss/variables';
+@import '../../constants/scss/extentds';
+
+.order-card_separator {
+  width: 500px;
+  height: .1px;
+  background-color: $color-grey-paragraph;
+  opacity: .4;
+}
+
+.order_card-container {
+  display: flex;
+  margin: 30px 0;
+
+  img {
+    width: 100px;
+  }
+
+  .order_inner {
+    display: flex;
+    justify-content: space-between;
+  }
+}
