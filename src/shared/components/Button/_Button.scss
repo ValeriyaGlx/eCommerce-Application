@@ -38,6 +38,11 @@
   justify-content: center;
   gap: 15px;
 
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
   &::before {
     content: '';
     width: 30px;

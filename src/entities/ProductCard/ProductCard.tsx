@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import './_ProductCard.scss';
 import ButtonWithRoute from '../../shared/components/ButtonWithRoute/ButtonWithRoute';
-import cart from '../../assets/icons/shopping-cart-fill.svg';
 import ShoppingCartButton from '../../shared/components/ShoppingCardButton/ShoppingCartButton';
 import Like from '../../shared/components/Like/Like';
+import './_ProductCard.scss';
+import { LoadingSpinner } from '../../shared/components/LoadingSpinner/LoadingSpinner';
+import {
+  addProductToCart,
+  idOfProductToCart,
+} from '../ApiCart/addProductToCart';
 
 interface ProductCardProps {
   key: number;
@@ -17,6 +21,7 @@ interface ProductCardProps {
   discount?: string;
   difficulty: string;
   duration: number;
+  productId: string;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
@@ -28,30 +33,59 @@ const ProductCard: React.FC<ProductCardProps> = ({
   discount,
   difficulty,
   duration,
+  productId,
 }) => {
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const idOfProducts = await idOfProductToCart();
+        const isProductsToCart = idOfProducts.includes(productId);
+        setIsButtonDisabled(isProductsToCart);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchData();
+  }, []);
 
   function clickCard(event: React.MouseEvent) {
     const currentTarget = event.target as HTMLElement;
-    if (currentTarget.parentElement?.className !== 'icon-cart') {
+    if (currentTarget.className !== 'icon-cart') {
       navigate(`/products/product/${path}`);
     }
+  }
+
+  async function clickCart(event: React.MouseEvent) {
+    setIsLoading(true);
+    await addProductToCart(event, productId);
+    setIsLoading(false);
+    setIsButtonDisabled(true);
   }
 
   return (
     <div className='product-card' onClick={clickCard}>
       <img src={imageUrl} alt={productName} className={'product-card-img'} />
       <div className='hover-content'>
-        <ButtonWithRoute
-          className={'button-link'}
-          path={`/products/product/${path}`}
-          data={'More detailed'}
-        />
-        <ShoppingCartButton
-          className={'icon-cart'}
-          src={cart}
-          onClick={() => console.log(1)}
-        />
+        {isLoading ? (
+          <LoadingSpinner />
+        ) : (
+          <>
+            <ButtonWithRoute
+              className={'button-link'}
+              path={`/products/product/${path}`}
+              data={'More detailed'}
+            />
+            <ShoppingCartButton
+              isDisabled={isButtonDisabled}
+              className={'icon-cart'}
+              onClick={(event) => clickCart(event)}
+            />
+          </>
+        )}
       </div>
       <h3>{productName}</h3>
       <div className={'product-card-attrs-container'}>

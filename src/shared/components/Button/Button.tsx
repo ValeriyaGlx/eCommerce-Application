@@ -4,7 +4,7 @@ import './_Button.scss';
 interface ButtonProps {
   className: string;
   data: string;
-  onClick?: () => void;
+  onClick?: (event: React.MouseEvent) => void;
   role?: string;
 }
 

@@ -16,6 +16,8 @@ import { logOut } from '../../app/store/actions/authorizationAction/authorizatio
 import deleteToken from '../../shared/cookie/deleteToken';
 import UserButton from '../../shared/components/UserButton/UserButton';
 import { openMenu } from '../../shared/burgerMenuUsage/burgerMenuUsage';
+import { deleteCart } from '../../entities/ApiCart/ApiCart';
+import getCookie from '../../shared/cookie/getCookie';
 
 type RootState = ReturnType<typeof store.getState>;
 
@@ -28,9 +30,12 @@ export function Header() {
     (state: RootState) => state.authorization.isAuthorization,
   );
 
-  function setLogOut() {
+  async function setLogOut() {
     setIsLogOut(true);
+    const token = getCookie('authToken') as string;
+    await deleteCart(token);
     deleteToken('authToken');
+    deleteToken('cartId');
     localStorage.removeItem('firstName');
     dispatch(logOut());
     navigate('/');

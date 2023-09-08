@@ -16,14 +16,10 @@ import Filter, { Filters } from '../../entities/Filtering/Filtering';
 import CategoryNavigation from '../../features/CategoryNavigation/CategoryNavigation';
 import SubcategoryNavigation from '../../features/SubcategoryNavigation/SubcategoryNavigation';
 import iconSetting from '../../assets/icons/equalizer-line.svg';
-import ShoppingCartButton from '../../shared/components/ShoppingCardButton/ShoppingCartButton';
+import ButtonReset from '../../shared/ButtonReset/ButtonReset';
+import { LoadingSpinner } from '../../shared/components/LoadingSpinner/LoadingSpinner';
 
-import {
-  AllProductsRequest,
-  filterProductsRequest,
-  getCategory,
-  IProducts,
-} from './ApiProduct';
+import { filterProductsRequest, getCategory, IProducts } from './ApiProduct';
 
 export interface AllFilters {
   category: string;
@@ -75,6 +71,7 @@ const ListOfProductsWithNavigation: React.FC<
             discount={product.discount ? product.discount : ''}
             duration={product.duration}
             difficulty={product.difficulty}
+            productId={product.productId}
           />
         ),
       );
@@ -100,7 +97,10 @@ const ListOfProductsWithNavigation: React.FC<
         const token = tokenResponse.access_token;
         setToken('accessToken', token);
         if (category === 'All Categories') {
-          const listOfProduct = await AllProductsRequest(token);
+          const listOfProduct = await filterProductsRequest(
+            activeFilters,
+            token,
+          );
           createHTMLListOfProducts(listOfProduct);
         } else if (subCategory === undefined) {
           const categoryObj = categories.find(
@@ -176,7 +176,7 @@ const ListOfProductsWithNavigation: React.FC<
             onClick={(event) => handleSortClick(event)}
             arrow={arrow}
           />
-          <ShoppingCartButton
+          <ButtonReset
             className={'icon-cart button-setting'}
             src={iconSetting}
             onClick={() => {
@@ -192,7 +192,7 @@ const ListOfProductsWithNavigation: React.FC<
           onClickCloseButton={() => setIsOpenFilters(false)}
         />
         {isLoading ? (
-          <div className={'loading'}>Loading...</div>
+          <LoadingSpinner />
         ) : (
           <div className={'wrapper-products'}>{productData}</div>
         )}

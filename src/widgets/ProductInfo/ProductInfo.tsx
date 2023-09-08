@@ -13,6 +13,7 @@ interface ProductInfoProps {
     discount?: string;
     difficulty: string;
     duration: number;
+    productId: string;
   };
 }
 
@@ -33,6 +34,7 @@ const ProductInfo: FC<ProductInfoProps> = ({ product }) => {
         discount={product.discount || ''}
         difficulty={product.difficulty}
         duration={product.duration}
+        productId={product.productId}
       />
     </section>
   );

@@ -14,6 +14,7 @@ export interface IProducts {
   discount?: string;
   difficulty: string;
   duration: number;
+  productId: string;
 }
 
 export interface IResponseAll {
@@ -101,9 +102,11 @@ export interface IResponseAll {
       };
     };
   };
+  id: string;
 }
 
 export interface IResponseCategory {
+  id: string;
   published: boolean;
   key: string;
   name: {
@@ -152,6 +155,7 @@ export function processDataAllProducts(arr: Array<IResponseAll>) {
         price: (el.masterData.staged.masterVariant.prices[0].value.centAmount / 100).toFixed(2),
         duration: attrArray[1].value as number,
         difficulty: Array.isArray(attrArray[0].value) ? attrArray[0].value[0] : '',
+        productId: el.id,
       };
       if (el.masterData.current.masterVariant.prices[0].discounted) {
         obj.discount = (el.masterData.current.masterVariant.prices[0].discounted.value.centAmount / 100).toFixed(2);
@@ -182,6 +186,7 @@ function processDataCategoryProducts(arr: Array<IResponseCategory>) {
         price: (el.masterVariant.prices[0].value.centAmount / 100).toFixed(2),
         difficulty: Array.isArray(attrsArray[0].value) ? attrsArray[0].value[0] : '',
         duration: attrsArray[1].value as number,
+        productId: el.id,
       };
       if (el.masterVariant.prices[0].discounted) {
         obj.discount = (el.masterVariant.prices[0].discounted.value.centAmount / 100).toFixed(2);
