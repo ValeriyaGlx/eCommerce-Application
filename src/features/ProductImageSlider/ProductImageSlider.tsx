@@ -58,7 +58,7 @@ const ProductImageSlider: React.FC<ProductImageSliderProps> = ({ items }) => {
             <AliceCarousel
               activeIndex={mainIndex}
               animationType='fadeout'
-              animationDuration={800}
+              animationDuration={200}
               disableDotsControls
               disableButtonsControls
               items={items}

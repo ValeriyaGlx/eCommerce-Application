@@ -15,6 +15,7 @@
   z-index: 5;
 }
 
+
 .edit-mode {
   display: flex;
   align-items: center;
@@ -43,6 +44,18 @@
     background-size: 100%;
   }
 }
+
+.edit-mode-addresses {
+  .edit,
+  .ok,
+  .close {
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+    opacity: .7;
+  }
+}
+
 
 .edit-mode-error-red {
   color: $color-radio-red;

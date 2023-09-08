@@ -10,10 +10,19 @@ import {
 import './_AddressesSectionMap.scss';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { Address } from '../../shared/components/StudentsProfileForm/usage/ProfileFormAPI';
+import {
+  Address,
+  getProfile,
+} from '../../shared/components/StudentsProfileForm/usage/ProfileFormAPI';
 import Button from '../../shared/components/Button/Button';
 import { AppDispatch } from '../../shared/components/StudentsProfileForm/StudentsProfileForm';
-import { createNewAddress } from '../../app/store/actions/profileAddressesAction/profileAddressesSlice';
+import {
+  createNewAddress,
+  removeAddress,
+} from '../../app/store/actions/profileAddressesAction/profileAddressesSlice';
+import getCookie from '../../shared/cookie/getCookie';
+import { setVersion } from '../../app/store/actions/profileVersion/profileVersion';
+import { addAddresses } from '../UserAddressSection/usage/addressesAPI';
 
 interface AddressesSectionMapProps {
   arr: Address[];
@@ -33,7 +42,10 @@ const AddressesSectionMap: FC<AddressesSectionMapProps> = ({
   const [addresses, setAddresses] = useState<Address[]>(arr);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [editMode, setEditMode] = useState(false);
+  const [isNewAddressBeingAdded, setIsNewAddressBeingAdded] = useState(false);
   const sliderRef = useRef<Slider | null>(null);
+  const [isUnfinishedAddress, setIsUnfinishedAddress] = useState('');
+  const [isFinishedAddress, setIsFinishedAddress] = useState(false);
 
   const sliderSettings = {
     dots: true,
@@ -50,22 +62,72 @@ const AddressesSectionMap: FC<AddressesSectionMapProps> = ({
     setAddresses(arr);
   }, [arr]);
 
+  const removeAddressProps = (addressIdToRemove: string) => {
+    const updatedAddresses = addresses.filter(
+      (address) => address.id !== addressIdToRemove,
+    );
+    setAddresses(updatedAddresses);
+    const removedIndex = addresses.findIndex(
+      (address) => address.id === addressIdToRemove,
+    );
+    const newIndex = removedIndex > 0 ? removedIndex - 1 : 0;
+    setCurrentIndex(newIndex);
+  };
+
   const addNewAddress = () => {
-    const newAddress: Address = {
-      id: String(Math.random()),
-      country: 'Choose a country',
-      defaultAddress: false,
-    };
+    if (!isFinishedAddress && !isNewAddressBeingAdded) {
+      const fetchData = async () => {
+        try {
+          const token: string = getCookie('authToken') as string;
+          const profile = await getProfile(token);
+          const version = profile.version;
+          dispatch(setVersion({ version }));
 
-    const newAddressId = newAddress.id;
-    dispatch(createNewAddress(newAddressId));
-    setAddresses([...addresses, newAddress]);
-    setCurrentIndex(addresses.length);
+          const res = await addAddresses(token);
 
-    if (sliderRef.current) {
-      sliderRef.current.slickGoTo(addresses.length);
+          const addressesArray = [...res.addresses];
+          const newAddressApiId = addressesArray[addressesArray.length - 1];
+
+          const newAddress: Address = {
+            id: newAddressApiId.id,
+            country: 'Choose a country',
+            defaultAddress: false,
+          };
+
+          const newAddressId = newAddress.id;
+          dispatch(createNewAddress({ newAddressId, inputName }));
+          setAddresses([...addresses, newAddress]);
+          setCurrentIndex(addresses.length);
+
+          if (sliderRef.current) {
+            sliderRef.current.slickGoTo(addresses.length);
+          }
+          setEditMode(true);
+          setIsNewAddressBeingAdded(true);
+        } catch (err) {
+          console.log(err);
+        }
+      };
+
+      fetchData();
     }
-    setEditMode(true);
+    if (isNewAddressBeingAdded && !isFinishedAddress) {
+      setIsUnfinishedAddress(
+        'Please finish with the first address before adding a new one.',
+      );
+      setTimeout(() => {
+        setIsUnfinishedAddress('');
+      }, 1000);
+    }
+  };
+
+  const cancelAddNewAddress = () => {
+    if (isNewAddressBeingAdded) {
+      const removedAddress = addresses[addresses.length - 1].id;
+      setAddresses(addresses.slice(0, addresses.length - 1));
+      setIsNewAddressBeingAdded(false);
+      dispatch(removeAddress(removedAddress));
+    }
   };
 
   return (
@@ -85,11 +147,18 @@ const AddressesSectionMap: FC<AddressesSectionMapProps> = ({
             selectArray={selectArray}
             addressArray={addressArray}
             addressId={id}
-            defaultAddress={defaultAddress}
             isEditMode={editMode}
+            defaultAddress={defaultAddress}
+            cancelAddNewAddress={cancelAddNewAddress}
+            removeAddressProps={removeAddressProps}
+            isNewAddressBeingAdded={isNewAddressBeingAdded}
+            isFinishedAddress={setIsFinishedAddress}
+            setNewAddressBeingAdded={setIsNewAddressBeingAdded}
           />
         ))}
       </Slider>
+      <div className={'finish-new-address-msg'}>{isUnfinishedAddress}</div>
+
       <Button
         className={'profile-add-address'}
         data={`Add New ${title}`}

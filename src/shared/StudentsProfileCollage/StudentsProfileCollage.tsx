@@ -3,7 +3,7 @@ import './_StudentsProfileCollage.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 
-import collage from '../../assets/img/collage.svg';
+import collage from '../../assets/img/collage.png';
 import Button from '../components/Button/Button';
 import ModalProfile from '../ModalWindowPassword/view/ModalWindowPassword';
 import { openModal } from '../../app/store/actions/modalSliceAction/modalSlice';

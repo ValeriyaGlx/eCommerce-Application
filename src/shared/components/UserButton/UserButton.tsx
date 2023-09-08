@@ -7,14 +7,12 @@ interface UserButtonProps {
   src: string;
   alt: string;
   to: string;
-  name: string;
 }
 
-const UserButton: FC<UserButtonProps> = ({ to, src, alt, name }) => {
+const UserButton: FC<UserButtonProps> = ({ to, src, alt }) => {
   return (
     <Link to={to} className={'button-profile'}>
       <img className='img-profile' src={src} alt={alt} />
-      <div className='span-profile'>{name}</div>
     </Link>
   );
 };

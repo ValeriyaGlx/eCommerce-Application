@@ -30,7 +30,7 @@ function getCountry(country: string) {
   return fullCountry;
 }
 
-function getAddresses(array: Address[], ids: string[], defaultAddressId: string): Address[] {
+function getAddresses(array: Address[], ids: string[], defaultAddressId: string, type: string): Address[] {
   const addressesIds = ids;
   const allAddresses = array;
   const result = [];
@@ -43,6 +43,7 @@ function getAddresses(array: Address[], ids: string[], defaultAddressId: string)
       street: oldObj.streetName,
       code: oldObj.postalCode,
       city: oldObj.city,
+      type: type,
     };
 
     if (newObj.id === defaultAddressId) {
@@ -84,8 +85,8 @@ function getProfileObject(res: UserProfile) {
       email: res.email,
     },
     addresses: {
-      billingAddress: getAddresses(res.addresses, res.billingAddressIds, res.defaultBillingAddressId),
-      shippingAddress: getAddresses(res.addresses, res.shippingAddressIds, res.defaultShippingAddressId),
+      billingAddress: getAddresses(res.addresses, res.billingAddressIds, res.defaultBillingAddressId, 'billing'),
+      shippingAddress: getAddresses(res.addresses, res.shippingAddressIds, res.defaultShippingAddressId, 'shipping'),
     },
     version: res.version,
   };

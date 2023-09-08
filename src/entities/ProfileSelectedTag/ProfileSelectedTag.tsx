@@ -13,6 +13,7 @@ interface ProfileSelectTagProps {
   inputName: string;
   addressId: string;
   readonly: boolean;
+  onFieldChange?: (inputName: string, newValue: string) => void;
 }
 
 type RootState = ReturnType<typeof store.getState>;
@@ -24,6 +25,7 @@ const ProfileSelectTag: FC<ProfileSelectTagProps> = ({
   inputName,
   addressId,
   readonly,
+  onFieldChange,
 }) => {
   const inputStateRender = useSelector(
     (state: RootState) => state.profileAddresses[addressId as AddressId],
@@ -37,6 +39,10 @@ const ProfileSelectTag: FC<ProfileSelectTagProps> = ({
     const newValue = (e.target as HTMLElement).textContent as string;
     const inputName = 'country';
     dispatch(setProfileSelectValue({ addressId, inputName, newValue }));
+
+    if (onFieldChange) {
+      onFieldChange(inputName, newValue);
+    }
   }
 
   return (
