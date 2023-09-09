@@ -44,7 +44,6 @@ export async function addProductApi(token: string, productId: string) {
   if (cartId) {
     const cartObj = await getCartById(cartId, token);
     const cartVersion = cartObj.version;
-    console.log(cartObj);
     const urlRequest = `${host}/${project}/carts/${cartId}`;
     const authHeader = 'Bearer ' + token;
 

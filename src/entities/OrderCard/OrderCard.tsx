@@ -4,7 +4,6 @@ import { CSSTransition } from 'react-transition-group';
 import './_OrderCard.scss';
 import Button from '../../shared/components/Button/Button';
 import OrderCounter from '../../shared/OrderCounter/OrderCounter';
-import { removeProductFromCart } from '../ApiCart/addProductToCart';
 
 interface OrderCardProps {
   id: string;
@@ -12,6 +11,7 @@ interface OrderCardProps {
   image: string;
   discount?: string;
   price: string;
+  getGoods: (id: string) => void;
 }
 
 const OrderCard: FC<OrderCardProps> = ({
@@ -20,12 +20,13 @@ const OrderCard: FC<OrderCardProps> = ({
   image,
   discount,
   price,
+  getGoods,
 }) => {
   const [isVisible, setIsVisible] = useState(true);
 
   const handleDeleteClick = async () => {
     setIsVisible(false);
-    const res = await removeProductFromCart(id);
+    await getGoods(id);
   };
 
   return (

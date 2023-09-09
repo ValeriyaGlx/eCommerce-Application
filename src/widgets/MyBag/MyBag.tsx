@@ -25,9 +25,10 @@ interface IGood {
 
 interface MyBagProps {
   goods: IGood[];
+  getGoods: (id: string) => void;
 }
 
-const MyBag: FC<MyBagProps> = ({ goods }) => {
+const MyBag: FC<MyBagProps> = ({ goods, getGoods }) => {
   const ordersArray = getGoodsData(goods);
 
   return (
@@ -42,6 +43,7 @@ const MyBag: FC<MyBagProps> = ({ goods }) => {
             price={price}
             id={id}
             discount={discount}
+            getGoods={getGoods}
           />
         ))}
       </div>

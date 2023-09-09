@@ -86,11 +86,14 @@ export async function addProductToCart(event: React.MouseEvent, productId: strin
 
 export async function removeProductFromCart(productId: string) {
   const isAuth = store.getState().authorization.isAuthorization;
+  let res;
   if (!isAuth) {
     const token = getCookie('anonToken') as string;
-    await removeProductApi(token, productId);
+    res = await removeProductApi(token, productId);
   } else if (isAuth) {
     const token = getCookie('authToken') as string;
-    await removeProductApi(token, productId);
+    res = await removeProductApi(token, productId);
   }
+
+  return res;
 }
