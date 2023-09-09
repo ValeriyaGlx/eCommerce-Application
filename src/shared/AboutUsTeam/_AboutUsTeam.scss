@@ -1,0 +1,14 @@
+@import 'src/constants/scss/variables';
+.about-container__photos {
+  justify-content: space-between;
+  display: flex;
+}
+.about-container__photos img:hover {
+  cursor: pointer;
+  box-shadow: 5px 5px 10px $box-shadow-about;
+  transition: box-shadow 0.3s ease;
+}
+
+.about-container__photos img {
+  width: 30%;
+}
