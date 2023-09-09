@@ -5,7 +5,7 @@ import getCookie from '../../shared/cookie/getCookie';
 import { tokenAnonRequest } from '../../features/formSubmitSignIn/usage/ApiAuthorization';
 import setToken from '../../shared/cookie/setToken';
 
-import { addProductApi, createCart, getCartById } from './ApiCart';
+import { addProductApi, createCart, getCartById, removeProductApi } from './ApiCart';
 
 interface ProductsToCart {
   id: string;
@@ -81,5 +81,16 @@ export async function addProductToCart(event: React.MouseEvent, productId: strin
     const token = getCookie('authToken') as string;
     await createCart(token);
     await addProductApi(token, productId);
+  }
+}
+
+export async function removeProductFromCart(productId: string) {
+  const isAuth = store.getState().authorization.isAuthorization;
+  if (!isAuth) {
+    const token = getCookie('anonToken') as string;
+    await removeProductApi(token, productId);
+  } else if (isAuth) {
+    const token = getCookie('authToken') as string;
+    await removeProductApi(token, productId);
   }
 }

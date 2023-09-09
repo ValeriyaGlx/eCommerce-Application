@@ -44,6 +44,7 @@ export async function addProductApi(token: string, productId: string) {
   if (cartId) {
     const cartObj = await getCartById(cartId, token);
     const cartVersion = cartObj.version;
+    console.log(cartObj);
     const urlRequest = `${host}/${project}/carts/${cartId}`;
     const authHeader = 'Bearer ' + token;
 
@@ -70,6 +71,37 @@ export async function addProductApi(token: string, productId: string) {
     } else {
       return response.json();
     }
+  }
+}
+
+export async function removeProductApi(token: string, productId: string) {
+  const cartId = getCookie('cartId') as string;
+  const cartObj = await getCartById(cartId, token);
+  const cartVersion = cartObj.version;
+
+  const urlRequest = `${host}/${project}/carts/${cartId}`;
+  const authHeader = 'Bearer ' + token;
+
+  const response = await fetch(urlRequest, {
+    method: 'POST',
+    headers: {
+      Authorization: authHeader,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      version: cartVersion,
+      actions: [
+        {
+          action: 'removeLineItem',
+          lineItemId: productId,
+        },
+      ],
+    }),
+  });
+  if (!response.ok) {
+    return response.status;
+  } else {
+    return response.json();
   }
 }
 

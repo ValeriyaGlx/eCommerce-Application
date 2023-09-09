@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import PromocodeInfo from '../../shared/components/PromocodeInfo/PromocodeInfo';
 import OrderSummary from '../../features/OrderSummary/OrderSummary';
 
-const CartSummary = () => {
+interface CartSummaryProps {
+  total: string;
+}
+
+const CartSummary: FC<CartSummaryProps> = ({ total }) => {
   return (
     <section>
-      <OrderSummary />
+      <OrderSummary total={total} />
       <PromocodeInfo />
     </section>
   );

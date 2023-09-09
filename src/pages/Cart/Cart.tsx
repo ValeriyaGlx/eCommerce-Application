@@ -10,6 +10,7 @@ import { getCartById } from '../../entities/ApiCart/ApiCart';
 export function Cart() {
   const [isCart, setIsCart] = useState(false);
   const [goods, setGoods] = useState([]);
+  const [total, setTotal] = useState('');
   useEffect(() => {
     const fetchData = async () => {
       const cartId = getCookie('cartId');
@@ -23,6 +24,8 @@ export function Cart() {
 
       if (token) {
         const res = await getCartById(cartId, token);
+        const totalPrice = (res.totalPrice.centAmount / 100).toFixed(2);
+        setTotal(totalPrice);
         setGoods(res.lineItems);
       }
     };
@@ -37,7 +40,7 @@ export function Cart() {
       ) : (
         <div className={'cart-container'}>
           <MyBag goods={goods} />
-          <CartSummary />
+          <CartSummary total={total} />
         </div>
       )}
     </>
