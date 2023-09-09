@@ -7,6 +7,7 @@ import {
   idOfProductToCart,
 } from '../../entities/ApiCart/addProductToCart';
 import ShoppingCartButton from '../../shared/components/ShoppingCardButton/ShoppingCartButton';
+import getCookie from '../../shared/cookie/getCookie';
 
 interface ProductDescriptionProps {
   inner: string;
@@ -32,9 +33,12 @@ const ProductDescription: FC<ProductDescriptionProps> = ({
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const idOfProducts = await idOfProductToCart();
-        const isProductsToCart = idOfProducts.includes(productId);
-        setIsButtonDisabled(isProductsToCart);
+        const cartId = getCookie('cartId');
+        if (cartId) {
+          const idOfProducts = await idOfProductToCart();
+          const isProductsToCart = idOfProducts.includes(productId);
+          setIsButtonDisabled(isProductsToCart);
+        }
       } catch (error) {
         console.error('Error fetching data:', error);
       }

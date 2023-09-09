@@ -7,6 +7,7 @@ import authorizationSlice from './actions/authorizationAction/authorizationSlice
 import profileAddressSlice from './actions/profileAddressesAction/profileAddressesSlice';
 import profileSlice from './actions/profileVersion/profileVersion';
 import changePassword from './actions/changePasswordAction/changePasswordSlice';
+import paginationSlice from './actions/paginationAction/paginationSlice';
 
 export const store = configureStore({
   reducer: {
@@ -17,5 +18,6 @@ export const store = configureStore({
     profileAddresses: profileAddressSlice,
     profileVersion: profileSlice,
     changePassword: changePassword,
+    pagination: paginationSlice,
   },
 });

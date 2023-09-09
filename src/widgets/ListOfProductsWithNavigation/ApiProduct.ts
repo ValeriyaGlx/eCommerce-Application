@@ -197,23 +197,6 @@ function processDataCategoryProducts(arr: Array<IResponseCategory>) {
   return newArr;
 }
 
-export async function AllProductsRequest(token: string) {
-  const urlRequest = `${host}/${project}/products/`;
-  const authHeader = 'Bearer ' + token;
-
-  const response = await fetch(urlRequest, {
-    method: 'GET',
-    headers: {
-      Authorization: authHeader,
-    },
-  });
-  const products = await response.json();
-
-  const arr = products.results;
-
-  return processDataAllProducts(arr);
-}
-
 export async function getCategory(token: string, category: string) {
   const urlRequestCategory = `${host}/${project}/categories/key=${category}`;
 
@@ -243,7 +226,7 @@ export async function getCategories(token: string) {
 export async function filterProductsRequest(obj: AllFilters, token: string) {
   const pathUrl = createFilterString(obj);
 
-  const urlRequestProducts = `${host}/${project}/product-projections/search?${pathUrl}`;
+  const urlRequestProducts = `${host}/${project}/product-projections/search?limit=6&${pathUrl}`;
 
   const responseProducts = await fetch(urlRequestProducts, {
     method: 'GET',
@@ -254,4 +237,21 @@ export async function filterProductsRequest(obj: AllFilters, token: string) {
   const products = await responseProducts.json();
   const arr = products.results;
   return processDataCategoryProducts(arr);
+}
+
+export async function AllProductsRequest(token: string) {
+  const urlRequest = `${host}/${project}/products/`;
+  const authHeader = 'Bearer ' + token;
+
+  const response = await fetch(urlRequest, {
+    method: 'GET',
+    headers: {
+      Authorization: authHeader,
+    },
+  });
+  const products = await response.json();
+
+  const arr = products.results;
+
+  return arr.length;
 }

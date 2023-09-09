@@ -9,9 +9,7 @@ import arrow from '../../assets/icons/down-arrow-black.png';
 import SelectTag from '../../shared/components/SelectTag/SelectTag';
 import './_ListOfProductsWithNavigation.scss';
 import ProductCard from '../../entities/ProductCard/ProductCard';
-import { getAccessToken } from '../SignUpSection/usage/ApiRegistration';
 import setToken from '../../shared/cookie/setToken';
-import getCookie from '../../shared/cookie/getCookie';
 import Filter, { Filters } from '../../entities/Filtering/Filtering';
 import CategoryNavigation from '../../features/CategoryNavigation/CategoryNavigation';
 import SubcategoryNavigation from '../../features/SubcategoryNavigation/SubcategoryNavigation';
@@ -44,11 +42,12 @@ export const initialAllFilters: AllFilters = {
 interface ListOfProductsWithNavigationProps {
   category: string;
   subCategory?: string;
+  token: string;
 }
 
 const ListOfProductsWithNavigation: React.FC<
   ListOfProductsWithNavigationProps
-> = ({ category, subCategory }) => {
+> = ({ category, subCategory, token }) => {
   const [productData, setProductData] = useState<JSX.Element[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [nameSorting, setNameSorting] = useState('Sorting');
@@ -91,53 +90,58 @@ const ListOfProductsWithNavigation: React.FC<
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const tokenResponse = await getAccessToken();
-        const token = tokenResponse.access_token;
-        setToken('accessToken', token);
-        if (category === 'All Categories') {
-          const listOfProduct = await filterProductsRequest(
-            activeFilters,
-            token,
-          );
-          createHTMLListOfProducts(listOfProduct);
-        } else if (subCategory === undefined) {
-          const categoryObj = categories.find(
-            (item) => item.data === category,
-          ) as IButtonNavigation;
-          const id = await getCategory(token, categoryObj.value);
-          const newFilters = { ...activeFilters, category: id };
-          setFilters(newFilters);
-          const listOfProducts = await filterProductsRequest(newFilters, token);
-          createHTMLListOfProducts(listOfProducts);
-        } else {
-          const id = await getCategory(token, subCategory);
-          const newFilters = { ...activeFilters, category: id };
-          setFilters(newFilters);
-          const listOfProducts = await filterProductsRequest(newFilters, token);
-          createHTMLListOfProducts(listOfProducts);
+    if (token) {
+      const fetchData = async () => {
+        try {
+          setToken('accessToken', token);
+          if (category === 'All Categories') {
+            const listOfProduct = await filterProductsRequest(
+              activeFilters,
+              token,
+            );
+            createHTMLListOfProducts(listOfProduct);
+          } else if (subCategory === undefined) {
+            const categoryObj = categories.find(
+              (item) => item.data === category,
+            ) as IButtonNavigation;
+            const id = await getCategory(token, categoryObj.value);
+            const newFilters = { ...activeFilters, category: id };
+            setFilters(newFilters);
+            const listOfProducts = await filterProductsRequest(
+              newFilters,
+              token,
+            );
+            createHTMLListOfProducts(listOfProducts);
+          } else {
+            const id = await getCategory(token, subCategory);
+            const newFilters = { ...activeFilters, category: id };
+            setFilters(newFilters);
+            const listOfProducts = await filterProductsRequest(
+              newFilters,
+              token,
+            );
+            createHTMLListOfProducts(listOfProducts);
+          }
+        } catch (error) {
+          console.error('Error fetching data:', error);
+          setIsLoading(false);
         }
-      } catch (error) {
-        console.error('Error fetching data:', error);
-        setIsLoading(false);
+      };
+      fetchData();
+      if (isOpenFilters) {
+        window.addEventListener('click', handleClickOutside);
+      } else {
+        window.removeEventListener('click', handleClickOutside);
       }
-    };
-    fetchData();
-    if (isOpenFilters) {
-      window.addEventListener('click', handleClickOutside);
-    } else {
-      window.removeEventListener('click', handleClickOutside);
-    }
 
-    return () => {
-      window.removeEventListener('click', handleClickOutside);
-    };
-  }, [isOpenFilters]);
+      return () => {
+        window.removeEventListener('click', handleClickOutside);
+      };
+    }
+  }, [isOpenFilters, token]);
 
   const handleSortClick = async (event: React.MouseEvent) => {
     setIsLoading(true);
-    const token = getCookie('accessToken') as string;
     const target = event.currentTarget.innerHTML;
     setNameSorting(target);
     const newFilters = { ...activeFilters, sorting: target };
@@ -154,7 +158,6 @@ const ListOfProductsWithNavigation: React.FC<
     };
     setFilters(newFilters);
     setIsLoading(true);
-    const token = getCookie('accessToken') as string;
     const listOfProducts = await filterProductsRequest(newFilters, token);
     createHTMLListOfProducts(listOfProducts);
   };
