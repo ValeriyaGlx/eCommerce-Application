@@ -6,11 +6,23 @@ interface ButtonProps {
   data: string;
   onClick?: (event: React.MouseEvent) => void;
   role?: string;
+  disabled?: boolean;
 }
 
-const Button: FC<ButtonProps> = ({ className, data, onClick, role }) => {
+const Button: FC<ButtonProps> = ({
+  className,
+  data,
+  onClick,
+  role,
+  disabled,
+}) => {
   return (
-    <button className={className} onClick={onClick} role={role}>
+    <button
+      className={className}
+      onClick={onClick}
+      role={role}
+      disabled={disabled}
+    >
       {data}
     </button>
   );

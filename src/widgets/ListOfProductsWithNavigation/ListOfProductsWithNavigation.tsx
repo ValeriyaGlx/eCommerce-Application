@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import {
   CATEGORIES_OF_PRODUCTS as categories,
@@ -16,6 +17,7 @@ import SubcategoryNavigation from '../../features/SubcategoryNavigation/Subcateg
 import iconSetting from '../../assets/icons/equalizer-line.svg';
 import ButtonReset from '../../shared/ButtonReset/ButtonReset';
 import { LoadingSpinner } from '../../shared/components/LoadingSpinner/LoadingSpinner';
+import { store } from '../../app/store/store';
 
 import { filterProductsRequest, getCategory, IProducts } from './ApiProduct';
 
@@ -45,9 +47,15 @@ interface ListOfProductsWithNavigationProps {
   token: string;
 }
 
+type RootState = ReturnType<typeof store.getState>;
+
 const ListOfProductsWithNavigation: React.FC<
   ListOfProductsWithNavigationProps
 > = ({ category, subCategory, token }) => {
+  useDispatch();
+  const currentPage = useSelector(
+    (state: RootState) => state.pagination.currentPage,
+  );
   const [productData, setProductData] = useState<JSX.Element[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [nameSorting, setNameSorting] = useState('Sorting');
@@ -138,7 +146,7 @@ const ListOfProductsWithNavigation: React.FC<
         window.removeEventListener('click', handleClickOutside);
       };
     }
-  }, [isOpenFilters, token]);
+  }, [isOpenFilters, token, currentPage]);
 
   const handleSortClick = async (event: React.MouseEvent) => {
     setIsLoading(true);

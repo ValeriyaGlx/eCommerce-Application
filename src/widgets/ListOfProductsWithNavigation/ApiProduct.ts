@@ -1,3 +1,5 @@
+import { store } from '../../app/store/store';
+
 import { createFilterString } from './components/createUrlFilterString';
 import { AllFilters } from './ListOfProductsWithNavigation';
 
@@ -226,7 +228,9 @@ export async function getCategories(token: string) {
 export async function filterProductsRequest(obj: AllFilters, token: string) {
   const pathUrl = createFilterString(obj);
 
-  const urlRequestProducts = `${host}/${project}/product-projections/search?limit=6&${pathUrl}`;
+  const urlRequestProducts = `${host}/${project}/product-projections/search?offset=${
+    (store.getState().pagination.currentPage - 1) * 6
+  }&limit=6&${pathUrl}`;
 
   const responseProducts = await fetch(urlRequestProducts, {
     method: 'GET',

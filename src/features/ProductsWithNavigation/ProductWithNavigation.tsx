@@ -28,6 +28,7 @@ const ProductWithNavigation: React.FC<ProductWithNavigationProps> = ({
   );
   const [isToken, setIsToken] = useState('');
   const [numberOfPage, setNumberOfPage] = useState(0);
+  const [disabled, setDisabled] = useState([true, false]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,7 +38,7 @@ const ProductWithNavigation: React.FC<ProductWithNavigationProps> = ({
         setIsToken(token);
         setToken('accessToken', token);
         const numberOfProducts = await AllProductsRequest(token);
-        const numberOfProductToPage = 2;
+        const numberOfProductToPage = 6;
         setNumberOfPage(Math.ceil(numberOfProducts / numberOfProductToPage));
       } catch (err) {
         console.log(err);
@@ -50,12 +51,24 @@ const ProductWithNavigation: React.FC<ProductWithNavigationProps> = ({
   function clickNavigation(event: React.MouseEvent) {
     const data = event.target as HTMLElement;
     const number = data.innerHTML;
-    if (number === '<') {
+    if (number === '&lt;') {
       dispatch(setCurrentPage(1));
-    } else if (number === '>') {
+      setDisabled([true, false]);
+    } else if (number === '&gt;') {
       dispatch(setCurrentPage(numberOfPage));
+      setDisabled([false, true]);
     } else {
       dispatch(setCurrentPage(+number));
+      switch (number) {
+        case '1':
+          setDisabled([true, false]);
+          break;
+        case `${numberOfPage}`:
+          setDisabled([false, true]);
+          break;
+        default:
+          setDisabled([false, false]);
+      }
     }
   }
 
@@ -72,6 +85,7 @@ const ProductWithNavigation: React.FC<ProductWithNavigationProps> = ({
             className={'icon-pagination'}
             data={'<'}
             onClick={clickNavigation}
+            disabled={disabled[0]}
           />
           {Array.from({ length: numberOfPage }).map((_, index) => (
             <Button
@@ -87,6 +101,7 @@ const ProductWithNavigation: React.FC<ProductWithNavigationProps> = ({
             className={'icon-pagination'}
             data={'>'}
             onClick={clickNavigation}
+            disabled={disabled[1]}
           />
         </nav>
       </div>
