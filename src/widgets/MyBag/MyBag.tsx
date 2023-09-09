@@ -34,8 +34,15 @@ const MyBag: FC<MyBagProps> = ({ goods }) => {
     <section className={'my-bag_section'}>
       <h2>My Bag</h2>
       <div className={'orders-container'}>
-        {ordersArray.map(({ id, name, image, price }) => (
-          <OrderCard key={id} image={image} name={name} price={price} id={id} />
+        {ordersArray.map(({ id, name, image, price, discount }) => (
+          <OrderCard
+            key={id}
+            image={image}
+            name={name}
+            price={price}
+            id={id}
+            discount={discount}
+          />
         ))}
       </div>
 

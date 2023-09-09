@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 
 import './_OrderCard.scss';
 import Button from '../../shared/components/Button/Button';
@@ -20,7 +20,7 @@ const OrderCard: FC<OrderCardProps> = ({
   price,
 }) => {
   console.log(id);
-  console.log(discount);
+
   return (
     <div>
       <div className={'order-card_separator'} />
@@ -37,12 +37,18 @@ const OrderCard: FC<OrderCardProps> = ({
           </div>
           <div className={'order_amounts'}>
             <div className={'order_amounts-numberof'}>
-              <span>1 x ${price}</span>
+              <span>`1 x ${discount ? discount : price}`</span>
               <OrderCounter initialValue={1} />
             </div>
             <div className={'order_amounts-prices'}>
-              <span className={'old-price'}>${price}</span>
-              <span className={'new-price'}>$0.00</span>
+              {discount ? (
+                <div className={'wrapper-prices'}>
+                  <span className={'new-price'}>${discount}</span>
+                  <span className={'old-price'}>${price}</span>
+                </div>
+              ) : (
+                <span className={'price'}>${price}</span>
+              )}
             </div>
           </div>
         </div>
