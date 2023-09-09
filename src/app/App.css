@@ -6,13 +6,6 @@ input[type=submit]:hover {
   box-shadow: rgba(0, 0, 0, 0.16) 0 3px 5px, rgba(113, 88, 226, 0.3) 0 3px 5px;
 }
 
-input[type=submit] {
-  transition: 0.2s;
-}
-input[type=submit]:hover {
-  box-shadow: rgba(0, 0, 0, 0.16) 0 3px 5px, rgba(113, 88, 226, 0.3) 0 3px 5px;
-}
-
 *,
 *::after,
 *::before {

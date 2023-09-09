@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaSpinner } from 'react-icons/fa';
+
 import './_LoadingSpiner.scss';
 
 export const LoadingSpinner = () => {
