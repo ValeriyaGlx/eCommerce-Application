@@ -1,0 +1,14 @@
+.empty-cart_container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+.button-empty-cart {
+  width: fit-content;
+  margin-top: 20px;
+}

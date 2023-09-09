@@ -2,7 +2,8 @@
 @import '/src/constants/scss/variables';
 
 
-.button-signIn {
+.button-signIn,
+.button-empty-cart {
     @extend %mainButtonGradient;
     @extend %tabletSizeButtons780px;
 }

@@ -1,0 +1,53 @@
+@import 'src/constants/scss/variables';
+@import 'src/constants/scss/extentds';
+
+.OrderSummary-section {
+  box-shadow: $box-shadow;
+  background-color: $color-light-white;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+
+  span {
+    display: block;
+    margin-top: 30px;
+    font-size: 14px;
+    line-height: 10px;
+  }
+}
+
+.promo-container {
+  position: relative;
+  padding: 0;
+
+  input {
+    border: none;
+    outline: none;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    @extend %InputBoxShadowWithHover;
+  }
+
+  button {
+    position: absolute;
+    right: 10px;
+    top: 7px;
+  }
+}
+
+.total {
+  margin-top: 50px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.buy-info {
+  img {
+    display: block;
+    margin: 10px auto;
+    width: 300px;
+  }
+}
+
+

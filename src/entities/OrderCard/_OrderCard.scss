@@ -1,0 +1,49 @@
+@import '../../constants/scss/variables';
+@import '../../constants/scss/extentds';
+
+.order-card_separator {
+  width: 500px;
+  height: .1px;
+  background-color: $color-grey-paragraph;
+  opacity: .4;
+}
+
+.order_card-container {
+  display: flex;
+  margin: 20px 0;
+  gap: 100px;
+
+  img {
+    display: block;
+    width: 100px;
+    object-fit: contain;
+  }
+
+  .order_inner {
+    display: flex;
+    justify-content: space-between;
+
+    h5 {
+      color: #000;
+      font-size: 24px;
+    }
+  }
+}
+
+.order_amounts {
+  width: 300px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  .order_amounts-prices,
+  .order_amounts-numberof {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .order_amounts-numberof span {
+    font-size: 14px;
+    color: $color-grey-paragraph;
+  }
+}

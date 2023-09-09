@@ -1,0 +1,17 @@
+.my-bag_section {
+  margin-top: 20px;
+  width: 500px;
+
+  h2 {
+    margin-bottom: 30px;
+  }
+
+  @media (max-width: 1120px) {
+    width: 40%;
+  }
+}
+
+.reset-cart-button {
+  display: block;
+  margin: 20px auto;
+}
