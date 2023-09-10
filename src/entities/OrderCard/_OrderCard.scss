@@ -1,6 +1,18 @@
 @import '../../constants/scss/variables';
 @import '../../constants/scss/extentds';
 
+.order-card-exit {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.order-card-exit-active {
+  opacity: 0;
+  transform: translateX(-20%);
+  pointer-events: none;
+}
+
 .order-card_separator {
   width: 500px;
   height: .1px;
@@ -26,6 +38,10 @@
     h5 {
       color: #000;
       font-size: 24px;
+    }
+
+    .delete-from-cart {
+      flex-shrink: 0;
     }
   }
 }

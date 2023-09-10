@@ -1,8 +1,14 @@
+import { FC } from 'react';
+
 import './_OrderSummary.scss';
 import Button from '../../shared/components/Button/Button';
 import cards from '../../assets/img/debit-cards.png';
 
-const OrderSummary = () => {
+interface OrderSummaryProps {
+  total: string;
+}
+
+const OrderSummary: FC<OrderSummaryProps> = ({ total }) => {
   return (
     <div className={'OrderSummary-section'}>
       <h2>Order Summary</h2>
@@ -14,7 +20,7 @@ const OrderSummary = () => {
 
       <div className={'total'}>
         <h3>Total:</h3>
-        <div className={''}>$100.00</div>
+        <div className={''}>${total}</div>
       </div>
 
       <Button className={'buy-now-button'} data={'Buy Now'} />
