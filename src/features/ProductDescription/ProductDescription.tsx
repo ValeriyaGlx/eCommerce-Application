@@ -1,6 +1,8 @@
 import React, { FC, useEffect, useState } from 'react';
-import './_ProductDescription.scss';
+import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
+import { useDispatch } from 'react-redux';
 
+import './_ProductDescription.scss';
 import Like from '../../shared/components/Like/Like';
 import {
   addProductToCart,
@@ -11,6 +13,9 @@ import {
 import ShoppingCartButton from '../../shared/components/ShoppingCardButton/ShoppingCartButton';
 import getCookie from '../../shared/cookie/getCookie';
 import { getCartById } from '../../entities/ApiCart/ApiCart';
+import { getNumberOfProductToCart } from '../../entities/ApiCart/getNumberOfProductToCart';
+import { setNumberOfProductToCart } from '../../app/store/actions/cartAction/cartSlice';
+import { store } from '../../app/store/store';
 
 interface ProductDescriptionProps {
   inner: string;
@@ -22,6 +27,8 @@ interface ProductDescriptionProps {
   productId: string;
 }
 
+type RootState = ReturnType<typeof store.getState>;
+
 const ProductDescription: FC<ProductDescriptionProps> = ({
   inner,
   description,
@@ -31,6 +38,7 @@ const ProductDescription: FC<ProductDescriptionProps> = ({
   duration,
   productId,
 }) => {
+  const dispatch: ThunkDispatch<RootState, unknown, AnyAction> = useDispatch();
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
 
@@ -55,6 +63,8 @@ const ProductDescription: FC<ProductDescriptionProps> = ({
     await addProductToCart(event, productId);
     setIsButtonDisabled(true);
     setTimeout(() => setIsAnimating(false), 300);
+    const number = await getNumberOfProductToCart();
+    dispatch(setNumberOfProductToCart(number));
   }
 
   async function removeFromCart() {
@@ -73,6 +83,8 @@ const ProductDescription: FC<ProductDescriptionProps> = ({
     await removeProductFromCart(idLineItem);
     setIsButtonDisabled(false);
     setTimeout(() => setIsAnimating(false), 300);
+    const number = await getNumberOfProductToCart();
+    dispatch(setNumberOfProductToCart(number));
   }
 
   return (

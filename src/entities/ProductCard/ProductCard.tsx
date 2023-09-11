@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
+import { useDispatch } from 'react-redux';
 
 import ButtonWithRoute from '../../shared/components/ButtonWithRoute/ButtonWithRoute';
 import ShoppingCartButton from '../../shared/components/ShoppingCardButton/ShoppingCartButton';
@@ -11,6 +13,9 @@ import {
   idOfProductToCart,
 } from '../ApiCart/addProductToCart';
 import getCookie from '../../shared/cookie/getCookie';
+import { getNumberOfProductToCart } from '../ApiCart/getNumberOfProductToCart';
+import { setNumberOfProductToCart } from '../../app/store/actions/cartAction/cartSlice';
+import { store } from '../../app/store/store';
 
 interface ProductCardProps {
   key: number;
@@ -25,6 +30,8 @@ interface ProductCardProps {
   productId: string;
 }
 
+type RootState = ReturnType<typeof store.getState>;
+
 const ProductCard: React.FC<ProductCardProps> = ({
   path,
   imageUrl,
@@ -36,6 +43,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   duration,
   productId,
 }) => {
+  const dispatch: ThunkDispatch<RootState, unknown, AnyAction> = useDispatch();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
@@ -68,6 +76,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
     await addProductToCart(event, productId);
     setIsLoading(false);
     setIsButtonDisabled(true);
+    const number = await getNumberOfProductToCart();
+    dispatch(setNumberOfProductToCart(number));
   }
 
   return (

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
@@ -18,6 +18,8 @@ import UserButton from '../../shared/components/UserButton/UserButton';
 import { openMenu } from '../../shared/burgerMenuUsage/burgerMenuUsage';
 import { deleteCart } from '../../entities/ApiCart/ApiCart';
 import getCookie from '../../shared/cookie/getCookie';
+import { getNumberOfProductToCart } from '../../entities/ApiCart/getNumberOfProductToCart';
+import { setNumberOfProductToCart } from '../../app/store/actions/cartAction/cartSlice';
 
 type RootState = ReturnType<typeof store.getState>;
 
@@ -29,6 +31,21 @@ export function Header() {
   const isAuthorization = useSelector(
     (state: RootState) => state.authorization.isAuthorization,
   );
+  const numberOfProductToCart = useSelector(
+    (state: RootState) => state.cart.numberOfProductToCart,
+  );
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const number = await getNumberOfProductToCart();
+        dispatch(setNumberOfProductToCart(number));
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchData();
+  }, []);
 
   async function setLogOut() {
     setIsLogOut(true);
@@ -60,8 +77,18 @@ export function Header() {
             path={'/products'}
             data={'All Products'}
           />
-          <CartButton src={iconCart} alt='cartButton' to={'/cart'} />
-          <CartButton src={iconHeart} alt='favoriets' to={'/favorites'} />
+          <CartButton
+            src={iconCart}
+            alt='cartButton'
+            to={'/cart'}
+            number={`${numberOfProductToCart}`}
+          />
+          <CartButton
+            src={iconHeart}
+            alt='favoriets'
+            to={'/favorites'}
+            number={'0'}
+          />
           {isAuthorization && !isLogOut && (
             <>
               <UserButton src={iconProfile} alt={'profile'} to={'/profile'} />

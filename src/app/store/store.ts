@@ -8,6 +8,7 @@ import profileAddressSlice from './actions/profileAddressesAction/profileAddress
 import profileSlice from './actions/profileVersion/profileVersion';
 import changePassword from './actions/changePasswordAction/changePasswordSlice';
 import paginationSlice from './actions/paginationAction/paginationSlice';
+import cartSlice from './actions/cartAction/cartSlice';
 
 export const store = configureStore({
   reducer: {
@@ -19,5 +20,6 @@ export const store = configureStore({
     profileVersion: profileSlice,
     changePassword: changePassword,
     pagination: paginationSlice,
+    cart: cartSlice,
   },
 });
