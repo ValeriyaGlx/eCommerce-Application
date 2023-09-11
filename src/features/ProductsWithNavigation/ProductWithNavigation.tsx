@@ -51,10 +51,10 @@ const ProductWithNavigation: React.FC<ProductWithNavigationProps> = ({
   function clickNavigation(event: React.MouseEvent) {
     const data = event.target as HTMLElement;
     const number = data.innerHTML;
-    if (number === '&lt;') {
+    if (number === '&lt;&lt;') {
       dispatch(setCurrentPage(1));
       setDisabled([true, false]);
-    } else if (number === '&gt;') {
+    } else if (number === '&gt;&gt;') {
       dispatch(setCurrentPage(numberOfPage));
       setDisabled([false, true]);
     } else {
@@ -83,7 +83,7 @@ const ProductWithNavigation: React.FC<ProductWithNavigationProps> = ({
         <nav className='pagination'>
           <Button
             className={'icon-pagination'}
-            data={'<'}
+            data={'<<'}
             onClick={clickNavigation}
             disabled={disabled[0]}
           />
@@ -99,7 +99,7 @@ const ProductWithNavigation: React.FC<ProductWithNavigationProps> = ({
           ))}
           <Button
             className={'icon-pagination'}
-            data={'>'}
+            data={'>>'}
             onClick={clickNavigation}
             disabled={disabled[1]}
           />

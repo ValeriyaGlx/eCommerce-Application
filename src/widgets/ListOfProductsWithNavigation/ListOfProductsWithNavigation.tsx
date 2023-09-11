@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 
 import {
   CATEGORIES_OF_PRODUCTS as categories,
@@ -18,6 +19,7 @@ import iconSetting from '../../assets/icons/equalizer-line.svg';
 import ButtonReset from '../../shared/ButtonReset/ButtonReset';
 import { LoadingSpinner } from '../../shared/components/LoadingSpinner/LoadingSpinner';
 import { store } from '../../app/store/store';
+import { setCurrentPage } from '../../app/store/actions/paginationAction/paginationSlice';
 
 import { filterProductsRequest, getCategory, IProducts } from './ApiProduct';
 
@@ -52,7 +54,7 @@ type RootState = ReturnType<typeof store.getState>;
 const ListOfProductsWithNavigation: React.FC<
   ListOfProductsWithNavigationProps
 > = ({ category, subCategory, token }) => {
-  useDispatch();
+  const dispatch: ThunkDispatch<RootState, unknown, AnyAction> = useDispatch();
   const currentPage = useSelector(
     (state: RootState) => state.pagination.currentPage,
   );
@@ -159,6 +161,7 @@ const ListOfProductsWithNavigation: React.FC<
   };
 
   const handleFilteringClick = async (obj: Filters) => {
+    dispatch(setCurrentPage(1));
     const newFilters = {
       ...obj,
       category: activeFilters.category,
