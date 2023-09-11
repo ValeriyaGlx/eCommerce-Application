@@ -11,7 +11,9 @@ const AboutUsTeamPhoto = () => {
           <p className='about-container__story'>
             <span className='color'>This is a story</span> of effective
             cooperation, passion for information technology and the desire to
-            help others master this fascinating profession.
+            help others master this fascinating profession. Cohesive work and
+            mutual assistance were able to ensure the succsesful completion of
+            the project.
           </p>
         </div>
       </div>
