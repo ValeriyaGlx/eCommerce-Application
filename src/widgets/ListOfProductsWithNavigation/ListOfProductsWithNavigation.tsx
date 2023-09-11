@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 
 import {
   CATEGORIES_OF_PRODUCTS as categories,
@@ -9,17 +11,25 @@ import arrow from '../../assets/icons/down-arrow-black.png';
 import SelectTag from '../../shared/components/SelectTag/SelectTag';
 import './_ListOfProductsWithNavigation.scss';
 import ProductCard from '../../entities/ProductCard/ProductCard';
-import { getAccessToken } from '../SignUpSection/usage/ApiRegistration';
 import setToken from '../../shared/cookie/setToken';
-import getCookie from '../../shared/cookie/getCookie';
 import Filter, { Filters } from '../../entities/Filtering/Filtering';
 import CategoryNavigation from '../../features/CategoryNavigation/CategoryNavigation';
 import SubcategoryNavigation from '../../features/SubcategoryNavigation/SubcategoryNavigation';
 import iconSetting from '../../assets/icons/equalizer-line.svg';
 import ButtonReset from '../../shared/ButtonReset/ButtonReset';
 import { LoadingSpinner } from '../../shared/components/LoadingSpinner/LoadingSpinner';
+import { store } from '../../app/store/store';
+import {
+  setCurrentPage,
+  setNumberOfPage,
+} from '../../app/store/actions/paginationAction/paginationSlice';
 
-import { filterProductsRequest, getCategory, IProducts } from './ApiProduct';
+import {
+  filterProductsRequest,
+  getCategory,
+  getNumberOfFilteredProducts,
+  IProducts,
+} from './ApiProduct';
 
 export interface AllFilters {
   category: string;
@@ -44,11 +54,19 @@ export const initialAllFilters: AllFilters = {
 interface ListOfProductsWithNavigationProps {
   category: string;
   subCategory?: string;
+  token: string;
 }
+
+type RootState = ReturnType<typeof store.getState>;
 
 const ListOfProductsWithNavigation: React.FC<
   ListOfProductsWithNavigationProps
-> = ({ category, subCategory }) => {
+> = ({ category, subCategory, token }) => {
+  const dispatch: ThunkDispatch<RootState, unknown, AnyAction> = useDispatch();
+  const currentPage = useSelector(
+    (state: RootState) => state.pagination.currentPage,
+  );
+  useSelector((state: RootState) => state.pagination.numberOfPage);
   const [productData, setProductData] = useState<JSX.Element[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [nameSorting, setNameSorting] = useState('Sorting');
@@ -91,53 +109,59 @@ const ListOfProductsWithNavigation: React.FC<
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const tokenResponse = await getAccessToken();
-        const token = tokenResponse.access_token;
-        setToken('accessToken', token);
-        if (category === 'All Categories') {
-          const listOfProduct = await filterProductsRequest(
-            activeFilters,
-            token,
-          );
-          createHTMLListOfProducts(listOfProduct);
-        } else if (subCategory === undefined) {
-          const categoryObj = categories.find(
-            (item) => item.data === category,
-          ) as IButtonNavigation;
-          const id = await getCategory(token, categoryObj.value);
-          const newFilters = { ...activeFilters, category: id };
-          setFilters(newFilters);
-          const listOfProducts = await filterProductsRequest(newFilters, token);
-          createHTMLListOfProducts(listOfProducts);
-        } else {
-          const id = await getCategory(token, subCategory);
-          const newFilters = { ...activeFilters, category: id };
-          setFilters(newFilters);
-          const listOfProducts = await filterProductsRequest(newFilters, token);
-          createHTMLListOfProducts(listOfProducts);
+    if (token) {
+      const fetchData = async () => {
+        try {
+          setToken('accessToken', token);
+          if (category === 'All Categories') {
+            const listOfProduct = await filterProductsRequest(
+              activeFilters,
+              token,
+            );
+            createHTMLListOfProducts(listOfProduct);
+          } else if (subCategory === undefined) {
+            const categoryObj = categories.find(
+              (item) => item.data === category,
+            ) as IButtonNavigation;
+            const id = await getCategory(token, categoryObj.value);
+            const newFilters = { ...activeFilters, category: id };
+            setFilters(newFilters);
+            const listOfProducts = await filterProductsRequest(
+              newFilters,
+              token,
+            );
+            createHTMLListOfProducts(listOfProducts);
+          } else {
+            const id = await getCategory(token, subCategory);
+            const newFilters = { ...activeFilters, category: id };
+            setFilters(newFilters);
+            const listOfProducts = await filterProductsRequest(
+              newFilters,
+              token,
+            );
+            createHTMLListOfProducts(listOfProducts);
+          }
+        } catch (error) {
+          console.error('Error fetching data:', error);
+          setIsLoading(false);
         }
-      } catch (error) {
-        console.error('Error fetching data:', error);
-        setIsLoading(false);
+      };
+      fetchData();
+      if (isOpenFilters) {
+        window.addEventListener('click', handleClickOutside);
+      } else {
+        window.removeEventListener('click', handleClickOutside);
       }
-    };
-    fetchData();
-    if (isOpenFilters) {
-      window.addEventListener('click', handleClickOutside);
-    } else {
-      window.removeEventListener('click', handleClickOutside);
-    }
 
-    return () => {
-      window.removeEventListener('click', handleClickOutside);
-    };
-  }, [isOpenFilters]);
+      return () => {
+        window.removeEventListener('click', handleClickOutside);
+      };
+    }
+  }, [isOpenFilters, token, currentPage]);
 
   const handleSortClick = async (event: React.MouseEvent) => {
+    dispatch(setCurrentPage(1));
     setIsLoading(true);
-    const token = getCookie('accessToken') as string;
     const target = event.currentTarget.innerHTML;
     setNameSorting(target);
     const newFilters = { ...activeFilters, sorting: target };
@@ -147,6 +171,7 @@ const ListOfProductsWithNavigation: React.FC<
   };
 
   const handleFilteringClick = async (obj: Filters) => {
+    dispatch(setCurrentPage(1));
     const newFilters = {
       ...obj,
       category: activeFilters.category,
@@ -154,7 +179,9 @@ const ListOfProductsWithNavigation: React.FC<
     };
     setFilters(newFilters);
     setIsLoading(true);
-    const token = getCookie('accessToken') as string;
+    dispatch(
+      setNumberOfPage(await getNumberOfFilteredProducts(newFilters, token)),
+    );
     const listOfProducts = await filterProductsRequest(newFilters, token);
     createHTMLListOfProducts(listOfProducts);
   };
