@@ -4,7 +4,6 @@ import { CSSTransition } from 'react-transition-group';
 import './_OrderCard.scss';
 import Button from '../../shared/components/Button/Button';
 import OrderCounter from '../../shared/OrderCounter/OrderCounter';
-import { changeLineItemQuantity } from '../ApiCart/addProductToCart';
 
 interface OrderCardProps {
   id: string;
