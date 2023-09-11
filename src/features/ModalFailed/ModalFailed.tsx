@@ -13,6 +13,8 @@ interface ModalSignPageProps {
   isOpen: boolean;
   onClick: () => void;
   isSignUpSuccessful?: boolean;
+  closeButtonData?: string;
+  closeButtonOnClick?: () => void;
 }
 
 const ModalSignPage: FC<ModalSignPageProps> = ({
@@ -23,6 +25,8 @@ const ModalSignPage: FC<ModalSignPageProps> = ({
   isOpen,
   onClick,
   isSignUpSuccessful,
+  closeButtonData,
+  closeButtonOnClick,
 }) => {
   return (
     <>
@@ -33,9 +37,16 @@ const ModalSignPage: FC<ModalSignPageProps> = ({
               <img src={logo} alt={'logo'} loading='lazy' />
               <h2>{h2}</h2>
               <p style={{ whiteSpace: 'pre-line' }}>{p}</p>
-              {!isSignUpSuccessful && (
-                <button onClick={onClick}>{buttonValue}</button>
-              )}
+              <div className={'modal-btn_container'}>
+                {!isSignUpSuccessful && (
+                  <button onClick={onClick}>{buttonValue}</button>
+                )}
+                {closeButtonData && (
+                  <button onClick={closeButtonOnClick}>
+                    {closeButtonData}
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         </div>
