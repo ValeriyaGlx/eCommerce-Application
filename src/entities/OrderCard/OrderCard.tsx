@@ -4,6 +4,7 @@ import { CSSTransition } from 'react-transition-group';
 import './_OrderCard.scss';
 import Button from '../../shared/components/Button/Button';
 import OrderCounter from '../../shared/OrderCounter/OrderCounter';
+import { changeLineItemQuantity } from '../ApiCart/addProductToCart';
 
 interface OrderCardProps {
   id: string;
@@ -11,7 +12,11 @@ interface OrderCardProps {
   image: string;
   discount?: string;
   price: string;
+  total: string;
+  quantity: number;
+  productId: string;
   getGoods: (id: string) => void;
+  changeQuantity: (id: string, quantity: number) => void;
 }
 
 const OrderCard: FC<OrderCardProps> = ({
@@ -20,7 +25,11 @@ const OrderCard: FC<OrderCardProps> = ({
   image,
   discount,
   price,
+  total,
+  quantity,
+  productId,
   getGoods,
+  changeQuantity,
 }) => {
   const [isVisible, setIsVisible] = useState(true);
 
@@ -52,17 +61,15 @@ const OrderCard: FC<OrderCardProps> = ({
             <div className={'order_amounts'}>
               <div className={'order_amounts-numberof'}>
                 <span>`1 x ${discount ? discount : price}`</span>
-                <OrderCounter initialValue={1} />
+                <OrderCounter
+                  initialValue={quantity}
+                  productId={productId}
+                  id={id}
+                  changeQuantity={changeQuantity}
+                />
               </div>
               <div className={'order_amounts-prices'}>
-                {discount ? (
-                  <div className={'wrapper-prices'}>
-                    <span className={'new-price'}>${discount}</span>
-                    <span className={'old-price'}>${price}</span>
-                  </div>
-                ) : (
-                  <span className={'price'}>${price}</span>
-                )}
+                <span className={'price'}>${total}</span>
               </div>
             </div>
           </div>
