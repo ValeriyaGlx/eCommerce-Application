@@ -61,7 +61,7 @@ export function Cart() {
     setGoods(res.lineItems);
   };
 
-  if (isGetQuery) {
+  if (isGetQuery && isCart) {
     return <LoadingSpinner />;
   }
 
