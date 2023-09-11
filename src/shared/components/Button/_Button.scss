@@ -28,7 +28,8 @@
   }
 }
 
-.buy-now-button {
+.buy-now-button,
+.remove-button {
   margin-top: 20px;
   @extend %mainButtonGradient;
   width: 100%;
@@ -37,10 +38,10 @@
   align-items: center;
   justify-content: center;
   gap: 15px;
+  transition: $transition;
 
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
+  &.change {
+    transform: rotateX(90deg);
   }
 
   &::before {
@@ -48,13 +49,21 @@
     width: 30px;
     height: 30px;
     background-size: cover;
-    background: no-repeat url('../../../assets/icons/shopping-cart-fill.svg') center;
   }
 
   @media (max-width: 650px) {
     width: 350px;
     margin: 20px auto 0;
   }
+}
+
+.buy-now-button::before {
+  background: no-repeat url('../../../assets/icons/shopping-cart-fill.svg') center;
+}
+
+.remove-button::before {
+  background: no-repeat url('../../../assets/icons/icon-delete-white.svg') center;
+  background-size: contain;
 }
 
 .profile-button,
