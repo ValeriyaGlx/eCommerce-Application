@@ -243,6 +243,23 @@ export async function filterProductsRequest(obj: AllFilters, token: string) {
   return processDataCategoryProducts(arr);
 }
 
+export async function getNumberOfFilteredProducts(obj: AllFilters, token: string) {
+  const pathUrl = createFilterString(obj);
+
+  const urlRequestProducts = `${host}/${project}/product-projections/search?${pathUrl}`;
+
+  const responseProducts = await fetch(urlRequestProducts, {
+    method: 'GET',
+    headers: {
+      Authorization: 'Bearer ' + token,
+    },
+  });
+  const products = await responseProducts.json();
+  const arr = products.results;
+  const numberOfProductToPage = 6;
+  return Math.ceil(arr.length / numberOfProductToPage);
+}
+
 export async function AllProductsRequest(token: string) {
   const urlRequest = `${host}/${project}/products/`;
   const authHeader = 'Bearer ' + token;

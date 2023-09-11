@@ -19,9 +19,17 @@ import iconSetting from '../../assets/icons/equalizer-line.svg';
 import ButtonReset from '../../shared/ButtonReset/ButtonReset';
 import { LoadingSpinner } from '../../shared/components/LoadingSpinner/LoadingSpinner';
 import { store } from '../../app/store/store';
-import { setCurrentPage } from '../../app/store/actions/paginationAction/paginationSlice';
+import {
+  setCurrentPage,
+  setNumberOfPage,
+} from '../../app/store/actions/paginationAction/paginationSlice';
 
-import { filterProductsRequest, getCategory, IProducts } from './ApiProduct';
+import {
+  filterProductsRequest,
+  getCategory,
+  getNumberOfFilteredProducts,
+  IProducts,
+} from './ApiProduct';
 
 export interface AllFilters {
   category: string;
@@ -58,6 +66,7 @@ const ListOfProductsWithNavigation: React.FC<
   const currentPage = useSelector(
     (state: RootState) => state.pagination.currentPage,
   );
+  useSelector((state: RootState) => state.pagination.numberOfPage);
   const [productData, setProductData] = useState<JSX.Element[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [nameSorting, setNameSorting] = useState('Sorting');
@@ -151,6 +160,7 @@ const ListOfProductsWithNavigation: React.FC<
   }, [isOpenFilters, token, currentPage]);
 
   const handleSortClick = async (event: React.MouseEvent) => {
+    dispatch(setCurrentPage(1));
     setIsLoading(true);
     const target = event.currentTarget.innerHTML;
     setNameSorting(target);
@@ -169,6 +179,9 @@ const ListOfProductsWithNavigation: React.FC<
     };
     setFilters(newFilters);
     setIsLoading(true);
+    dispatch(
+      setNumberOfPage(await getNumberOfFilteredProducts(newFilters, token)),
+    );
     const listOfProducts = await filterProductsRequest(newFilters, token);
     createHTMLListOfProducts(listOfProducts);
   };

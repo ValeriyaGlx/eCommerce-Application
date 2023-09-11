@@ -9,7 +9,11 @@ import { store } from '../../app/store/store';
 import { getAccessToken } from '../../widgets/SignUpSection/usage/ApiRegistration';
 import { AllProductsRequest } from '../../widgets/ListOfProductsWithNavigation/ApiProduct';
 import setToken from '../../shared/cookie/setToken';
-import { setCurrentPage } from '../../app/store/actions/paginationAction/paginationSlice';
+import {
+  setCurrentPage,
+  setNumberOfPage,
+} from '../../app/store/actions/paginationAction/paginationSlice';
+import getCookie from '../../shared/cookie/getCookie';
 
 interface ProductWithNavigationProps {
   category: string;
@@ -26,27 +30,43 @@ const ProductWithNavigation: React.FC<ProductWithNavigationProps> = ({
   const currentPage = useSelector(
     (state: RootState) => state.pagination.currentPage,
   );
+  const numberOfPage = useSelector(
+    (state: RootState) => state.pagination.numberOfPage,
+  );
   const [isToken, setIsToken] = useState('');
-  const [numberOfPage, setNumberOfPage] = useState(0);
   const [disabled, setDisabled] = useState([true, false]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const tokenResponse = await getAccessToken();
-        const token = tokenResponse.access_token;
-        setIsToken(token);
-        setToken('accessToken', token);
-        const numberOfProducts = await AllProductsRequest(token);
-        const numberOfProductToPage = 6;
-        setNumberOfPage(Math.ceil(numberOfProducts / numberOfProductToPage));
+        let token = getCookie('accessToken');
+        if (token === undefined) {
+          const tokenResponse = await getAccessToken();
+          const accessToken = tokenResponse.access_token;
+          setToken('accessToken', accessToken);
+          token = accessToken;
+        }
+        if (token !== undefined) {
+          setIsToken(token);
+          if (category !== 'All Categories') {
+            dispatch(setNumberOfPage(1));
+          } else {
+            const numberOfProducts = await AllProductsRequest(token);
+            const numberOfProductToPage = 6;
+            dispatch(
+              setNumberOfPage(
+                Math.ceil(numberOfProducts / numberOfProductToPage),
+              ),
+            );
+          }
+        }
       } catch (err) {
         console.log(err);
       }
     };
 
     fetchData();
-  }, [currentPage]);
+  }, []);
 
   function clickNavigation(event: React.MouseEvent) {
     const data = event.target as HTMLElement;
@@ -79,32 +99,34 @@ const ProductWithNavigation: React.FC<ProductWithNavigationProps> = ({
         subCategory={subCategory}
         token={isToken}
       />
-      <div className={'wrapper-pagination'}>
-        <nav className='pagination'>
-          <Button
-            className={'icon-pagination'}
-            data={'<<'}
-            onClick={clickNavigation}
-            disabled={disabled[0]}
-          />
-          {Array.from({ length: numberOfPage }).map((_, index) => (
+      {numberOfPage > 1 ? (
+        <div className={'wrapper-pagination'}>
+          <nav className='pagination'>
             <Button
-              className={`icon-pagination ${
-                currentPage === index + 1 ? 'active' : ''
-              }`}
-              key={Math.random()}
+              className={'icon-pagination'}
+              data={'<<'}
               onClick={clickNavigation}
-              data={String(index + 1)}
+              disabled={disabled[0]}
             />
-          ))}
-          <Button
-            className={'icon-pagination'}
-            data={'>>'}
-            onClick={clickNavigation}
-            disabled={disabled[1]}
-          />
-        </nav>
-      </div>
+            {Array.from({ length: numberOfPage }).map((_, index) => (
+              <Button
+                className={`icon-pagination ${
+                  currentPage === index + 1 ? 'active' : ''
+                }`}
+                key={Math.random()}
+                onClick={clickNavigation}
+                data={String(index + 1)}
+              />
+            ))}
+            <Button
+              className={'icon-pagination'}
+              data={'>>'}
+              onClick={clickNavigation}
+              disabled={disabled[1]}
+            />
+          </nav>
+        </div>
+      ) : null}
     </>
   );
 };
