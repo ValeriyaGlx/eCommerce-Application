@@ -126,3 +126,35 @@ export async function deleteCart(token: string) {
     }
   }
 }
+
+export async function changeLineItemQuantityApi(token: string, lineItemId: string, quantity: number) {
+  const cartId = getCookie('cartId') as string;
+  const cartObj = await getCartById(cartId, token);
+  const cartVersion = cartObj.version;
+
+  const urlRequest = `${host}/${project}/carts/${cartId}`;
+  const authHeader = 'Bearer ' + token;
+
+  const response = await fetch(urlRequest, {
+    method: 'POST',
+    headers: {
+      Authorization: authHeader,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      version: cartVersion,
+      actions: [
+        {
+          action: 'changeLineItemQuantity',
+          lineItemId: lineItemId,
+          quantity: quantity,
+        },
+      ],
+    }),
+  });
+  if (!response.ok) {
+    return response.status;
+  } else {
+    return response.json();
+  }
+}
