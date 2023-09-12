@@ -7,4 +7,13 @@
   h4 {
     margin-bottom: 20px;
   }
+
+  @media (max-width: 1120px) {
+    width: 100%;
+  }
+
+  @media (max-width: 800px) {
+    width: 300px;
+    height: fit-content;
+  }
 }

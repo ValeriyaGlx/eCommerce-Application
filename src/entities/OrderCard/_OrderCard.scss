@@ -18,12 +18,24 @@
   height: .1px;
   background-color: $color-grey-paragraph;
   opacity: .4;
+
+  @media (max-width: 1120px) {
+    width: 410px;
+  }
+
+  @media (max-width: 650px) {
+    width: 370px;
+  }
 }
 
 .order_card-container {
   display: flex;
   margin: 20px 0;
   gap: 100px;
+
+  @media (max-width: 1120px) {
+    gap: 20px;
+  }
 
   img {
     display: block;
@@ -51,6 +63,10 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+
+  @media (max-width: 650px) {
+    width: 240px;
+  }
 
   .order_amounts-prices,
   .order_amounts-numberof {

@@ -50,6 +50,7 @@ export function Cart() {
       const totalPrice = (res.totalPrice.centAmount / 100).toFixed(2);
       const amount = res.lineItems.length;
       setTotal(totalPrice);
+      setGoods(res.lineItems);
       setGoodsLength(amount);
     }
   };
@@ -59,6 +60,22 @@ export function Cart() {
     const totalPrice = (res.totalPrice.centAmount / 100).toFixed(2);
     setTotal(totalPrice);
     setGoods(res.lineItems);
+  };
+
+  const removeAllItems = async (
+    array: Array<{ [key: string]: string | number }>,
+  ) => {
+    let lastReturnValue;
+
+    for (const item of array) {
+      lastReturnValue = await removeProductFromCart(item.id as string);
+    }
+    const amount = lastReturnValue.lineItems.length;
+
+    setGoods(lastReturnValue.lineItems);
+    setGoodsLength(amount);
+
+    return lastReturnValue.lineItems;
   };
 
   if (isGetQuery && isCart) {
@@ -75,6 +92,7 @@ export function Cart() {
             goods={goods}
             getGoods={getGoods}
             changeQuantity={changeQuantity}
+            removeAllItems={removeAllItems}
           />
           <CartSummary total={total} />
         </div>

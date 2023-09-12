@@ -9,7 +9,7 @@ interface CartSummaryProps {
 
 const CartSummary: FC<CartSummaryProps> = ({ total }) => {
   return (
-    <section>
+    <section className={'summary-container'}>
       <OrderSummary total={total} />
       <PromocodeInfo />
     </section>
