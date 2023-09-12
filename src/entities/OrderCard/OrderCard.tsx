@@ -44,7 +44,11 @@ const OrderCard: FC<OrderCardProps> = ({
     setIsVisible(false);
     await getGoods(id);
     const number = await getNumberOfProductToCart();
-    dispatch(setNumberOfProductToCart(number));
+    if (number) {
+      dispatch(setNumberOfProductToCart(number));
+    } else {
+      dispatch(setNumberOfProductToCart(0));
+    }
   };
 
   return (

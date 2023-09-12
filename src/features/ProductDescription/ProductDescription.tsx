@@ -84,7 +84,11 @@ const ProductDescription: FC<ProductDescriptionProps> = ({
     setIsButtonDisabled(false);
     setTimeout(() => setIsAnimating(false), 300);
     const number = await getNumberOfProductToCart();
-    dispatch(setNumberOfProductToCart(number));
+    if (number) {
+      dispatch(setNumberOfProductToCart(number));
+    } else {
+      dispatch(setNumberOfProductToCart(0));
+    }
   }
 
   return (

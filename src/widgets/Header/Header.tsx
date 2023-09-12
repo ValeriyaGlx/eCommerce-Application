@@ -41,7 +41,11 @@ export function Header() {
         const cart = getCookie('cartId');
         if (cart) {
           const number = await getNumberOfProductToCart();
-          dispatch(setNumberOfProductToCart(number));
+          if (number) {
+            dispatch(setNumberOfProductToCart(number));
+          } else {
+            dispatch(setNumberOfProductToCart(0));
+          }
         }
       } catch (error) {
         console.error('Error fetching data:', error);
