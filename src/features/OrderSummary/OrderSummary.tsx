@@ -23,7 +23,7 @@ const OrderSummary: FC<OrderSummaryProps> = ({ total }) => {
         <div className={''}>${total}</div>
       </div>
 
-      <Button className={'buy-now-button'} data={'Buy Now'} />
+      <Button className={'cart-buy-now-btn buy-now-button'} data={'Buy Now'} />
       <div className={'buy-info'}>
         <span>We Accept:</span>
         <img src={cards} alt={'cards'} />

@@ -8,6 +8,11 @@
   padding: 20px;
   margin-bottom: 20px;
 
+  @media (max-width: 800px) {
+    width: 300px;
+    height: fit-content;
+  }
+
   span {
     display: block;
     margin-top: 30px;
@@ -47,7 +52,12 @@
     display: block;
     margin: 10px auto;
     width: 300px;
+
+    @media (max-width: 1000px) {
+      width: 100%;
+    }
   }
+
 }
 
 
