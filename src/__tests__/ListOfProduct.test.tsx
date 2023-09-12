@@ -11,7 +11,11 @@ describe('Products', () => {
     const utils = render(
       <Provider store={store}>
         <MemoryRouter>
-          <ListOfProductsWithNavigation category={'All Categories'} />,
+          <ListOfProductsWithNavigation
+            category={'All Categories'}
+            token={'1111'}
+          />
+          ,
         </MemoryRouter>
       </Provider>,
     );
@@ -40,7 +44,10 @@ describe('Category', () => {
     const { getByText } = render(
       <Provider store={store}>
         <MemoryRouter>
-          <ListOfProductsWithNavigation category={'Programming'} />
+          <ListOfProductsWithNavigation
+            category={'Programming'}
+            token={'1111'}
+          />
         </MemoryRouter>
       </Provider>,
     );
@@ -48,14 +55,17 @@ describe('Category', () => {
   });
 
   test('There should be Loading', async () => {
-    const { getByText } = render(
+    const { getByTestId } = render(
       <Provider store={store}>
         <MemoryRouter>
-          <ListOfProductsWithNavigation category={'Programming'} />
+          <ListOfProductsWithNavigation
+            category={'Programming'}
+            token={'1111'}
+          />
         </MemoryRouter>
       </Provider>,
     );
 
-    expect(getByText('Loading...')).toBeInTheDocument();
+    expect(getByTestId('loading-spinner')).toBeInTheDocument();
   });
 });
