@@ -1,38 +1,40 @@
 import './_AboutUsTeamMembers.scss';
 import React from 'react';
 
-import AccordionContainer from '../AccordionAboutUs/_AccordionAboutUs';
-
 interface AboutLink {
   imageUrl: string;
   title: string;
   link: string;
-  isActiveSection: boolean;
-  setActiveIndex: (index: number | null) => void;
-  sectionIndex: number;
   photo: string;
+  links: string;
 }
 
 const AboutUsTeamMembers: React.FC<AboutLink> = ({
   imageUrl,
   title,
   link,
-  isActiveSection,
-  setActiveIndex,
-  sectionIndex,
   photo,
+  links,
 }) => {
-  const toggleSection = () => {
-    setActiveIndex(isActiveSection ? null : sectionIndex);
-  };
-
   return (
     <>
-      <div className={'about-container__pic'} onClick={toggleSection}>
-        <img src={imageUrl} alt='members-photo' />
-        {isActiveSection && (
-          <AccordionContainer title={title} link={link} photo={photo} />
-        )}
+      <div className='aboutus'>
+        <div className='aboutus-picture'>
+          <img src={imageUrl} alt='members-photo' />
+        </div>
+        <div className='aboutus-description'>
+          <div className='description'>
+            <div className='description__logo'>
+              <a href={links} target='_blank'>
+                Link to CV
+              </a>
+              <a href={link} target='_blank' className='my-link'>
+                <img src={photo} alt='picture' />
+              </a>
+            </div>
+            <div className='description__text'>{title}</div>
+          </div>
+        </div>
       </div>
     </>
   );
