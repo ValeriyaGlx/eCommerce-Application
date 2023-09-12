@@ -56,6 +56,7 @@
     h2 {
       @extend %innerForForms;
       @extend %textColorForSignUp;
+      text-align: center;
 
       @media screen and (max-width: 500px) {
         font-size: 29px;
@@ -100,4 +101,10 @@
       }
     }
   }
+}
+
+.modal-btn_container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }
