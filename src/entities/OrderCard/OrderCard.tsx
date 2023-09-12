@@ -1,9 +1,14 @@
 import React, { FC, useState } from 'react';
+import './_OrderCard.scss';
+import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
+import { useDispatch } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
 
-import './_OrderCard.scss';
 import Button from '../../shared/components/Button/Button';
 import OrderCounter from '../../shared/OrderCounter/OrderCounter';
+import { getNumberOfProductToCart } from '../ApiCart/getNumberOfProductToCart';
+import { setNumberOfProductToCart } from '../../app/store/actions/cartAction/cartSlice';
+import { store } from '../../app/store/store';
 
 interface OrderCardProps {
   id: string;
@@ -18,6 +23,8 @@ interface OrderCardProps {
   changeQuantity: (id: string, quantity: number) => void;
 }
 
+type RootState = ReturnType<typeof store.getState>;
+
 const OrderCard: FC<OrderCardProps> = ({
   id,
   name,
@@ -30,11 +37,14 @@ const OrderCard: FC<OrderCardProps> = ({
   getGoods,
   changeQuantity,
 }) => {
+  const dispatch: ThunkDispatch<RootState, unknown, AnyAction> = useDispatch();
   const [isVisible, setIsVisible] = useState(true);
 
   const handleDeleteClick = async () => {
     setIsVisible(false);
     await getGoods(id);
+    const number = await getNumberOfProductToCart();
+    dispatch(setNumberOfProductToCart(number));
   };
 
   return (

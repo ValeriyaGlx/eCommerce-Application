@@ -38,8 +38,11 @@ export function Header() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const number = await getNumberOfProductToCart();
-        dispatch(setNumberOfProductToCart(number));
+        const cart = getCookie('cartId');
+        if (cart) {
+          const number = await getNumberOfProductToCart();
+          dispatch(setNumberOfProductToCart(number));
+        }
       } catch (error) {
         console.error('Error fetching data:', error);
       }
