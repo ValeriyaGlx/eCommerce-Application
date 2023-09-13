@@ -81,7 +81,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   }
 
   return (
-    <div className='product-card' onClick={clickCard}>
+    <div className='product-card' onClick={clickCard} role={'product-card'}>
       <img src={imageUrl} alt={productName} className={'product-card-img'} />
       <div className='hover-content'>
         {isLoading ? (
