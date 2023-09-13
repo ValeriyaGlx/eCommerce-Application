@@ -37,6 +37,12 @@ describe('Products', () => {
     const buttons = container.getElementsByClassName('products-nav-item');
     expect(buttons.length).toBe(6);
   });
+
+  test('there should be filters on the page', () => {
+    const { container } = setup();
+    const filter = container.getElementsByClassName('filtering-title');
+    expect(filter[0].innerHTML).toBe('Filter by');
+  });
 });
 
 describe('Category', () => {
@@ -67,5 +73,20 @@ describe('Category', () => {
     );
 
     expect(getByTestId('loading-spinner')).toBeInTheDocument();
+  });
+
+  test('there should be filters on the page', () => {
+    const { container } = render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <ListOfProductsWithNavigation
+            category={'Programming'}
+            token={'1111'}
+          />
+        </MemoryRouter>
+      </Provider>,
+    );
+    const filter = container.getElementsByClassName('filtering-title');
+    expect(filter[0].innerHTML).toBe('Filter by');
   });
 });
