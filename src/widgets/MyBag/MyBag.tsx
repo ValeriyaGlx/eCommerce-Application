@@ -1,10 +1,15 @@
 import React, { FC, useState } from 'react';
-
 import './_MyBag.scss';
+import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
+import { useDispatch } from 'react-redux';
+
 import ModalFailed from '../../features/ModalFailed/ModalFailed';
 import OrderCard from '../../entities/OrderCard/OrderCard';
 import Button from '../../shared/components/Button/Button';
 import logo from '../../assets/icons/modal-logo-failed.png';
+import { getNumberOfProductToCart } from '../../entities/ApiCart/getNumberOfProductToCart';
+import { setNumberOfProductToCart } from '../../app/store/actions/cartAction/cartSlice';
+import { store } from '../../app/store/store';
 
 import { getGoodsData } from './usage/getGoodsData';
 
@@ -39,18 +44,27 @@ interface MyBagProps {
   ) => Promise<[]>;
 }
 
+type RootState = ReturnType<typeof store.getState>;
+
 const MyBag: FC<MyBagProps> = ({
   goods,
   getGoods,
   changeQuantity,
   removeAllItems,
 }) => {
+  const dispatch: ThunkDispatch<RootState, unknown, AnyAction> = useDispatch();
   const [openModal, setOpenModal] = useState(false);
 
   const ordersArray = getGoodsData(goods);
 
   async function clearShoppingCart() {
     await removeAllItems(ordersArray);
+    const number = await getNumberOfProductToCart();
+    if (number) {
+      dispatch(setNumberOfProductToCart(number));
+    } else {
+      dispatch(setNumberOfProductToCart(0));
+    }
   }
 
   return (

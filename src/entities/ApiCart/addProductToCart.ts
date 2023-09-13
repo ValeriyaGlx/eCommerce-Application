@@ -70,17 +70,29 @@ export async function addProductToCart(event: React.MouseEvent, productId: strin
     const anonToken = anonTokenObj.access_token;
     setToken('anonToken', anonToken);
     await createCart(anonToken);
-    await addProductApi(anonToken, productId);
+    const cartObj = await addProductApi(anonToken, productId);
+    return cartObj.lineItems;
   } else if (!isAuth && isCart) {
     const token = getCookie('anonToken') as string;
-    await addProductApi(token, productId);
+    const cartObj = await addProductApi(token, productId);
+    return cartObj.lineItems;
   } else if (isAuth && isCart) {
     const token = getCookie('authToken') as string;
-    await addProductApi(token, productId);
+    const cartObj = await addProductApi(token, productId);
+    return cartObj.lineItems;
   } else {
     const token = getCookie('authToken') as string;
     await createCart(token);
-    await addProductApi(token, productId);
+    const cartObj = await addProductApi(token, productId);
+    return cartObj.lineItems;
+  }
+}
+
+export function findIdByProductId(objArr: Array<ProductsToCart>, targetProductId: string) {
+  for (let i = 0; i < objArr.length; i++) {
+    if (objArr[i].productId === targetProductId) {
+      return objArr[i].id;
+    }
   }
 }
 
