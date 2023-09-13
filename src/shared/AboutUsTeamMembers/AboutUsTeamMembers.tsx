@@ -32,7 +32,13 @@ const AboutUsTeamMembers: React.FC<AboutLink> = ({
               <a href={links} target='_blank'>
                 Link to CV
               </a>
-              <CartButton key={id} to={linkGithub} src={icon} alt={icon} />
+              <CartButton
+                key={id}
+                to={linkGithub}
+                src={icon}
+                alt={icon}
+                number={''}
+              />
             </div>
             <div className='description__text'>{title}</div>
           </div>
