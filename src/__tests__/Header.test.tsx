@@ -7,17 +7,22 @@ import { configureStore } from '@reduxjs/toolkit';
 import { store } from '../app/store/store';
 import { Header } from '../widgets/Header/Header';
 import authorizationSlice from '../app/store/actions/authorizationAction/authorizationSlice';
+import cartSlice from '../app/store/actions/cartAction/cartSlice';
 
 const initialState = {
   authorization: {
     isAuthorization: true,
     isRegistration: false,
   },
+  cart: {
+    numberOfProductToCart: 0,
+  },
 };
 
 export const mockStore = configureStore({
   reducer: {
     authorization: authorizationSlice,
+    cart: cartSlice,
   },
   preloadedState: initialState,
 });

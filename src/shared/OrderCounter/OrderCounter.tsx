@@ -1,6 +1,11 @@
 import React, { FC, useState } from 'react';
-
 import './_OrderCounter.scss';
+import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
+import { useDispatch } from 'react-redux';
+
+import { getNumberOfProductToCart } from '../../entities/ApiCart/getNumberOfProductToCart';
+import { setNumberOfProductToCart } from '../../app/store/actions/cartAction/cartSlice';
+import { store } from '../../app/store/store';
 
 interface OrderCounterProps {
   initialValue: number;
@@ -9,11 +14,14 @@ interface OrderCounterProps {
   changeQuantity: (id: string, quantity: number) => void;
 }
 
+type RootState = ReturnType<typeof store.getState>;
+
 const OrderCounter: FC<OrderCounterProps> = ({
   initialValue,
   id,
   changeQuantity,
 }) => {
+  const dispatch: ThunkDispatch<RootState, unknown, AnyAction> = useDispatch();
   const [quantity, setQuantity] = useState(initialValue);
   const [isGetQuery, setIsGetQuery] = useState(false);
 
@@ -24,6 +32,8 @@ const OrderCounter: FC<OrderCounterProps> = ({
       setQuantity(newQuantity);
       await changeQuantity(id, newQuantity);
       setIsGetQuery(false);
+      const number = await getNumberOfProductToCart();
+      dispatch(setNumberOfProductToCart(number));
     }
   };
 
@@ -34,6 +44,8 @@ const OrderCounter: FC<OrderCounterProps> = ({
       setQuantity(newQuantity);
       await changeQuantity(id, newQuantity);
       setIsGetQuery(false);
+      const number = await getNumberOfProductToCart();
+      dispatch(setNumberOfProductToCart(number));
     }
   };
 

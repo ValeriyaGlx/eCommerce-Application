@@ -2,6 +2,7 @@ import { processDataAllProducts, IResponseAll, IProducts } from '../widgets/List
 
 const mockData: Array<IResponseAll> = [
   {
+    id: '1111',
     masterData: {
       current: {
         categories: [],
@@ -106,6 +107,7 @@ describe('processDataAllProducts', () => {
         duration: 2,
         difficulty: 'easy',
         discount: '0.00',
+        productId: '1111',
       },
     ];
     const originalMathRandom = Math.random;
