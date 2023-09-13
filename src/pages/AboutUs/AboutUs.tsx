@@ -10,14 +10,14 @@ const AboutUs = () => {
       <div className='about'>
         <AboutUsTeamPhoto />
         <div className='about-container__photos'>
-          {aboutLinks.map(({ id, img, title, link, photo, links }) => (
+          {aboutLinks.map(({ id, img, title, links, linkGithub, icon }) => (
             <AboutUsTeamMembers
               key={id}
               imageUrl={img}
               title={title}
-              link={link}
-              photo={photo}
               links={links}
+              linkGithub={linkGithub}
+              icon={icon}
             />
           ))}
         </div>

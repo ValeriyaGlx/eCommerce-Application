@@ -13,9 +13,6 @@
   }
   &-container__title {
     font-size: 55px;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
     @media (max-width: 930px) {
       font-size: 40px;
     }

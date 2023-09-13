@@ -9,27 +9,6 @@
     margin: 0 auto;
     row-gap: 20px;
   }
-  img {
-    width: 100%;
-    margin-bottom: -10px;
-    border-radius: 10px 10px 0 0;
-    height: 390px;
-    @media (max-width: 1170px) {
-      height: 300px;
-    }
-    @media (max-width: 785px) {
-      height: 250px;
-    }
-    @media (max-width: 701px) {
-      height: 500px;
-    }
-    @media (max-width: 570px) {
-      height: 380px;
-    }
-    @media (max-width: 450px) {
-      height: 320px;
-    }
-  }
 }
 .about-container__logo {
   img {
