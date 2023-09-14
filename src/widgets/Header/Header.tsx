@@ -63,6 +63,12 @@ export function Header() {
     deleteToken('authToken');
     deleteToken('cartId');
     localStorage.removeItem('firstName');
+    const number = await getNumberOfProductToCart();
+    if (number) {
+      dispatch(setNumberOfProductToCart(number));
+    } else {
+      dispatch(setNumberOfProductToCart(0));
+    }
     dispatch(logOut());
     navigate('/');
   }

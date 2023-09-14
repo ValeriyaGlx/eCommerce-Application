@@ -72,7 +72,7 @@ const FormSubmitSignIn = () => {
         const logindata = await logInRequest(email, password, token);
         setDataLocalStorage('firstName', logindata.customer.firstName);
 
-        if (logindata.cart.id) {
+        if (logindata && logindata.cart && logindata.cart.id) {
           setToken('cartId', logindata.cart.id);
         }
 
