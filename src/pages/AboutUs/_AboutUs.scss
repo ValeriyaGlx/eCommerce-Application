@@ -1,0 +1,39 @@
+@import 'src/constants/scss/variables';
+
+.about-container__photos {
+  column-gap: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @media (max-width: 701px) {
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+    margin: 0 auto;
+    row-gap: 20px;
+  }
+}
+
+.about-container__logo {
+  img {
+    width: 80px;
+    height: 30px;
+    @media (max-width: 705px) {
+      width: 60px;
+      height: 27px;
+    }
+    @media (max-width: 548px) {
+      width: 38px;
+      height: 19px;
+    }
+    @media (max-width: 430px) {
+      width: 34px;
+      height: 17px;
+    }
+  }
+}
+
+.about-regards {
+  display: flex;
+}
