@@ -20,6 +20,7 @@ import { deleteCart } from '../../entities/ApiCart/ApiCart';
 import getCookie from '../../shared/cookie/getCookie';
 import { getNumberOfProductToCart } from '../../entities/ApiCart/getNumberOfProductToCart';
 import { setNumberOfProductToCart } from '../../app/store/actions/cartAction/cartSlice';
+
 import about from './../../assets/icons/information.svg';
 
 type RootState = ReturnType<typeof store.getState>;
@@ -62,6 +63,12 @@ export function Header() {
     deleteToken('authToken');
     deleteToken('cartId');
     localStorage.removeItem('firstName');
+    const number = await getNumberOfProductToCart();
+    if (number) {
+      dispatch(setNumberOfProductToCart(number));
+    } else {
+      dispatch(setNumberOfProductToCart(0));
+    }
     dispatch(logOut());
     navigate('/');
   }
