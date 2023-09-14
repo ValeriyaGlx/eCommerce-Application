@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import React, { FC, useState } from 'react';
 
 import './_OrderSummary.scss';
 import Button from '../../shared/components/Button/Button';
@@ -9,13 +9,27 @@ interface OrderSummaryProps {
 }
 
 const OrderSummary: FC<OrderSummaryProps> = ({ total }) => {
+  const [inputValue, setInputValue] = useState('');
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value);
+  };
+
+  const handleButtonClick = () => {
+    console.log(inputValue);
+  };
+
   return (
     <div className={'OrderSummary-section'}>
       <h2>Order Summary</h2>
       <span>Got a promo code? Enter it here:</span>
       <div className={'promo-container'}>
-        <input />
-        <Button className={'get-disc_btn'} data={''} />
+        <input onChange={handleInputChange} />
+        <Button
+          className={'get-disc_btn'}
+          data={''}
+          onClick={handleButtonClick}
+        />
       </div>
 
       <div className={'total'}>

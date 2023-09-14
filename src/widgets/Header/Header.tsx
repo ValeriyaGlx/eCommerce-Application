@@ -16,7 +16,6 @@ import { logOut } from '../../app/store/actions/authorizationAction/authorizatio
 import deleteToken from '../../shared/cookie/deleteToken';
 import UserButton from '../../shared/components/UserButton/UserButton';
 import { openMenu } from '../../shared/burgerMenuUsage/burgerMenuUsage';
-import { deleteCart } from '../../entities/ApiCart/ApiCart';
 import getCookie from '../../shared/cookie/getCookie';
 import { getNumberOfProductToCart } from '../../entities/ApiCart/getNumberOfProductToCart';
 import { setNumberOfProductToCart } from '../../app/store/actions/cartAction/cartSlice';
@@ -58,8 +57,6 @@ export function Header() {
 
   async function setLogOut() {
     setIsLogOut(true);
-    const token = getCookie('authToken') as string;
-    await deleteCart(token);
     deleteToken('authToken');
     deleteToken('cartId');
     localStorage.removeItem('firstName');

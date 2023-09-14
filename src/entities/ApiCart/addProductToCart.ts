@@ -5,7 +5,14 @@ import getCookie from '../../shared/cookie/getCookie';
 import { tokenAnonRequest } from '../../features/formSubmitSignIn/usage/ApiAuthorization';
 import setToken from '../../shared/cookie/setToken';
 
-import { addProductApi, changeLineItemQuantityApi, createCart, getCartById, removeProductApi } from './ApiCart';
+import {
+  addProductApi,
+  changeLineItemQuantityApi,
+  createCart,
+  getCartById,
+  implementPromoCodeApi,
+  removeProductApi,
+} from './ApiCart';
 
 interface ProductsToCart {
   id: string;
@@ -119,6 +126,19 @@ export async function changeLineItemQuantity(lineItemId: string, quantity: numbe
   } else if (isAuth) {
     const token = getCookie('authToken') as string;
     res = await changeLineItemQuantityApi(token, lineItemId, quantity);
+  }
+  return res;
+}
+
+export async function implementPromoCode(code: string) {
+  const isAuth = store.getState().authorization.isAuthorization;
+  let res;
+  if (!isAuth) {
+    const token = getCookie('anonToken') as string;
+    res = await implementPromoCodeApi(token, code);
+  } else if (isAuth) {
+    const token = getCookie('authToken') as string;
+    res = await implementPromoCodeApi(token, code);
   }
   return res;
 }
