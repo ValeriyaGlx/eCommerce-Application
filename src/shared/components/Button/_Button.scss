@@ -67,7 +67,8 @@
 }
 
 .profile-button,
-.reset-cart-button {
+.reset-cart-button,
+.about-rs-button {
   @extend %mainButtonGradient;
   @extend %tabletSizeButtons780px;
   width: fit-content;
@@ -83,6 +84,22 @@
   line-height: 20px;
   box-shadow: $box-shadow;
   border-radius: 10px;
+}
+
+.about-rs-button {
+  width: 70px;
+  line-height: 20px;
+  height: 30px;
+  margin-left: 15px;
+}
+
+.about-rs-button::before {
+  display: block;
+  content: '';
+  filter: invert(100%);
+  background: no-repeat url("../../../assets/img/RsSchool.png") center;
+  background-size: contain;
+  height: 20px;
 }
 
 .delete-from-cart {

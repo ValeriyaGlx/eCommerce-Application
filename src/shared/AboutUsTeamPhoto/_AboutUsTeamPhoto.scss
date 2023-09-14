@@ -1,16 +1,25 @@
 @import 'src/constants/scss/variables';
+@import 'src/constants/scss/extentds';
+
 .about {
   &-container__img {
-    background-image: url('../../assets/icons/developers.jpg');
+    height: 70vh;
+    background-size: 100%;
+    background: top url('../../assets/icons/developers.jpg') no-repeat;
     margin: 20px 0;
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    padding: 15%;
+    padding: 10% 10% 10px;
+
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
   }
+
   &-container__description {
-    color: $color-about-description-font;
+    color: #000;
     text-align: center;
   }
+
   &-container__title {
     font-size: 55px;
     @media (max-width: 930px) {
@@ -26,6 +35,7 @@
       display: block;
     }
   }
+
   &-container__story {
     margin-top: 15px;
     font-size: 27px;
@@ -35,13 +45,15 @@
     @media (max-width: 661px) {
       font-size: 20px;
     }
-    @media (max-width: 537px) {
-      font-size: 15px;
-      line-height: normal;
-      margin-top: 0;
-    }
   }
+
   .color {
-    color: $color-about-font;
+    @extend %textColorOrangeBlueGradient;
+    filter: brightness(90%);
+  }
+
+  .color-orange {
+    color: $color-orange;
+    filter: brightness(90%);
   }
 }

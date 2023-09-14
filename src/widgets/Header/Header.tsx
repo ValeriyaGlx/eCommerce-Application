@@ -20,6 +20,7 @@ import { deleteCart } from '../../entities/ApiCart/ApiCart';
 import getCookie from '../../shared/cookie/getCookie';
 import { getNumberOfProductToCart } from '../../entities/ApiCart/getNumberOfProductToCart';
 import { setNumberOfProductToCart } from '../../app/store/actions/cartAction/cartSlice';
+import about from './../../assets/icons/information.svg';
 
 type RootState = ReturnType<typeof store.getState>;
 
@@ -96,6 +97,7 @@ export function Header() {
             to={'/favorites'}
             number={'0'}
           />
+          <UserButton src={about} alt={'about'} to={'/about'} />
           {isAuthorization && !isLogOut && (
             <>
               <UserButton src={iconProfile} alt={'profile'} to={'/profile'} />
@@ -106,12 +108,12 @@ export function Header() {
               <ButtonWithRoute
                 className={'button-signIn button-signIn__addition'}
                 path={'/signIn'}
-                data={'Sign in'}
+                data={'Sign In'}
               />
               <ButtonWithRoute
                 className={'button-signUp button-signUp__addition'}
                 path={'/signUp'}
-                data={'Sign up'}
+                data={'Sign Up'}
               />
             </>
           )}
