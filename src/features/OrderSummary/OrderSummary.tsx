@@ -3,6 +3,7 @@ import React, { FC, useState } from 'react';
 import './_OrderSummary.scss';
 import Button from '../../shared/components/Button/Button';
 import cards from '../../assets/img/debit-cards.png';
+import { implementPromoCode } from '../../entities/ApiCart/addProductToCart';
 
 interface OrderSummaryProps {
   total: string;
@@ -10,13 +11,47 @@ interface OrderSummaryProps {
 
 const OrderSummary: FC<OrderSummaryProps> = ({ total }) => {
   const [inputValue, setInputValue] = useState('');
+  const [promoMessage, setPromoMessage] = useState('');
+  const [messageColor, setMessageColor] = useState('red');
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value);
+    const inputValueWithoutSpaces = event.target.value;
+    setInputValue(inputValueWithoutSpaces);
+  };
+
+  const handleInputKeyPress = (
+    event: React.KeyboardEvent<HTMLInputElement>,
+  ) => {
+    if (event.key === ' ') {
+      event.preventDefault();
+    }
   };
 
   const handleButtonClick = () => {
-    console.log(inputValue);
+    if (inputValue.trim() === '') {
+      setPromoMessage('Please enter a value.');
+      setTimeout(() => setPromoMessage(''), 1000);
+      return;
+    }
+
+    const fetchData = async () => {
+      try {
+        const res = await implementPromoCode(inputValue);
+        if (res === 400) {
+          setPromoMessage('Invalid promo code. Please try again.');
+          setTimeout(() => setPromoMessage(''), 1000);
+          return;
+        } else {
+          setPromoMessage('Promo code applied successfully.');
+          setTimeout(() => setPromoMessage(''), 1000);
+          setMessageColor('green');
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchData();
   };
 
   return (
@@ -24,13 +59,16 @@ const OrderSummary: FC<OrderSummaryProps> = ({ total }) => {
       <h2>Order Summary</h2>
       <span>Got a promo code? Enter it here:</span>
       <div className={'promo-container'}>
-        <input onChange={handleInputChange} />
+        <input onChange={handleInputChange} onKeyDown={handleInputKeyPress} />
         <Button
           className={'get-disc_btn'}
           data={''}
           onClick={handleButtonClick}
         />
       </div>
+      <span className={`promocode-message ${messageColor}`}>
+        {promoMessage}
+      </span>
 
       <div className={'total'}>
         <h3>Total:</h3>
