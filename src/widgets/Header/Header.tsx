@@ -20,6 +20,7 @@ import { deleteCart } from '../../entities/ApiCart/ApiCart';
 import getCookie from '../../shared/cookie/getCookie';
 import { getNumberOfProductToCart } from '../../entities/ApiCart/getNumberOfProductToCart';
 import { setNumberOfProductToCart } from '../../app/store/actions/cartAction/cartSlice';
+
 import about from './../../assets/icons/information.svg';
 
 type RootState = ReturnType<typeof store.getState>;
