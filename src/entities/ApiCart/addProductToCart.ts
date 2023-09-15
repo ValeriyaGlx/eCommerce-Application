@@ -9,6 +9,7 @@ import {
   addProductApi,
   changeLineItemQuantityApi,
   createCart,
+  getAllDiscountsApi,
   getCartById,
   implementPromoCodeApi,
   removeProductApi,
@@ -140,5 +141,19 @@ export async function implementPromoCode(code: string) {
     const token = getCookie('authToken') as string;
     res = await implementPromoCodeApi(token, code);
   }
+  return res;
+}
+
+export async function getAllDiscounts(codeId: string) {
+  const isAuth = store.getState().authorization.isAuthorization;
+  let res;
+  if (!isAuth) {
+    const token = getCookie('anonToken') as string;
+    res = await getAllDiscountsApi(token, codeId);
+  } else if (isAuth) {
+    const token = getCookie('authToken') as string;
+    res = await getAllDiscountsApi(token, codeId);
+  }
+
   return res;
 }

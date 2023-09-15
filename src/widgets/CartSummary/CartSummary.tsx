@@ -5,12 +5,22 @@ import OrderSummary from '../../features/OrderSummary/OrderSummary';
 
 interface CartSummaryProps {
   total: string;
+  updatePricesWithCode: (value: string) => Promise<number>;
+  commonDiscount: number;
 }
 
-const CartSummary: FC<CartSummaryProps> = ({ total }) => {
+const CartSummary: FC<CartSummaryProps> = ({
+  total,
+  updatePricesWithCode,
+  commonDiscount,
+}) => {
   return (
     <section className={'summary-container'}>
-      <OrderSummary total={total} />
+      <OrderSummary
+        total={total}
+        updatePricesWithCode={updatePricesWithCode}
+        commonDiscount={commonDiscount}
+      />
       <PromocodeInfo />
     </section>
   );

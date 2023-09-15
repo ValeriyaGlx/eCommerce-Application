@@ -3,13 +3,18 @@ import React, { FC, useState } from 'react';
 import './_OrderSummary.scss';
 import Button from '../../shared/components/Button/Button';
 import cards from '../../assets/img/debit-cards.png';
-import { implementPromoCode } from '../../entities/ApiCart/addProductToCart';
 
 interface OrderSummaryProps {
   total: string;
+  updatePricesWithCode: (value: string) => Promise<number>;
+  commonDiscount: number;
 }
 
-const OrderSummary: FC<OrderSummaryProps> = ({ total }) => {
+const OrderSummary: FC<OrderSummaryProps> = ({
+  total,
+  updatePricesWithCode,
+  commonDiscount,
+}) => {
   const [inputValue, setInputValue] = useState('');
   const [promoMessage, setPromoMessage] = useState('');
   const [messageColor, setMessageColor] = useState('red');
@@ -27,31 +32,23 @@ const OrderSummary: FC<OrderSummaryProps> = ({ total }) => {
     }
   };
 
-  const handleButtonClick = () => {
+  const handleButtonClick = async () => {
     if (inputValue.trim() === '') {
       setPromoMessage('Please enter a value.');
       setTimeout(() => setPromoMessage(''), 1000);
       return;
     }
 
-    const fetchData = async () => {
-      try {
-        const res = await implementPromoCode(inputValue);
-        if (res === 400) {
-          setPromoMessage('Invalid promo code. Please try again.');
-          setTimeout(() => setPromoMessage(''), 1000);
-          return;
-        } else {
-          setPromoMessage('Promo code applied successfully.');
-          setTimeout(() => setPromoMessage(''), 1000);
-          setMessageColor('green');
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    fetchData();
+    const res = await updatePricesWithCode(inputValue);
+    if (res === 400) {
+      setPromoMessage('Invalid promo code. Please try again.');
+      setTimeout(() => setPromoMessage(''), 1000);
+      return;
+    } else {
+      setPromoMessage('Promo code applied successfully.');
+      setTimeout(() => setPromoMessage(''), 1000);
+      setMessageColor('green');
+    }
   };
 
   return (
@@ -72,7 +69,16 @@ const OrderSummary: FC<OrderSummaryProps> = ({ total }) => {
 
       <div className={'total'}>
         <h3>Total:</h3>
-        <div className={''}>${total}</div>
+        {commonDiscount !== 0 ? (
+          <div className={'wrapper-prices'}>
+            <div className={'new-price'}>${total}</div>
+            <div className={'old-price'}>
+              ${Math.ceil(commonDiscount * Number(total)).toFixed(2)}
+            </div>
+          </div>
+        ) : (
+          <div className={'price'}>${total}</div>
+        )}
       </div>
 
       <Button className={'cart-buy-now-btn buy-now-button'} data={'Buy Now'} />

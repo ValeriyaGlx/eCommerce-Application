@@ -49,7 +49,8 @@
           "inputName",
           "addressId",
           "version",
-          "profile"
+          "profile",
+          "res"
         ]
       }
     ],

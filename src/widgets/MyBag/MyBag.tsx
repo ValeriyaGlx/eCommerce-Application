@@ -17,6 +17,13 @@ interface IGood {
   id: string;
   productId: string;
   quantity: number;
+  discountedPricePerQuantity: Array<{
+    discountedPrice: {
+      value: {
+        centAmount: number;
+      };
+    };
+  }>;
   name: {
     'en-US': string;
   };

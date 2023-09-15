@@ -189,3 +189,22 @@ export async function implementPromoCodeApi(token: string, code: string) {
     return response.json();
   }
 }
+
+export async function getAllDiscountsApi(token: string, codeId: string) {
+  const urlRequest = `${host}/${project}/discount-codes/${codeId}`;
+  const authHeader = 'Bearer ' + token;
+
+  const response = await fetch(urlRequest, {
+    method: 'GET',
+    headers: {
+      Authorization: authHeader,
+      'Content-Type': 'application/json',
+    },
+  });
+
+  if (!response.ok) {
+    return response.status;
+  } else {
+    return response.json();
+  }
+}

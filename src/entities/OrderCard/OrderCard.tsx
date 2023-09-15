@@ -73,7 +73,16 @@ const OrderCard: FC<OrderCardProps> = ({
             </div>
             <div className={'order_amounts'}>
               <div className={'order_amounts-numberof'}>
-                <span>`1 x ${discount ? discount : price}`</span>
+                <div className={'single-price'}>
+                  {discount ? (
+                    <div className={'cart-with-discount'}>
+                      <span className={'old-price'}>${price}</span>
+                      <div>1 x ${discount}</div>
+                    </div>
+                  ) : (
+                    <div>1 x ${price}</div>
+                  )}
+                </div>
                 <OrderCounter
                   initialValue={quantity}
                   productId={productId}

@@ -2,6 +2,13 @@ interface IOldArr {
   id: string;
   quantity: number;
   productId: string;
+  discountedPricePerQuantity: Array<{
+    discountedPrice: {
+      value: {
+        centAmount: number;
+      };
+    };
+  }>;
   name: {
     'en-US': string;
   };
@@ -40,6 +47,10 @@ export function getGoodsData(oldArr: Array<IOldArr>) {
 
     if (obj.price.discounted) {
       newObj.discount = (obj.price.discounted.value.centAmount / 100).toFixed(2);
+    }
+
+    if (obj.discountedPricePerQuantity.length) {
+      newObj.discount = (obj.discountedPricePerQuantity[0].discountedPrice.value.centAmount / 100).toFixed(2);
     }
 
     return newObj;
