@@ -158,3 +158,53 @@ export async function changeLineItemQuantityApi(token: string, lineItemId: strin
     return response.json();
   }
 }
+
+export async function implementPromoCodeApi(token: string, code: string) {
+  const cartId = getCookie('cartId') as string;
+  const cartObj = await getCartById(cartId, token);
+  const cartVersion = cartObj.version;
+
+  const urlRequest = `${host}/${project}/carts/${cartId}`;
+  const authHeader = 'Bearer ' + token;
+
+  const response = await fetch(urlRequest, {
+    method: 'POST',
+    headers: {
+      Authorization: authHeader,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      version: cartVersion,
+      actions: [
+        {
+          action: 'addDiscountCode',
+          code: code,
+        },
+      ],
+    }),
+  });
+  if (!response.ok) {
+    return response.status;
+  } else {
+    return response.json();
+  }
+}
+
+export async function getAllDiscountsApi(token: string, codeId: string) {
+  const urlRequest = `${host}/${project}/discount-codes/${codeId}`;
+  const authHeader = 'Bearer ' + token;
+
+  const response = await fetch(urlRequest, {
+    method: 'GET',
+    headers: {
+      Authorization: authHeader,
+      'Content-Type': 'application/json',
+    },
+  });
+
+  if (!response.ok) {
+    return response.status;
+  } else {
+    return response.json();
+  }
+}

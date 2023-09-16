@@ -7,6 +7,8 @@ import EmptyCart from '../../shared/EmptyCart/EmptyCart';
 import { getCartById } from '../../entities/ApiCart/ApiCart';
 import {
   changeLineItemQuantity,
+  getAllDiscounts,
+  implementPromoCode,
   removeProductFromCart,
 } from '../../entities/ApiCart/addProductToCart';
 import MyBag from '../../widgets/MyBag/MyBag';
@@ -18,6 +20,7 @@ export function Cart() {
   const [total, setTotal] = useState('');
   const [goodsLength, setGoodsLength] = useState(0);
   const [isGetQuery, setIsGetQuery] = useState(false);
+  const [commonDiscount, setCommonDiscount] = useState(0);
 
   useEffect(() => {
     setIsGetQuery(true);
@@ -33,6 +36,17 @@ export function Cart() {
 
       if (token) {
         const res = await getCartById(cartId, token);
+
+        let newDesc = 1;
+
+        for (const discount of res.discountCodes) {
+          const res = await getAllDiscounts(discount.discountCode.id);
+          if (res) {
+            newDesc = newDesc / (1 - Number(res.description['en-US']));
+            setCommonDiscount(newDesc);
+          }
+        }
+
         const totalPrice = (res.totalPrice.centAmount / 100).toFixed(2);
         setTotal(totalPrice);
         setGoods(res.lineItems);
@@ -40,7 +54,6 @@ export function Cart() {
         setIsGetQuery(false);
       }
     };
-
     fetchData();
   }, []);
 
@@ -78,6 +91,26 @@ export function Cart() {
     return lastReturnValue.lineItems;
   };
 
+  const updatePricesWithCode = async (inputValue: string) => {
+    const res = await implementPromoCode(inputValue);
+    if (typeof res !== 'number') {
+      const totalPrice = (res.totalPrice.centAmount / 100).toFixed(2);
+      setGoods(res.lineItems);
+      setTotal(totalPrice);
+
+      let newDesc = 1;
+
+      for (const discount of res.discountCodes) {
+        const res = await getAllDiscounts(discount.discountCode.id);
+        if (res) {
+          newDesc = newDesc / (1 - Number(res.description['en-US']));
+          setCommonDiscount(newDesc);
+        }
+      }
+    }
+    return res;
+  };
+
   if (isGetQuery && isCart) {
     return <LoadingSpinner />;
   }
@@ -94,7 +127,11 @@ export function Cart() {
             changeQuantity={changeQuantity}
             removeAllItems={removeAllItems}
           />
-          <CartSummary total={total} />
+          <CartSummary
+            commonDiscount={commonDiscount}
+            total={total}
+            updatePricesWithCode={updatePricesWithCode}
+          />
         </div>
       )}
     </>

@@ -74,6 +74,22 @@
     flex-direction: column;
   }
 
+  .single-price {
+    display: flex;
+    height: 40px;
+    align-items: flex-end;
+  }
+
+  .cart-with-discount {
+    position: relative;
+
+    .old-price {
+      position: relative;
+      top: 15px;
+      left: 43px;
+    }
+  }
+
   .order_amounts-numberof span {
     font-size: 14px;
     color: $color-grey-paragraph;

@@ -13,6 +13,19 @@
     height: fit-content;
   }
 
+  .promocode-message {
+    margin-top: 5px;
+    height: 18px;
+  }
+
+  .red {
+    color: $color-radio-red;
+  }
+
+  .green {
+    color: $color-radio-green;
+  }
+
   span {
     display: block;
     margin-top: 30px;
@@ -45,6 +58,8 @@
   margin-top: 50px;
   display: flex;
   justify-content: space-between;
+  align-items: flex-end;
+  height: 50px;
 }
 
 .buy-info {
@@ -57,7 +72,8 @@
       width: 100%;
     }
   }
-
 }
+
+
 
 

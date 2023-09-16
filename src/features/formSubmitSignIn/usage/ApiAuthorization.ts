@@ -1,4 +1,5 @@
 import getCookie from '../../../shared/cookie/getCookie';
+import { createCart } from '../../../entities/ApiCart/ApiCart';
 
 const url = process.env.REACT_APP_AUTH_URL;
 const project = process.env.REACT_APP_PROJECT_KEY;
@@ -51,7 +52,14 @@ export async function tokenAnonRequest() {
 export async function logInRequest(email: string, password: string, token: string) {
   const urlRequest = `${host}/final-app/login`;
   const authHeader = 'Bearer ' + token;
-  const isCart = getCookie('cartId');
+  let isCart = getCookie('cartId');
+
+  if (isCart === undefined) {
+    const anonTokenObj = await tokenAnonRequest();
+    const anonToken = anonTokenObj.access_token;
+    await createCart(anonToken);
+    isCart = getCookie('cartId');
+  }
   let requestBody;
 
   if (isCart) {
