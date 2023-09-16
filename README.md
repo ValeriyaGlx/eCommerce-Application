@@ -87,6 +87,7 @@ npx prettier --write .
 5. ESLint - tool for identifying and reporting on patterns found in ECMAScript/JavaScript code.
 6. Prettier - opinionated code formatter.
 7. Husky - tool that helps developers work with Git hooks more efficiently and run all the scripts that need to work at various stages.
+8. Swiper - modern slider.
 
 ### Authors
 
