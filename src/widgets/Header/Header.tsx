@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 
 import iconCart from '../../assets/icons/icon-cart.svg';
-import iconHeart from '../../assets/icons/icon-heart.svg';
 import iconProfile from '../../assets/icons/icon-user.svg';
 import './_Header.scss';
 import { CartButton } from '../../shared/components/CartButton/CartButton';
@@ -94,12 +93,6 @@ export function Header() {
             alt='cartButton'
             to={'/cart'}
             number={`${numberOfProductToCart}`}
-          />
-          <CartButton
-            src={iconHeart}
-            alt='favoriets'
-            to={'/favorites'}
-            number={'0'}
           />
           <UserButton src={about} alt={'about'} to={'/about'} />
           {isAuthorization && !isLogOut && (
