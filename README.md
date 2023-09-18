@@ -88,6 +88,7 @@ npx prettier --write .
 6. Prettier - opinionated code formatter.
 7. Husky - tool that helps developers work with Git hooks more efficiently and run all the scripts that need to work at various stages.
 8. Swiper - modern slider.
+9. Redux Toolkit.
 
 ### Authors
 
