@@ -61,10 +61,12 @@ const MyBag: FC<MyBagProps> = ({
 }) => {
   const dispatch: ThunkDispatch<RootState, unknown, AnyAction> = useDispatch();
   const [openModal, setOpenModal] = useState(false);
+  const [removeAll, setRemoveAll] = useState(false);
 
   const ordersArray = getGoodsData(goods);
 
   async function clearShoppingCart() {
+    setRemoveAll(true);
     await removeAllItems(ordersArray);
     const number = await getNumberOfProductToCart();
     if (number) {
@@ -72,6 +74,7 @@ const MyBag: FC<MyBagProps> = ({
     } else {
       dispatch(setNumberOfProductToCart(0));
     }
+    setRemoveAll(false);
   }
 
   return (
@@ -110,6 +113,7 @@ const MyBag: FC<MyBagProps> = ({
         className={'reset-cart-button'}
         data={'Clear Shopping Cart'}
         onClick={() => setOpenModal(true)}
+        disabled={removeAll}
       />
       <ModalFailed
         logo={logo}
@@ -120,6 +124,7 @@ const MyBag: FC<MyBagProps> = ({
         closeButtonOnClick={() => setOpenModal(false)}
         isOpen={openModal}
         onClick={clearShoppingCart}
+        disabled={removeAll}
       />
     </section>
   );
