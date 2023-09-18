@@ -49,8 +49,8 @@ describe('Header', () => {
       </Provider>,
     );
     expect(getByText('All Products')).toBeInTheDocument();
-    expect(getByText('Sign in')).toBeInTheDocument();
-    expect(getByText('Sign up')).toBeInTheDocument();
+    expect(getByText('Sign In')).toBeInTheDocument();
+    expect(getByText('Sign Up')).toBeInTheDocument();
     expect(queryByText('Log out')).toBeNull();
   });
 
