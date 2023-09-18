@@ -110,6 +110,10 @@
 
 }
 
+.filtering_list ~ .loading-spinner {
+  width: 65%;
+}
+
 .wrapper-buttons {
   display: flex;
   flex-direction: row-reverse;

@@ -70,10 +70,12 @@ describe('logInRequest', () => {
       lastName: 'UserLastName',
     };
 
-    global.fetch = jest.fn().mockResolvedValueOnce({
+    const mockResponse = {
       ok: true,
       json: async () => expectedResponse,
-    });
+    };
+
+    global.fetch = jest.fn().mockResolvedValue(mockResponse);
 
     const result = await logInRequest(email, password, token);
 
