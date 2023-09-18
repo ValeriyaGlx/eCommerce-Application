@@ -1,0 +1,39 @@
+@import '/src/constants/scss/extentds';
+@import '/src/constants/scss/variables';
+
+.button-categories {
+  width: 270px;
+  height: 50px;
+  color: white;
+  background: $color-gradient-blue-orange;
+  font-size: 20px;
+  border: none;
+  line-height: 30px;
+  border-radius: 10px;
+  position: relative;
+    @extend %ButtonsHover;
+}
+
+.button-categories::before {
+  content: '';
+  position: absolute;
+  left: 10px;
+  top: 13px;
+  width: 24px;
+  height: 24px;
+  line-height: 50px;
+  background-image: url('icon-categories.svg');
+  background-size: cover;
+}
+
+.button-categories::after {
+  border-style: solid;
+  border-width: 9px 7px;
+  border-color: transparent;
+  border-top-color: #fff;
+  content: '';
+  top: 45%;
+  position: absolute;
+  right: 20px;
+  cursor: pointer;
+}

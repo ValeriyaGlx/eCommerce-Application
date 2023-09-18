@@ -1,0 +1,64 @@
+@import 'src/constants/scss/extentds';
+@import 'src/constants/scss/variables';
+
+.product-description {
+    width: 400px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    p {
+        margin-top: 50px;
+        color: $color-grey-paragraph;
+        line-height: 150%;
+    }
+
+    @media (max-width: 650px) {
+        width: 500px;
+        margin-top: 20px;
+        h2 {
+            text-align: center;
+        }
+        p {
+            margin-top: 20px;
+        }
+    }
+    @media (max-width: 520px) {
+        width: 100%;
+    }
+}
+
+.price-container,
+.attrs-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.wrapper-prices {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.attrs-container {
+    color: $color-grey-paragraph;
+    align-items: center;
+}
+
+.icon-difficulty {
+    @extend %radioInputStyle;
+    width: 20px;
+    height: 20px;
+}
+
+.icon-difficulty-easy {
+    background-color: $color-radio-green;
+}
+
+.icon-difficulty-medium {
+    background-color: $color-radio-yellow;
+}
+
+.icon-difficulty-hard {
+    background-color: $color-radio-red;
+}

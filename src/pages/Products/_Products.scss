@@ -1,0 +1,25 @@
+@import 'src/constants/scss/variables';
+@import 'src/constants/scss/extentds';
+
+.products-inner {
+  padding: 0;
+  text-align: center;
+
+  h1 {
+    margin: 70px 0 30px;
+    font-size: 50px;
+    line-height: 63px;
+
+    @media (max-width: 700px) {
+      font-size: 25px;
+      margin: 45px 10px 5px;
+      line-height: 30px;
+    }
+  }
+
+  .products-inner-colorful {
+    margin-left: 10px;
+    @extend %textColorOrangeBlueGradient;
+  }
+
+}

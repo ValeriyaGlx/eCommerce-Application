@@ -1,0 +1,30 @@
+.component-above-enter {
+    transform: translateY(-50px);
+    opacity: 0;
+}
+
+.component-above-enter-active {
+    transform: translateY(0);
+    opacity: 1;
+    transition: transform 500ms, opacity 500ms;
+}
+
+.component-above-exit {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.component-above-exit-active {
+    transform: translateY(-30px);
+    opacity: 0;
+    transition: transform 500ms, opacity 500ms;
+}
+
+.button-move-up {
+    transform: translateY(10px);
+    transition: transform 400ms;
+}
+
+.moved {
+    transform: translateY(0px);
+}

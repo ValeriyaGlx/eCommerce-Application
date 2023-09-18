@@ -1,0 +1,19 @@
+@import 'src/constants/scss/variables';
+@import 'src/constants/scss/extentds';
+
+.button-profile {
+  position: relative;
+  @extend %mainButtonGradient;
+  width: fit-content;
+  padding: 15px;
+  @extend %ButtonsHover;
+}
+
+.img-profile {
+  width: 30px;
+  height: 30px;
+  display: block;
+  margin: 0 auto;
+  position: relative;
+  bottom: 3px;
+}

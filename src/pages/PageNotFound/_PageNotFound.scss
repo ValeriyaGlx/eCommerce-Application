@@ -1,0 +1,49 @@
+@import 'src/constants/scss/variables';
+@import 'src/constants/scss/extentds';
+
+.pagenotfound {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    align-items: center;
+    background-image: url("../../assets/img/404.png");
+    background-size: 600px;
+    background-repeat: no-repeat;
+    background-position: bottom;
+
+    @media (max-width: 530px) {
+        background-size: 400px;
+    }
+}
+
+.pagenotfound-text {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    color: $color-black;
+    padding: 0px 10px 100px 0;
+}
+
+.pagenotfound-text h1 {
+    font-size: 150px;
+    text-align: center;
+}
+
+.pagenotfound-text h3 {
+    font-size: 20px;
+}
+
+.pagenotfound__button {
+    width: 140px;
+    height: 50px;
+    line-height: 30px;
+    @extend %mainButtonGradient;
+}
+
+.pagenotfound-container {
+    width: 50%;
+    height: 50%;
+    position: relative;
+
+}

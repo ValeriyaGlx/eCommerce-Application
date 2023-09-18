@@ -1,0 +1,80 @@
+@import '/src/constants/scss/extentds';
+@import '/src/constants/scss/variables';
+
+.products-nav-item {
+  @extend %buttonNavOfProducts;
+  @extend %tabletSizeButtons600px;
+  padding: 10px;
+  margin-right: 5px;
+  width: auto;
+  border-radius: 10px;
+  transition: .5s background-color ease-in-out;
+
+  &:hover {
+    background: $color-gradient-blue-orange;
+    color: white;
+  }
+
+}
+
+.products-nav-item_active {
+  @extend %mainButtonGradient;
+  @extend %tabletSizeButtons600px;
+  padding: 10px;
+  cursor: default;
+  @media (max-width: 700px) {
+    display: block;
+    margin: 0 auto;
+  }
+}
+
+.buy-now-button {
+  margin-top: 20px;
+  @extend %mainButtonGradient;
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+
+  &::before {
+    content: '';
+    width: 30px;
+    height: 30px;
+    background-size: cover;
+    background: no-repeat url('../../../assets/icons/shopping-cart-fill.svg') center;
+  }
+
+  @media (max-width: 650px) {
+    width: 350px;
+    margin: 20px auto 0;
+  }
+}
+
+.profile-button {
+  @extend %mainButtonGradient;
+  @extend %tabletSizeButtons780px;
+  width: fit-content;
+  padding: 5px 10px;
+}
+
+.profile-add-address {
+  display: block;
+  margin: 25px auto 0;
+  @extend %buttonNavOfProducts;
+  @extend %textColorOrangeBlueGradient;
+  font-size: 14px;
+  line-height: 20px;
+  box-shadow: $box-shadow;
+  border-radius: 10px;
+}
+
+.delete-btn {
+  width: 20px;
+  height: 20px;
+  background: no-repeat url("../../../assets/icons/icon-delete.svg") center;
+  background-size: 100%;
+  border: none;
+  opacity: .8;
+}

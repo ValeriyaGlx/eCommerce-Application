@@ -1,0 +1,31 @@
+@import '/src/constants/scss/extentds';
+@import '/src/constants/scss/variables';
+
+
+.button-signIn {
+    @extend %mainButtonGradient;
+    @extend %tabletSizeButtons780px;
+}
+
+.button-signIn a {
+    color: white;
+    text-decoration: none;
+}
+
+
+.button-signUp,
+.button-logOut {
+    background: $color-gradient-white-blue;
+    @extend %buttonSignUp;
+    @extend %ButtonsHover;
+
+    line-height: 30px;
+
+    @extend %tabletSizeButtons780px;
+}
+
+.button-signUp a {
+    color: white;
+}
+
+
