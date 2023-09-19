@@ -6,6 +6,7 @@ interface ButtonProps {
   onClick: (event: React.MouseEvent) => void;
   data?: string;
   isDisabled: boolean;
+  message?: string;
 }
 
 const ShoppingCartButton: FC<ButtonProps> = ({
@@ -13,6 +14,7 @@ const ShoppingCartButton: FC<ButtonProps> = ({
   onClick,
   data,
   isDisabled,
+  message,
 }) => {
   const [localIsDisabled, setLocalIsDisabled] = useState(false);
 
@@ -21,9 +23,16 @@ const ShoppingCartButton: FC<ButtonProps> = ({
   }, [isDisabled]);
 
   return (
-    <button className={className} onClick={onClick} disabled={localIsDisabled}>
-      {data}
-    </button>
+    <>
+      <button
+        className={className}
+        onClick={onClick}
+        disabled={localIsDisabled}
+      >
+        {data}
+      </button>
+      <div className={'delete-item-success'}>{message}</div>
+    </>
   );
 };
 

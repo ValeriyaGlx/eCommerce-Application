@@ -41,6 +41,7 @@ const ProductDescription: FC<ProductDescriptionProps> = ({
   const dispatch: ThunkDispatch<RootState, unknown, AnyAction> = useDispatch();
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -82,7 +83,9 @@ const ProductDescription: FC<ProductDescriptionProps> = ({
     const idLineItem = findIdByProductId(obj.lineItems, productId) as string;
     await removeProductFromCart(idLineItem);
     setIsButtonDisabled(false);
+    setMessage('Item removed successfully');
     setTimeout(() => setIsAnimating(false), 300);
+    setTimeout(() => setMessage(''), 1000);
     const number = await getNumberOfProductToCart();
     if (number) {
       dispatch(setNumberOfProductToCart(number));
@@ -124,6 +127,7 @@ const ProductDescription: FC<ProductDescriptionProps> = ({
             className={`buy-now-button ${isAnimating ? 'change' : ''}`}
             data={'Buy Now'}
             onClick={(event) => addCart(event)}
+            message={message}
           />
         ) : (
           <ShoppingCartButton
@@ -131,6 +135,7 @@ const ProductDescription: FC<ProductDescriptionProps> = ({
             className={`remove-button ${isAnimating ? 'change' : ''}`}
             data={'Remove from Cart'}
             onClick={removeFromCart}
+            message={message}
           />
         )}
       </div>
