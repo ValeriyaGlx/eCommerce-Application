@@ -1,0 +1,60 @@
+@import 'src/constants/scss/variables';
+@import 'src/constants/scss/extentds';
+
+.about {
+
+  &-container__img {
+    height: 70vh;
+    background-size: 100%;
+    background: top url('../../assets/img/developers.jpg') no-repeat;
+    margin: 20px 0;
+    padding: 10% 10% 10px;
+
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &-container__description {
+    color: #000;
+    text-align: center;
+  }
+
+  &-container__title {
+    font-size: 55px;
+    @media (max-width: 930px) {
+      font-size: 40px;
+    }
+    @media (max-width: 661px) {
+      font-size: 30px;
+    }
+    @media (max-width: 537px) {
+      font-size: 23px;
+    }
+    @media (max-width: 425px) {
+      display: block;
+    }
+  }
+
+  &-container__story {
+    margin-top: 15px;
+    font-size: 27px;
+    @media (max-width: 930px) {
+      font-size: 25px;
+    }
+    @media (max-width: 661px) {
+      font-size: 20px;
+    }
+  }
+
+  .color {
+    @extend %textColorOrangeBlueGradient;
+    filter: brightness(90%);
+  }
+
+  .color-orange {
+    color: $color-orange;
+    filter: brightness(90%);
+  }
+}

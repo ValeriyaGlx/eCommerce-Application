@@ -23,6 +23,7 @@ import logoFailed from '../../../assets/icons/modal-logo-failed.png';
 import ModalSignPage from '../../ModalFailed/ModalFailed';
 import setToken from '../../../shared/cookie/setToken';
 import setDataLocalStorage from '../../../shared/localStorage/setDataLocalStorage';
+import deleteToken from '../../../shared/cookie/deleteToken';
 
 type RootState = ReturnType<typeof store.getState>;
 
@@ -66,9 +67,14 @@ const FormSubmitSignIn = () => {
         dispatch(openModal());
       } else {
         const token = isAuthorization.access_token;
+        deleteToken('anonToken');
         setToken('authToken', token);
         const logindata = await logInRequest(email, password, token);
         setDataLocalStorage('firstName', logindata.customer.firstName);
+
+        if (logindata && logindata.cart && logindata.cart.id) {
+          setToken('cartId', logindata.cart.id);
+        }
 
         dispatch(loginSuccess());
         navigate('/');

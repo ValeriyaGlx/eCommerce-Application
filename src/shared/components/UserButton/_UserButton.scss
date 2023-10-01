@@ -5,7 +5,7 @@
   position: relative;
   @extend %mainButtonGradient;
   width: fit-content;
-  padding: 15px;
+  padding: 15px 9px;
   @extend %ButtonsHover;
 }
 
@@ -17,3 +17,5 @@
   position: relative;
   bottom: 3px;
 }
+
+

@@ -28,7 +28,8 @@
   }
 }
 
-.buy-now-button {
+.buy-now-button,
+.remove-button {
   margin-top: 20px;
   @extend %mainButtonGradient;
   width: 100%;
@@ -37,13 +38,17 @@
   align-items: center;
   justify-content: center;
   gap: 15px;
+  transition: $transition;
+
+  &.change {
+    transform: rotateX(90deg);
+  }
 
   &::before {
     content: '';
     width: 30px;
     height: 30px;
     background-size: cover;
-    background: no-repeat url('../../../assets/icons/shopping-cart-fill.svg') center;
   }
 
   @media (max-width: 650px) {
@@ -52,7 +57,18 @@
   }
 }
 
-.profile-button {
+.buy-now-button::before {
+  background: no-repeat url('../../../assets/icons/shopping-cart-fill.svg') center;
+}
+
+.remove-button::before {
+  background: no-repeat url('../../../assets/icons/icon-delete-white.svg') center;
+  background-size: contain;
+}
+
+.profile-button,
+.reset-cart-button,
+.about-rs-button {
   @extend %mainButtonGradient;
   @extend %tabletSizeButtons780px;
   width: fit-content;
@@ -70,11 +86,51 @@
   border-radius: 10px;
 }
 
-.delete-btn {
-  width: 20px;
+.about-rs-button {
+  width: 70px;
+  line-height: 20px;
+  height: 30px;
+  margin-left: 15px;
+}
+
+.about-rs-button::before {
+  display: block;
+  content: '';
+  filter: invert(100%);
+  background: no-repeat url("../../../assets/img/RsSchool.png") center;
+  background-size: contain;
   height: 20px;
+}
+
+.delete-from-cart {
+  background: center url("../../../assets/icons/close-line.svg") no-repeat;
+}
+
+.delete-btn {
   background: no-repeat url("../../../assets/icons/icon-delete.svg") center;
-  background-size: 100%;
-  border: none;
   opacity: .8;
 }
+
+.get-disc_btn {
+  background: no-repeat url("../../../assets/icons/checkbox-fill.svg") center;
+}
+
+.delete-btn,
+.delete-from-cart,
+.get-disc_btn {
+  width: 20px;
+  height: 20px;
+  background-color: inherit;
+  background-size: 100%;
+  border: none;
+}
+
+.cart-buy-now-btn {
+  @media (max-width: 650px) {
+    width: 255px;
+  }
+}
+
+
+
+

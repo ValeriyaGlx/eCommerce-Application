@@ -7,17 +7,22 @@ import { configureStore } from '@reduxjs/toolkit';
 import { store } from '../app/store/store';
 import { Header } from '../widgets/Header/Header';
 import authorizationSlice from '../app/store/actions/authorizationAction/authorizationSlice';
+import cartSlice from '../app/store/actions/cartAction/cartSlice';
 
 const initialState = {
   authorization: {
     isAuthorization: true,
     isRegistration: false,
   },
+  cart: {
+    numberOfProductToCart: 0,
+  },
 };
 
 export const mockStore = configureStore({
   reducer: {
     authorization: authorizationSlice,
+    cart: cartSlice,
   },
   preloadedState: initialState,
 });
@@ -44,8 +49,8 @@ describe('Header', () => {
       </Provider>,
     );
     expect(getByText('All Products')).toBeInTheDocument();
-    expect(getByText('Sign in')).toBeInTheDocument();
-    expect(getByText('Sign up')).toBeInTheDocument();
+    expect(getByText('Sign In')).toBeInTheDocument();
+    expect(getByText('Sign Up')).toBeInTheDocument();
     expect(queryByText('Log out')).toBeNull();
   });
 

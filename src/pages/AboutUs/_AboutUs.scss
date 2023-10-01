@@ -1,0 +1,59 @@
+@import 'src/constants/scss/variables';
+@import 'src/constants/scss/extentds';
+
+.about-container__photos {
+  column-gap: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @media (max-width: 701px) {
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+    margin: 0 auto;
+    row-gap: 20px;
+  }
+}
+
+.about-container__logo {
+  img {
+    width: 80px;
+    height: 30px;
+    @media (max-width: 705px) {
+      width: 60px;
+      height: 27px;
+    }
+    @media (max-width: 548px) {
+      width: 38px;
+      height: 19px;
+    }
+    @media (max-width: 430px) {
+      width: 34px;
+      height: 17px;
+    }
+  }
+}
+
+.about-regards {
+  display: flex;
+}
+
+.collaboration-inner {
+  @extend %textColorOrangeBlueGradient;
+  text-align: center;
+  margin: 40px 0;
+}
+
+.collaboration {
+  width: 50%;
+  margin-bottom: 30px;
+
+  &:last-child {
+    float: right;
+  }
+
+  @media (max-width: 700px) {
+    width: 100%;
+  }
+}

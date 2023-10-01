@@ -1,7 +1,18 @@
 import '@testing-library/jest-dom/extend-expect';
 import { tokenRequest, logInRequest } from '../features/formSubmitSignIn/usage/ApiAuthorization';
 
+let originalFetch: typeof global.fetch;
+
 describe('tokenRequest', () => {
+  beforeEach(() => {
+    originalFetch = global.fetch;
+    global.fetch = jest.fn();
+  });
+
+  afterEach(() => {
+    global.fetch = originalFetch;
+  });
+
   test('authentication data on success', async () => {
     const email = 'test@example.com';
     const password = 'password';
@@ -39,6 +50,15 @@ describe('tokenRequest', () => {
 });
 
 describe('logInRequest', () => {
+  beforeEach(() => {
+    originalFetch = global.fetch;
+    global.fetch = jest.fn();
+  });
+
+  afterEach(() => {
+    global.fetch = originalFetch;
+  });
+
   test('logInRequest success', async () => {
     const email = 'test@example.com';
     const password = 'password';
@@ -50,10 +70,12 @@ describe('logInRequest', () => {
       lastName: 'UserLastName',
     };
 
-    global.fetch = jest.fn().mockResolvedValueOnce({
+    const mockResponse = {
       ok: true,
       json: async () => expectedResponse,
-    });
+    };
+
+    global.fetch = jest.fn().mockResolvedValue(mockResponse);
 
     const result = await logInRequest(email, password, token);
 

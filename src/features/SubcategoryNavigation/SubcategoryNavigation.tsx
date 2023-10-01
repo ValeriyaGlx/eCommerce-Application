@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
+import { useDispatch } from 'react-redux';
 
 import {
   CATEGORIES_OF_PRODUCTS as categories,
@@ -12,6 +14,8 @@ import {
   getCategories,
   getCategory,
 } from '../../widgets/ListOfProductsWithNavigation/ApiProduct';
+import { setCurrentPage } from '../../app/store/actions/paginationAction/paginationSlice';
+import { store } from '../../app/store/store';
 
 interface SubcategoryNavigationProps {
   category: string;
@@ -27,13 +31,17 @@ interface Response {
   };
 }
 
+type RootState = ReturnType<typeof store.getState>;
+
 const SubcategoryNavigation: React.FC<SubcategoryNavigationProps> = ({
   category,
 }) => {
+  const dispatch: ThunkDispatch<RootState, unknown, AnyAction> = useDispatch();
   const navigate = useNavigate();
   const [productData, setProductData] = useState<JSX.Element[] | string>('');
 
   const handleCategoryClick = async (data: string) => {
+    dispatch(setCurrentPage(1));
     navigate(`/products/${category}/${data}`);
   };
 

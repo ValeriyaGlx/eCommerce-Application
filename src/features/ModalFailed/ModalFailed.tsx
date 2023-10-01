@@ -4,6 +4,7 @@ import { CSSTransition } from 'react-transition-group';
 
 import './_ModalFailedAnimation.scss';
 import logoFailed from '../../assets/icons/modal-logo-failed.png';
+import { LoadingSpinner } from '../../shared/components/LoadingSpinner/LoadingSpinner';
 
 interface ModalSignPageProps {
   logo: typeof logoFailed;
@@ -13,6 +14,9 @@ interface ModalSignPageProps {
   isOpen: boolean;
   onClick: () => void;
   isSignUpSuccessful?: boolean;
+  closeButtonData?: string;
+  closeButtonOnClick?: () => void;
+  disabled?: boolean;
 }
 
 const ModalSignPage: FC<ModalSignPageProps> = ({
@@ -23,20 +27,33 @@ const ModalSignPage: FC<ModalSignPageProps> = ({
   isOpen,
   onClick,
   isSignUpSuccessful,
+  closeButtonData,
+  closeButtonOnClick,
+  disabled,
 }) => {
   return (
     <>
       <CSSTransition in={isOpen} classNames='alert' timeout={300} unmountOnExit>
         <div className={'background'}>
           <div className={'modal'}>
-            <div className={'modal-content'}>
-              <img src={logo} alt={'logo'} loading='lazy' />
-              <h2>{h2}</h2>
-              <p style={{ whiteSpace: 'pre-line' }}>{p}</p>
-              {!isSignUpSuccessful && (
-                <button onClick={onClick}>{buttonValue}</button>
-              )}
-            </div>
+            {disabled && <LoadingSpinner />}
+            {!disabled && (
+              <div className={'modal-content'}>
+                <img src={logo} alt={'logo'} loading='lazy' />
+                <h2>{h2}</h2>
+                <p style={{ whiteSpace: 'pre-line' }}>{p}</p>
+                <div className={'modal-btn_container'}>
+                  {!isSignUpSuccessful && (
+                    <button onClick={onClick}>{buttonValue}</button>
+                  )}
+                  {closeButtonData && (
+                    <button onClick={closeButtonOnClick}>
+                      {closeButtonData}
+                    </button>
+                  )}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </CSSTransition>

@@ -1,0 +1,31 @@
+@import '../../../constants/scss/variables';
+
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner {
+  font-size: 40px;
+  color: $color-orange;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.wrapper-spinner {
+  width: 100%;
+
+  .loading-spinner {
+    width: 100%;
+  }
+}

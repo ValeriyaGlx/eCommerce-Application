@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 
 import iconCart from '../../assets/icons/icon-cart.svg';
-import iconHeart from '../../assets/icons/icon-heart.svg';
 import iconProfile from '../../assets/icons/icon-user.svg';
 import './_Header.scss';
 import { CartButton } from '../../shared/components/CartButton/CartButton';
@@ -16,6 +15,11 @@ import { logOut } from '../../app/store/actions/authorizationAction/authorizatio
 import deleteToken from '../../shared/cookie/deleteToken';
 import UserButton from '../../shared/components/UserButton/UserButton';
 import { openMenu } from '../../shared/burgerMenuUsage/burgerMenuUsage';
+import getCookie from '../../shared/cookie/getCookie';
+import { getNumberOfProductToCart } from '../../entities/ApiCart/getNumberOfProductToCart';
+import { setNumberOfProductToCart } from '../../app/store/actions/cartAction/cartSlice';
+
+import about from './../../assets/icons/information.svg';
 
 type RootState = ReturnType<typeof store.getState>;
 
@@ -27,11 +31,40 @@ export function Header() {
   const isAuthorization = useSelector(
     (state: RootState) => state.authorization.isAuthorization,
   );
+  const numberOfProductToCart = useSelector(
+    (state: RootState) => state.cart.numberOfProductToCart,
+  );
 
-  function setLogOut() {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const cart = getCookie('cartId');
+        if (cart) {
+          const number = await getNumberOfProductToCart();
+          if (number) {
+            dispatch(setNumberOfProductToCart(number));
+          } else {
+            dispatch(setNumberOfProductToCart(0));
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  async function setLogOut() {
     setIsLogOut(true);
     deleteToken('authToken');
+    deleteToken('cartId');
     localStorage.removeItem('firstName');
+    const number = await getNumberOfProductToCart();
+    if (number) {
+      dispatch(setNumberOfProductToCart(number));
+    } else {
+      dispatch(setNumberOfProductToCart(0));
+    }
     dispatch(logOut());
     navigate('/');
   }
@@ -55,8 +88,13 @@ export function Header() {
             path={'/products'}
             data={'All Products'}
           />
-          <CartButton src={iconCart} alt='cartButton' to={'/cart'} />
-          <CartButton src={iconHeart} alt='favoriets' to={'/favorites'} />
+          <CartButton
+            src={iconCart}
+            alt='cartButton'
+            to={'/cart'}
+            number={`${numberOfProductToCart}`}
+          />
+          <UserButton src={about} alt={'about'} to={'/about'} />
           {isAuthorization && !isLogOut && (
             <>
               <UserButton src={iconProfile} alt={'profile'} to={'/profile'} />
@@ -67,12 +105,12 @@ export function Header() {
               <ButtonWithRoute
                 className={'button-signIn button-signIn__addition'}
                 path={'/signIn'}
-                data={'Sign in'}
+                data={'Sign In'}
               />
               <ButtonWithRoute
                 className={'button-signUp button-signUp__addition'}
                 path={'/signUp'}
-                data={'Sign up'}
+                data={'Sign Up'}
               />
             </>
           )}

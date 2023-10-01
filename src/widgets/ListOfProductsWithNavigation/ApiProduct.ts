@@ -1,3 +1,5 @@
+import { store } from '../../app/store/store';
+
 import { createFilterString } from './components/createUrlFilterString';
 import { AllFilters } from './ListOfProductsWithNavigation';
 
@@ -14,6 +16,7 @@ export interface IProducts {
   discount?: string;
   difficulty: string;
   duration: number;
+  productId: string;
 }
 
 export interface IResponseAll {
@@ -101,9 +104,11 @@ export interface IResponseAll {
       };
     };
   };
+  id: string;
 }
 
 export interface IResponseCategory {
+  id: string;
   published: boolean;
   key: string;
   name: {
@@ -152,6 +157,7 @@ export function processDataAllProducts(arr: Array<IResponseAll>) {
         price: (el.masterData.staged.masterVariant.prices[0].value.centAmount / 100).toFixed(2),
         duration: attrArray[1].value as number,
         difficulty: Array.isArray(attrArray[0].value) ? attrArray[0].value[0] : '',
+        productId: el.id,
       };
       if (el.masterData.current.masterVariant.prices[0].discounted) {
         obj.discount = (el.masterData.current.masterVariant.prices[0].discounted.value.centAmount / 100).toFixed(2);
@@ -182,6 +188,7 @@ function processDataCategoryProducts(arr: Array<IResponseCategory>) {
         price: (el.masterVariant.prices[0].value.centAmount / 100).toFixed(2),
         difficulty: Array.isArray(attrsArray[0].value) ? attrsArray[0].value[0] : '',
         duration: attrsArray[1].value as number,
+        productId: el.id,
       };
       if (el.masterVariant.prices[0].discounted) {
         obj.discount = (el.masterVariant.prices[0].discounted.value.centAmount / 100).toFixed(2);
@@ -190,23 +197,6 @@ function processDataCategoryProducts(arr: Array<IResponseCategory>) {
     }
   });
   return newArr;
-}
-
-export async function AllProductsRequest(token: string) {
-  const urlRequest = `${host}/${project}/products/`;
-  const authHeader = 'Bearer ' + token;
-
-  const response = await fetch(urlRequest, {
-    method: 'GET',
-    headers: {
-      Authorization: authHeader,
-    },
-  });
-  const products = await response.json();
-
-  const arr = products.results;
-
-  return processDataAllProducts(arr);
 }
 
 export async function getCategory(token: string, category: string) {
@@ -238,7 +228,9 @@ export async function getCategories(token: string) {
 export async function filterProductsRequest(obj: AllFilters, token: string) {
   const pathUrl = createFilterString(obj);
 
-  const urlRequestProducts = `${host}/${project}/product-projections/search?${pathUrl}`;
+  const urlRequestProducts = `${host}/${project}/product-projections/search?offset=${
+    (store.getState().pagination.currentPage - 1) * 6
+  }&limit=6&${pathUrl}`;
 
   const responseProducts = await fetch(urlRequestProducts, {
     method: 'GET',
@@ -249,4 +241,38 @@ export async function filterProductsRequest(obj: AllFilters, token: string) {
   const products = await responseProducts.json();
   const arr = products.results;
   return processDataCategoryProducts(arr);
+}
+
+export async function getNumberOfFilteredProducts(obj: AllFilters, token: string) {
+  const pathUrl = createFilterString(obj);
+
+  const urlRequestProducts = `${host}/${project}/product-projections/search?${pathUrl}`;
+
+  const responseProducts = await fetch(urlRequestProducts, {
+    method: 'GET',
+    headers: {
+      Authorization: 'Bearer ' + token,
+    },
+  });
+  const products = await responseProducts.json();
+  const arr = products.results;
+  const numberOfProductToPage = 6;
+  return Math.ceil(arr.length / numberOfProductToPage);
+}
+
+export async function AllProductsRequest(token: string) {
+  const urlRequest = `${host}/${project}/products/`;
+  const authHeader = 'Bearer ' + token;
+
+  const response = await fetch(urlRequest, {
+    method: 'GET',
+    headers: {
+      Authorization: authHeader,
+    },
+  });
+  const products = await response.json();
+
+  const arr = products.results;
+
+  return arr.length;
 }
