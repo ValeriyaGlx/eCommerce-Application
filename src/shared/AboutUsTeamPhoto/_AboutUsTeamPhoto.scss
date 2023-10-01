@@ -2,10 +2,11 @@
 @import 'src/constants/scss/extentds';
 
 .about {
+
   &-container__img {
     height: 70vh;
     background-size: 100%;
-    background: top url('../../assets/icons/developers.jpg') no-repeat;
+    background: top url('../../assets/img/developers.jpg') no-repeat;
     margin: 20px 0;
     padding: 10% 10% 10px;
 

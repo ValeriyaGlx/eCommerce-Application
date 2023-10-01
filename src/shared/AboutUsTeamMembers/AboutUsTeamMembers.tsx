@@ -1,7 +1,7 @@
-import './_AboutUsTeamMembers.scss';
 import React from 'react';
 
-import { CartButton } from '../components/CartButton/CartButton';
+import './_AboutUsTeamMembers.scss';
+import { LinkGit } from '../components/Link/Link';
 
 interface AboutLink {
   imageUrl: string;
@@ -32,13 +32,7 @@ const AboutUsTeamMembers: React.FC<AboutLink> = ({
               <a href={links} target='_blank'>
                 Link to CV
               </a>
-              <CartButton
-                key={id}
-                to={linkGithub}
-                src={icon}
-                alt={icon}
-                number={''}
-              />
+              <LinkGit key={id} to={linkGithub} src={icon} alt={icon} />
             </div>
             <div className='description__text'>{title}</div>
           </div>

@@ -1,4 +1,5 @@
 @import 'src/constants/scss/variables';
+@import 'src/constants/scss/extentds';
 
 .about-container__photos {
   column-gap: 20px;
@@ -36,4 +37,23 @@
 
 .about-regards {
   display: flex;
+}
+
+.collaboration-inner {
+  @extend %textColorOrangeBlueGradient;
+  text-align: center;
+  margin: 40px 0;
+}
+
+.collaboration {
+  width: 50%;
+  margin-bottom: 30px;
+
+  &:last-child {
+    float: right;
+  }
+
+  @media (max-width: 700px) {
+    width: 100%;
+  }
 }

@@ -21,6 +21,21 @@ const AboutUs = () => {
             />
           ))}
         </div>
+
+        <h2 className={'collaboration-inner'}>Collaboration</h2>
+        <div className={'collaboration'}>
+          We're a team of three developers. We all had the same mentor, and to
+          our surprise, we're not only from the same country but also from the
+          same city. Realizing this unique coincidence, we teamed up early in
+          the Code JS interview stages. We supported each other in preparation,
+          conducted trial interviews, and shared insights.
+        </div>
+        <div className={'collaboration'}>
+          As we progressed to the final project, we became a tight-knit team,
+          knowing each other's strengths and weaknesses. This friendship enabled
+          seamless collaboration, fostering an environment where each of us felt
+          comfortable and equally important.
+        </div>
       </div>
     </>
   );
