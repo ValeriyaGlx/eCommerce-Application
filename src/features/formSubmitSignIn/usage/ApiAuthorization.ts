@@ -30,7 +30,7 @@ export async function tokenRequest(email: string, password: string) {
 }
 
 export async function tokenAnonRequest() {
-  const urlRequest = `${url}/oauth/final-app/anonymous/token?grant_type=client_credentials`;
+  const urlRequest = `${url}/oauth/${project}/anonymous/token?grant_type=client_credentials`;
   const body = new URLSearchParams();
   body.append('grant_type', 'client_credentials');
   const authHeader = 'Basic ' + btoa(clientId + ':' + clientSecret);
@@ -50,7 +50,7 @@ export async function tokenAnonRequest() {
 }
 
 export async function logInRequest(email: string, password: string, token: string) {
-  const urlRequest = `${host}/final-app/login`;
+  const urlRequest = `${host}/${project}/login`;
   const authHeader = 'Bearer ' + token;
   let isCart = getCookie('cartId');
 

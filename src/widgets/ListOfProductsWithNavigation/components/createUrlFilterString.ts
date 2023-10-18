@@ -48,6 +48,5 @@ export function createFilterString(obj: AllFilters): string {
     const searchSorting = `sort=${direction}`;
     filters.push(searchSorting);
   }
-
   return filters.join('&');
 }
